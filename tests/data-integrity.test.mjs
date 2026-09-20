@@ -26,7 +26,7 @@ for(const flow of questions){
       assert.ok(q.options?.length>=2,'choice needs options '+flow.id+'.'+q.id);
       assert.ok(q.options.every(x=>Array.isArray(x)&&x.length===2),'malformed option '+flow.id+'.'+q.id);
     }
-    for(const [key] of (q.showWhen||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhen key '+flow.id+'.'+key);
+    for(const [key] of (q.showWhen||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhen key '+flow.id+'.'+key);\n    for(const [key] of (q.showWhenAny||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhenAny key '+flow.id+'.'+key);
   }
 }
 console.log('data integrity: PASS ('+rules.length+' rules, '+sources.length+' sources, '+dependencies.length+' steps, '+questions.length+' adaptive flows)');
