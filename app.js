@@ -233,7 +233,7 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
     }).finished.then(async () => {
       // Hold the dot on the button long enough to read and physically tap it.
       heroStart.classList.add('guided-hover');
-      await new Promise(resolve => setTimeout(resolve, 1100));
+      await new Promise(resolve => setTimeout(resolve, 650));
 
       spawnButtonSparks(heroStart);
       heroStart.classList.add('guided-click');
@@ -650,24 +650,68 @@ function renderResult(plan, options = {}) {
 
   r.innerHTML = `
     <section class="plan-hero">
-      <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>${plan.project.projectDescription ? '<p class="plan-note">Project note: ' + escape(plan.project.projectDescription) + '</p>' : ''} </div>
+      <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>${plan.project.projectDescription ? '<p class="plan-note">Project note: ' + escape(plan.project.projectDescription) + '</p>' : ''}</div>
       <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
     </section>
-    ${checklistSection(plan)}
-    ${sectionFor('What appears to apply', plan.required, statusClass)}
-    ${sectionFor('What may apply depending on the project', plan.conditional, statusClass)}
-    ${sectionFor('What still needs to be clarified', plan.confirm, statusClass)}
-    <section class="panel"><div class="section-heading"><div><div class="eyebrow">PREPARE</div><h2>Information to prepare</h2></div></div>
-      <p class="muted">Use this as a preparation guide. The City may require additional project-specific information during review.</p>
-      <ul class="prep-list">${preparationItems(plan).map(x => '<li>' + escape(x) + '</li>').join('')}</ul>
+
+    <section class="plan-choice panel">
+      <div class="section-heading">
+        <div><div class="eyebrow">YOUR NEXT VIEW</div><h2>Choose where to go next.</h2><p class="muted">You can switch between these views at any time. Your project stays saved while you work.</p></div>
+      </div>
+      <div class="plan-choice-grid">
+        <button type="button" class="plan-choice-card" id="openChecklist">
+          <span class="choice-number">01</span>
+          <strong>Open the checklist</strong>
+          <p>Work through the project steps one by one and mark them complete as you go.</p>
+          <span class="choice-arrow">Open checklist →</span>
+        </button>
+        <button type="button" class="plan-choice-card" id="openWorkflow">
+          <span class="choice-number">02</span>
+          <strong>View the project workflow</strong>
+          <p>See what appears to apply, what is conditional, what still needs confirmation, and what information to prepare.</p>
+          <span class="choice-arrow">View workflow →</span>
+        </button>
+      </div>
     </section>
-    <section class="panel"><div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property evidence</h2></div><span class="small">Official Newton GIS context</span></div>
-      ${propertyFactsMarkup(property)}
-      <p class="small">These facts come from Newton’s official GIS layers. GIS evidence does not by itself determine permit approval.</p>
-    </section>
+
+    <div id="checklistView" class="plan-view hidden">
+      ${checklistSection(plan)}
+      <div class="view-switch-bottom"><span>Need the bigger picture?</span><button type="button" class="secondary" id="toWorkflow">View project workflow →</button></div>
+    </div>
+
+    <div id="workflowView" class="plan-view hidden">
+      ${sectionFor('What appears to apply', plan.required, statusClass)}
+      ${sectionFor('What may apply depending on the project', plan.conditional, statusClass)}
+      ${sectionFor('What still needs to be clarified', plan.confirm, statusClass)}
+      <section class="panel"><div class="section-heading"><div><div class="eyebrow">PREPARE</div><h2>Information to prepare</h2></div></div>
+        <p class="muted">Use this as a preparation guide. The City may require additional project-specific information during review.</p>
+        <ul class="prep-list">${preparationItems(plan).map(x => '<li>' + escape(x) + '</li>').join('')}</ul>
+      </section>
+      <section class="panel"><div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property evidence</h2></div><span class="small">Official Newton GIS context</span></div>
+        ${propertyFactsMarkup(property)}
+        <p class="small">These facts come from Newton’s official GIS layers. GIS evidence does not by itself determine permit approval.</p>
+      </section>
+      <div class="view-switch-bottom"><span>Ready to work through the steps?</span><button type="button" class="secondary" id="toChecklist">Open checklist →</button></div>
+    </div>
+
     <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="downloadProject" class="secondary">Download project backup</button><button id="restart">Start another project</button></div>
     <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Planner checklist complete.</strong><span>This does not mean the project is approved or that every construction requirement has been satisfied. Confirm the applicable requirements and approvals before work begins.</span></div>
     <div id="confetti" class="confetti" aria-hidden="true"></div>`;
+
+
+  const checklistView = $('checklistView');
+  const workflowView = $('workflowView');
+  const showPlanView = view => {
+    checklistView?.classList.toggle('hidden', view !== 'checklist');
+    workflowView?.classList.toggle('hidden', view !== 'workflow');
+    document.querySelector('.plan-choice')?.classList.toggle('hidden', false);
+    document.querySelector('.plan-choice')?.scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(() => (view === 'checklist' ? checklistView : workflowView)?.scrollIntoView({behavior:'smooth', block:'start'}), 180);
+  };
+  $('openChecklist')?.addEventListener('click', () => showPlanView('checklist'));
+  $('openWorkflow')?.addEventListener('click', () => showPlanView('workflow'));
+  $('toChecklist')?.addEventListener('click', () => showPlanView('checklist'));
+  $('toWorkflow')?.addEventListener('click', () => showPlanView('workflow'));
 
   document.querySelectorAll('[data-step]').forEach(cb => {
     if (options.resume && cb.checked) {
