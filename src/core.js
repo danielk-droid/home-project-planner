@@ -93,7 +93,7 @@ export async function resolveProperty(addressInput) {
     parcelData = await query(47, {
       geometry: JSON.stringify(point),
       geometryType: 'esriGeometryPoint',
-      inSR: 2249,
+      inSR: pointSpatialReference,
       distance: 75,
       units: 'esriSRUnit_Foot',
       spatialRel: 'esriSpatialRelIntersects',
@@ -132,34 +132,23 @@ export async function resolveProperty(addressInput) {
 
   const p = parcel.attributes;
 
+  const gisPointParams = {
+    geometry: JSON.stringify(point),
+    geometryType: 'esriGeometryPoint',
+    inSR: pointSpatialReference,
+    spatialRel: 'esriSpatialRelIntersects',
+    outFields: '*',
+    returnGeometry: false,
+    resultRecordCount: 10
+  };
   const [zoning, historic, flood, wetlands, wetlandRestrictions, wetlandBuffers, streams] = await Promise.all([
-    query(24,{
-      geometry:JSON.stringify(point),
-      geometryType:'esriGeometryPoint',
-      inSR:pointSpatialReference,
-      spatialRel:'esriSpatialRelIntersects',
-      outFields:'*',
-      returnGeometry:false,
-      resultRecordCount:10
-    }),
-    query(39,{
-      geometry:JSON.stringify(point),
-      geometryType:'esriGeometryPoint',
-      inSR:pointSpatialReference,
-      spatialRel:'esriSpatialRelIntersects',
-      outFields:'*',
-      returnGeometry:false,
-      resultRecordCount:10
-    }),
-    query(41,{
-      geometry:JSON.stringify(point),
-      geometryType:'esriGeometryPoint',
-      inSR:pointSpatialReference,
-      spatialRel:'esriSpatialRelIntersects',
-      outFields:'*',
-      returnGeometry:false,
-      resultRecordCount:10
-    })
+    query(24, gisPointParams),
+    query(39, gisPointParams),
+    query(41, gisPointParams),
+    query(27, gisPointParams),
+    query(26, gisPointParams),
+    query(29, gisPointParams),
+    query(16, gisPointParams)
   ]);
 
   const zoningAttrs = zoning.features?.[0]?.attributes || {};
@@ -182,7 +171,7 @@ export async function resolveProperty(addressInput) {
     conservationPotential: conservationSignals,
     historicExteriorReview: Boolean(historic.features?.length),
     openPermitsUnknown: true,
-    sources: ['newton-addresses','newton-parcels','newton-zoning','newton-historic-districts','newton-floodplain'],
+    sources: ['newton-addresses','newton-parcels','newton-zoning','newton-historic-districts','newton-floodplain','newton-wetlands','newton-streams'],
     evidence: [
       {label:'Address',value:a.Address || address,source:'newton-addresses'},
       {label:'Parcel',value:p.MAP_PAR_ID || 'Not returned',source:'newton-parcels'},
