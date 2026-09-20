@@ -66,7 +66,7 @@ export async function resolveProperty(addressInput) {
 
   const a = addressFeature.attributes;
   const point = addressFeature.geometry;
-  if (!point?.x || !point?.y) {
+  if (point?.x == null || point?.y == null) {
     throw new Error('Newton GIS resolved the address, but did not return a usable map point.');
   }
 
@@ -74,10 +74,12 @@ export async function resolveProperty(addressInput) {
   // layers are separate datasets and their text fields are not guaranteed to
   // use identical formatting. Resolve the parcel spatially from the official
   // address point instead.
+  const pointSpatialReference = point.spatialReference?.wkid || addressFeature.geometry?.spatialReference?.wkid || 2249;
+
   let parcelData = await query(47, {
     geometry: JSON.stringify(point),
     geometryType: 'esriGeometryPoint',
-    inSR: 2249,
+    inSR: pointSpatialReference,
     spatialRel: 'esriSpatialRelIntersects',
     outFields:'*',
     returnGeometry:true,
@@ -134,7 +136,7 @@ export async function resolveProperty(addressInput) {
     query(24,{
       geometry:JSON.stringify(point),
       geometryType:'esriGeometryPoint',
-      inSR:2249,
+      inSR:pointSpatialReference,
       spatialRel:'esriSpatialRelIntersects',
       outFields:'*',
       returnGeometry:false,
@@ -143,7 +145,7 @@ export async function resolveProperty(addressInput) {
     query(39,{
       geometry:JSON.stringify(point),
       geometryType:'esriGeometryPoint',
-      inSR:2249,
+      inSR:pointSpatialReference,
       spatialRel:'esriSpatialRelIntersects',
       outFields:'*',
       returnGeometry:false,
@@ -152,7 +154,7 @@ export async function resolveProperty(addressInput) {
     query(41,{
       geometry:JSON.stringify(point),
       geometryType:'esriGeometryPoint',
-      inSR:2249,
+      inSR:pointSpatialReference,
       spatialRel:'esriSpatialRelIntersects',
       outFields:'*',
       returnGeometry:false,
@@ -219,7 +221,7 @@ export function deriveProject(projectType, answers = {}) {
   const a = answers;
   const basementBathroom = a.bathroomAdded === 'yes' || a.bathroomIntent === 'yes';
   const basementPlumbing = a.plumbingWork === 'yes' || basementBathroom;
-  const exteriorAnswer = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('yes') ? 'yes' : ([a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('unsure') ? 'unsure' : 'no');
+  const exteriorAnswer = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('yes') ? 'yes' : ([a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure') ? 'unsure' : 'no');
   const exteriorUncertain = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure');
   return {
     buildingWork: true,
@@ -232,7 +234,27 @@ export function deriveProject(projectType, answers = {}) {
     guttingMoreThanHalf: a.guttingExtent === 'yes',
     guttingUncertain: a.guttingExtent === 'unsure',
     addedAreaOver1000: Number(a.newArea || 0) > 1000,
-    addedAreaUncertain: projectType === 'addition' && a.newArea === undefined,
+    addedAreaUncertain: projectType === 'addition' && (a.newArea === undefined || a.newArea === null),
+    additionStories: Number(a.stories || 0),
+    additionStoriesUncertain: projectType === 'addition' && a.stories === 'unsure',
+    footprintChange: a.footprintChange === 'yes',
+    footprintChangeUncertain: a.footprintChange === 'unsure',
+    setbackConstraint: a.setbackConstraint ?? null,
+    setbackConstraintUncertain: a.setbackConstraint === 'unsure',
+    deckNew: a.deckNew === 'yes',
+    deckNewUncertain: a.deckNew === 'unsure',
+    deckHeightFt: Number(a.deckHeight || 0),
+    deckHeightUncertain: a.deckHeight === 'unsure',
+    deckAreaSqFt: Number(a.deckArea || 0),
+    deckAreaUncertain: a.deckArea === 'unsure',
+    stairsOrGuard: a.stairsOrGuard === 'yes',
+    stairsOrGuardUncertain: a.stairsOrGuard === 'unsure',
+    basementAreaSqFt: Number(a.basementArea || 0),
+    basementAreaUncertain: a.basementArea === 'unsure',
+    ceilingHeightFt: Number(a.ceilingHeight || 0),
+    ceilingHeightUncertain: a.ceilingHeight === 'unsure',
+    bathroomLayoutChange: a.layoutChange === 'yes',
+    bathroomLayoutUncertain: a.layoutChange === 'unsure',
     siteWork: a.siteWork === 'yes',
     siteWorkUncertain: a.siteWork === 'unsure',
     electricalWork: a.electricalWork === 'yes',
