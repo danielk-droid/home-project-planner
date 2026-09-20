@@ -63,7 +63,10 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
 
   setTimeout(() => {
     const dot = heroGraphic.querySelector('.site-point');
-    if (!dot) return;
+    if (!dot) {
+      lessonDot.remove();
+      return;
+    }
 
     const a = dot.getBoundingClientRect();
     const b = heroStart.getBoundingClientRect();
@@ -71,30 +74,45 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
     const sy = a.top + a.height / 2;
     const ex = b.left + b.width * .52;
     const ey = b.top + b.height * .52;
+    const dx = ex - sx;
+    const dy = ey - sy;
 
     lessonDot.style.left = sx + 'px';
     lessonDot.style.top = sy + 'px';
 
-    const dx = ex - sx;
-    const dy = ey - sy;
     lessonDot.animate([
-      { transform:'translate(-50%,-50%) translate(0,0)', opacity:0 },
-      { transform:'translate(-50%,-50%) translate(0,-26px)', opacity:1, offset:.14 },
-      { transform:'translate(-50%,-50%) translate(' + (dx*.28) + 'px,' + (dy*.28-12) + 'px)', opacity:1, offset:.42 },
-      { transform:'translate(-50%,-50%) translate(' + (dx*.68) + 'px,' + (dy*.68-4) + 'px)', opacity:1, offset:.72 },
-      { transform:'translate(-50%,-50%) translate(' + dx + 'px,' + dy + 'px)', opacity:1, offset:1 }
-    ], {duration:1550, easing:'cubic-bezier(.22,.8,.2,1)', fill:'forwards'}).finished.then(() => {
-      heroStart.classList.add('guided-click');
+      { transform:'translate(-50%,-50%) translate(0,0) scale(.82)', opacity:0 },
+      { transform:'translate(-50%,-50%) translate(0,-24px) scale(1)', opacity:1, offset:.12 },
+      { transform:'translate(-50%,-50%) translate(' + (dx*.20) + 'px,' + (dy*.20-16) + 'px) scale(1)', opacity:1, offset:.34 },
+      { transform:'translate(-50%,-50%) translate(' + (dx*.46) + 'px,' + (dy*.46-9) + 'px) scale(1)', opacity:1, offset:.56 },
+      { transform:'translate(-50%,-50%) translate(' + (dx*.76) + 'px,' + (dy*.76-3) + 'px) scale(1)', opacity:1, offset:.79 },
+      { transform:'translate(-50%,-50%) translate(' + dx + 'px,' + dy + 'px) scale(1)', opacity:1, offset:1 }
+    ], {
+      duration:3200,
+      easing:'cubic-bezier(.22,.72,.18,1)',
+      fill:'forwards'
+    }).finished.then(async () => {
+      // Hold the dot on the button long enough to read and physically tap it.
+      heroStart.classList.add('guided-hover');
+      await new Promise(resolve => setTimeout(resolve, 1100));
+
       spawnButtonSparks(heroStart);
-      lessonDot.animate([
+      heroStart.classList.add('guided-click');
+
+      const fade = lessonDot.animate([
         { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
-        { transform:'translate(-50%,-50%) scale(.35)', opacity:0 }
-      ], {duration:420, easing:'cubic-bezier(.3,0,.7,1)', fill:'forwards'});
-      setTimeout(() => {
-        heroStart.classList.remove('guided-click');
-        lessonDot.remove();
-      }, 450);
-    });
+        { transform:'translate(-50%,-50%) scale(.72)', opacity:.72, offset:.45 },
+        { transform:'translate(-50%,-50%) scale(.18)', opacity:0, offset:1 }
+      ], {
+        duration:560,
+        easing:'cubic-bezier(.25,.1,.25,1)',
+        fill:'forwards'
+      });
+
+      await fade.finished;
+      heroStart.classList.remove('guided-hover','guided-click');
+      lessonDot.remove();
+    }).catch(() => lessonDot.remove());
   }, 3000);
 }
 
@@ -102,20 +120,28 @@ function spawnButtonSparks(button) {
   const rect = button.getBoundingClientRect();
   const cx = rect.left + rect.width * .52;
   const cy = rect.top + rect.height * .52;
+  const count = 18;
 
-  for (let i = 0; i < 11; i++) {
+  for (let i = 0; i < count; i++) {
     const spark = document.createElement('span');
     spark.className = 'dot-spark';
-    const angle = (Math.PI * 2 * i / 11) + (Math.random() - .5) * .3;
-    const distance = 16 + Math.random() * 28;
+    const angle = (Math.PI * 2 * i / count) + (Math.random() - .5) * .22;
+    const distance = 30 + Math.random() * 48;
+    const size = 3 + Math.random() * 3.5;
+
     spark.style.left = cx + 'px';
     spark.style.top = cy + 'px';
+    spark.style.width = size + 'px';
+    spark.style.height = Math.max(3, size * .55) + 'px';
     spark.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
     spark.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
+    spark.style.setProperty('--rot', (angle * 180 / Math.PI) + 'deg');
+    spark.style.setProperty('--delay', (Math.random() * .08) + 's');
     document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 720);
+    setTimeout(() => spark.remove(), 1050);
   }
 }
+
 function openMobileMenu() {
   $('mobileMenu')?.classList.add('open');
   $('mobileMenu')?.setAttribute('aria-hidden','false');
