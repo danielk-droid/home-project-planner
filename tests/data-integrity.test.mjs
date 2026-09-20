@@ -26,7 +26,9 @@ for(const flow of questions){
     if(q.kind==='choice'){
       assert.ok(q.options?.length>=2,'choice needs options '+flow.id+'.'+q.id);
       assert.ok(q.options.every(x=>Array.isArray(x)&&x.length===2),'malformed option '+flow.id+'.'+q.id);
+      assert.ok(!q.options.some(([value,label])=>value==='unsure' && /still not sure/i.test(label)),'nested uncertainty option '+flow.id+'.'+q.id);
     }
+    if(q.optional) assert.equal(q.skipLabel,'Skip','optional questions should use the concise Skip action');
     for(const [key] of (q.showWhen||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhen key '+flow.id+'.'+key);
     for(const [key] of (q.showWhenAny||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhenAny key '+flow.id+'.'+key);
   }
@@ -55,6 +57,7 @@ console.log('data integrity: PASS ('+rules.length+' rules, '+sources.length+' so
 
 const catalogCount=catalog.categories.reduce((n,c)=>n+c.items.length,0);
 assert.equal(catalogCount,100,'project catalog should contain 100 detailed options');
+assert.ok(['basement_finish','bathroom_renovation','deck','addition','general_project'].every(id => questions.some(flow => flow.id === id)),'all core project flows remain present');
 assert.equal(new Set(catalog.categories.map(c=>c.id)).size,catalog.categories.length,'duplicate catalog categories');
 assert.ok(catalog.categories.every(c=>c.label&&c.items?.length===10),'catalog categories should each contain 10 options');
 console.log('project catalog integrity: PASS ('+catalogCount+' detailed options)');
