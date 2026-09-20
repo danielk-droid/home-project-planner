@@ -615,45 +615,114 @@ function questionWhy(q) {
   if (q.kind === 'number') return 'This helps determine which thresholds, dimensions, or review steps may apply.';
   return 'This answer can change which requirements and follow-up questions apply to the project.';
 }
-function clarifierFor(q, depth) {
+function clarifierFor(q) {
   const specific = {
-    structuralChanges: [
-      {text:'What part of the structure are you least certain about?', options:[['wall','Walls or partitions'],['framing','Framing, beams, or columns'],['foundation','Foundation or below-grade structure'],['unsure',"I'm still not sure"]]},
-      {text:'What are you trying to determine?', options:[['need','Whether structural work is needed'],['scope','How much structural work is involved'],['professional','Whether you need a structural professional'],['unsure',"I'm still not sure"]]}
-    ],
-    electricalWork: [
-      {text:'What are you least certain about?', options:[['circuits','Wiring or circuits'],['service','Electrical service or panel'],['fixtures','Fixtures, outlets, or lighting'],['unsure',"I'm still not sure"]]},
-      {text:'Which part needs clarification?', options:[['existing','Whether existing wiring is affected'],['new','Whether new wiring is needed'],['scope','How extensive the electrical work is'],['unsure',"I'm still not sure"]]}
-    ],
-    plumbingWork: [
-      {text:'What are you least certain about?', options:[['fixtures','Fixtures or appliances'],['pipes','Pipes or supply/drain lines'],['layout','Moving plumbing locations'],['unsure',"I'm still not sure"]]},
-      {text:'Which part needs clarification?', options:[['existing','Whether existing plumbing is affected'],['new','Whether new plumbing is needed'],['scope','How extensive the plumbing work is'],['unsure',"I'm still not sure"]]}
-    ],
-    gasWork: [
-      {text:'What are you least certain about?', options:[['equipment','Gas equipment or appliance'],['piping','Gas piping'],['new','Adding new gas service or equipment'],['unsure',"I'm still not sure"]]},
-      {text:'Which part needs clarification?', options:[['existing','Whether existing gas work is affected'],['new','Whether new gas work is needed'],['scope','How extensive the gas work is'],['unsure',"I'm still not sure"]]}
-    ],
-    exteriorChange: [
-      {text:'What kind of outside change might be involved?', options:[['openings','Windows or doors'],['structure','Deck, porch, addition, or structure'],['envelope','Roof, siding, or exterior finish'],['site','Ground, trees, drainage, or paving'],['unsure',"I'm still not sure"]]},
-      {text:'Which part are you least certain about?', options:[['building','The building itself'],['site','The surrounding property'],['historic','Whether special exterior review applies'],['unsure',"I'm still not sure"]]}
-    ],
-    siteWork: [
-      {text:'What kind of site work might be involved?', options:[['grading','Grading or excavation'],['drainage','Drainage or stormwater'],['trees','Trees or landscaping'],['paving','Driveway, parking, or paving'],['unsure',"I'm still not sure"]]},
-      {text:'Which part are you least certain about?', options:[['scope','Whether the work is substantial'],['location','Exactly where the work will occur'],['tree','Whether trees are affected'],['unsure',"I'm still not sure"]]}
-    ],
-    windowsOrDoors: [
-      {text:'What are you considering changing?', options:[['window','Windows'],['door','Exterior doors'],['both','Windows and doors'],['unsure',"I'm still not sure"]]}
-    ],
-    demolition: [
-      {text:'What might be removed?', options:[['interior','Interior walls or finishes'],['exterior','Exterior elements'],['structure','Structural parts'],['unsure',"I'm still not sure"]]}
-    ],
-    condo: [
-      {text:'What are you unsure about?', options:[['ownership','Whether the property is shared ownership'],['approval','Whether an association approval is needed'],['unsure',"I'm still not sure"]]}
-    ]
+    structuralChanges: {
+      text:'Which structural parts will actually change?',
+      kind:'multi',
+      options:[['walls','Walls or partitions'],['framing','Framing, beams, columns, or joists'],['foundation','Foundation or below-grade structure'],['none','None of these']]
+    },
+    electricalWork: {
+      text:'Which electrical work is part of the project?',
+      kind:'multi',
+      options:[['circuits','Wiring or circuits'],['service','Electrical service or panel'],['fixtures','Fixtures, outlets, or lighting'],['equipment','Electrical equipment'],['none','None of these']]
+    },
+    plumbingWork: {
+      text:'Which plumbing work is part of the project?',
+      kind:'multi',
+      options:[['fixtures','Fixtures or appliances'],['pipes','Supply, drain, or vent lines'],['layout','Moving plumbing locations'],['equipment','Plumbing equipment'],['none','None of these']]
+    },
+    gasWork: {
+      text:'Which gas work is part of the project?',
+      kind:'multi',
+      options:[['equipment','Gas equipment or appliance'],['piping','Gas piping'],['new','New gas service or equipment'],['none','None of these']]
+    },
+    exteriorChange: {
+      text:'Which exterior work is part of the project?',
+      kind:'multi',
+      options:[['openings','Windows, doors, or another opening'],['structure','Deck, porch, addition, or structure'],['envelope','Roof, siding, or exterior finish'],['site','Ground, trees, drainage, or paving'],['none','None of these']]
+    },
+    siteWork: {
+      text:'Which site work is part of the project?',
+      kind:'multi',
+      options:[['grading','Grading or excavation'],['drainage','Drainage or stormwater'],['trees','Trees or landscaping'],['paving','Driveway, parking, or paving'],['none','None of these']]
+    },
+    treeImpact: {
+      text:'Which tree-related condition is part of the project?',
+      kind:'multi',
+      options:[['nearby','Construction near trees'],['removal','Tree removal'],['protection','Tree protection or root-area work'],['planting','Tree planting as part of construction'],['none','None of these']]
+    },
+    windowsOrDoors: {
+      text:'Which exterior opening work is part of the project?',
+      kind:'multi',
+      options:[['window','Windows'],['door','Exterior doors'],['both','Both windows and doors'],['none','None of these']]
+    },
+    newVentilation: {
+      text:'Which ventilation work is part of the project?',
+      kind:'multi',
+      options:[['bath','Bathroom exhaust'],['whole','Whole-home or room ventilation'],['ducts','New or altered ductwork'],['equipment','Ventilation equipment'],['none','None of these']]
+    },
+    layoutChange: {
+      text:'Which bathroom layout change is part of the project?',
+      kind:'multi',
+      options:[['walls','Removing or adding walls'],['fixtures','Moving fixtures'],['room','Changing the room layout'],['none','None of these']]
+    },
+    stairsOrGuard: {
+      text:'Which deck safety elements are part of the project?',
+      kind:'multi',
+      options:[['stairs','New stairs'],['guards','Guards or railings'],['both','Both stairs and guards'],['none','None of these']]
+    },
+    footprintChange: {
+      text:'Which footprint change is part of the project?',
+      kind:'multi',
+      options:[['increase','Increasing the footprint'],['decrease','Decreasing the footprint'],['reconfigure','Otherwise changing the footprint'],['none','None of these']]
+    },
+    demolition: {
+      text:'What might be removed?',
+      kind:'multi',
+      options:[['interior','Interior walls or finishes'],['exterior','Exterior elements'],['structure','Structural parts'],['none','None of these']]
+    },
+    deckNew: {
+      text:'Which describes the deck work?',
+      kind:'choice',
+      options:[['new_deck','A new deck'],['replacement','Replacing an existing deck']]
+    },
+    guttingExtent: {
+      text:'How much of the existing dwelling will be gutted?',
+      kind:'choice',
+      options:[['more_than_half','More than half'],['not_more_than_half','Half or less']]
+    },
+    condo: {
+      text:'Which best describes the ownership?',
+      kind:'choice',
+      options:[['shared','Condominium or other shared ownership'],['not_shared','Not shared ownership']]
+    },
+    condoApproval: {
+      text:'Does the association require project approval?',
+      kind:'choice',
+      options:[['yes','Yes'],['no','No']]
+    }
   };
-  const entry = specific[q.id]?.[Math.min(depth - 1, (specific[q.id]?.length || 1) - 1)];
-  if (entry) return {id:'__clarifier_' + q.id + '_' + depth, text:entry.text, kind:'choice', options:entry.options, why:'This narrows the uncertainty without requiring you to know the technical terminology.'};
-  return {id:'__clarifier_' + q.id + '_' + depth, text:depth === 1 ? 'Which part of this are you least certain about?' : 'What would you need to know to answer the original question?', kind:'choice', options:[['scope','What work is involved'],['need','Whether the work is needed'],['extent','How much work is involved'],['unsure',"I'm still not sure"]], why:'This helps narrow the uncertainty while keeping the original answer marked as uncertain.'};
+  const entry = specific[q.id] || {
+    text:'Which part of this work is involved?',
+    kind:'choice',
+    options:[['yes','Yes, this work is part of the project'],['no','No, this work is not part of the project']]
+  };
+  return {
+    id:'__clarifier_' + q.id,
+    text:entry.text,
+    kind:entry.kind,
+    options:entry.options,
+    why:'This narrows the uncertainty without requiring technical terminology.'
+  };
+}
+
+function applyClarificationInference(q, value) {
+  if (!q?.parentId) return;
+  const inferred = inferClarifiedAnswer(q.parentId, value);
+  if (!inferred) return;
+  answers[q.parentId] = inferred;
+  delete clarifierState[q.id];
 }
 function questionCluster(all, index) {
   const root = all[index];
@@ -662,19 +731,16 @@ function questionCluster(all, index) {
   for (let j=index+1; j<all.length; j++) {
     const candidate = all[j];
     if (!inlineClarifierFor(parent, candidate)) break;
-    cluster.push(candidate);
+    cluster.push({...candidate, parentId:parent.id});
     parent = candidate;
   }
-  // For any choice question with an "I'm not sure" option, add clarifiers directly beneath it.
-  // Existing data-defined clarifiers are used first; synthetic clarifiers fill gaps.
-  let cursor = cluster[cluster.length - 1];
-  for (let depth=1; depth<=2; depth++) {
-    const value = cursor.id.startsWith('__clarifier_') ? clarifierState[cursor.id] : answers[cursor.id];
-    if (value !== 'unsure' || cursor.kind !== 'choice') break;
-    const synthetic = clarifierFor(root, depth);
-    synthetic.parentId = cursor.id;
-    if (!cluster.some(x => x.id === synthetic.id)) cluster.push(synthetic);
-    cursor = synthetic;
+
+  // A top-level "I'm not sure" gets one inline clarification when the data
+  // does not already define a direct follow-up. Never create a second layer.
+  if (cluster.length === 1 && root.kind === 'choice' && answers[root.id] === 'unsure') {
+    const synthetic = clarifierFor(root);
+    synthetic.parentId = root.id;
+    cluster.push(synthetic);
   }
   return cluster;
 }
@@ -686,45 +752,89 @@ function renderQuestionCard({animate=false} = {}) {
   const progress = Math.round((questionIndex / all.length) * 100);
   const controls = cluster.map((q,i) => {
     const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
-    return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '">' +
+    return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '>' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
       '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
       '<h1>' + escape(q.text) + '</h1>' +
-      (q.kind === 'choice' ? choiceControl(q,current,q.id) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
+      (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
       '</div>';
   }).join('');
+
+  const clusterComplete = cluster.every(q => {
+    const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
+    return current !== undefined;
+  });
+  const reachesEnd = questionIndex + cluster.length >= all.length;
+  const actionLabel = reachesEnd && clusterComplete ? 'Review my answers' : 'Continue';
+
   card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card' + (animate ? ' question-transition' : '') + '"><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint"></div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
     (editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : '') +
-    (cluster[cluster.length-1]?.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(cluster[cluster.length-1].skipLabel || 'Skip for now') + '</button>' : '') +
-    '<button type="button" id="nextQuestion">' + (questionIndex + cluster.length >= all.length ? 'Review my answers' : 'Continue') + '</button></div></div>';
-  card.querySelectorAll('.inline-question input[type="radio"]').forEach(input => {
+    (cluster[cluster.length-1]?.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(cluster[cluster.length-1].skipLabel || 'Skip') + '</button>' : '') +
+    '<button type="button" id="nextQuestion">' + actionLabel + '</button></div></div>';
+
+  card.querySelectorAll('.inline-question input').forEach(input => {
     input.addEventListener('change', () => {
-      const q = cluster.find(x => x.id === input.name.replace('questionChoice-',''));
+      const q = cluster.find(x => x.id === input.dataset.questionId);
       if (!q) return;
+
+      if (q.kind === 'multi') {
+        const values = [...card.querySelectorAll('input[name="' + input.name + '"]:checked')].map(x => x.value);
+        let normalized = values;
+        if (normalized.includes('none') && normalized.length > 1) {
+          if (input.value === 'none' && input.checked) {
+            normalized = ['none'];
+          } else {
+            normalized = normalized.filter(v => v !== 'none');
+          }
+          card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => {
+            x.checked = normalized.includes(x.value);
+          });
+        }
+        clarifierState[q.id] = normalized;
+        card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => x.closest('.choice')?.classList.toggle('selected', x.checked));
+        return;
+      }
+
       if (q.id.startsWith('__clarifier_')) {
         clarifierState[q.id] = input.value;
-        if (input.value !== 'unsure') Object.keys(clarifierState).filter(k => k.startsWith(q.id.split('_').slice(0,-1).join('_')) && k !== q.id).forEach(k => delete clarifierState[k]);
+        applyClarificationInference(q,input.value);
       } else {
         answers[q.id] = input.value;
-        Object.keys(clarifierState).filter(k => k.startsWith('__clarifier_' + q.id + '_')).forEach(k => delete clarifierState[k]);
+        Object.keys(clarifierState).filter(k => k.startsWith('__clarifier_' + q.id)).forEach(k => delete clarifierState[k]);
       }
-      // Update the selected styling without replaying the entire question transition.
       input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
       input.closest('.choice')?.classList.add('selected');
+
       if (q === cluster[0] || q.parentId) renderQuestionCard({animate:false});
     });
   });
+
+  card.querySelectorAll('.number-wrap input, .text-wrap textarea').forEach(input => {
+    input.addEventListener('input', () => {
+      // Keep typed values live in the DOM; Continue/Skip persists them.
+    });
+  });
+
   $('backQuestion').onclick = () => {
     if (questionIndex > 0) { questionIndex--; renderQuestionCard(); }
   };
+
   $('returnToReview')?.addEventListener('click', () => {
     saveClusterValues(cluster);
-    editingFromReview=false; questionIndex=0; renderReview(getQuestions(type,answers));
+    editingFromReview=false;
+    questionIndex=0;
+    renderReview(getQuestions(type,answers));
   });
+
   $('skipQuestion')?.addEventListener('click', () => {
-    const last=cluster[cluster.length-1]; answers[last.id]=null; cleanupHiddenAnswers(); questionIndex += cluster.length; renderQuestionCard();
+    const last=cluster[cluster.length-1];
+    answers[last.id]=null;
+    cleanupHiddenAnswers();
+    questionIndex += cluster.length;
+    renderQuestionCard();
   });
+
   $('nextQuestion').onclick = () => {
     if (!saveClusterValues(cluster)) {
       $('questionHint').textContent='Complete the questions shown above, or use “I\'m not sure” to open a clarification.';
@@ -735,22 +845,13 @@ function renderQuestionCard({animate=false} = {}) {
     renderQuestionCard({animate:true});
   };
 }
-function cleanupHiddenAnswers() {
-  const visibleIds = new Set(getQuestions(type, answers).map(x=>x.id));
-  for (const key of Object.keys(answers)) if (!visibleIds.has(key)) delete answers[key];
-}
-function saveClusterValues(cluster) {
-  for (const q of cluster) {
-    const value = readQuestionValue(q);
-    if (value === undefined) return false;
-    if (q.id.startsWith('__clarifier_')) clarifierState[q.id]=value;
-    else answers[q.id]=value;
-  }
-  cleanupHiddenAnswers();
-  return true;
-}
 function choiceControl(q,current,name) {
-  return '<div class="choice-list">' + q.options.map(([value,label]) => '<label class="choice ' + (current===value?'selected':'') + '"><input type="radio" name="questionChoice-' + escape(name) + '" value="' + escape(value) + '" ' + (current===value?'checked':'') + '><span>' + escape(label) + '</span></label>').join('') + '</div>';
+  const values = q.kind === 'multi' ? (Array.isArray(current) ? current : []) : [current];
+  const inputType = q.kind === 'multi' ? 'checkbox' : 'radio';
+  const groupName = q.kind === 'multi' ? 'questionMulti-' + name : 'questionChoice-' + name;
+  return '<div class="choice-list ' + (q.kind === 'multi' ? 'multi-choice-list' : '') + '">' +
+    q.options.map(([value,label]) => '<label class="choice ' + (values.includes(value) ? 'selected' : '') + '"><input data-question-id="' + escape(name) + '" type="' + inputType + '" name="' + escape(groupName) + '" value="' + escape(value) + '" ' + (values.includes(value) ? 'checked' : '') + '><span>' + escape(label) + '</span></label>').join('') +
+    '</div>';
 }
 function numberControl(q,current,id) {
   return '<div class="number-wrap"><input id="questionNumber-' + escape(id) + '" type="number" min="' + (q.min ?? 0) + '" ' + (q.max != null ? 'max="' + q.max + '"' : '') + ' step="any" value="' + (current ?? '') + '" placeholder="Enter an estimate"><span>' + escape(q.unit || '') + '</span></div>';
@@ -760,6 +861,7 @@ function textControl(q,current,id) {
 }
 function readQuestionValue(q) {
   if (q.kind === 'choice') return document.querySelector('input[name="questionChoice-' + q.id + '"]:checked')?.value;
+  if (q.kind === 'multi') return [...document.querySelectorAll('input[name="questionMulti-' + q.id + '"]:checked')].map(input => input.value);
   if (q.kind === 'text') { const value = document.querySelector('#questionText-' + q.id)?.value.trim(); return value || undefined; }
   const raw = document.querySelector('#questionNumber-' + q.id)?.value.trim();
   if (raw === '') return undefined;
@@ -767,39 +869,49 @@ function readQuestionValue(q) {
   if (!Number.isFinite(value) || value < (q.min ?? 0) || (q.max != null && value > q.max)) return undefined;
   return value;
 }
-
 function renderReview(all) {
   const card = $('questionCard');
-  const unanswered = all.filter(q => answers[q.id] === undefined);
+  const unanswered = all.filter(q => answers[q.id] === undefined && !q.optional);
   if (unanswered.length) {
     questionIndex = all.indexOf(unanswered[0]);
     renderQuestionCard();
     return;
   }
   const unsure = all.filter(q => answers[q.id] === 'unsure');
-  card.innerHTML = `<div class="eyebrow">READY TO PLAN</div>
-    <h1>Review your project</h1>
-    <p class="muted">Everything below is editable. Select <b>Edit</b> beside any answer to jump directly to that question.</p>
-    <div class="review-list review-edit-list">${all.map((q,i) => `<div><span>${escape(q.text)}</span><b>${escape(formatAnswer(q, answers[q.id]))}</b><button type="button" class="review-edit" data-edit-question="${i}">Edit</button></div>`).join('')}</div>
-    ${unsure.length ? '<div class="notice"><b>' + unsure.length + ' answer' + (unsure.length === 1 ? '' : 's') + ' still need clarification.</b> The planner will identify what those uncertainties affect.</div>' : ''}
-    <div class="question-actions"><button type="button" id="backQuestion" class="secondary">Back</button><button type="button" id="generatePlan">Generate project plan</button></div>`;
+  card.innerHTML = '<div class="eyebrow">READY TO PLAN</div>' +
+    '<h1>Review your project</h1>' +
+    '<p class="muted">Everything below is editable. Select <b>Edit</b> beside any answer to jump directly to that question.</p>' +
+    '<div class="review-list review-edit-list">' +
+      all.map((q,i) => {
+        const needsClarification = answers[q.id] === 'unsure';
+        return '<div class="' + (needsClarification ? 'review-needs-clarification' : '') + '">' +
+          '<span>' + escape(q.text) + '</span>' +
+          '<b>' + escape(formatAnswer(q, answers[q.id])) + '</b>' +
+          (needsClarification ? '<em class="review-flag" title="Needs clarification" aria-label="Needs clarification">!</em>' : '') +
+          '<button type="button" class="review-edit" data-edit-question="' + i + '">Edit</button>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+    (unsure.length ? '<div class="notice review-clarification-notice"><b>' + unsure.length + ' answer' + (unsure.length === 1 ? '' : 's') + ' still need clarification.</b> Answers marked with <strong>!</strong> are the ones that remain uncertain.</div>' : '') +
+    '<div class="question-actions"><button type="button" id="backQuestion" class="secondary">Back</button><button type="button" id="generatePlan">Generate project plan</button></div>';
+
   document.querySelectorAll('[data-edit-question]').forEach(btn => btn.onclick = () => {
     questionIndex = Number(btn.dataset.editQuestion);
     editingFromReview = true;
     renderQuestionCard();
     window.scrollTo({top:0,behavior:'smooth'});
   });
-  $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };  $('generatePlan').onclick = () => {
+  $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };
+  $('generatePlan').onclick = () => {
     editingFromReview = false;
     renderResult(buildPlan(type, property, answers));
   };
 }
-
 function formatAnswer(q, value) {
   if (value === 'yes') return 'Yes';
   if (value === 'no') return 'No';
   if (value === 'unsure') return "I'm not sure";
-  if (value === null) return q.optional ? 'Skipped for now' : 'Not provided';
+  if (value === null) return q.optional ? 'Skipped' : 'Not provided';
   if (value == null) return 'Not provided';
   return q.unit ? `${value} ${q.unit}` : String(value);
 }
