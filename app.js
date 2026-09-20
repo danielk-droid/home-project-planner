@@ -254,7 +254,7 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
 
       spawnButtonSparks(heroStart);
       spawnButtonEcho(heroStart);
-      heroStart.classList.add('guided-click');
+      heroStart.classList.add('guided-click','hero-breathe');
       const fade = lessonDot.animate([
         { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
         { transform:'translate(-50%,-50%) scale(.72)', opacity:.72, offset:.45 },
@@ -718,11 +718,12 @@ function clarifierFor(q) {
 }
 
 function applyClarificationInference(q, value) {
-  if (!q?.parentId) return;
+  if (!q?.parentId) return false;
   const inferred = inferClarifiedAnswer(q.parentId, value);
-  if (!inferred) return;
+  if (!inferred) return false;
   answers[q.parentId] = inferred;
   delete clarifierState[q.id];
+  return true;
 }
 function questionCluster(all, index) {
   const root = all[index];
@@ -782,31 +783,40 @@ function renderQuestionCard({animate=false} = {}) {
         const values = [...card.querySelectorAll('input[name="' + input.name + '"]:checked')].map(x => x.value);
         let normalized = values;
         if (normalized.includes('none') && normalized.length > 1) {
-          if (input.value === 'none' && input.checked) {
-            normalized = ['none'];
-          } else {
-            normalized = normalized.filter(v => v !== 'none');
-          }
+          normalized = input.value === 'none' && input.checked
+            ? ['none']
+            : normalized.filter(v => v !== 'none');
           card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => {
             x.checked = normalized.includes(x.value);
           });
         }
         clarifierState[q.id] = normalized;
+        const inferred = q.parentId ? applyClarificationInference(q, normalized) : false;
         card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => x.closest('.choice')?.classList.toggle('selected', x.checked));
+        if (inferred) renderQuestionCard({animate:false});
         return;
       }
 
-      if (q.id.startsWith('__clarifier_')) {
+      if (q.parentId) {
         clarifierState[q.id] = input.value;
-        applyClarificationInference(q,input.value);
-      } else {
-        answers[q.id] = input.value;
-        Object.keys(clarifierState).filter(k => k.startsWith('__clarifier_' + q.id)).forEach(k => delete clarifierState[k]);
+        const inferred = applyClarificationInference(q,input.value);
+        if (inferred) renderQuestionCard({animate:false});
+        else {
+          input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
+          input.closest('.choice')?.classList.add('selected');
+        }
+        return;
       }
+
+      const wasUnsure = answers[q.id] === 'unsure';
+      answers[q.id] = input.value;
+      Object.keys(clarifierState).filter(k => k.startsWith('__clarifier_' + q.id)).forEach(k => delete clarifierState[k]);
       input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
       input.closest('.choice')?.classList.add('selected');
 
-      if (q === cluster[0] || q.parentId) renderQuestionCard({animate:false});
+      if (input.value === 'unsure' || wasUnsure) {
+        renderQuestionCard({animate:false});
+      }
     });
   });
 
@@ -837,14 +847,27 @@ function renderQuestionCard({animate=false} = {}) {
 
   $('nextQuestion').onclick = () => {
     if (!saveClusterValues(cluster)) {
-      $('questionHint').textContent='Complete the questions shown above, or use “I\'m not sure” to open a clarification.';
+      $('questionHint').textContent='Complete the questions shown above, or use “I\\'m not sure” to open a clarification.';
       $('questionHint').classList.add('validation');
       return;
     }
-    questionIndex += cluster.length;
+
+    const rootId = cluster[0].id;
+    const updated = getQuestions(type, answers);
+    const rootIndex = updated.findIndex(q => q.id === rootId);
+    const inlineConsumed = cluster.slice(1).filter(q => updated.some(x => x.id === q.id)).length;
+    questionIndex = rootIndex >= 0 ? rootIndex + 1 + inlineConsumed : questionIndex + 1;
     renderQuestionCard({animate:true});
   };
 }
+function cleanupHiddenAnswers() {
+  const visibleIds = new Set(getQuestions(type, answers).map(x=>x.id));
+  const metadataIds = new Set(['projectCatalogId','projectCatalogLabel']);
+  for (const key of Object.keys(answers)) {
+    if (!visibleIds.has(key) && !metadataIds.has(key)) delete answers[key];
+  }
+}
+
 function questionValueComplete(q, value) {
   if (q.kind === 'multi') return Array.isArray(value) && value.length > 0;
   return value !== undefined;
