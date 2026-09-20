@@ -5,6 +5,7 @@ let property = null;
 let type = null;
 let answers = {};
 let questionIndex = 0;
+let editingFromReview = false;
 
 const pageIds = ['home','about','mission','feedback','plan'];
 const addressInput = $('address');
@@ -58,28 +59,49 @@ if (heroGraphic && heroStart) {
   lessonDot.className = 'lesson-dot';
   lessonDot.setAttribute('aria-hidden','true');
   document.body.appendChild(lessonDot);
-  heroGraphic.classList.add('dot-lesson');
   setTimeout(() => {
     const dot = heroGraphic.querySelector('.site-point');
+    if (!dot) return;
     const a = dot.getBoundingClientRect();
     const b = heroStart.getBoundingClientRect();
-    const startX = a.left + a.width/2;
-    const startY = a.top + a.height/2;
-    const endX = b.left + b.width*.52;
-    const endY = b.top + b.height*.52;
+    const startX = a.left + a.width / 2;
+    const startY = a.top + a.height / 2;
+    const endX = b.left + b.width * .52;
+    const endY = b.top + b.height * .52;
     lessonDot.style.setProperty('--start-x', startX + 'px');
     lessonDot.style.setProperty('--start-y', startY + 'px');
+    lessonDot.style.setProperty('--end-x', endX + 'px');
+    lessonDot.style.setProperty('--end-y', endY + 'px');
     lessonDot.style.left = startX + 'px';
     lessonDot.style.top = startY + 'px';
     lessonDot.classList.add('fly');
-    lessonDot.style.setProperty('--end-x', endX + 'px');
-    lessonDot.style.setProperty('--end-y', endY + 'px');
     setTimeout(() => {
-      lessonDot.classList.add('arrived');
       heroStart.classList.add('guided-click');
-      setTimeout(() => { heroStart.classList.remove('guided-click'); lessonDot.remove(); }, 900);
-    }, 850);
-  }, 3600);
+      spawnButtonSparks(heroStart);
+      lessonDot.classList.add('arrived');
+      setTimeout(() => {
+        heroStart.classList.remove('guided-click');
+        lessonDot.remove();
+      }, 650);
+    }, 1500);
+  }, 3000);
+}
+function spawnButtonSparks(button) {
+  const rect = button.getBoundingClientRect();
+  const cx = rect.left + rect.width * .52;
+  const cy = rect.top + rect.height * .52;
+  for (let i = 0; i < 9; i++) {
+    const spark = document.createElement('span');
+    spark.className = 'dot-spark';
+    const angle = (Math.PI * 2 * i / 9) + (Math.random() - .5) * .35;
+    const distance = 18 + Math.random() * 24;
+    spark.style.left = cx + 'px';
+    spark.style.top = cy + 'px';
+    spark.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
+    spark.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 650);
+  }
 }
 
 function openMobileMenu() {
@@ -177,7 +199,6 @@ $('resolve').onclick = async () => {
     $('resolve').textContent = 'Check property & continue';
   }
 };
-
 function renderQuestions() {
   document.body.classList.add('focus-mode');
   pageIds.forEach(id => $(id)?.classList.remove('page-active'));
@@ -215,6 +236,7 @@ function renderQuestionCard() {
       <div id="questionHint" class="small hint">${q.kind === 'choice' && q.options.some(o => o[0] === 'unsure') ? 'Not sure? That is a valid answer. We will narrow it down with follow-up questions.' : 'An estimate is fine when the exact number is not known yet.'}</div>
       <div class="question-actions">
         <button type="button" id="backQuestion" class="secondary" ${questionIndex === 0 ? 'disabled' : ''}>Back</button>
+        ${editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : ''}
         <button type="button" id="nextQuestion">${questionIndex === all.length - 1 ? 'Review my answers' : 'Continue'}</button>
       </div>
     </div>`;
@@ -224,6 +246,19 @@ function renderQuestionCard() {
       renderQuestionCard();
     }
   };
+  if (editingFromReview) {
+    $('returnToReview').onclick = () => {
+      const value = readQuestionValue(q);
+      if (value !== undefined) answers[q.id] = value;
+      const visibleIds = new Set(getQuestions(type, answers).map(x => x.id));
+      for (const key of Object.keys(answers)) {
+        if (!visibleIds.has(key)) delete answers[key];
+      }
+      editingFromReview = false;
+      questionIndex = 0;
+      renderReview(getQuestions(type, answers));
+    };
+  }
   $('nextQuestion').onclick = () => {
     const value = readQuestionValue(q);
     if (value === undefined) {
@@ -282,11 +317,13 @@ function renderReview(all) {
     <div class="question-actions"><button type="button" id="backQuestion" class="secondary">Back</button><button type="button" id="generatePlan">Generate project plan</button></div>`;
   document.querySelectorAll('[data-edit-question]').forEach(btn => btn.onclick = () => {
     questionIndex = Number(btn.dataset.editQuestion);
+    editingFromReview = true;
     renderQuestionCard();
     window.scrollTo({top:0,behavior:'smooth'});
   });
   $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };
   $('generatePlan').onclick = () => {
+    editingFromReview = false;
     renderResult(buildPlan(type, property, answers));
   };
 }
@@ -357,8 +394,7 @@ const sourceById = id => ({
 
 function guidanceForRequirement(x) {
   const t = (x.title + ' ' + x.action + ' ' + (x.explanation || '')).toLowerCase();
-  if (t.includes('fire')) return {sourceId:'newton-fire', where:'On the Fire Department Plan Reviews page, use the Residential Plan Review (1–6 dwelling units) section and the NewGov submission link. Residential building permit applications are reviewed by Newton Fire.'};
-  if (t.includes('zoning') || t.includes('setback') || t.includes('far') || t.includes('lot coverage')) return {sourceId:'newton-zoning', where:'On Planning & Development, use the zoning resources and the Zoning review application. The City’s interactive zoning map is also linked from its map resources.'};
+  if (t.includes('fire')) return {sourceId:'newton-fire', where:'On the Fire Department Plan Reviews page, use the Residential Plan Review (1–6 dwelling units) section and the NewGov submission link. Residential building permit applications are reviewed by Newton Fire.'};  if (t.includes('zoning') || t.includes('setback') || t.includes('far') || t.includes('lot coverage')) return {sourceId:'newton-zoning', where:'On Planning & Development, use the zoning resources and the Zoning review application. The City’s interactive zoning map is also linked from its map resources.'};
   if (t.includes('tree')) return {sourceId:'newton-tree', where:'On the Tree Preservation Ordinance page, look for Tree Permit Application – Construction and the Tree Save Area requirements. Exterior construction can require a Tree Permit even when no tree is being removed.'};
   if (t.includes('historic')) return {sourceId:'newton-historic', where:'On Historic Preservation, use Submit an Application to determine whether the property follows the Historic District Commission or Newton Historical Commission track.'};
   if (t.includes('conservation') || t.includes('wetland') || t.includes('floodplain') || t.includes('stream')) return {sourceId:'newton-conservation', where:'On Wetlands Permitting Info, review the regulated-area thresholds and the examples/resources for properties near wetlands, streams, or floodplains.'};
@@ -373,7 +409,10 @@ function renderResult(plan) {
   r.classList.remove('hidden');
   const savedKey = projectSaveKey();
   const saved = JSON.parse(localStorage.getItem(savedKey) || 'null');
-  if (saved?.steps) plan.steps = plan.steps.map((x, i) => ({...x, status: saved.steps[i]?.status || 'not_started'}));
+  plan.steps = plan.steps.map((x, i) => ({
+    ...x,
+    status: saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
+  }));
   localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
@@ -424,7 +463,7 @@ function renderResult(plan) {
 function checklistSection(plan) {
   const allNext = [...plan.confirm, ...plan.required];
   return `<section class="panel checklist-panel combined-workflow">
-    <div class="section-heading"><div><div class="eyebrow">NEXT STEPS / CHECKLIST</div><h2>What to do next</h2><p class="muted">Resolve the first items below, then work through the project sequence. Guidance is open by default so each step explains what to do, where to go, and what to look for.</p></div><span class="check-count" id="checkCount">0 / ${plan.steps.length}</span></div>
+    <div class="section-heading"><div><div class="eyebrow">NEXT STEPS / CHECKLIST</div><h2>What to do next</h2><p class="muted">Start with the items that can affect your project, then work through the steps below.</p></div><span class="check-count" id="checkCount">0 / ${plan.steps.length}</span></div>
     ${allNext.length ? '<div class="action-strip"><div class="eyebrow">FIRST THINGS TO RESOLVE</div><ol>' + allNext.slice(0,4).map((x,i) => {
       const g = guidanceForRequirement(x);
       const url = g ? sourceById(g.sourceId) : null;
@@ -448,15 +487,18 @@ function updateCompletion(plan) {
   const done = boxes.filter(x => x.checked).length;
   const count = $('checkCount');
   if (count) count.textContent = `${done} / ${boxes.length}`;
-  if (done === boxes.length && boxes.length) {
+  const complete = done === boxes.length && boxes.length > 0;
+  if (complete) {
     $('completionToast')?.classList.remove('hidden');
-    launchConfetti();
+    if (!checklistWasComplete) launchConfetti();
   } else {
     $('completionToast')?.classList.add('hidden');
   }
+  checklistWasComplete = complete;
 }
 
 let confettiRunning = false;
+let checklistWasComplete = false;
 function launchConfetti() {
   if (confettiRunning) return;
   confettiRunning = true;
