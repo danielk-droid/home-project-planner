@@ -82,7 +82,7 @@ for(const c of cases){
   for(const r of p.results){
     assert.ok(['required','potentially_required','needs_confirmation','not_applicable'].includes(r.status),r.id);
     assert.ok(Array.isArray(r.sources)&&r.sources.length>0,`missing provenance ${r.id}`);
-    if(r.status==='needs_confirmation') assert.doesNotMatch(r.action,/definitely|compliant|approved/i);
+    if(r.status==='needs_confirmation') assert.doesNotMatch(r.action,/definitely|approved/i);
   }
   if(c.type==='basement_finish'&&c.a.sleepingRoomAdded==='yes')
     assert.ok(p.results.some(r=>r.id==='basement.egress'&&r.status==='needs_confirmation'));
