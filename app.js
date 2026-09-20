@@ -51,6 +51,71 @@ document.querySelectorAll('[data-page-link]').forEach(link => {
 window.addEventListener('popstate', routeFromHash);
 window.addEventListener('hashchange', routeFromHash);
 routeFromHash();
+function projectLabel(projectType) {
+  return PROJECTS[projectType]?.label || projectType;
+}
+
+function savedProjects() {
+  const items = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key?.startsWith('nhpp-project:')) continue;
+    try {
+      const saved = JSON.parse(localStorage.getItem(key));
+      if (saved?.type && saved?.property?.resolvedAddress) items.push(saved);
+    } catch {}
+  }
+  return items.sort((a,b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
+}
+
+function renderSavedProjects() {
+  const root = $('resume');
+  if (!root) return;
+  const projects = savedProjects();
+  if (!projects.length) {
+    root.classList.add('hidden');
+    root.innerHTML = '';
+    return;
+  }
+  root.classList.remove('hidden');
+  root.innerHTML = `
+    <div class="resume-inner">
+      <div><div class="eyebrow">YOUR PROJECTS</div><h2>Pick up where you left off.</h2><p>Saved on this browser so you can come back while the project is in progress.</p></div>
+      <div class="resume-list">${projects.slice(0,4).map((p,index) => {
+        const completed = (p.steps || []).filter(s => s.status === 'complete').length;
+        const total = (p.steps || []).length || 0;
+        return '<button type="button" class="resume-card" data-resume-key="' + escape(projectSaveKeyFor(p)) + '">' +
+          '<span>' + escape(String(index + 1).padStart(2,'0')) + '</span>' +
+          '<div><b>' + escape(projectLabel(p.type)) + '</b><strong>' + escape(p.property.resolvedAddress) + '</strong><small>' + completed + ' / ' + total + ' steps complete</small></div>' +
+          '<i>Continue →</i></button>';
+      }).join('')}</div>
+    </div>`;
+  root.querySelectorAll('[data-resume-key]').forEach(btn => {
+    btn.addEventListener('click', () => resumeSavedProject(btn.dataset.resumeKey));
+  });
+}
+
+function projectSaveKeyFor(project) {
+  return 'nhpp-project:' + project.type + ':' + (project.property?.resolvedAddress || '');
+}
+
+function resumeSavedProject(key) {
+  try {
+    const saved = JSON.parse(localStorage.getItem(key));
+    if (!saved?.type || !saved?.property) return;
+    type = saved.type;
+    property = saved.property;
+    answers = saved.answers || {};
+    questionIndex = 0;
+    editingFromReview = false;
+    history.pushState(null,'','#plan');
+    renderResult(buildPlan(type, property, answers), {resume:true, saved});
+  } catch {
+    renderSavedProjects();
+  }
+}
+
+renderSavedProjects();
 
 const heroGraphic = document.querySelector('.hero-graphic');
 const heroStart = $('heroStart');
@@ -150,6 +215,18 @@ function closeMobileMenu() {
   $('mobileMenu')?.classList.remove('open');
   $('mobileMenu')?.setAttribute('aria-hidden','true');
 }
+
+document.querySelectorAll('[data-project-start]').forEach(card => {
+  card.addEventListener('click', () => {
+    const projectType = card.dataset.projectStart;
+    if ($('projectType')) $('projectType').value = projectType;
+    history.pushState(null,'','#plan');
+    navigate('plan');
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(() => $('address')?.focus(), 250);
+  });
+});
+
 $('menuToggle')?.addEventListener('click', openMobileMenu);
 $('mobileMenuClose')?.addEventListener('click', closeMobileMenu);
 $('mobileMenu')?.querySelectorAll('[data-page-link]').forEach(link => link.addEventListener('click', closeMobileMenu));
@@ -480,15 +557,20 @@ function guidanceForRequirement(x) {
   if (t.includes('energy') || t.includes('hers')) return {sourceId:'newton-planning', where:'Start with the City’s planning/building application resources, then follow the energy-code documentation requirements identified for your permit.'};
   return null;
 }
-function renderResult(plan) {
+function renderResult(plan, options = {}) {
   $('questions').classList.add('hidden');
   document.body.classList.add('focus-mode');
   const r = $('result');
   r.classList.remove('hidden');
   const savedKey = projectSaveKey();
-  plan.steps = plan.steps.map(x => ({...x, status:'not_started'}));
-  checklistWasComplete = false;
+  const saved = options.resume ? (options.saved || JSON.parse(localStorage.getItem(savedKey) || 'null')) : null;
+  plan.steps = plan.steps.map((x,i) => ({
+    ...x,
+    status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
+  }));
+  checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
   localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
+  renderSavedProjects();
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
 
@@ -542,7 +624,7 @@ function renderResult(plan) {
     questionIndex = 0;
     renderQuestions();
   };
-  $('restart').onclick = () => location.reload();
+  $('restart').onclick = () => { property = null; type = null; answers = {}; questionIndex = 0; history.pushState(null,'','#plan'); navigate('plan'); $('result').classList.add('hidden'); $('questions').classList.add('hidden'); document.querySelector('.planner-shell')?.classList.remove('hidden'); renderSavedProjects(); window.scrollTo({top:0,behavior:'smooth'}); };
   window.scrollTo({top:0,behavior:'smooth'});
   updateCompletion(plan);
 }
