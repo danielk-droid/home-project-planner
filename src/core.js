@@ -2,6 +2,9 @@ import rules from '../data/rules.json' with { type: 'json' };
 import sources from '../data/sources.json' with { type: 'json' };
 import dependencies from '../data/dependencies.json' with { type: 'json' };
 import questionFlows from '../data/questions.json' with { type: 'json' };
+import projectCatalog from '../data/project_catalog.json' with { type: 'json' };
+
+export const PROJECT_CATALOG = projectCatalog;
 
 export const PROJECTS = Object.fromEntries(questionFlows.map(flow => [flow.id, {
   label: flow.label,
@@ -223,6 +226,8 @@ export function deriveProject(projectType, answers = {}) {
   return {
     buildingWork: true,
     projectDescription: a.projectDescription || null,
+    projectCatalogId: a.projectCatalogId || null,
+    projectCatalogLabel: a.projectCatalogLabel || null,
     condo: a.condo === 'yes',
     condoUncertain: a.condo === 'unsure',
     condoApproval: a.condoApproval === 'yes',
@@ -257,7 +262,7 @@ export function deriveProject(projectType, answers = {}) {
     gasUncertain: a.gasWork === 'unsure',
     structuralChanges: a.structuralChanges === 'yes',
     structuralUncertain: a.structuralChanges === 'unsure',
-    exteriorConstruction: projectType === 'deck' || projectType === 'addition' || exteriorAnswer === 'yes',
+    exteriorConstruction: projectType === 'deck' || projectType === 'addition' || exteriorAnswer === 'yes' || a.exteriorChange === 'yes' || ['structure','opening','surface'].includes(a.exteriorChangeDetail),
     exteriorUncertain,
     expansion: projectType === 'addition' || a.exteriorExpansion === 'yes' || a.siteWork === 'yes',
     sleepingRoomAdded: a.sleepingRoomAdded === 'yes' || a.sleepingUse === 'sleeping',
@@ -269,7 +274,10 @@ export function deriveProject(projectType, answers = {}) {
     windowWork: a.newWindow === 'yes' || a.windowsOrDoors === 'yes',
     windowUncertain: a.newWindow === 'unsure' || a.windowsOrDoors === 'unsure',
     treeImpact: a.treeImpact === 'yes' || a.treeImpact === 'unsure',
-    treeImpactUncertain: a.treeImpact === 'unsure'
+    treeImpactUncertain: a.treeImpact === 'unsure',
+    exteriorChange: a.exteriorChange === 'yes' || a.exteriorChangeDetail === 'structure' || a.exteriorChangeDetail === 'opening' || a.exteriorChangeDetail === 'surface',
+    exteriorChangeUncertain: a.exteriorChange === 'unsure' || a.exteriorChangeDetail === 'unsure',
+    generalScopeUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' || a.primaryWorkAreaDetail2 === 'unsure'
   };
 }
 
