@@ -3,6 +3,7 @@ import rules from '../data/rules.json' with {type:'json'};
 import sources from '../data/sources.json' with {type:'json'};
 import dependencies from '../data/dependencies.json' with {type:'json'};
 import questions from '../data/questions.json' with {type:'json'};
+import catalog from '../data/project_catalog.json' with {type:'json'};
 
 const sourceIds=new Set(sources.map(x=>x.id));
 assert.equal(new Set(rules.map(x=>x.id)).size,rules.length,'duplicate rule IDs');
@@ -51,3 +52,9 @@ for(const r of rules){
 }
 assert.ok(sources.every(s=>s.lastVerified),'source freshness metadata missing');
 console.log('data integrity: PASS ('+rules.length+' rules, '+sources.length+' sources, '+dependencies.length+' steps, '+questions.length+' adaptive flows)');
+
+const catalogCount=catalog.categories.reduce((n,c)=>n+c.items.length,0);
+assert.equal(catalogCount,100,'project catalog should contain 100 detailed options');
+assert.equal(new Set(catalog.categories.map(c=>c.id)).size,catalog.categories.length,'duplicate catalog categories');
+assert.ok(catalog.categories.every(c=>c.label&&c.items?.length===10),'catalog categories should each contain 10 options');
+console.log('project catalog integrity: PASS ('+catalogCount+' detailed options)');
