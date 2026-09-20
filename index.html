@@ -57,13 +57,39 @@
     <section class="project-gallery">
       <div class="gallery-intro"><div class="eyebrow">COMMON PROJECTS</div><h2>Plan the work before the work begins.</h2><p>Different projects trigger different questions. The planner starts with the property, then follows the work itself.</p></div>
       <div class="gallery-grid">
-        <article class="project-image-card"><div class="project-art basement-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M45 175h330M72 175v-72l138-62 138 62v72M112 175v-49h72v49M236 175v-73h86v73"/><path d="M91 101h238M120 81h200" /><circle cx="210" cy="41" r="5"/></svg></div><span>01 / BASEMENT</span><h3>Finish an existing space</h3></article>
-        <article class="project-image-card"><div class="project-art bath-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M55 166h310M72 166V61h276v105M96 111h228M112 78h74v33h-74zM245 91h63v20h-63zM325 62v-25M317 37h16"/></svg></div><span>02 / BATHROOM</span><h3>Renovate a bathroom</h3></article>
-        <article class="project-image-card"><div class="project-art deck-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M42 92h336M62 92v82M358 92v82M88 92v82M332 92v82M42 174h336M75 121h270M75 147h270"/><path d="M48 70h324M74 70v22M346 70v22"/></svg></div><span>03 / DECK</span><h3>Build or replace a deck</h3></article>
-        <article class="project-image-card"><div class="project-art addition-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M54 177h312M76 177V89l103-55 103 55v88M282 101h74v76M308 177v-42h24v42M116 177v-47h48v47M192 177v-47h48v47"/></svg></div><span>04 / ADDITION</span><h3>Build a residential addition</h3></article>
+        <button class="project-image-card" type="button" data-project-start="basement_finish" aria-label="Start a basement project"><div class="project-art basement-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M45 175h330M72 175v-72l138-62 138 62v72M112 175v-49h72v49M236 175v-73h86v73"/><path d="M91 101h238M120 81h200" /><circle cx="210" cy="41" r="5"/></svg></div><span>01 / BASEMENT</span><h3>Finish an existing space</h3></button>
+        <button class="project-image-card" type="button" data-project-start="bathroom_renovation" aria-label="Start a bathroom renovation project"><div class="project-art bath-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M55 166h310M72 166V61h276v105M96 111h228M112 78h74v33h-74zM245 91h63v20h-63zM325 62v-25M317 37h16"/></svg></div><span>02 / BATHROOM</span><h3>Renovate a bathroom</h3></button>
+        <button class="project-image-card" type="button" data-project-start="deck" aria-label="Start a deck project"><div class="project-art deck-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M42 92h336M62 92v82M358 92v82M88 92v82M332 92v82M42 174h336M75 121h270M75 147h270"/><path d="M48 70h324M74 70v22M346 70v22"/></svg></div><span>03 / DECK</span><h3>Build or replace a deck</h3></button>
+        <button class="project-image-card" type="button" data-project-start="addition" aria-label="Start a residential addition project"><div class="project-art addition-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M54 177h312M76 177V89l103-55 103 55v88M282 101h74v76M308 177v-42h24v42M116 177v-47h48v47M192 177v-47h48v47"/></svg></div><span>04 / ADDITION</span><h3>Build a residential addition</h3></button>
       </div>
     </section>
+    <section class="home-process">
+      <div class="process-intro">
+        <div class="eyebrow">HOW IT WORKS</div>
+        <h2>From a street address to a project plan.</h2>
+        <p>The planner narrows a complicated local process into a sequence you can actually work through. It begins with property context, then asks only questions that can change the path.</p>
+      </div>
+      <div class="process-grid">
+        <article><span>01</span><div><h3>Identify the property</h3><p>Start with an official Newton address and the mapped property context behind it.</p></div></article>
+        <article><span>02</span><div><h3>Describe the work</h3><p>Answer a small set of project-specific questions. Uncertainty stays visible instead of becoming a guess.</p></div></article>
+        <article><span>03</span><div><h3>Build the path</h3><p>See the requirements, reviews, documents, inspections, and official sources relevant to the project.</p></div></article>
+        <article><span>04</span><div><h3>Work the checklist</h3><p>Come back over several days, check off completed steps, and keep the project moving.</p></div></article>
+      </div>
+    </section>
+    <section class="home-control-panel">
+      <div class="control-graphic" aria-hidden="true">
+        <svg viewBox="0 0 620 300">
+          <path d="M50 220h520" class="control-rule"/><path d="M70 70h160v80H70zM290 70h260v80H290zM70 180h480" class="control-grid"/>
+          <circle cx="150" cy="110" r="15" class="control-node"/><circle cx="420" cy="110" r="15" class="control-node"/><circle cx="150" cy="240" r="15" class="control-node"/>
+          <path d="M165 110h240M420 125v65M405 190H165" class="control-link"/>
+          <path d="M92 110h30M448 110h64M162 240h110" class="control-accent"/>
+        </svg>
+      </div>
+      <div class="control-copy"><div class="eyebrow">WHAT YOU LEAVE WITH</div><h2>A project path you can return to.</h2><p>Not another page of links. A working project record: the property context, the questions you answered, what still needs confirmation, and a checklist you can use as the work progresses.</p><a class="text-link" href="#plan" data-page-link="plan">Start with a property →</a></div>
+    </section>
   </section>
+
+  <section id="resume" class="resume-section hidden"></section>
 
   <section id="plan" class="page">
     <div class="planner-shell">
@@ -85,23 +111,88 @@
   </section>
 
   <section id="about" class="page info-page">
-    <section class="info-section"><div class="info-index">02</div><div><div class="eyebrow">ABOUT</div><h1>A clearer way through a complicated process.</h1>
-      <p>A home project rarely fits into one department. A basement renovation can raise building, fire, electrical, plumbing, energy, and egress questions. An addition can also involve zoning, setbacks, lot coverage, trees, conservation, historic review, engineering, and inspections.</p>
-      <p>Home Project Planner brings those pieces together around one address and one defined project. It starts with official property information, asks only questions that can change the planning path, and turns the result into an ordered set of requirements, documents, applications, inspections, and follow-up work.</p>
-      <p>The goal is not to replace the City, a designer, contractor, architect, engineer, or other qualified professional. The goal is to make the information you need easier to find, understand, and act on before you spend money or start work.</p>
-      <a class="text-link" href="#plan" data-page-link="plan">Plan a project →</a></div></section>
+    <section class="editorial-hero about-hero">
+      <div class="editorial-index">02</div>
+      <div class="editorial-main">
+        <div class="eyebrow">ABOUT / THE PRODUCT</div>
+        <h1>A better starting point for home projects.</h1>
+        <p class="editorial-lede">A homeowner should not have to know which department owns which rule before they can understand what a project involves.</p>
+      </div>
+      <div class="editorial-art" aria-hidden="true">
+        <svg viewBox="0 0 460 330">
+          <path d="M45 285h370M72 246 184 166l112 80v39H72zM184 166v-56l112-58 112 58v175H184" />
+          <path d="M110 285v-71h62v71M218 285v-94h70v94M316 285v-49h58v49" />
+          <path d="M44 300h368M44 45h130v52H44zM206 45h210v52H206z" />
+          <path class="editorial-dot" d="M174 113h36M315 113h61" />
+        </svg>
+      </div>
+    </section>
+    <section class="about-columns">
+      <div class="about-statement">
+        <div class="eyebrow">THE PROBLEM</div>
+        <h2>Home projects cross boundaries.</h2>
+        <p>A basement renovation can involve building, fire, electrical, plumbing, energy, and egress questions. An addition can bring zoning, setbacks, lot coverage, trees, conservation, historic review, engineering, and inspections into the same project.</p>
+      </div>
+      <div class="about-copy">
+        <p>Home Project Planner brings those pieces together around one address and one defined project. It uses official property information to establish context, then asks only questions that can change the planning path.</p>
+        <p>The output is deliberately practical: requirements grouped by certainty, official sources attached to the relevant work, preparation guidance, and a project sequence that can be revisited as the work progresses.</p>
+        <p>It is not the City, an approval system, or a substitute for a designer, contractor, architect, engineer, inspector, or other qualified professional. It is a planning layer that makes fragmented information easier to navigate before a homeowner spends time or money on the wrong next step.</p>
+      </div>
+    </section>
+    <section class="about-principles">
+      <article><span>PROPERTY</span><strong>Start with the place.</strong><p>Local rules depend on local conditions.</p></article>
+      <article><span>PROJECT</span><strong>Ask what changes the path.</strong><p>Don't interrogate people about irrelevant details.</p></article>
+      <article><span>EVIDENCE</span><strong>Show where the information comes from.</strong><p>Official sources remain visible beside the planning result.</p></article>
+    </section>
   </section>
 
   <section id="mission" class="page info-page dark-page">
-    <section class="info-section dark-section"><div class="info-index">03</div><div><div class="eyebrow">MISSION</div><h1>Turn scattered local requirements into clear, usable next steps.</h1>
-      <p>For a homeowner, the difficult part of a project is often not knowing that a permit exists. It is figuring out which department matters, which application applies, what documents have to be prepared first, whether another review has to happen before the building permit, and what still has to be inspected or closed out later.</p>
-      <p>Home Project Planner is built to answer those practical questions. It connects a specific property and project to the City information that can affect it, organizes the process in the order a homeowner actually needs to follow, and links each major step back to the relevant official source.</p>
-      <p>Where the available information does not establish an answer, the planner should say so and identify what needs to be checked. That is not the end of the process; it is a signal to verify the specific condition with the appropriate City department or professional before relying on it.</p>
-      <p>The standard is simple: fewer dead ends, fewer disconnected web pages, and a clearer path from “I want to change my house” to “I know what I need to investigate and what I should do next.”</p></div></section>
+    <section class="mission-hero">
+      <div class="editorial-index">03</div>
+      <div class="mission-copy">
+        <div class="eyebrow">MISSION</div>
+        <h1>Turn scattered local requirements into a sequence people can actually use.</h1>
+        <p class="editorial-lede">The goal is not to make a complicated process look simple. It is to make the next action visible.</p>
+      </div>
+      <div class="mission-diagram" aria-hidden="true">
+        <div class="mission-node node-one"><span>ADDRESS</span></div>
+        <div class="mission-node node-two"><span>RULES</span></div>
+        <div class="mission-node node-three"><span>PLAN</span></div>
+        <svg viewBox="0 0 500 260"><path d="M120 130h250M120 130l72-65M370 130l-72 65" /></svg>
+      </div>
+    </section>
+    <section class="mission-body">
+      <div>
+        <div class="eyebrow">WHAT WE ARE BUILDING</div>
+        <h2>Less searching. More knowing what to do next.</h2>
+      </div>
+      <div>
+        <p>For a homeowner, the hard part is often not finding a single permit page. It is understanding the relationships between zoning, building, trade permits, site conditions, historic or conservation review, inspections, and closeout.</p>
+        <p>Home Project Planner is designed around those relationships. The system should be able to say what is established, what is conditional, and what still needs confirmation—then put those findings into a practical order.</p>
+        <p>The standard is evidence-backed planning. Official government information should remain the source of truth. Where the available information cannot answer a property-specific question, the planner should surface that uncertainty rather than manufacture certainty.</p>
+      </div>
+    </section>
+    <section class="mission-principles">
+      <div><strong>01</strong><span>Verified information first.</span></div>
+      <div><strong>02</strong><span>Uncertainty stays visible.</span></div>
+      <div><strong>03</strong><span>Every step points somewhere useful.</span></div>
+    </section>
   </section>
 
   <section id="feedback" class="page info-page">
-    <section class="info-section"><div class="info-index">04</div><div><div class="eyebrow">FEEDBACK / INQUIRIES</div><h1>Help improve the planner.</h1><p>Found something confusing, incomplete, outdated, or incorrect? Feedback from homeowners, builders, designers, and local professionals helps identify where the planning experience needs to improve.</p><div class="feedback-placeholder"><strong>Feedback form coming next.</strong><p>We will connect this page to a real submission form before launch so feedback can be received and reviewed rather than routed to a placeholder address.</p></div></div></section>
+    <section class="feedback-hero">
+      <div class="editorial-index">04</div>
+      <div>
+        <div class="eyebrow">FEEDBACK / INQUIRIES</div>
+        <h1>Help sharpen the planning experience.</h1>
+        <p class="editorial-lede">The useful feedback is specific: a missing requirement, an unclear question, a wrong source, or a step that does not match the way the work actually happens.</p>
+      </div>
+      <div class="feedback-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    </section>
+    <section class="feedback-body">
+      <div class="feedback-note"><strong>Feedback submission</strong><p>The submission form will be connected to a real review workflow before launch. This page intentionally does not use a fake email address or placeholder endpoint.</p></div>
+      <div><div class="eyebrow">WHAT HELPS</div><p>Project type, the step that felt wrong or confusing, what you expected to happen, and a link or source when you have one.</p></div>
+    </section>
   </section>
 </main>
 <footer><span>Home Project Planner</span><span>Newton, Massachusetts · Evidence-backed planning</span></footer>
