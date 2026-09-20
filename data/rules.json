@@ -306,5 +306,179 @@
       "newton-closeout"
     ],
     "reviewRequired": true
+  },
+  {
+    "id": "property.historic-age",
+    "when": "property.yearBuilt < 1976 && project.exteriorConstruction == true",
+    "status": "potentially_required",
+    "title": "Historic review based on building age",
+    "action": "Because the property record indicates a building older than 50 years, confirm the applicable Newton Historical Commission review for exterior alterations before relying on the standard building workflow.",
+    "sourceIds": [
+      "newton-historic",
+      "newton-parcels"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Current exterior photos",
+      "Description of proposed exterior changes"
+    ]
+  },
+  {
+    "id": "property.historic-status",
+    "when": "project.exteriorConstruction == true",
+    "status": "needs_confirmation",
+    "title": "Check for Landmark / Preservation Restriction / other historic status",
+    "action": "Newton's public historic workflow includes Local Landmarks, Preservation Restrictions, and other historic-status checks that are not fully represented by the historic-district GIS layer. Confirm whether any apply to the property.",
+    "sourceIds": [
+      "newton-historic"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Assessor/historic status confirmation"
+    ]
+  },
+  {
+    "id": "project.energy",
+    "when": "project.buildingWork == true",
+    "status": "potentially_required",
+    "title": "Energy-code review",
+    "action": "Determine the applicable Massachusetts/Newton energy-code pathway and whether the project triggers HERS, ventilation, electrification, or other energy documentation.",
+    "sourceIds": [
+      "newton-energy-code",
+      "ma-building-code"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Energy-code compliance information",
+      "HERS documentation if applicable"
+    ]
+  },
+  {
+    "id": "project.engineering",
+    "when": "project.expansion == true || project.siteWork == true || project.structuralChanges == true",
+    "status": "potentially_required",
+    "title": "Engineering review",
+    "action": "Confirm whether Newton Engineering review, stamped plans, survey information, or site/utility documentation applies to the proposed work.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Registered-land-surveyor survey if required",
+      "Site/grade information",
+      "Engineering plans if required"
+    ]
+  },
+  {
+    "id": "project.water-sewer",
+    "when": "project.guttingMoreThanHalf == true || project.addedAreaOver1000 == true",
+    "status": "potentially_required",
+    "title": "Water and sewer review",
+    "action": "Newton's building materials identify additional water/sewer requirements for certain older dwellings, projects gutting more than 50%, or increases over 1,000 square feet. Confirm the Engineering Department policy for this project.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Existing building age information",
+      "Existing/proposed floor area",
+      "Water/sewer scope"
+    ]
+  },
+  {
+    "id": "project.water-sewer-uncertain",
+    "when": "project.guttingUncertain == true || project.addedAreaUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Water and sewer scope needs clarification",
+    "action": "Confirm the extent of gutting and/or added floor area because those facts can change the water/sewer review.",
+    "sourceIds": [
+      "newton-building-checklist"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Estimate of percentage of structure being gutted",
+      "Proposed added floor area"
+    ]
+  },
+  {
+    "id": "project.condo",
+    "when": "project.condo == true",
+    "status": "potentially_required",
+    "title": "Condominium documentation",
+    "action": "Newton's building checklist identifies condominium notification when applicable. Separately confirm any association approval or shared-building requirements before construction.",
+    "sourceIds": [
+      "newton-building-checklist"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Condominium notification/association approval if applicable"
+    ]
+  },
+  {
+    "id": "project.demolition",
+    "when": "project.demolition == true",
+    "status": "potentially_required",
+    "title": "Demolition / removal review",
+    "action": "Confirm whether the removed work requires demolition-related review or a separate demolition permit, especially for structures or partial demolition.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-historic"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Demolition description",
+      "Existing-condition photos",
+      "Demolition plans if applicable"
+    ]
+  },
+  {
+    "id": "project.final-docs",
+    "when": "project.buildingWork == true",
+    "status": "potentially_required",
+    "title": "Final as-built and signoff documentation",
+    "action": "Plan for final documentation and applicable departmental signoffs. Newton's residential final checklist includes trade signoffs and, when applicable, engineering, fire, planning, conservation, historic, tree, FAR, HERS, and as-built information.",
+    "sourceIds": [
+      "newton-final-checklist",
+      "newton-closeout"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Final inspection records",
+      "Applicable trade signoffs",
+      "As-built information if required"
+    ]
+  },
+  {
+    "id": "project.newgov",
+    "when": "project.buildingWork == true",
+    "status": "required",
+    "title": "Use the current Newton application portal",
+    "action": "Use Newton's current NewGov workflow for applicable planning/building applications and track communications there.",
+    "sourceIds": [
+      "newton-newgov"
+    ],
+    "reviewRequired": false,
+    "preparation": [
+      "Create/maintain NewGov application account"
+    ]
+  },
+  {
+    "id": "project.site-work-uncertain",
+    "when": "project.siteWorkUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Site work needs clarification",
+    "action": "Clarify whether grading, excavation, retaining walls, drainage, or other work outside the building footprint is planned because it can trigger additional site review.",
+    "sourceIds": [
+      "newton-conservation",
+      "newton-tree",
+      "newton-building-checklist"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Site plan",
+      "Existing/proposed grades if applicable"
+    ]
   }
 ]
