@@ -847,7 +847,7 @@ function renderQuestionCard({animate=false} = {}) {
 
   $('nextQuestion').onclick = () => {
     if (!saveClusterValues(cluster)) {
-      $('questionHint').textContent='Complete the questions shown above, or use “I\\'m not sure” to open a clarification.';
+      $('questionHint').textContent=`Complete the questions shown above, or use “I'm not sure” to open a clarification.`;
       $('questionHint').classList.add('validation');
       return;
     }
