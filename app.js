@@ -526,8 +526,9 @@ function renderResult(plan) {
     if (!cb.checked) {
       item?.classList.remove('collapsing','collapsed');
     } else {
-      item?.classList.add('collapsing');
-      setTimeout(() => item?.classList.add('collapsed'), 430);
+      // Let the checkmark and strike-through land first, then collapse the supporting guidance.
+      setTimeout(() => item?.classList.add('collapsing'), 260);
+      setTimeout(() => item?.classList.add('collapsed'), 760);
     }
     updateCompletion(plan);
   });
