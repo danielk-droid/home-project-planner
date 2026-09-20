@@ -24,8 +24,18 @@ function navigate(page) {
   });
   if (target === 'plan') {
     $('home').classList.remove('page-active');
+    $('about')?.classList.remove('page-active');
+    $('mission')?.classList.remove('page-active');
+    $('feedback')?.classList.remove('page-active');
     $('plan').classList.add('page-active');
     document.body.classList.remove('focus-mode');
+    if (!$('questions')?.classList.contains('hidden') || !$('result')?.classList.contains('hidden')) {
+      if (!property) {
+        $('questions')?.classList.add('hidden');
+        $('result')?.classList.add('hidden');
+        document.querySelector('.planner-shell')?.classList.remove('hidden');
+      }
+    }
     window.scrollTo({top:0,behavior:'smooth'});
   } else {
     document.body.classList.remove('focus-mode');
@@ -109,6 +119,7 @@ function resumeSavedProject(key) {
     questionIndex = 0;
     editingFromReview = false;
     history.pushState(null,'','#plan');
+    navigate('plan');
     renderResult(buildPlan(type, property, answers), {resume:true, saved});
   } catch {
     renderSavedProjects();
