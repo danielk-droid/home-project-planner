@@ -243,7 +243,7 @@ function renderQuestions() {
   $('plan').classList.add('page-active');
   const q = $('questions');
   q.classList.remove('hidden');
-  q.innerHTML = propertyHeader() + '<div id="questionCard"></div>';
+  q.innerHTML = propertyHeader() + '<div id="questionCard"></div>' + propertyEvidenceBlock(property);
   renderQuestionCard();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -251,8 +251,23 @@ function renderQuestions() {
 function propertyHeader() {
   return `<div class="eyebrow">PROPERTY FOUND</div>
     <h2>${escape(property.resolvedAddress)}</h2>
-    <div class="facts compact-facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b><strong>${escape(String(x.value))}</strong></span>`).join('')}</div>
     <div class="notice"><b>We ask only what can change the plan.</b> If you do not know an answer, choose “I'm not sure.” We will ask clarifying questions instead of making you guess.</div>`;
+}
+
+function propertyEvidenceBlock(property) {
+  const visible = (property.evidence || []).filter(item => {
+    const value = item?.value;
+    return value !== null && value !== undefined && value !== '' &&
+      !/^none returned/i.test(String(value)) &&
+      !/^not returned/i.test(String(value)) &&
+      !/^not resolved/i.test(String(value)) &&
+      !/^no mapped signal/i.test(String(value));
+  });
+  if (!visible.length) return '';
+  return `<section class="property-evidence-below">
+    <div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property facts</h2></div><span class="small">Official Newton GIS context</span></div>
+    <div class="facts compact-facts">${visible.map(x => `<span><b>${escape(x.label)}</b><strong>${escape(String(x.value))}</strong></span>`).join('')}</div>
+  </section>`;
 }
 
 function renderQuestionCard() {
@@ -275,6 +290,7 @@ function renderQuestionCard() {
       <div class="question-actions">
         <button type="button" id="backQuestion" class="secondary" ${questionIndex === 0 ? 'disabled' : ''}>Back</button>
         ${editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : ''}
+        ${q.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(q.skipLabel || 'Skip for now') + '</button>' : ''}
         <button type="button" id="nextQuestion">${questionIndex === all.length - 1 ? 'Review my answers' : 'Continue'}</button>
       </div>
     </div>`;
@@ -297,6 +313,18 @@ function renderQuestionCard() {
       renderReview(getQuestions(type, answers));
     };
   }
+  $('skipQuestion')?.addEventListener('click', () => {
+    answers[q.id] = null;
+    const visibleIds = new Set(getQuestions(type, answers).map(x => x.id));
+    for (const key of Object.keys(answers)) {
+      if (!visibleIds.has(key)) delete answers[key];
+    }
+    const nextAll = getQuestions(type, answers);
+    questionIndex++;
+    if (questionIndex >= nextAll.length) questionIndex = nextAll.length;
+    renderQuestionCard();
+  });
+
   $('nextQuestion').onclick = () => {
     const value = readQuestionValue(q);
     if (value === undefined) {
@@ -370,6 +398,7 @@ function formatAnswer(q, value) {
   if (value === 'yes') return 'Yes';
   if (value === 'no') return 'No';
   if (value === 'unsure') return "I'm not sure";
+  if (value === null) return q.optional ? 'Skipped for now' : 'Not provided';
   if (value == null) return 'Not provided';
   return q.unit ? `${value} ${q.unit}` : String(value);
 }
@@ -446,11 +475,8 @@ function renderResult(plan) {
   const r = $('result');
   r.classList.remove('hidden');
   const savedKey = projectSaveKey();
-  const saved = JSON.parse(localStorage.getItem(savedKey) || 'null');
-  plan.steps = plan.steps.map((x, i) => ({
-    ...x,
-    status: saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
-  }));
+  plan.steps = plan.steps.map(x => ({...x, status:'not_started'}));
+  checklistWasComplete = false;
   localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
@@ -479,9 +505,19 @@ function renderResult(plan) {
   document.querySelectorAll('[data-step]').forEach(cb => cb.onchange = () => {
     const current = JSON.parse(localStorage.getItem(savedKey) || '{}');
     current.steps = current.steps || plan.steps;
-    current.steps[Number(cb.dataset.step)].status = cb.checked ? 'complete' : 'not_started';
+    const index = Number(cb.dataset.step);
+    current.steps[index].status = cb.checked ? 'complete' : 'not_started';
     current.updatedAt = new Date().toISOString();
     localStorage.setItem(savedKey, JSON.stringify(current));
+
+    const item = cb.closest('.step-item');
+    item?.classList.toggle('completed', cb.checked);
+    if (!cb.checked) {
+      item?.classList.remove('collapsing','collapsed');
+    } else {
+      item?.classList.add('collapsing');
+      setTimeout(() => item?.classList.add('collapsed'), 430);
+    }
     updateCompletion(plan);
   });
 
@@ -513,9 +549,9 @@ function checklistSection(plan) {
     <ol class="steps">${plan.steps.map((s,i) => {
       const g = stepGuidance[s.id] || stepGuidance.scope;
       const url = sourceById(g.sourceId);
-      return `<li class="step-item"><label class="stepcheck"><input data-step="${i}" type="checkbox" ${s.status === 'complete' ? 'checked' : ''}> <b>${i+1}. ${escape(s.title)}</b></label>
-        <span class="step-depends">Depends on: ${s.dependsOn.length ? s.dependsOn.join(', ') : 'project scope'}</span>
-        <div class="step-guidance"><div class="step-guidance-label">HOW TO COMPLETE THIS STEP</div><p>${escape(g.description)}</p><p class="step-where"><strong>Where to go:</strong> ${escape(g.where)}</p>${url ? '<a class="guidance-button" href="' + escape(url) + '" target="_blank" rel="noreferrer">Open official guidance ↗</a>' : ''}</div>
+      return `<li class="step-item"><label class="stepcheck"><input data-step="${i}" type="checkbox"> <b>${i+1}. ${escape(s.title)}</b></label>
+        <div class="step-extra"><span class="step-depends">Depends on: ${s.dependsOn.length ? s.dependsOn.join(', ') : 'project scope'}</span>
+        <div class="step-guidance"><div class="step-guidance-label">HOW TO COMPLETE THIS STEP</div><p>${escape(g.description)}</p><p class="step-where"><strong>Where to go:</strong> ${escape(g.where)}</p>${url ? '<a class="guidance-button" href="' + escape(url) + '" target="_blank" rel="noreferrer">Open official guidance ↗</a>' : ''}</div></div>
       </li>`;
     }).join('')}</ol>
   </section>`;
