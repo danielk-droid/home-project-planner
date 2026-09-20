@@ -177,7 +177,7 @@ export async function resolveProperty(addressInput) {
       {label:'Parcel',value:p.MAP_PAR_ID || 'Not returned',source:'newton-parcels'},
       {label:'Zoning',value:zoningAttrs.Zoning || p.Zoning || 'Not resolved',source:'newton-zoning'},
       {label:'Year built',value:p.Year_Built ?? 'Not returned',source:'newton-parcels'},
-      {label:'Lot size',value:p.Lot_Size ?? 'Not returned',source:'newton-parcels'},
+      {label:'Lot size',value:p.Lot_Size == null ? 'Not returned' : Number(p.Lot_Size).toLocaleString() + ' sq ft',source:'newton-parcels'},
       {label:'Historic district',value:historicAttrs.Name || 'None returned by layer',source:'newton-historic-districts'},
       {label:'Floodplain',value:floodAttrs.Name || 'None returned by layer',source:'newton-floodplain'},
       {label:'Wetlands',value:wetlandAttrs.Name || 'None returned by layer',source:'newton-wetlands'},
