@@ -178,5 +178,23 @@
     "authority": "official_guidance",
     "lastVerified": "2026-09-19",
     "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-wetlands",
+    "title": "Wetlands GIS Layer",
+    "publisher": "City of Newton GIS",
+    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/27",
+    "authority": "official_data",
+    "lastVerified": "2026-09-19",
+    "sourceType": "official_gis"
+  },
+  {
+    "id": "newton-streams",
+    "title": "Streams GIS Layer",
+    "publisher": "City of Newton GIS",
+    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/16",
+    "authority": "official_data",
+    "lastVerified": "2026-09-19",
+    "sourceType": "official_gis"
   }
 ]
