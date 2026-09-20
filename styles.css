@@ -990,7 +990,7 @@ footer{
 .feedback-bubble-shape span{font-size:48px;line-height:1;color:var(--olive-dark);font-weight:500}.feedback-bubble-lines{position:absolute;right:14%;bottom:25%;display:grid;gap:7px}.feedback-bubble-lines i{display:block;width:40px;height:2px;background:var(--olive)}
 
 /* Saved project actions */
-.resume-delete{position:absolute;right:12px;bottom:10px;width:28px;height:28px;padding:0;border:1px solid #d9aaa3;background:#fff1ef;color:#a33b30;border-radius:4px;display:grid;place-items:center;font-size:15px;line-height:1;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+ .resume-open-label{display:block;font-style:normal;margin-top:9px;color:var(--olive-dark);font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}.resume-delete{position:absolute;right:12px;bottom:10px;width:28px;height:28px;padding:0;border:1px solid #d9aaa3;background:#fff1ef;color:#a33b30;border-radius:4px;display:grid;place-items:center;font-size:15px;line-height:1;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}.resume-delete svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .resume-delete:hover{background:#f7d9d5;border-color:#c97a70;color:#8f2f26;transform:translateY(-1px)}
 .resume-card{position:relative;padding-right:48px}
 .resume-card .resume-open{padding-right:0}
