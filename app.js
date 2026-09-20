@@ -752,7 +752,7 @@ function renderQuestionCard({animate=false} = {}) {
   const progress = Math.round((questionIndex / all.length) * 100);
   const controls = cluster.map((q,i) => {
     const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
-    return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '>' +
+    return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '">' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
       '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
       '<h1>' + escape(q.text) + '</h1>' +
@@ -763,7 +763,7 @@ function renderQuestionCard({animate=false} = {}) {
 
   const clusterComplete = cluster.every(q => {
     const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
-    return current !== undefined;
+    return questionValueComplete(q, current);
   });
   const reachesEnd = questionIndex + cluster.length >= all.length;
   const actionLabel = reachesEnd && clusterComplete ? 'Review my answers' : 'Continue';
@@ -845,6 +845,26 @@ function renderQuestionCard({animate=false} = {}) {
     renderQuestionCard({animate:true});
   };
 }
+function questionValueComplete(q, value) {
+  if (q.kind === 'multi') return Array.isArray(value) && value.length > 0;
+  return value !== undefined;
+}
+
+function saveClusterValues(cluster) {
+  for (const q of cluster) {
+    const value = readQuestionValue(q);
+    if (!questionValueComplete(q, value)) return false;
+    if (q.id.startsWith('__clarifier_')) {
+      clarifierState[q.id] = value;
+      applyClarificationInference(q, value);
+    } else {
+      answers[q.id] = value;
+    }
+  }
+  cleanupHiddenAnswers();
+  return true;
+}
+
 function choiceControl(q,current,name) {
   const values = q.kind === 'multi' ? (Array.isArray(current) ? current : []) : [current];
   const inputType = q.kind === 'multi' ? 'checkbox' : 'radio';
