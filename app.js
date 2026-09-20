@@ -112,8 +112,9 @@ function renderSavedProjects() {
             '<b>' + escape(projectLabel(p.type)) + '</b>' +
             '<strong>' + escape(p.property.resolvedAddress) + '</strong>' +
             '<small>' + completed + ' / ' + total + ' steps complete · saved ' + formatSavedDate(p.updatedAt) + '</small>' +
+          '<em class="resume-open-label">Open →</em>' +
           '</button>' +
-          '<button type="button" class="resume-delete" data-delete-key="' + escape(key) + '" aria-label="Delete saved project" title="Delete saved project">⌫</button>' +
+          '<button type="button" class="resume-delete" data-delete-key="' + escape(key) + '" aria-label="Delete saved project" title="Delete saved project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8v10M12 8v10M16 8v10M5 5h14M9 5l1-2h4l1 2M6 5l1 16h10l1-16"/></svg></button>' +
         '</div>';
       }).join('')}</div>` : '<div class="resume-empty"><strong>No projects saved yet.</strong><span>Your first generated plan will appear here.</span></div>'}
     </div>`;
