@@ -572,19 +572,43 @@ function questionWhy(q) {
 }
 function clarifierFor(q, depth) {
   const specific = {
-    structuralChanges:[['What part of the structure are you least certain about?',[['wall','Walls or partitions'],['framing','Framing, beams, or columns'],['foundation','Foundation or below-grade structure'],['unsure','I\'m still not sure']]],['What are you trying to determine?',[['need','Whether structural work is needed'],['scope','How much structural work is involved'],['professional','Whether you need a structural professional'],['unsure','I\'m still not sure']]]],
-    electricalWork:[['What are you least certain about?',[['circuits','Wiring or circuits'],['service','Electrical service or panel'],['fixtures','Fixtures, outlets, or lighting'],['unsure','I\'m still not sure']]],['Which part needs clarification?',[['existing','Whether existing wiring is affected'],['new','Whether new wiring is needed'],['scope','How extensive the electrical work is'],['unsure','I\'m still not sure']]]],
-    plumbingWork:[['What are you least certain about?',[['fixtures','Fixtures or appliances'],['pipes','Pipes or supply/drain lines'],['layout','Moving plumbing locations'],['unsure','I\'m still not sure']]],['Which part needs clarification?',[['existing','Whether existing plumbing is affected'],['new','Whether new plumbing is needed'],['scope','How extensive the plumbing work is'],['unsure','I\'m still not sure']]]],
-    gasWork:[['What are you least certain about?',[['equipment','Gas equipment or appliance'],['piping','Gas piping'],['new','Adding new gas service or equipment'],['unsure','I\'m still not sure']]],['Which part needs clarification?',[['existing','Whether existing gas work is affected'],['new','Whether new gas work is needed'],['scope','How extensive the gas work is'],['unsure','I\'m still not sure']]]],
-    exteriorChange:[['What kind of outside change might be involved?',[['openings','Windows or doors'],['structure','Deck, porch, addition, or structure'],['envelope','Roof, siding, or exterior finish'],['site','Ground, trees, drainage, or paving'],['unsure','I\'m still not sure']]],['Which part are you least certain about?',[['building','The building itself'],['site','The surrounding property'],['historic','Whether special exterior review applies'],['unsure','I\'m still not sure']]]],
-    siteWork:[['What kind of site work might be involved?',[['grading','Grading or excavation'],['drainage','Drainage or stormwater'],['trees','Trees or landscaping'],['paving','Driveway, parking, or paving'],['unsure','I\'m still not sure']]],['Which part are you least certain about?',[['scope','Whether the work is substantial'],['location','Exactly where the work will occur'],['tree','Whether trees are affected'],['unsure','I\'m still not sure']]]],
-    windowsOrDoors:[['What are you considering changing?',[['window','Windows'],['door','Exterior doors'],['both','Windows and doors'],['unsure','I\'m still not sure']]],
-    demolition:[['What might be removed?',[['interior','Interior walls or finishes'],['exterior','Exterior elements'],['structure','Structural parts'],['unsure','I\'m still not sure']]],
-    condo:[['What are you unsure about?',[['ownership','Whether the property is shared ownership'],['approval','Whether an association approval is needed'],['unsure','I\'m still not sure']]],
+    structuralChanges: [
+      {text:'What part of the structure are you least certain about?', options:[['wall','Walls or partitions'],['framing','Framing, beams, or columns'],['foundation','Foundation or below-grade structure'],['unsure',"I'm still not sure"]]},
+      {text:'What are you trying to determine?', options:[['need','Whether structural work is needed'],['scope','How much structural work is involved'],['professional','Whether you need a structural professional'],['unsure',"I'm still not sure"]]}
+    ],
+    electricalWork: [
+      {text:'What are you least certain about?', options:[['circuits','Wiring or circuits'],['service','Electrical service or panel'],['fixtures','Fixtures, outlets, or lighting'],['unsure',"I'm still not sure"]]},
+      {text:'Which part needs clarification?', options:[['existing','Whether existing wiring is affected'],['new','Whether new wiring is needed'],['scope','How extensive the electrical work is'],['unsure',"I'm still not sure"]]}
+    ],
+    plumbingWork: [
+      {text:'What are you least certain about?', options:[['fixtures','Fixtures or appliances'],['pipes','Pipes or supply/drain lines'],['layout','Moving plumbing locations'],['unsure',"I'm still not sure"]]},
+      {text:'Which part needs clarification?', options:[['existing','Whether existing plumbing is affected'],['new','Whether new plumbing is needed'],['scope','How extensive the plumbing work is'],['unsure',"I'm still not sure"]]}
+    ],
+    gasWork: [
+      {text:'What are you least certain about?', options:[['equipment','Gas equipment or appliance'],['piping','Gas piping'],['new','Adding new gas service or equipment'],['unsure',"I'm still not sure"]]},
+      {text:'Which part needs clarification?', options:[['existing','Whether existing gas work is affected'],['new','Whether new gas work is needed'],['scope','How extensive the gas work is'],['unsure',"I'm still not sure"]]}
+    ],
+    exteriorChange: [
+      {text:'What kind of outside change might be involved?', options:[['openings','Windows or doors'],['structure','Deck, porch, addition, or structure'],['envelope','Roof, siding, or exterior finish'],['site','Ground, trees, drainage, or paving'],['unsure',"I'm still not sure"]]},
+      {text:'Which part are you least certain about?', options:[['building','The building itself'],['site','The surrounding property'],['historic','Whether special exterior review applies'],['unsure',"I'm still not sure"]]}
+    ],
+    siteWork: [
+      {text:'What kind of site work might be involved?', options:[['grading','Grading or excavation'],['drainage','Drainage or stormwater'],['trees','Trees or landscaping'],['paving','Driveway, parking, or paving'],['unsure',"I'm still not sure"]]},
+      {text:'Which part are you least certain about?', options:[['scope','Whether the work is substantial'],['location','Exactly where the work will occur'],['tree','Whether trees are affected'],['unsure',"I'm still not sure"]]}
+    ],
+    windowsOrDoors: [
+      {text:'What are you considering changing?', options:[['window','Windows'],['door','Exterior doors'],['both','Windows and doors'],['unsure',"I'm still not sure"]]}
+    ],
+    demolition: [
+      {text:'What might be removed?', options:[['interior','Interior walls or finishes'],['exterior','Exterior elements'],['structure','Structural parts'],['unsure',"I'm still not sure"]]}
+    ],
+    condo: [
+      {text:'What are you unsure about?', options:[['ownership','Whether the property is shared ownership'],['approval','Whether an association approval is needed'],['unsure',"I'm still not sure"]]}
+    ]
   };
-  const entry = specific[q.id]?.[Math.min(depth-1, (specific[q.id]?.length || 1)-1)];
-  if (entry) return {id:'__clarifier_'+q.id+'_'+depth,text:entry[0],kind:'choice',options:entry[1],why:'This narrows the uncertainty without requiring you to know the technical terminology.'};
-  return {id:'__clarifier_'+q.id+'_'+depth,text:depth===1?'Which part of this are you least certain about?':'What would you need to know to answer the original question?',kind:'choice',options:[['scope','What work is involved'],['need','Whether the work is needed'],['extent','How much work is involved'],['unsure','I\'m still not sure']],why:'This helps narrow the uncertainty while keeping the original answer marked as uncertain.'};
+  const entry = specific[q.id]?.[Math.min(depth - 1, (specific[q.id]?.length || 1) - 1)];
+  if (entry) return {id:'__clarifier_' + q.id + '_' + depth, text:entry.text, kind:'choice', options:entry.options, why:'This narrows the uncertainty without requiring you to know the technical terminology.'};
+  return {id:'__clarifier_' + q.id + '_' + depth, text:depth === 1 ? 'Which part of this are you least certain about?' : 'What would you need to know to answer the original question?', kind:'choice', options:[['scope','What work is involved'],['need','Whether the work is needed'],['extent','How much work is involved'],['unsure',"I'm still not sure"]], why:'This helps narrow the uncertainty while keeping the original answer marked as uncertain.'};
 }
 function questionCluster(all, index) {
   const root = all[index];
