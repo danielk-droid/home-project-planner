@@ -132,14 +132,15 @@ label{display:block;font-weight:700;margin:30px 0 0}label>input,label>select,lab
   padding-top:0;
   border-top:0;
 }
-.step-extra{
+ .step-extra{
   grid-column:2;
   max-height:520px;
   overflow:hidden;
   opacity:1;
   transform:translateY(0);
   transform-origin:top;
-  transition:max-height .52s cubic-bezier(.22,.61,.36,1),opacity .28s ease,transform .52s cubic-bezier(.22,.61,.36,1),margin .52s cubic-bezier(.22,.61,.36,1);
+  transition:max-height .34s cubic-bezier(.22,.61,.36,1),opacity .18s ease,transform .34s cubic-bezier(.22,.61,.36,1),margin .34s cubic-bezier(.22,.61,.36,1);
+  will-change:max-height,opacity,transform;
 }
 .step-item.collapsing .step-extra{
   opacity:0;
@@ -933,4 +934,73 @@ footer{
   .footer-meta span{display:block;margin-top:6px}
   .footer-meta span+span:before{display:none}
   .plan-choice-card{padding:23px 20px}
+}
+
+
+/* Inline question clarification */
+.question-stack{display:grid;gap:0}
+.inline-question{padding:4px 0 8px}
+.inline-question.clarifier-question{margin-top:20px;padding:24px 0 8px 22px;border-left:2px solid #cbd2c3;position:relative;animation:clarifierIn .24s cubic-bezier(.22,.61,.36,1) both}
+.clarifier-connector{position:absolute;left:-2px;top:0;width:18px;height:22px;border-left:2px solid #cbd2c3;border-bottom:2px solid #cbd2c3;border-bottom-left-radius:8px}
+.inline-question h1{margin-bottom:14px}
+.question-why{margin:10px 0 0;max-width:760px;font-size:11px;line-height:1.55;color:var(--muted)}
+.question-why b{color:var(--ink);font-weight:800}
+@keyframes clarifierIn{from{opacity:0;transform:translateY(-6px);max-height:0}to{opacity:1;transform:none;max-height:800px}}
+
+/* Guided button tap */
+.button-echo{position:fixed;z-index:9997;pointer-events:none;border:1px solid rgba(169,194,151,.7);background:rgba(184,211,163,.12);box-shadow:0 0 0 1px rgba(184,211,163,.16) inset;animation:buttonEcho .78s cubic-bezier(.18,.72,.24,1) forwards;border-radius:6px}
+@keyframes buttonEcho{0%{opacity:.85;transform:scale(.72)}55%{opacity:.42;transform:scale(1.16)}100%{opacity:0;transform:scale(1.42)}}
+
+/* Broader project catalog */
+.project-catalog{margin-top:18px;border-top:1px solid var(--line);padding-top:24px}
+.catalog-heading{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:end;margin-bottom:18px}
+.catalog-heading h3{font-size:25px;letter-spacing:-.03em;margin:4px 0 6px}
+.catalog-heading input{margin:0}
+.catalog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.catalog-category{border:1px solid var(--line);background:var(--paper)}
+.catalog-category summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:15px;padding:15px 16px;font-size:12px}
+.catalog-category summary::-webkit-details-marker{display:none}
+.catalog-category summary span{color:var(--muted);font-size:10px}
+.catalog-category>div{border-top:1px solid var(--line);padding:6px}
+.catalog-item{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;border:0;border-bottom:1px solid #e4e3dc;background:transparent;padding:10px;color:var(--ink);cursor:pointer;font:inherit;font-size:11px}
+.catalog-item:last-child{border-bottom:0}
+.catalog-item:hover{background:var(--olive-soft);color:var(--olive-dark)}
+.catalog-item span{color:var(--muted)}
+.simple-art{display:grid;place-items:center;background:linear-gradient(135deg,#e7e8df,#d5d9cc);color:var(--olive-dark);font-size:32px;letter-spacing:-.06em}
+.compact-project-card h3{max-width:270px}
+
+/* Expanded homepage explanation */
+.home-how-tech{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:60px;padding:110px 34px 120px;border-top:1px solid var(--line);background:#f0efe8}
+.how-tech-copy h2{font-size:clamp(36px,4vw,58px);line-height:.98;letter-spacing:-.055em;margin:8px 0 15px;max-width:700px}
+.how-tech-copy>p{max-width:690px;color:var(--muted);line-height:1.7;font-size:14px}
+.how-tech-points{margin-top:34px;border-top:1px solid var(--line)}
+.how-tech-points article{display:grid;grid-template-columns:42px 1fr;gap:15px;padding:17px 0;border-bottom:1px solid var(--line)}
+.how-tech-points article>span{font-size:10px;color:var(--olive);font-weight:900;letter-spacing:.1em}
+.how-tech-points b{display:block;font-size:13px}
+.how-tech-points small{display:block;color:var(--muted);font-size:11px;line-height:1.55;margin-top:4px;max-width:680px}
+.how-tech-graphic{align-self:center;border:1px solid #c8cbbf;background:#e4e6dd;min-height:280px;padding:30px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;color:var(--olive-dark)}
+.how-tech-graphic>div{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.12em;font-weight:850}.how-tech-graphic i{font-style:normal;color:var(--muted)}
+.how-tech-graphic strong{font-size:10px;letter-spacing:.16em;border:1px solid #aeb7a5;padding:10px 26px}.how-tech-graphic b{font-size:22px;font-weight:400}.how-tech-graphic em{font-style:normal;font-size:12px;letter-spacing:.16em;background:var(--olive-dark);color:#f1f2eb;padding:13px 30px}
+
+/* Simpler feedback graphic */
+.feedback-bubble{display:flex;align-items:center;justify-content:center;min-height:280px;position:relative}
+.feedback-bubble-shape{width:190px;height:140px;border:2px solid var(--olive-dark);background:#e7e9df;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:18px;position:relative;box-shadow:14px 14px 0 #d4d8cb}
+.feedback-bubble-shape:after{content:"";position:absolute;left:28px;bottom:-25px;border-width:25px 28px 0 0;border-style:solid;border-color:var(--olive-dark) transparent transparent transparent;transform:skewX(-12deg)}
+.feedback-bubble-shape:before{content:"";position:absolute;left:31px;bottom:-20px;border-width:20px 23px 0 0;border-style:solid;border-color:#e7e9df transparent transparent transparent;transform:skewX(-12deg);z-index:1}
+.feedback-bubble-shape span{font-size:48px;line-height:1;color:var(--olive-dark);font-weight:500}.feedback-bubble-lines{position:absolute;right:14%;bottom:25%;display:grid;gap:7px}.feedback-bubble-lines i{display:block;width:40px;height:2px;background:var(--olive)}
+
+/* Saved project actions */
+.resume-delete{position:absolute;right:12px;bottom:10px;width:28px;height:28px;padding:0;border:1px solid #d9aaa3;background:#fff1ef;color:#a33b30;border-radius:4px;display:grid;place-items:center;font-size:15px;line-height:1;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+.resume-delete:hover{background:#f7d9d5;border-color:#c97a70;color:#8f2f26;transform:translateY(-1px)}
+.resume-card{position:relative;padding-right:48px}
+.resume-card .resume-open{padding-right:0}
+
+@media(max-width:850px){
+  .catalog-grid,.home-how-tech{grid-template-columns:1fr}
+  .catalog-heading{grid-template-columns:1fr}
+  .how-tech-graphic{min-height:220px}
+}
+@media(max-width:500px){
+  .catalog-grid{grid-template-columns:1fr}
+  .inline-question.clarifier-question{padding-left:14px}
 }
