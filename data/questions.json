@@ -51,16 +51,6 @@
         "id": "egressType",
         "text": "How will the sleeping room have emergency escape/rescue access?",
         "kind": "choice",
-        "showWhen": [
-          [
-            "sleepingRoomAdded",
-            "yes"
-          ],
-          [
-            "sleepingUse",
-            "sleeping"
-          ]
-        ],
         "options": [
           [
             "window",
@@ -82,13 +72,37 @@
             "unsure",
             "I'm not sure"
           ]
+        ],
+        "showWhenAny": [
+          [
+            "sleepingRoomAdded",
+            "yes"
+          ],
+          [
+            "sleepingUse",
+            "sleeping"
+          ]
         ]
       },
       {
         "id": "egressKnown",
         "text": "Do you know the approximate clear opening dimensions and how the opening relates to grade?",
         "kind": "choice",
-        "showWhen": [
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
           [
             "egressType",
             "window"
@@ -101,7 +115,12 @@
             "egressType",
             "bulkhead"
           ]
-        ],
+        ]
+      },
+      {
+        "id": "egressMeasurements",
+        "text": "Do you have the actual opening/grade measurements available?",
+        "kind": "choice",
         "options": [
           [
             "yes",
@@ -115,13 +134,8 @@
             "unsure",
             "I'm not sure"
           ]
-        ]
-      },
-      {
-        "id": "egressMeasurements",
-        "text": "Do you have the actual opening/grade measurements available?",
-        "kind": "choice",
-        "showWhen": [
+        ],
+        "showWhenAny": [
           [
             "egressKnown",
             "no"
@@ -133,20 +147,6 @@
           [
             "egressType",
             "unsure"
-          ]
-        ],
-        "options": [
-          [
-            "yes",
-            "Yes"
-          ],
-          [
-            "no",
-            "No"
-          ],
-          [
-            "unsure",
-            "I'm not sure"
           ]
         ]
       },
