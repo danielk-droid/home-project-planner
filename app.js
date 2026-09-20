@@ -395,9 +395,9 @@ function renderProjectCatalog() {
     '<div class="catalog-heading"><div><div class="eyebrow">DIFFERENT PROJECT</div><h3>Find the work you are actually doing.</h3><p class="small">Choose from broader categories, then pick the closest description.</p>' +
     (selected ? '<div class="catalog-selected">Selected: <b>' + escape(selected.label) + '</b></div>' : '') +
     '</div><input id="catalogSearch" type="search" placeholder="Search projects…" aria-label="Search projects"></div><div class="catalog-grid">' +
-    all.map(c => '<details class="catalog-category" open><summary><b>' + escape(c.label) + '</b><span>' + c.items.length + ' options</span></summary><div>' +
+    all.map(c => '<section class="catalog-category"><div class="catalog-category-header"><b>' + escape(c.label) + '</b><span>' + c.items.length + ' options</span></div><div>' +
       c.items.map((label,i) => '<button type="button" class="catalog-item ' + (selectedCatalogId === c.id + '-' + i ? 'selected' : '') + '" data-catalog-id="' + escape(c.id + '-' + i) + '">' + escape(label) + '<span>→</span></button>').join('') +
-    '</div></details>').join('') + '</div>';
+    '</div></section>').join('') + '</div>';
   root.querySelectorAll('.catalog-item').forEach(btn => btn.onclick = () => setCatalogSelection(btn.dataset.catalogId));
   $('catalogSearch').oninput = e => {
     const query = e.target.value.trim().toLowerCase();
@@ -409,7 +409,7 @@ function renderProjectCatalog() {
         if (show) visible++;
       });
       cat.classList.toggle('hidden', visible === 0);
-      if (query && visible) cat.open = true;
+      if (query && visible) cat.classList.remove('hidden');
     });
   };
 }
