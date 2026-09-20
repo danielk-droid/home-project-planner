@@ -8,6 +8,8 @@ let questionIndex = 0;
 let editingFromReview = false;
 let selectedCatalogId = null;
 let clarifierState = {};
+let clarificationMeta = {};
+let clarifierQuestionMemory = {};
 
 const pageIds = ['home','about','how','mission','feedback','privacy','terms','plan'];
 const pageIdSet = new Set(pageIds);
@@ -132,7 +134,7 @@ function renderSavedProjects() {
       if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
       localStorage.removeItem(key);
       if (projectSaveKey() === key) {
-        property = null; type = null; answers = {}; selectedCatalogId = null; clarifierState = {}; questionIndex = 0; editingFromReview = false;
+        property = null; type = null; answers = {}; selectedCatalogId = null; clarifierState = {}; clarificationMeta = {}; clarifierQuestionMemory = {}; questionIndex = 0; editingFromReview = false;
       }
       renderSavedProjects();
     });
@@ -722,16 +724,32 @@ function applyClarificationInference(q, value) {
   const inferred = inferClarifiedAnswer(q.parentId, value);
   if (!inferred) return false;
   answers[q.parentId] = inferred;
-  delete clarifierState[q.id];
+  clarificationMeta[q.id] = {
+    parentId:q.parentId,
+    inferredAnswer:inferred,
+    value,
+    questionId:q.id
+  };
   return true;
 }
 function questionCluster(all, index) {
   const root = all[index];
   const cluster = [root];
+  const rememberedMeta = Object.values(clarificationMeta).find(meta => meta.parentId === root.id);
+  if (rememberedMeta) {
+    const source = PROJECTS[type]?.questions?.find(q => q.id === (rememberedMeta.questionId || clarifierQuestionMemory[root.id]));
+    const remembered = source ? {...source} : clarifierFor(root);
+    remembered.parentId = root.id;
+    clarifierQuestionMemory[root.id] = remembered.id;
+    cluster.push(remembered);
+    return cluster;
+  }
+
   let parent = root;
   for (let j=index+1; j<all.length; j++) {
     const candidate = all[j];
     if (!inlineClarifierFor(parent, candidate)) break;
+    clarifierQuestionMemory[root.id] = candidate.id;
     cluster.push({...candidate, parentId:parent.id});
     parent = candidate;
   }
@@ -741,6 +759,7 @@ function questionCluster(all, index) {
   if (cluster.length === 1 && root.kind === 'choice' && answers[root.id] === 'unsure') {
     const synthetic = clarifierFor(root);
     synthetic.parentId = root.id;
+    clarifierQuestionMemory[root.id] = synthetic.id;
     cluster.push(synthetic);
   }
   return cluster;
@@ -753,11 +772,16 @@ function renderQuestionCard({animate=false} = {}) {
   const progress = Math.round((questionIndex / all.length) * 100);
   const controls = cluster.map((q,i) => {
     const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
+    const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
+    const inferenceNotice = i > 0 && q.parentId && clarificationMeta[q.id]
+      ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(clarificationMeta[q.id].inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> Your clarification indicates that this answer is ' + escape(clarificationMeta[q.id].inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
+      : '';
     return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '">' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
       '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
       '<h1>' + escape(q.text) + '</h1>' +
-      (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
+      inferenceNotice +
+      (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
       '</div>';
   }).join('');
@@ -773,6 +797,17 @@ function renderQuestionCard({animate=false} = {}) {
     (editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : '') +
     (cluster[cluster.length-1]?.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(cluster[cluster.length-1].skipLabel || 'Skip') + '</button>' : '') +
     '<button type="button" id="nextQuestion">' + actionLabel + '</button></div></div>';
+
+  card.querySelectorAll('[data-change-clarifier]').forEach(btn => {
+    btn.onclick = () => {
+      const clarifierId = btn.dataset.changeClarifier;
+      const meta = clarificationMeta[clarifierId];
+      if (!meta) return;
+      answers[meta.parentId] = 'unsure';
+      delete clarificationMeta[clarifierId];
+      renderQuestionCard({animate:false});
+    };
+  });
 
   card.querySelectorAll('.inline-question input').forEach(input => {
     input.addEventListener('change', () => {
@@ -811,6 +846,7 @@ function renderQuestionCard({animate=false} = {}) {
       const wasUnsure = answers[q.id] === 'unsure';
       answers[q.id] = input.value;
       Object.keys(clarifierState).filter(k => k.startsWith('__clarifier_' + q.id)).forEach(k => delete clarifierState[k]);
+      Object.keys(clarificationMeta).filter(k => clarificationMeta[k].parentId === q.id).forEach(k => delete clarificationMeta[k]);
       input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
       input.closest('.choice')?.classList.add('selected');
 
@@ -888,12 +924,16 @@ function saveClusterValues(cluster) {
   return true;
 }
 
-function choiceControl(q,current,name) {
+function choiceControl(q,current,name,inferredAnswer = null) {
   const values = q.kind === 'multi' ? (Array.isArray(current) ? current : []) : [current];
   const inputType = q.kind === 'multi' ? 'checkbox' : 'radio';
   const groupName = q.kind === 'multi' ? 'questionMulti-' + name : 'questionChoice-' + name;
   return '<div class="choice-list ' + (q.kind === 'multi' ? 'multi-choice-list' : '') + '">' +
-    q.options.map(([value,label]) => '<label class="choice ' + (values.includes(value) ? 'selected' : '') + '"><input data-question-id="' + escape(name) + '" type="' + inputType + '" name="' + escape(groupName) + '" value="' + escape(value) + '" ' + (values.includes(value) ? 'checked' : '') + '><span>' + escape(label) + '</span></label>').join('') +
+    q.options.map(([value,label]) => {
+      const selected = values.includes(value);
+      const inferred = inferredAnswer && selected;
+      return '<label class="choice ' + (selected ? 'selected ' : '') + (inferred ? 'inferred-choice' : '') + '"><input data-question-id="' + escape(name) + '" type="' + inputType + '" name="' + escape(groupName) + '" value="' + escape(value) + '" ' + (selected ? 'checked' : '') + '><span>' + escape(label) + '</span>' + (inferred ? '<small class="inferred-badge">Inferred</small>' : '') + '</label>';
+    }).join('') +
     '</div>';
 }
 function numberControl(q,current,id) {
