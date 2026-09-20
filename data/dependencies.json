@@ -1,0 +1,9 @@
+[
+ {"id":"property","title":"Confirm property context","dependsOn":[]},
+ {"id":"scope","title":"Confirm project scope","dependsOn":["property"]},
+ {"id":"site","title":"Check site-specific reviews","dependsOn":["property","scope"]},
+ {"id":"applications","title":"Prepare and submit applicable applications","dependsOn":["site"]},
+ {"id":"inspections","title":"Complete required inspections","dependsOn":["applications"]},
+ {"id":"final","title":"Complete final inspection and required signoffs","dependsOn":["inspections"]},
+ {"id":"closeout","title":"Close permits / project","dependsOn":["final"]}
+]
