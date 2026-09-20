@@ -853,7 +853,7 @@ function renderResult(plan, options = {}) {
     renderQuestions();
   };
   $('restart').onclick = () => {
-    property = null; type = null; answers = {}; questionIndex = 0; editingFromReview = false;
+    property = null; type = null; answers = {}; selectedCatalogId = null; questionIndex = 0; editingFromReview = false;
     r.classList.add('hidden'); $('questions').classList.add('hidden');
     document.querySelector('.planner-shell')?.classList.remove('hidden');
     history.pushState(null,'','#plan');
