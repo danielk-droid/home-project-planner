@@ -764,6 +764,10 @@ function questionCluster(all, index) {
   }
   return cluster;
 }
+function clarificationSelectionLabel(q, value) {
+  const values = Array.isArray(value) ? value : [value];
+  return values.map(v => q.options?.find(([optionValue]) => optionValue === v)?.[1] || v).join(', ');
+}
 function renderQuestionCard({animate=false} = {}) {
   const all = getQuestions(type, answers);
   const card = $('questionCard');
@@ -773,15 +777,16 @@ function renderQuestionCard({animate=false} = {}) {
   const controls = cluster.map((q,i) => {
     const current = (q.parentId || q.id.startsWith('__clarifier_')) ? clarifierState[q.id] : answers[q.id];
     const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
-    const inferenceNotice = i > 0 && q.parentId && clarificationMeta[q.id]
-      ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(clarificationMeta[q.id].inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> Your clarification indicates that this answer is ' + escape(clarificationMeta[q.id].inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
+    const meta = q.parentId ? clarificationMeta[q.id] : null;
+    const inferenceNotice = i > 0 && meta
+      ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(meta.inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> You chose “' + escape(clarificationSelectionLabel(q, meta.value)) + '”, so we used that to resolve the original answer.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
       : '';
-    return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '">' +
+    return '<div class="inline-question ' + (i ? 'clarifier-question ' : '') + (meta ? 'clarifier-inferred' : '') + '">' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
       '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
       '<h1>' + escape(q.text) + '</h1>' +
       inferenceNotice +
-      (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
+      (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
       '</div>';
   }).join('');
@@ -924,7 +929,7 @@ function saveClusterValues(cluster) {
   return true;
 }
 
-function choiceControl(q,current,name,inferredAnswer = null) {
+function choiceControl(q,current,name,inferredAnswer = null,lockInferred = false) {
   const values = q.kind === 'multi' ? (Array.isArray(current) ? current : []) : [current];
   const inputType = q.kind === 'multi' ? 'checkbox' : 'radio';
   const groupName = q.kind === 'multi' ? 'questionMulti-' + name : 'questionChoice-' + name;
@@ -932,7 +937,7 @@ function choiceControl(q,current,name,inferredAnswer = null) {
     q.options.map(([value,label]) => {
       const selected = values.includes(value);
       const inferred = inferredAnswer && selected;
-      return '<label class="choice ' + (selected ? 'selected ' : '') + (inferred ? 'inferred-choice' : '') + '"><input data-question-id="' + escape(name) + '" type="' + inputType + '" name="' + escape(groupName) + '" value="' + escape(value) + '" ' + (selected ? 'checked' : '') + '><span>' + escape(label) + '</span>' + (inferred ? '<small class="inferred-badge">Inferred</small>' : '') + '</label>';
+      return '<label class="choice ' + (selected ? 'selected ' : '') + (inferred ? 'inferred-choice' : '') + '"><input data-question-id="' + escape(name) + '" type="' + inputType + '" name="' + escape(groupName) + '" value="' + escape(value) + '" ' + (selected ? 'checked ' : '') + (lockInferred ? 'disabled ' : '') + '><span>' + escape(label) + '</span>' + (inferred ? '<small class="inferred-badge">Inferred</small>' : '') + '</label>';
     }).join('') +
     '</div>';
 }
