@@ -51,6 +51,17 @@ window.addEventListener('popstate', routeFromHash);
 window.addEventListener('hashchange', routeFromHash);
 routeFromHash();
 
+const heroGraphic = document.querySelector('.hero-graphic');
+const heroStart = $('heroStart');
+if (heroGraphic && heroStart) {
+  heroGraphic.classList.add('dot-lesson');
+  setTimeout(() => {
+    heroGraphic.classList.add('dot-clicked');
+    heroStart.classList.add('guided-click');
+    setTimeout(() => heroStart.classList.remove('guided-click'), 850);
+  }, 3600);
+}
+
 function openMobileMenu() {
   $('mobileMenu')?.classList.add('open');
   $('mobileMenu')?.setAttribute('aria-hidden','false');
