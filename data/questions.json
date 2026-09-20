@@ -298,6 +298,115 @@
             "I'm not sure"
           ]
         ]
+      },
+      {
+        "id": "projectDescription",
+        "text": "In one sentence, what are you changing or adding?",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "id": "projectCost",
+        "text": "What is your rough construction cost, if you know it?",
+        "kind": "number",
+        "unit": "USD",
+        "min": 0
+      },
+      {
+        "id": "condo",
+        "text": "Is this property part of a condominium or other shared ownership?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "demolition",
+        "text": "Will any existing walls, rooms, structures, or exterior elements be demolished or substantially removed?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "guttingExtent",
+        "text": "Will the project gut more than half of the existing dwelling or structure?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "basementArea",
+        "text": "Approximately how many square feet of basement area are being finished?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0
+      },
+      {
+        "id": "ceilingHeight",
+        "text": "Approximately how high is the basement ceiling?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0
+      },
+      {
+        "id": "condoApproval",
+        "text": "If this is a condominium, do you know whether the association requires approval?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "condo",
+            "yes"
+          ]
+        ],
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
       }
     ]
   },
@@ -418,6 +527,120 @@
             "I'm not sure"
           ]
         ]
+      },
+      {
+        "id": "projectDescription",
+        "text": "In one sentence, what are you changing or adding?",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "id": "projectCost",
+        "text": "What is your rough construction cost, if you know it?",
+        "kind": "number",
+        "unit": "USD",
+        "min": 0
+      },
+      {
+        "id": "condo",
+        "text": "Is this property part of a condominium or other shared ownership?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "demolition",
+        "text": "Will any existing walls, rooms, structures, or exterior elements be demolished or substantially removed?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "guttingExtent",
+        "text": "Will the project gut more than half of the existing dwelling or structure?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "layoutChange",
+        "text": "Will you change the bathroom layout or remove/add walls?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "condoApproval",
+        "text": "If this is a condominium, do you know whether the association requires approval?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "condo",
+            "yes"
+          ]
+        ],
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
       }
     ]
   },
@@ -499,6 +722,102 @@
       {
         "id": "treeImpact",
         "text": "Could construction affect trees or require work near trees?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "projectDescription",
+        "text": "In one sentence, what are you changing or adding?",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "id": "projectCost",
+        "text": "What is your rough construction cost, if you know it?",
+        "kind": "number",
+        "unit": "USD",
+        "min": 0
+      },
+      {
+        "id": "condo",
+        "text": "Is this property part of a condominium or other shared ownership?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "demolition",
+        "text": "Will any existing walls, rooms, structures, or exterior elements be demolished or substantially removed?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "guttingExtent",
+        "text": "Will the project gut more than half of the existing dwelling or structure?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "setbackConstraint",
+        "text": "Do you know the deck's approximate distance from the nearest property line?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0
+      },
+      {
+        "id": "stairsOrGuard",
+        "text": "Will the deck include new stairs, guards, or railings?",
         "kind": "choice",
         "options": [
           [
@@ -667,6 +986,102 @@
             "I'm not sure"
           ]
         ]
+      },
+      {
+        "id": "projectDescription",
+        "text": "In one sentence, what are you changing or adding?",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "id": "projectCost",
+        "text": "What is your rough construction cost, if you know it?",
+        "kind": "number",
+        "unit": "USD",
+        "min": 0
+      },
+      {
+        "id": "condo",
+        "text": "Is this property part of a condominium or other shared ownership?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "demolition",
+        "text": "Will any existing walls, rooms, structures, or exterior elements be demolished or substantially removed?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "guttingExtent",
+        "text": "Will the project gut more than half of the existing dwelling or structure?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "footprintChange",
+        "text": "Will the building footprint increase, decrease, or otherwise change?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "setbackConstraint",
+        "text": "Do you know the proposed addition's distance from the nearest property line?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0
       }
     ]
   }
