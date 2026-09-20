@@ -234,6 +234,7 @@ function renderResult(plan) {
       <p class="muted">${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>
       <div class="notice"><b>This is a planning aid, not permit approval or a code-compliance determination.</b> Verified property facts are separated from conditional conclusions and questions that still need confirmation.</div>
     </section>
+    ${nextActionsSection(plan)}
     ${sectionFor('What appears to apply', required, statusClass)}
     ${sectionFor('What may apply depending on the project', conditional, statusClass)}
     ${sectionFor('What still needs to be clarified', confirm, statusClass)}
@@ -246,7 +247,7 @@ function renderResult(plan) {
       <ol class="steps">${plan.steps.map((s,i) => `<li><label class="stepcheck"><input data-step="${i}" type="checkbox" ${s.status === 'complete' ? 'checked' : ''}> <b>${i+1}. ${escape(s.title)}</b></label><span>Depends on: ${s.dependsOn.length ? s.dependsOn.join(', ') : 'project scope'}</span></li>`).join('')}</ol>
     </section>
     <section class="panel"><h2>Questions to confirm with Newton</h2>
-      ${confirm.length ? '<div class="confirmation-list">' + confirm.map(x => `<article><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><div class="sources">${sourcesFor(x).map(s => `<a href="${s.url}" target="_blank" rel="noreferrer">${escape(s.title)}</a>`).join('')}</div></article>`).join('') + '</div>' : '<p>No unresolved rule conditions were generated from the answers. You should still follow the City’s current application instructions.</p>'}
+      ${confirm.length ? '<div class="confirmation-list">' + confirm.map(x => `<article><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><div class="sources">${sourcesFor(x).map(sourceLink).join('')}</div></article>`).join('') + '</div>' : '<p>No unresolved rule conditions were generated from the answers. You should still follow the City’s current application instructions.</p>'}
     </section>
     <section class="panel"><h2>Property evidence</h2><div class="facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b>${escape(String(x.value))}</span>`).join('')}</div>
       <p class="small">Property facts shown here come from Newton's official GIS layers. GIS evidence does not by itself determine permit approval.</p>
@@ -270,6 +271,28 @@ function renderResult(plan) {
   $('restart').onclick = () => location.reload();
 }
 
+function sourceLink(s) {
+  const verified = s.lastVerified
+    ? ' · verified ' + new Date(s.lastVerified + 'T00:00:00').toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'})
+    : '';
+  return '<a href="' + escape(s.url) + '" target="_blank" rel="noreferrer">' +
+    escape(s.title) +
+    '<span class="source-meta">' + escape(s.publisher || '') + escape(verified) + '</span></a>';
+}
+
+function nextActionsSection(plan) {
+  const items = [];
+  for (const x of plan.confirm) items.push({label:x.title, detail:x.action});
+  for (const x of plan.required) items.push({label:x.title, detail:x.action});
+  const shown = items.slice(0, 5);
+  if (!shown.length) return '';
+  return '<section class="panel next-actions"><div class="eyebrow">START HERE</div><h2>Next actions</h2>' +
+    '<p class="muted">Resolve the open questions first, then work through the applicable requirements below.</p>' +
+    '<ol>' + shown.map(x => '<li><b>' + escape(x.label) + '</b><span>' + escape(x.detail) + '</span></li>').join('') + '</ol>' +
+    (items.length > shown.length ? '<p class="small">More actions are listed in the sections below.</p>' : '') +
+    '</section>';
+}
+
 function preparationItems(plan) {
   const items = new Set([
     'Clear description of the proposed work and affected rooms/areas',
@@ -281,7 +304,7 @@ function preparationItems(plan) {
 
 function sectionFor(title, results, statusClass) {
   if (!results.length) return '';
-  return `<section class="panel"><h2>${escape(title)}</h2>${results.map(x => `<article class="result ${statusClass(x.status)}"><div><span class="badge">${x.status.replaceAll('_',' ')}</span><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><p class="small">${escape(x.explanation || '')}</p></div><div class="sources">${sourcesFor(x).map(s => `<a href="${s.url}" target="_blank" rel="noreferrer">${escape(s.title)}</a>`).join('')}</div></article>`).join('')}</section>`;
+  return `<section class="panel"><h2>${escape(title)}</h2>${results.map(x => `<article class="result ${statusClass(x.status)}"><div><span class="badge">${x.status.replaceAll('_',' ')}</span><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><p class="small">${escape(x.explanation || '')}</p></div><div class="sources">${sourcesFor(x).map(sourceLink).join('')}</div></article>`).join('')}</section>`;
 }
 
 function escape(s) {
