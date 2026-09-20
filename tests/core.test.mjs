@@ -87,7 +87,7 @@ assert.ok(p.results.some(x=>x.id==='project.condo-approval-uncertain'));
 
 p = buildPlan('addition', property, {
   newArea:1200, stories:2, structuralChanges:'yes', electricalWork:'yes', plumbingWork:'yes', gasWork:'no',
-  windowsOrDoors:'yes', siteWork:'yes', treeImpact:'no', footprintChange:'yes', setbackConstraint:15,
+  windowsOrDoors:'yes', siteWork:'yes', treeImpact:'no', footprintChange:'yes',
   condo:'no', demolition:'no', guttingExtent:'no'
 });
 assert.ok(p.results.some(x=>x.id==='addition.stories'));
