@@ -1,0 +1,18 @@
+[
+  {"id":"newton-gis","title":"City of Newton GIS","publisher":"City of Newton","url":"https://www.newtonma.gov/government/information-technology/gis","authority":"official_data"},
+  {"id":"newton-addresses","title":"Addresses GIS Layer","publisher":"City of Newton GIS","url":"https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12","authority":"official_data"},
+  {"id":"newton-parcels","title":"Parcels GIS Layer","publisher":"City of Newton GIS","url":"https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/47","authority":"official_data"},
+  {"id":"newton-zoning","title":"Zoning GIS Layer","publisher":"City of Newton GIS","url":"https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/24","authority":"official_data"},
+  {"id":"newton-historic-districts","title":"Historic Districts GIS Layer","publisher":"City of Newton GIS","url":"https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/39","authority":"official_data"},
+  {"id":"newton-floodplain","title":"Floodplains GIS Layer","publisher":"City of Newton GIS","url":"https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/41","authority":"official_data"},
+  {"id":"newton-planning","title":"Planning & Development","publisher":"City of Newton","url":"https://www.newtonma.gov/government/planning","authority":"official_guidance"},
+  {"id":"newton-electrical-plumbing-gas","title":"Electrical, Plumbing and Gas","publisher":"City of Newton","url":"https://www.newtonma.gov/government/inspectional-services/plumbing-gas-and-electrical","authority":"official_guidance"},
+  {"id":"newton-fire","title":"Plan Reviews","publisher":"Newton Fire Department","url":"https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews","authority":"official_guidance"},
+  {"id":"newton-tree","title":"Tree Preservation Ordinance","publisher":"City of Newton","url":"https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance","authority":"primary"},
+  {"id":"newton-conservation","title":"Wetlands Permitting","publisher":"City of Newton Conservation Commission","url":"https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev","authority":"official_guidance"},
+  {"id":"newton-historic","title":"Historic Preservation","publisher":"City of Newton","url":"https://www.newtonma.gov/government/planning/historic-preservation","authority":"official_guidance"},
+  {"id":"newton-far","title":"Residential FAR Calculator and Guidance","publisher":"City of Newton","url":"https://apps2.newtonma.gov/apps/far/","authority":"official_guidance"},
+  {"id":"newton-inspections","title":"Inspection Requests","publisher":"City of Newton","url":"https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376","authority":"official_guidance"},
+  {"id":"newton-closeout","title":"How to Close Open Permits","publisher":"City of Newton","url":"https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits","authority":"official_guidance"},
+  {"id":"ma-building-code","title":"Massachusetts State Building Code — 780 CMR","publisher":"Massachusetts BBRS","url":"https://www.mass.gov/massachusetts-state-building-code-780-cmr","authority":"primary"}
+]
