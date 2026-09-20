@@ -200,10 +200,18 @@ export function evaluateRules(ctx) {
 
 function condition(expr,ctx) {
   return expr.split(/\s*&&\s*/).every(term=>{
-    const m=term.match(/^([\w.]+)\s*(==|!=)\s*(.+)$/); if(!m) return false;
-    const actual=get(ctx,m[1]); let expected=m[3].trim();
-    if(expected==='true') expected=true; else if(expected==='false') expected=false; else if(expected==='null') expected=null; else expected=expected.replace(/^['"]|['"]$/g,'');
-    return m[2]==='==' ? actual===expected : actual!==expected;
+    const m=term.match(/^([\w.]+)\s*(==|!=|<=|>=|<|>)\s*(.+)$/); if(!m) return false;
+    const actual=get(ctx,m[1]); const raw=m[3].trim(); let expected;
+    if(raw==='true') expected=true; else if(raw==='false') expected=false; else if(raw==='null') expected=null;
+    else if(/^[-+]?\d+(?:\.\d+)?$/.test(raw)) expected=Number(raw);
+    else expected=raw.replace(/^['"]|['"]$/g,'');
+    if(m[2]==='==') return actual===expected;
+    if(m[2]==='!=') return actual!==expected;
+    if(m[2]==='<') return actual < expected;
+    if(m[2]==='>') return actual > expected;
+    if(m[2]==='<=') return actual <= expected;
+    if(m[2]==='>=') return actual >= expected;
+    return false;
   });
 }
 
@@ -211,10 +219,22 @@ export function deriveProject(projectType, answers = {}) {
   const a = answers;
   const basementBathroom = a.bathroomAdded === 'yes' || a.bathroomIntent === 'yes';
   const basementPlumbing = a.plumbingWork === 'yes' || basementBathroom;
-  const exteriorAnswer = a.exteriorExpansion ?? a.newWindow ?? a.windowsOrDoors;
+  const exteriorAnswer = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('yes') ? 'yes' : ([a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('unsure') ? 'unsure' : 'no');
   const exteriorUncertain = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure');
   return {
     buildingWork: true,
+    projectDescription: a.projectDescription || null,
+    projectCost: a.projectCost ?? null,
+    condo: a.condo === 'yes',
+    condoUncertain: a.condo === 'unsure',
+    demolition: a.demolition === 'yes',
+    demolitionUncertain: a.demolition === 'unsure',
+    guttingMoreThanHalf: a.guttingExtent === 'yes',
+    guttingUncertain: a.guttingExtent === 'unsure',
+    addedAreaOver1000: Number(a.newArea || 0) > 1000,
+    addedAreaUncertain: projectType === 'addition' && a.newArea === undefined,
+    siteWork: a.siteWork === 'yes',
+    siteWorkUncertain: a.siteWork === 'unsure',
     electricalWork: a.electricalWork === 'yes',
     electricalUncertain: a.electricalWork === 'unsure',
     plumbingWork: basementPlumbing || a.plumbingWork === 'yes',
