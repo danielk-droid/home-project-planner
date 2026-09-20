@@ -7,6 +7,7 @@ let answers = {};
 let questionIndex = 0;
 let editingFromReview = false;
 let selectedCatalogId = null;
+let clarifierState = {};
 
 const pageIds = ['home','about','mission','feedback','plan'];
 const addressInput = $('address');
@@ -67,7 +68,7 @@ function projectCatalogItem(id) {
     .find(x => x.id === id) || null;
 }
 function projectLabel(projectType, project = null) {
-  return project?.answers?.projectCatalogLabel || project?.projectCatalogLabel || (projectType === 'general_project' && selectedCatalogId ? projectCatalogItem(selectedCatalogId)?.label : null) || PROJECTS[projectType]?.label || projectType;
+  return project?.projectCatalogLabel || project?.answers?.projectCatalogLabel || (projectType === 'general_project' && (project?.answers?.projectCatalogId || selectedCatalogId) ? projectCatalogItem(project?.answers?.projectCatalogId || selectedCatalogId)?.label : null) || PROJECTS[projectType]?.label || projectType;
 }
 
 function savedProjects() {
@@ -109,7 +110,7 @@ function renderSavedProjects() {
         return '<div class="resume-card">' +
           '<span>' + escape(String(index + 1).padStart(2,'0')) + '</span>' +
           '<button type="button" class="resume-open" data-resume-key="' + escape(key) + '">' +
-            '<b>' + escape(projectLabel(p.type)) + '</b>' +
+            '<b>' + escape(projectLabel(p.type, p)) + '</b>' +
             '<strong>' + escape(p.property.resolvedAddress) + '</strong>' +
             '<small>' + completed + ' / ' + total + ' steps complete · saved ' + formatSavedDate(p.updatedAt) + '</small>' +
           '<em class="resume-open-label">Open →</em>' +
@@ -130,7 +131,7 @@ function renderSavedProjects() {
       if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
       localStorage.removeItem(key);
       if (projectSaveKey() === key) {
-        property = null; type = null; answers = {}; selectedCatalogId = null; questionIndex = 0; editingFromReview = false;
+        property = null; type = null; answers = {}; selectedCatalogId = null; clarifierState = {}; questionIndex = 0; editingFromReview = false;
       }
       renderSavedProjects();
     });
@@ -185,7 +186,8 @@ function resumeSavedProject(key) {
     type = saved.type;
     property = saved.property;
     answers = saved.answers || {};
-    selectedCatalogId = answers.projectCatalogId || null;
+    selectedCatalogId = answers.projectCatalogId || saved.projectCatalogId || null;
+    clarifierState = {};
     questionIndex = 0;
     editingFromReview = false;
     history.pushState(null,'','#plan');
@@ -468,6 +470,7 @@ $('resolve').onclick = async () => {
     property = await resolveProperty(addressInput.value);
     type = $('projectType').value;
     answers = selectedCatalogId ? {projectCatalogId:selectedCatalogId, projectCatalogLabel:projectCatalogItem(selectedCatalogId)?.label || null} : {};
+    clarifierState = {};
     questionIndex = 0;
     history.pushState(null,'','#plan');
     renderQuestions();
@@ -540,6 +543,22 @@ function questionWhy(q) {
   if (q.kind === 'number') return 'This helps determine which thresholds, dimensions, or review steps may apply.';
   return 'This answer can change which requirements and follow-up questions apply to the project.';
 }
+function clarifierFor(q, depth) {
+  const specific = {
+    structuralChanges:[['What part of the structure are you least certain about?',[['wall','Walls or partitions'],['framing','Framing, beams, or columns'],['foundation','Foundation or below-grade structure'],['unsure','I\'m still not sure']]],['What are you trying to determine?',[['need','Whether structural work is needed'],['scope','How much structural work is involved'],['professional','Whether you need a structural professional'],['unsure','I\'m still not sure']]]],
+    electricalWork:[['What are you least certain about?',[['circuits','Wiring or circuits'],['service','Electrical service or panel'],['fixtures','Fixtures, outlets, or lighting'],['unsure','I\'m still not sure']]],['Which part needs clarification?',[['existing','Whether existing wiring is affected'],['new','Whether new wiring is needed'],['scope','How extensive the electrical work is'],['unsure','I\'m still not sure']]]],
+    plumbingWork:[['What are you least certain about?',[['fixtures','Fixtures or appliances'],['pipes','Pipes or supply/drain lines'],['layout','Moving plumbing locations'],['unsure','I\'m still not sure']]],['Which part needs clarification?',[['existing','Whether existing plumbing is affected'],['new','Whether new plumbing is needed'],['scope','How extensive the plumbing work is'],['unsure','I\'m still not sure']]]],
+    gasWork:[['What are you least certain about?',[['equipment','Gas equipment or appliance'],['piping','Gas piping'],['new','Adding new gas service or equipment'],['unsure','I\'m still not sure']]],['Which part needs clarification?',[['existing','Whether existing gas work is affected'],['new','Whether new gas work is needed'],['scope','How extensive the gas work is'],['unsure','I\'m still not sure']]]],
+    exteriorChange:[['What kind of outside change might be involved?',[['openings','Windows or doors'],['structure','Deck, porch, addition, or structure'],['envelope','Roof, siding, or exterior finish'],['site','Ground, trees, drainage, or paving'],['unsure','I\'m still not sure']]],['Which part are you least certain about?',[['building','The building itself'],['site','The surrounding property'],['historic','Whether special exterior review applies'],['unsure','I\'m still not sure']]]],
+    siteWork:[['What kind of site work might be involved?',[['grading','Grading or excavation'],['drainage','Drainage or stormwater'],['trees','Trees or landscaping'],['paving','Driveway, parking, or paving'],['unsure','I\'m still not sure']]],['Which part are you least certain about?',[['scope','Whether the work is substantial'],['location','Exactly where the work will occur'],['tree','Whether trees are affected'],['unsure','I\'m still not sure']]]],
+    windowsOrDoors:[['What are you considering changing?',[['window','Windows'],['door','Exterior doors'],['both','Windows and doors'],['unsure','I\'m still not sure']]],
+    demolition:[['What might be removed?',[['interior','Interior walls or finishes'],['exterior','Exterior elements'],['structure','Structural parts'],['unsure','I\'m still not sure']]],
+    condo:[['What are you unsure about?',[['ownership','Whether the property is shared ownership'],['approval','Whether an association approval is needed'],['unsure','I\'m still not sure']]],
+  };
+  const entry = specific[q.id]?.[Math.min(depth-1, (specific[q.id]?.length || 1)-1)];
+  if (entry) return {id:'__clarifier_'+q.id+'_'+depth,text:entry[0],kind:'choice',options:entry[1],why:'This narrows the uncertainty without requiring you to know the technical terminology.'};
+  return {id:'__clarifier_'+q.id+'_'+depth,text:depth===1?'Which part of this are you least certain about?':'What would you need to know to answer the original question?',kind:'choice',options:[['scope','What work is involved'],['need','Whether the work is needed'],['extent','How much work is involved'],['unsure','I\'m still not sure']],why:'This helps narrow the uncertainty while keeping the original answer marked as uncertain.'};
+}
 function questionCluster(all, index) {
   const root = all[index];
   const cluster = [root];
@@ -550,16 +569,27 @@ function questionCluster(all, index) {
     cluster.push(candidate);
     parent = candidate;
   }
+  // For any choice question with an "I'm not sure" option, add clarifiers directly beneath it.
+  // These are UI-only context questions; the original uncertain answer remains the authoritative state.
+  let cursor = root;
+  for (let depth=1; depth<=2; depth++) {
+    const value = cursor.id.startsWith('__clarifier_') ? clarifierState[cursor.id] : answers[cursor.id];
+    if (value !== 'unsure' || cursor.kind !== 'choice') break;
+    const synthetic = clarifierFor(root, depth);
+    synthetic.parentId = cursor.id;
+    cluster.push(synthetic);
+    cursor = synthetic;
+  }
   return cluster;
 }
-function renderQuestionCard() {
+function renderQuestionCard({animate=false} = {}) {
   const all = getQuestions(type, answers);
   const card = $('questionCard');
   if (questionIndex >= all.length) { renderReview(all); return; }
   const cluster = questionCluster(all, questionIndex);
   const progress = Math.round((questionIndex / all.length) * 100);
   const controls = cluster.map((q,i) => {
-    const current = answers[q.id];
+    const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
     return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '">' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
       '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
@@ -568,7 +598,7 @@ function renderQuestionCard() {
       '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
       '</div>';
   }).join('');
-  card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card"><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint">If you are unsure, choose “I\'m not sure.” The clarification will open here without moving you to another screen.</div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
+  card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card' + (animate ? ' question-transition' : '') + '"'><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint"></div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
     (editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : '') +
     (cluster[cluster.length-1]?.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(cluster[cluster.length-1].skipLabel || 'Skip for now') + '</button>' : '') +
     '<button type="button" id="nextQuestion">' + (questionIndex + cluster.length >= all.length ? 'Review my answers' : 'Continue') + '</button></div></div>';
@@ -576,9 +606,12 @@ function renderQuestionCard() {
     input.addEventListener('change', () => {
       const q = cluster.find(x => x.id === input.name.replace('questionChoice-',''));
       if (!q) return;
-      answers[q.id] = input.value;
-      cleanupHiddenAnswers();
-      renderQuestionCard();
+      if (q.id.startsWith('__clarifier_')) clarifierState[q.id] = input.value;
+      else answers[q.id] = input.value;
+      // Update the selected styling without replaying the entire question transition.
+      input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
+      input.closest('.choice')?.classList.add('selected');
+      if (q === cluster[0] || q.parentId) renderQuestionCard({animate:false});
     });
   });
   $('backQuestion').onclick = () => {
@@ -598,7 +631,7 @@ function renderQuestionCard() {
       return;
     }
     questionIndex += cluster.length;
-    renderQuestionCard();
+    renderQuestionCard({animate:true});
   };
 }
 function cleanupHiddenAnswers() {
@@ -609,7 +642,8 @@ function saveClusterValues(cluster) {
   for (const q of cluster) {
     const value = readQuestionValue(q);
     if (value === undefined) return false;
-    answers[q.id]=value;
+    if (q.id.startsWith('__clarifier_')) clarifierState[q.id]=value;
+    else answers[q.id]=value;
   }
   cleanupHiddenAnswers();
   return true;
