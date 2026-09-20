@@ -7,7 +7,7 @@ let suggestionTimer=null, suggestionRequest=0;
 addressInput.addEventListener('input',()=>{
   const value=addressInput.value.trim();
   clearTimeout(suggestionTimer);
-  if(value.length<3){suggestions.innerHTML='';suggestions.classList.add('hidden');return;}
+  if(value.length<1){suggestions.innerHTML='';suggestions.classList.add('hidden');return;}
   suggestionTimer=setTimeout(async()=>{
     const request=++suggestionRequest;
     try{
