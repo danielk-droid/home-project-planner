@@ -6,42 +6,96 @@ let type = null;
 let answers = {};
 let questionIndex = 0;
 
+const pageIds = ['home','about','mission','feedback','plan'];
 const addressInput = $('address');
 const suggestions = $('addressSuggestions');
 let suggestionTimer = null;
 let suggestionRequest = 0;
 
-addressInput.addEventListener('input', () => {
-  const value = addressInput.value.trim();
-  clearTimeout(suggestionTimer);
-  if (!value) {
-    suggestions.innerHTML = '';
-    suggestions.classList.add('hidden');
-    return;
+function navigate(page) {
+  const target = page === 'home' ? 'home' : page;
+  pageIds.forEach(id => {
+    const el = $(id);
+    if (el) el.classList.toggle('page-active', id === target);
+  });
+  document.querySelectorAll('[data-page-link]').forEach(link => {
+    link.classList.toggle('active', link.dataset.pageLink === target || (target === 'plan' && link.dataset.pageLink === 'home'));
+  });
+  if (target === 'plan') {
+    $('home').classList.remove('page-active');
+    $('plan').classList.add('page-active');
+    document.body.classList.remove('focus-mode');
+    window.scrollTo({top:0,behavior:'smooth'});
+  } else {
+    document.body.classList.remove('focus-mode');
+    window.scrollTo({top:0,behavior:'smooth'});
   }
-  suggestionTimer = setTimeout(async () => {
-    const request = ++suggestionRequest;
-    try {
-      const matches = await searchAddresses(value);
-      if (request !== suggestionRequest) return;
-      renderSuggestions(matches);
-    } catch {
-      suggestions.innerHTML = '<div class="suggestion-empty">Address search is temporarily unavailable. You can still try the full address.</div>';
-      suggestions.classList.remove('hidden');
-    }
-  }, 160);
-});
+}
 
-addressInput.addEventListener('keydown', e => {
-  if (e.key === 'Escape') suggestions.classList.add('hidden');
-  if (e.key === 'Enter' && suggestions.querySelector('[role="option"]')) {
+function routeFromHash() {
+  const hash = location.hash.replace('#','') || 'home';
+  if (['about','mission','feedback','plan'].includes(hash)) navigate(hash);
+  else navigate('home');
+}
+
+document.querySelectorAll('[data-page-link]').forEach(link => {
+  link.addEventListener('click', e => {
     e.preventDefault();
-    suggestions.querySelector('[role="option"]').click();
-  }
+    const page = link.dataset.pageLink;
+    history.pushState(null,'','#' + page);
+    navigate(page);
+    closeMobileMenu();
+  });
 });
+window.addEventListener('popstate', routeFromHash);
+window.addEventListener('hashchange', routeFromHash);
+routeFromHash();
+
+function openMobileMenu() {
+  $('mobileMenu')?.classList.add('open');
+  $('mobileMenu')?.setAttribute('aria-hidden','false');
+}
+function closeMobileMenu() {
+  $('mobileMenu')?.classList.remove('open');
+  $('mobileMenu')?.setAttribute('aria-hidden','true');
+}
+$('menuToggle')?.addEventListener('click', openMobileMenu);
+$('mobileMenuClose')?.addEventListener('click', closeMobileMenu);
+$('mobileMenu')?.querySelectorAll('[data-page-link]').forEach(link => link.addEventListener('click', closeMobileMenu));
+
+if (addressInput) {
+  addressInput.addEventListener('input', () => {
+    const value = addressInput.value.trim();
+    clearTimeout(suggestionTimer);
+    if (!value) {
+      suggestions.innerHTML = '';
+      suggestions.classList.add('hidden');
+      return;
+    }
+    suggestionTimer = setTimeout(async () => {
+      const request = ++suggestionRequest;
+      try {
+        const matches = await searchAddresses(value);
+        if (request !== suggestionRequest) return;
+        renderSuggestions(matches);
+      } catch {
+        suggestions.innerHTML = '<div class="suggestion-empty">Address search is temporarily unavailable. You can still try the full address.</div>';
+        suggestions.classList.remove('hidden');
+      }
+    }, 160);
+  });
+
+  addressInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') suggestions.classList.add('hidden');
+    if (e.key === 'Enter' && suggestions.querySelector('[role="option"]')) {
+      e.preventDefault();
+      suggestions.querySelector('[role="option"]').click();
+    }
+  });
+}
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('.address-wrap')) suggestions.classList.add('hidden');
+  if (!e.target.closest('.address-wrap')) suggestions?.classList.add('hidden');
 });
 
 async function searchAddresses(value) {
@@ -82,6 +136,7 @@ $('resolve').onclick = async () => {
     type = $('projectType').value;
     answers = {};
     questionIndex = 0;
+    history.pushState(null,'','#plan');
     renderQuestions();
   } catch (e) {
     $('error').textContent = e.message;
@@ -93,17 +148,20 @@ $('resolve').onclick = async () => {
 };
 
 function renderQuestions() {
-  $('start').classList.add('hidden');
+  document.body.classList.add('focus-mode');
+  pageIds.forEach(id => $(id)?.classList.remove('page-active'));
+  $('plan').classList.add('page-active');
   const q = $('questions');
   q.classList.remove('hidden');
   q.innerHTML = propertyHeader() + '<div id="questionCard"></div>';
   renderQuestionCard();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function propertyHeader() {
   return `<div class="eyebrow">PROPERTY FOUND</div>
     <h2>${escape(property.resolvedAddress)}</h2>
-    <div class="facts compact-facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b>${escape(String(x.value))}</span>`).join('')}</div>
+    <div class="facts compact-facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b><strong>${escape(String(x.value))}</strong></span>`).join('')}</div>
     <div class="notice"><b>We ask only what can change the plan.</b> If you do not know an answer, choose “I'm not sure.” We will ask clarifying questions instead of making you guess.</div>`;
 }
 
@@ -143,38 +201,27 @@ function renderQuestionCard() {
       return;
     }
     answers[q.id] = value;
-
-    // When an answer changes, dependent questions can disappear. Remove
-    // answers that are no longer reachable so stale hidden answers cannot
-    // silently affect the generated plan later.
     const visibleIds = new Set(getQuestions(type, answers).map(x => x.id));
     for (const key of Object.keys(answers)) {
       if (!visibleIds.has(key)) delete answers[key];
     }
-
-    // Recompute visibility after every answer. This is what makes the
-    // questionnaire adaptive rather than a fixed checklist.
     const nextAll = getQuestions(type, answers);
     questionIndex++;
-    if (questionIndex >= nextAll.length) {
-      questionIndex = nextAll.length;
-    }
+    if (questionIndex >= nextAll.length) questionIndex = nextAll.length;
     renderQuestionCard();
+    window.scrollTo({top:0,behavior:'smooth'});
   };
 }
 
 function choiceControl(q, current) {
   return `<div class="choice-list">${q.options.map(([value,label]) => `<label class="choice ${current === value ? 'selected' : ''}"><input type="radio" name="questionChoice" value="${escape(value)}" ${current === value ? 'checked' : ''}><span>${escape(label)}</span></label>`).join('')}</div>`;
 }
-
 function numberControl(q, current) {
   return `<div class="number-wrap"><input id="questionNumber" type="number" min="${q.min ?? 0}" ${q.max != null ? 'max="' + q.max + '"' : ''} step="any" value="${current ?? ''}" placeholder="Enter an estimate"><span>${escape(q.unit || '')}</span></div>`;
 }
-
 function textControl(q, current) {
   return `<div class="text-wrap"><textarea id="questionText" rows="4" maxlength="500" placeholder="Describe it briefly">${escape(current ?? '')}</textarea></div>`;
 }
-
 function readQuestionValue(q) {
   if (q.kind === 'choice') return document.querySelector('input[name="questionChoice"]:checked')?.value;
   if (q.kind === 'text') {
@@ -204,7 +251,9 @@ function renderReview(all) {
     ${unsure.length ? '<div class="notice"><b>' + unsure.length + ' answer' + (unsure.length === 1 ? '' : 's') + ' still need clarification.</b> The planner will identify what those uncertainties affect.</div>' : ''}
     <div class="question-actions"><button type="button" id="backQuestion" class="secondary">Back</button><button type="button" id="generatePlan">Generate project plan</button></div>`;
   $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };
-  $('generatePlan').onclick = () => renderResult(buildPlan(type, property, answers));
+  $('generatePlan').onclick = () => {
+    renderResult(buildPlan(type, property, answers));
+  };
 }
 
 function formatAnswer(q, value) {
@@ -219,8 +268,57 @@ function projectSaveKey() {
   return 'nhpp-project:' + type + ':' + (property?.resolvedAddress || '');
 }
 
+const stepGuidance = {
+  property: {
+    label:'Confirm the property',
+    description:'Verify the address, parcel, and location-specific information before relying on project requirements.',
+    sourceId:'newton-gis'
+  },
+  scope: {
+    label:'Confirm the project scope',
+    description:'Make the proposed work specific enough to determine which reviews, plans, and permits may apply.',
+    sourceId:'newton-building-checklist'
+  },
+  site: {
+    label:'Check site-specific reviews',
+    description:'Check zoning, historic, tree, conservation, floodplain, and other property conditions that can change the project path.',
+    sourceId:'newton-planning'
+  },
+  applications: {
+    label:'Prepare and submit applications',
+    description:'Use the City’s current application instructions and prepare the plans and supporting documents required for your project.',
+    sourceId:'newton-newgov'
+  },
+  inspections: {
+    label:'Complete required inspections',
+    description:'Request inspections at the appropriate stages and keep inspection records and trade signoffs.',
+    sourceId:'newton-inspections'
+  },
+  final: {
+    label:'Complete final inspection and signoffs',
+    description:'Finish required inspections and assemble final documentation before treating the project as complete.',
+    sourceId:'newton-final-checklist'
+  },
+  closeout: {
+    label:'Close permits / project',
+    description:'Confirm required final documents are complete and follow Newton’s process for closing open permits.',
+    sourceId:'newton-closeout'
+  }
+};
+
+const sourceById = id => ({
+  'newton-gis':'https://www.newtonma.gov/government/information-technology/gis',
+  'newton-building-checklist':'https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564',
+  'newton-planning':'https://www.newtonma.gov/government/planning',
+  'newton-newgov':'https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures',
+  'newton-inspections':'https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376',
+  'newton-final-checklist':'https://www.newtonma.gov/home/showpublisheddocument/29413/639029479026700000',
+  'newton-closeout':'https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits'
+}[id]);
+
 function renderResult(plan) {
   $('questions').classList.add('hidden');
+  document.body.classList.add('focus-mode');
   const r = $('result');
   r.classList.remove('hidden');
   const savedKey = projectSaveKey();
@@ -228,35 +326,29 @@ function renderResult(plan) {
   if (saved?.steps) plan.steps = plan.steps.map((x, i) => ({...x, status: saved.steps[i]?.status || 'not_started'}));
   localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
 
-  const required = plan.required;
-  const conditional = plan.conditional;
-  const confirm = plan.confirm;
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
 
   r.innerHTML = `
-    <section class="panel"><div class="eyebrow">PROJECT PLAN</div><h1>${escape(PROJECTS[type].label)}</h1>
-      <p class="muted">${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>
-      <div class="notice"><b>This is a planning aid, not permit approval or a code-compliance determination.</b> Verified property facts are separated from conditional conclusions and questions that still need confirmation.</div>
+    <section class="plan-hero">
+      <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p></div>
+      <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
     </section>
+    ${checklistSection(plan)}
     ${nextActionsSection(plan)}
-    ${sectionFor('What appears to apply', required, statusClass)}
-    ${sectionFor('What may apply depending on the project', conditional, statusClass)}
-    ${sectionFor('What still needs to be clarified', confirm, statusClass)}
-    <section class="panel"><h2>Information to prepare</h2>
-      <p class="muted">The City may require additional project-specific information or documents during review. This list is a preparation guide, not a guarantee of completeness.</p>
+    ${sectionFor('What appears to apply', plan.required, statusClass)}
+    ${sectionFor('What may apply depending on the project', plan.conditional, statusClass)}
+    ${sectionFor('What still needs to be clarified', plan.confirm, statusClass)}
+    <section class="panel"><div class="section-heading"><div><div class="eyebrow">PREPARE</div><h2>Information to prepare</h2></div></div>
+      <p class="muted">Use this as a preparation guide. The City may require additional project-specific information during review.</p>
       <ul class="prep-list">${preparationItems(plan).map(x => '<li>' + escape(x) + '</li>').join('')}</ul>
     </section>
-    <section class="panel"><h2>Project sequence</h2>
-      <p class="small">A planning sequence. Dependencies indicate what should be understood before the next stage; they are not a City-issued schedule.</p>
-      <ol class="steps">${plan.steps.map((s,i) => `<li><label class="stepcheck"><input data-step="${i}" type="checkbox" ${s.status === 'complete' ? 'checked' : ''}> <b>${i+1}. ${escape(s.title)}</b></label><span>Depends on: ${s.dependsOn.length ? s.dependsOn.join(', ') : 'project scope'}</span></li>`).join('')}</ol>
+    <section class="panel"><div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property evidence</h2></div><span class="small">Official Newton GIS context</span></div>
+      <div class="facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b><strong>${escape(String(x.value))}</strong></span>`).join('')}</div>
+      <p class="small">These facts come from Newton’s official GIS layers. GIS evidence does not by itself determine permit approval.</p>
     </section>
-    <section class="panel"><h2>Questions to confirm with Newton</h2>
-      ${confirm.length ? '<div class="confirmation-list">' + confirm.map(x => `<article><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><div class="sources">${sourcesFor(x).map(sourceLink).join('')}</div></article>`).join('') + '</div>' : '<p>No unresolved rule conditions were generated from the answers. You should still follow the City’s current application instructions.</p>'}
-    </section>
-    <section class="panel"><h2>Property evidence</h2><div class="facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b>${escape(String(x.value))}</span>`).join('')}</div>
-      <p class="small">Property facts shown here come from Newton's official GIS layers. GIS evidence does not by itself determine permit approval.</p>
-    </section>
-    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="restart">Start another project</button></div>`;
+    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="restart">Start another project</button></div>
+    <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><strong>Project sequence complete.</strong><span>You’ve checked every planning step. Keep following the City’s current instructions and approvals.</span></div>
+    <div id="confetti" class="confetti" aria-hidden="true"></div>`;
 
   document.querySelectorAll('[data-step]').forEach(cb => cb.onchange = () => {
     const current = JSON.parse(localStorage.getItem(savedKey) || '{}');
@@ -264,37 +356,78 @@ function renderResult(plan) {
     current.steps[Number(cb.dataset.step)].status = cb.checked ? 'complete' : 'not_started';
     current.updatedAt = new Date().toISOString();
     localStorage.setItem(savedKey, JSON.stringify(current));
+    updateCompletion(plan);
   });
+
   $('printPlan').onclick = () => window.print();
   $('editProject').onclick = () => {
-    $('result').classList.add('hidden');
+    r.classList.add('hidden');
     $('questions').classList.remove('hidden');
     questionIndex = 0;
     renderQuestions();
   };
   $('restart').onclick = () => location.reload();
+  window.scrollTo({top:0,behavior:'smooth'});
+  updateCompletion(plan);
 }
 
-function sourceLink(s) {
-  const verified = s.lastVerified
-    ? ' · verified ' + new Date(s.lastVerified + 'T00:00:00').toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'})
-    : '';
-  return '<a href="' + escape(s.url) + '" target="_blank" rel="noreferrer">' +
-    escape(s.title) +
-    '<span class="source-meta">' + escape(s.publisher || '') + escape(verified) + '</span></a>';
+function checklistSection(plan) {
+  return `<section class="panel checklist-panel">
+    <div class="section-heading"><div><div class="eyebrow">WORKFLOW</div><h2>Your project checklist</h2><p class="muted">Work through these stages in order. Each item includes the reason it matters and a direct official starting point.</p></div><span class="check-count" id="checkCount">0 / ${plan.steps.length}</span></div>
+    <ol class="steps">${plan.steps.map((s,i) => {
+      const g = stepGuidance[s.id] || stepGuidance.scope;
+      const url = sourceById(g.sourceId);
+      return `<li class="step-item"><label class="stepcheck"><input data-step="${i}" type="checkbox" ${s.status === 'complete' ? 'checked' : ''}> <b>${i+1}. ${escape(s.title)}</b></label>
+        <span class="step-depends">Depends on: ${s.dependsOn.length ? s.dependsOn.join(', ') : 'project scope'}</span>
+        <details><summary>How to complete this step</summary><p>${escape(g.description)}</p><a class="guidance-button" href="${url}" target="_blank" rel="noreferrer">Open official guidance ↗</a></details>
+      </li>`;
+    }).join('')}</ol>
+  </section>`;
+}
+
+function updateCompletion(plan) {
+  const boxes = [...document.querySelectorAll('[data-step]')];
+  const done = boxes.filter(x => x.checked).length;
+  const count = $('checkCount');
+  if (count) count.textContent = `${done} / ${boxes.length}`;
+  if (done === boxes.length && boxes.length) {
+    $('completionToast')?.classList.remove('hidden');
+    launchConfetti();
+  } else {
+    $('completionToast')?.classList.add('hidden');
+  }
+}
+
+let confettiRunning = false;
+function launchConfetti() {
+  if (confettiRunning) return;
+  confettiRunning = true;
+  const root = $('confetti');
+  if (!root) { confettiRunning = false; return; }
+  root.innerHTML = '';
+  for (let i=0;i<26;i++) {
+    const piece = document.createElement('i');
+    piece.style.setProperty('--x', (Math.random()*100) + '%');
+    piece.style.setProperty('--delay', (Math.random()*.35) + 's');
+    piece.style.setProperty('--rot', (Math.random()*360) + 'deg');
+    root.appendChild(piece);
+  }
+  setTimeout(() => { root.innerHTML=''; confettiRunning=false; }, 1700);
 }
 
 function nextActionsSection(plan) {
   const items = [];
-  for (const x of plan.confirm) items.push({label:x.title, detail:x.action});
-  for (const x of plan.required) items.push({label:x.title, detail:x.action});
-  const shown = items.slice(0, 5);
+  for (const x of plan.confirm) items.push(x);
+  for (const x of plan.required) items.push(x);
+  const shown = items.slice(0,5);
   if (!shown.length) return '';
-  return '<section class="panel next-actions"><div class="eyebrow">START HERE</div><h2>Next actions</h2>' +
-    '<p class="muted">Resolve the open questions first, then work through the applicable requirements below.</p>' +
-    '<ol>' + shown.map(x => '<li><b>' + escape(x.label) + '</b><span>' + escape(x.detail) + '</span></li>').join('') + '</ol>' +
-    (items.length > shown.length ? '<p class="small">More actions are listed in the sections below.</p>' : '') +
-    '</section>';
+  return '<section class="panel next-actions"><div class="section-heading"><div><div class="eyebrow">START HERE</div><h2>Next actions</h2><p class="muted">These are the first items to resolve. Each one has a direct starting point so you know how to act on it.</p></div></div>' +
+    '<ol>' + shown.map((x,i) => {
+      const src = sourcesFor(x)[0];
+      return '<li><span class="next-number">0' + (i+1) + '</span><div><b>' + escape(x.title) + '</b><p>' + escape(x.action) + '</p>' +
+        (src ? '<a class="guidance-button" href="' + escape(src.url) + '" target="_blank" rel="noreferrer">Open ' + escape(src.title) + ' ↗</a>' : '') +
+        '</div></li>';
+    }).join('') + '</ol>' + (items.length > shown.length ? '<p class="small">More requirements and guidance are below.</p>' : '') + '</section>';
 }
 
 function preparationItems(plan) {
@@ -308,7 +441,13 @@ function preparationItems(plan) {
 
 function sectionFor(title, results, statusClass) {
   if (!results.length) return '';
-  return `<section class="panel"><h2>${escape(title)}</h2>${results.map(x => `<article class="result ${statusClass(x.status)}"><div><span class="badge">${x.status.replaceAll('_',' ')}</span><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><p class="small">${escape(x.explanation || '')}</p></div><div class="sources">${sourcesFor(x).map(sourceLink).join('')}</div></article>`).join('')}</section>`;
+  return `<section class="panel requirement-section"><div class="section-heading"><div><div class="eyebrow">REQUIREMENTS</div><h2>${escape(title)}</h2></div></div>
+  ${results.map(x => {
+    const sources = sourcesFor(x);
+    return `<article class="result ${statusClass(x.status)}"><div class="result-main"><span class="badge">${x.status.replaceAll('_',' ')}</span><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><p class="small">${escape(x.explanation || '')}</p>
+      ${sources.length ? '<div class="result-guidance"><span>How to handle this</span>' + sources.map(s => '<a class="guidance-button" href="' + escape(s.url) + '" target="_blank" rel="noreferrer">Open ' + escape(s.title) + ' ↗</a>').join('') + '</div>' : ''}
+    </div></article>`;
+  }).join('')}</section>`;
 }
 
 function escape(s) {
