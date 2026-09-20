@@ -9,7 +9,7 @@ let editingFromReview = false;
 let selectedCatalogId = null;
 let clarifierState = {};
 
-const pageIds = ['home','about','mission','feedback','plan'];
+const pageIds = ['home','about','how','mission','feedback','privacy','terms','plan'];
 const addressInput = $('address');
 const suggestions = $('addressSuggestions');
 let suggestionTimer = null;
@@ -47,7 +47,7 @@ function navigate(page) {
 
 function routeFromHash() {
   const hash = location.hash.replace('#','') || 'home';
-  if (['about','mission','feedback','plan'].includes(hash)) navigate(hash);
+  if (['about','how','mission','feedback','privacy','terms','plan'].includes(hash)) navigate(hash);
   else navigate('home');
 }
 
@@ -247,7 +247,6 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
       spawnButtonSparks(heroStart);
       spawnButtonEcho(heroStart);
       heroStart.classList.add('guided-click');
-
       const fade = lessonDot.animate([
         { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
         { transform:'translate(-50%,-50%) scale(.72)', opacity:.72, offset:.45 },
@@ -497,8 +496,7 @@ $('resolve').onclick = async () => {
   $('resolve').disabled = true;
   $('resolve').textContent = 'Checking property…';
   try {
-    property = await resolveProperty(addressInput.value);
-    type = $('projectType').value;
+    property = await resolveProperty(addressInput.value);    type = $('projectType').value;
     answers = selectedCatalogId ? {projectCatalogId:selectedCatalogId, projectCatalogLabel:projectCatalogItem(selectedCatalogId)?.label || null} : {};
     clarifierState = {};
     questionIndex = 0;
@@ -747,8 +745,7 @@ function renderReview(all) {
     renderQuestionCard();
     window.scrollTo({top:0,behavior:'smooth'});
   });
-  $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };
-  $('generatePlan').onclick = () => {
+  $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };  $('generatePlan').onclick = () => {
     editingFromReview = false;
     renderResult(buildPlan(type, property, answers));
   };
@@ -997,8 +994,7 @@ function checklistSection(plan) {
   </section>`;
 }
 
-function updateCompletion(plan) {
-  const boxes = [...document.querySelectorAll('[data-step]')];
+function updateCompletion(plan) {  const boxes = [...document.querySelectorAll('[data-step]')];
   const done = boxes.filter(x => x.checked).length;
   const count = $('checkCount');
   if (count) count.textContent = `${done} / ${boxes.length}`;
