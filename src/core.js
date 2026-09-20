@@ -199,7 +199,7 @@ export function evaluateRules(ctx) {
 }
 
 function condition(expr,ctx) {
-  return expr.split(/\s*&&\s*/).every(term=>{
+  return expr.split(/\s*\|\|\s*/).some(orTerm => orTerm.split(/\s*&&\s*/).every(term=>{
     const m=term.match(/^([\w.]+)\s*(==|!=|<=|>=|<|>)\s*(.+)$/); if(!m) return false;
     const actual=get(ctx,m[1]); const raw=m[3].trim(); let expected;
     if(raw==='true') expected=true; else if(raw==='false') expected=false; else if(raw==='null') expected=null;
@@ -212,7 +212,7 @@ function condition(expr,ctx) {
     if(m[2]==='<=') return actual <= expected;
     if(m[2]==='>=') return actual >= expected;
     return false;
-  });
+  }));
 }
 
 export function deriveProject(projectType, answers = {}) {
