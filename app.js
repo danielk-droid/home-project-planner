@@ -239,7 +239,7 @@ function renderResult(plan) {
     <section class="panel"><h2>Property evidence</h2><div class="facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b>${escape(String(x.value))}</span>`).join('')}</div>
       <p class="small">Property facts shown here come from Newton's official GIS layers. GIS evidence does not by itself determine permit approval.</p>
     </section>
-    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="restart">Start another project</button></div>`;
+    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="restart">Start another project</button></div>`;
 
   document.querySelectorAll('[data-step]').forEach(cb => cb.onchange = () => {
     const current = JSON.parse(localStorage.getItem(savedKey) || '{}');
@@ -248,6 +248,7 @@ function renderResult(plan) {
     current.updatedAt = new Date().toISOString();
     localStorage.setItem(savedKey, JSON.stringify(current));
   });
+  $('printPlan').onclick = () => window.print();
   $('editProject').onclick = () => {
     $('result').classList.add('hidden');
     $('questions').classList.remove('hidden');
