@@ -11,7 +11,11 @@ export const PROJECTS = Object.fromEntries(questionFlows.map(flow => [flow.id, {
 export function getQuestions(projectType, answers = {}) {
   const flow = questionFlows.find(x => x.id === projectType);
   if (!flow) return [];
-  return flow.questions.filter(q => (q.showWhen || []).every(([key, value]) => answers[key] === value));
+  return flow.questions.filter(q => {
+    const all = (q.showWhen || []).every(([key, value]) => answers[key] === value);
+    const any = !(q.showWhenAny?.length) || q.showWhenAny.some(([key, value]) => answers[key] === value);
+    return all && any;
+  });
 }
 
 export function answerIsYes(value) { return value === 'yes'; }
