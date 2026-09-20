@@ -142,5 +142,41 @@
     "authority": "primary",
     "lastVerified": "2026-09-19",
     "sourceType": "primary"
+  },
+  {
+    "id": "newton-building-checklist",
+    "title": "Building Permit Application Checklist",
+    "publisher": "City of Newton Inspectional Services Department",
+    "url": "https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-19",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-energy-code",
+    "title": "Energy Code / Fossil Fuel-Free",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/inspectional-services/energy-code",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-19",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-newgov",
+    "title": "Planning Applications / NewGov",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-19",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-final-checklist",
+    "title": "Final Inspection Checklist — Residential",
+    "publisher": "City of Newton Inspectional Services Department",
+    "url": "https://www.newtonma.gov/home/showpublisheddocument/29413/639029479026700000",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-19",
+    "sourceType": "official_guidance"
   }
 ]
