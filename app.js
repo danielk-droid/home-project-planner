@@ -254,8 +254,8 @@ function propertyHeader() {
     <div class="notice"><b>We ask only what can change the plan.</b> If you do not know an answer, choose “I'm not sure.” We will ask clarifying questions instead of making you guess.</div>`;
 }
 
-function propertyEvidenceBlock(property) {
-  const visible = (property.evidence || []).filter(item => {
+function visiblePropertyEvidence(property) {
+  return (property.evidence || []).filter(item => {
     const value = item?.value;
     return value !== null && value !== undefined && value !== '' &&
       !/^none returned/i.test(String(value)) &&
@@ -263,11 +263,22 @@ function propertyEvidenceBlock(property) {
       !/^not resolved/i.test(String(value)) &&
       !/^no mapped signal/i.test(String(value));
   });
+}
+
+function propertyFactsMarkup(property) {
+  const visible = visiblePropertyEvidence(property);
   if (!visible.length) return '';
-  return `<section class="property-evidence-below">
-    <div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property facts</h2></div><span class="small">Official Newton GIS context</span></div>
-    <div class="facts compact-facts">${visible.map(x => `<span><b>${escape(x.label)}</b><strong>${escape(String(x.value))}</strong></span>`).join('')}</div>
-  </section>`;
+  return '<div class="facts compact-facts">' + visible.map(x =>
+    '<span><b>' + escape(x.label) + '</b><strong>' + escape(String(x.value)) + '</strong></span>'
+  ).join('') + '</div>';
+}
+
+function propertyEvidenceBlock(property) {
+  if (!visiblePropertyEvidence(property).length) return '';
+  return '<section class="property-evidence-below">' +
+    '<div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property facts</h2></div><span class="small">Official Newton GIS context</span></div>' +
+    propertyFactsMarkup(property) +
+  '</section>';
 }
 
 function renderQuestionCard() {
@@ -483,7 +494,7 @@ function renderResult(plan) {
 
   r.innerHTML = `
     <section class="plan-hero">
-      <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p></div>
+      <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>${plan.project.projectDescription ? '<p class="plan-note">Project note: ' + escape(plan.project.projectDescription) + '</p>' : ''} </div>
       <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
     </section>
     ${checklistSection(plan)}
@@ -495,7 +506,7 @@ function renderResult(plan) {
       <ul class="prep-list">${preparationItems(plan).map(x => '<li>' + escape(x) + '</li>').join('')}</ul>
     </section>
     <section class="panel"><div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property evidence</h2></div><span class="small">Official Newton GIS context</span></div>
-      ${propertyEvidenceBlock(property).replace('<section class="property-evidence-below">','<div class="property-evidence-inline">').replace('</section>','</div>')}
+      ${propertyFactsMarkup(property)}
       <p class="small">These facts come from Newton’s official GIS layers. GIS evidence does not by itself determine permit approval.</p>
     </section>
     <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="restart">Start another project</button></div>
