@@ -1,8 +1,76 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Newton Home Project Planner</title><link rel="stylesheet" href="styles.css"></head>
-<body><header class="site-header"><div class="site-header-inner"><a class="brand" href="#" aria-label="Home Project Planner"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 44 44"><path d="M7 20.5 22 8l15 12.5v14.2a2.3 2.3 0 0 1-2.3 2.3H9.3A2.3 2.3 0 0 1 7 34.7Z"/><path d="M15.5 37V24h13v13M18.5 29.5h7"/></svg></span><span class="brand-copy"><strong>Home Project Planner</strong><span>Newton, Massachusetts</span></span></a><span class="header-note">Evidence-backed planning</span></div></header><main>
-<section id="start" class="panel"><h1>Plan a home project</h1><p class="muted">Describe the project, choose your Newton property from official GIS suggestions, answer only the questions that affect the plan, and get a source-backed workflow.</p>
-<label>Newton property address<div class="address-wrap"><input id="address" autocomplete="off" placeholder="Start typing a Newton address, e.g. 130 Wheeler Road" aria-autocomplete="list" aria-controls="addressSuggestions"><div id="addressSuggestions" class="suggestions hidden" role="listbox"></div></div><p class="small">Choose an address from the official Newton GIS suggestions so you know the property is in the planner's address database. The planner checks official property data first, then asks only project-specific questions that can change the workflow. It is not a permit application or approval.</p></label>
-<label>What are you planning?<select id="projectType"><option value="basement_finish">Finish or remodel a basement</option><option value="bathroom_renovation">Renovate a bathroom</option><option value="deck">Build or replace a deck</option><option value="addition">Build a residential addition</option></select></label>
-<button id="resolve">Check property & continue</button><div id="error" class="error hidden"></div></section>
-<section id="questions" class="panel hidden"></section><section id="result" class="hidden"></section></main><script type="module" src="app.js"></script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home Project Planner · Newton</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="#home" aria-label="Home Project Planner home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><path d="M8 23 26 8l18 15v18a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3Z"/><path d="M17 44V27h18v17M21 32h10M26 8v8"/></svg>
+      </span>
+      <span class="brand-copy"><strong>Home Project Planner</strong><span>Newton, Massachusetts</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="active" href="#home">Plan a Project</a><a href="#about">About</a><a href="#mission">Mission</a><a href="#feedback">Feedback</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-label="Open navigation">Menu</button>
+  </div>
+</header>
+
+<main id="home">
+  <section class="home-hero">
+    <div class="hero-copy">
+      <div class="eyebrow">HOME PROJECT PLANNER / NEWTON</div>
+      <h1>Know what your home project requires before you begin.</h1>
+      <p class="hero-lede">Tell us what you want to change. We connect your project to the relevant property information, local requirements, reviews, documents, and next steps.</p>
+      <div class="hero-actions"><a class="primary-link" href="#planner">Start planning <span>→</span></a><span class="hero-note">Built from verified public sources</span></div>
+    </div>
+    <div class="hero-graphic" aria-label="Illustration of a planned property">
+      <div class="graphic-label label-a">PARCEL / 47</div><div class="graphic-label label-b">ZONING / SR2</div><div class="graphic-label label-c">SITE / NEWTON</div>
+      <svg viewBox="0 0 520 420" role="img" aria-hidden="true">
+        <path class="parcel" d="M48 42 414 28l60 111-38 235-340-18L25 163Z"/>
+        <path class="street" d="M0 352 520 352"/><path class="street-small" d="M48 302 457 321"/>
+        <path class="house" d="m152 245 105-87 106 87v105H152Z"/><path class="house-line" d="M201 350V253h112v97M226 350v-53h62v53M178 245h158"/>
+        <path class="dimension" d="M152 376h211M152 368v16M363 368v16"/>
+        <path class="dimension" d="M126 245v105M118 245h16M118 350h16"/>
+        <circle class="site-point" cx="257" cy="202" r="7"/>
+      </svg>
+      <div class="graphic-caption"><span>PROPERTY CONTEXT</span><strong>Address → parcel → rules → plan</strong></div>
+    </div>
+  </section>
+
+  <section id="planner" class="planner-shell">
+    <div class="planner-heading"><div><div class="eyebrow">01 / START HERE</div><h2>Plan your project</h2></div><span class="planner-meta">Newton property data · project-specific questions</span></div>
+    <section id="start" class="panel">
+      <div class="start-intro"><div><h3>First, identify the property.</h3><p class="muted">We use the official Newton address database to establish the property context before asking about your project.</p></div><div class="mini-mark">HPP<br>01</div></div>
+      <label>Newton property address<div class="address-wrap"><input id="address" autocomplete="off" placeholder="Start typing a Newton address, e.g. 130 Wheeler Road" aria-autocomplete="list" aria-controls="addressSuggestions"><div id="addressSuggestions" class="suggestions hidden" role="listbox"></div></div><p class="small">Select an official Newton GIS suggestion. The planner is not a permit application or approval.</p></label>
+      <div class="project-choice"><label>What are you planning?<select id="projectType"><option value="basement_finish">Finish or remodel a basement</option><option value="bathroom_renovation">Renovate a bathroom</option><option value="deck">Build or replace a deck</option><option value="addition">Build a residential addition</option></select></label><button id="resolve">Check property & continue <span>→</span></button></div>
+      <div id="error" class="error hidden"></div>
+    </section>
+  </section>
+
+  <section class="principles-strip">
+    <div><span>01</span><strong>Property first</strong><small>Start with location-specific facts.</small></div>
+    <div><span>02</span><strong>Only what matters</strong><small>Questions adapt to your project.</small></div>
+    <div><span>03</span><strong>Show the evidence</strong><small>Separate verified facts from uncertainty.</small></div>
+  </section>
+
+  <section id="questions" class="panel hidden"></section>
+  <section id="result" class="hidden"></section>
+
+  <section id="about" class="info-section">
+    <div class="info-index">02</div><div><div class="eyebrow">ABOUT</div><h2>A clearer way through a complicated process.</h2><p>Home projects can involve zoning, building, fire, trades, site conditions, historic review, trees, conservation, inspections, and closeout. This planner organizes those moving parts around one property and one project.</p></div>
+  </section>
+  <section id="mission" class="info-section dark-section">
+    <div class="info-index">03</div><div><div class="eyebrow">MISSION</div><h2>Make local project information understandable without pretending uncertainty does not exist.</h2><p>The planner is designed to distinguish verified information from conditional requirements and questions that still need confirmation. Official sources remain the authority.</p></div>
+  </section>
+  <section id="feedback" class="info-section">
+    <div class="info-index">04</div><div><div class="eyebrow">FEEDBACK / INQUIRIES</div><h2>Help improve the planner.</h2><p>Found something confusing, incomplete, outdated, or incorrect? Feedback from homeowners, builders, designers, and local professionals helps identify where the planning experience needs to improve.</p><a class="text-link" href="mailto:feedback@example.com">Send feedback →</a></div>
+  </section>
+</main>
+<footer><span>Home Project Planner</span><span>Newton, Massachusetts · Evidence-backed planning</span></footer>
+<script type="module" src="app.js"></script>
+</body></html>
