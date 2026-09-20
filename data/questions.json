@@ -782,15 +782,6 @@
         ]
       },
       {
-        "id": "setbackConstraint",
-        "text": "Do you know the deck's approximate distance from the nearest property line?",
-        "kind": "number",
-        "unit": "feet",
-        "min": 0,
-        "optional": true,
-        "skipLabel": "Skip for now"
-      },
-      {
         "id": "stairsOrGuard",
         "text": "Will the deck include new stairs, guards, or railings?",
         "kind": "choice",
@@ -1045,13 +1036,6 @@
             "I'm not sure"
           ]
         ]
-      },
-      {
-        "id": "setbackConstraint",
-        "text": "Do you know the proposed addition's distance from the nearest property line?",
-        "kind": "number",
-        "unit": "feet",
-        "min": 0
       }
     ]
   }
