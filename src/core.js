@@ -132,7 +132,7 @@ export async function resolveProperty(addressInput) {
 
   const p = parcel.attributes;
 
-  const [zoning, historic, flood] = await Promise.all([
+  const [zoning, historic, flood, wetlands, wetlandRestrictions, wetlandBuffers, streams] = await Promise.all([
     query(24,{
       geometry:JSON.stringify(point),
       geometryType:'esriGeometryPoint',
@@ -165,6 +165,9 @@ export async function resolveProperty(addressInput) {
   const zoningAttrs = zoning.features?.[0]?.attributes || {};
   const historicAttrs = historic.features?.[0]?.attributes || {};
   const floodAttrs = flood.features?.[0]?.attributes || {};
+  const wetlandAttrs = wetlands.features?.[0]?.attributes || {};
+  const streamAttrs = streams.features?.[0]?.attributes || {};
+  const conservationSignals = [flood, wetlands, wetlandRestrictions, wetlandBuffers, streams].some(x => x.features?.length);
 
   return {
     resolvedAddress: a.Address || address,
@@ -174,7 +177,9 @@ export async function resolveProperty(addressInput) {
     yearBuilt: p.Year_Built ?? null,
     historicDistrict: historicAttrs.Name || null,
     floodplain: floodAttrs.Name || null,
-    conservationPotential: Boolean(flood.features?.length),
+    wetland: wetlandAttrs.Name || null,
+    stream: streamAttrs.Name || null,
+    conservationPotential: conservationSignals,
     historicExteriorReview: Boolean(historic.features?.length),
     openPermitsUnknown: true,
     sources: ['newton-addresses','newton-parcels','newton-zoning','newton-historic-districts','newton-floodplain'],
@@ -185,7 +190,10 @@ export async function resolveProperty(addressInput) {
       {label:'Year built',value:p.Year_Built ?? 'Not returned',source:'newton-parcels'},
       {label:'Lot size',value:p.Lot_Size ?? 'Not returned',source:'newton-parcels'},
       {label:'Historic district',value:historicAttrs.Name || 'None returned by layer',source:'newton-historic-districts'},
-      {label:'Floodplain',value:floodAttrs.Name || 'None returned by layer',source:'newton-floodplain'}
+      {label:'Floodplain',value:floodAttrs.Name || 'None returned by layer',source:'newton-floodplain'},
+      {label:'Wetlands',value:wetlandAttrs.Name || 'None returned by layer',source:'newton-wetlands'},
+      {label:'Stream',value:streamAttrs.Name || 'None returned by layer',source:'newton-streams'},
+      {label:'Conservation signal',value:conservationSignals ? 'Potential conservation review area' : 'No mapped signal returned',source:'newton-conservation'}
     ]
   };
 }
