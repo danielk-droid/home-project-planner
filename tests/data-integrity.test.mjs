@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import rules from '../data/rules.json' with {type:'json'};
 import sources from '../data/sources.json' with {type:'json'};
@@ -54,6 +55,23 @@ for(const r of rules){
 }
 assert.ok(sources.every(s=>s.lastVerified),'source freshness metadata missing');
 console.log('data integrity: PASS ('+rules.length+' rules, '+sources.length+' sources, '+dependencies.length+' steps, '+questions.length+' adaptive flows)');
+
+
+const indexHtml=fs.readFileSync(new URL('../index.html', import.meta.url),'utf8');
+const appJs=fs.readFileSync(new URL('../app.js', import.meta.url),'utf8');
+const stylesCss=fs.readFileSync(new URL('../styles.css', import.meta.url),'utf8');
+
+assert.equal((indexHtml.match(/data-page-link="privacy"/g)||[]).length,1,'privacy should only be linked from the footer');
+assert.equal((indexHtml.match(/data-page-link="terms"/g)||[]).length,1,'terms should only be linked from the footer');
+assert.ok(indexHtml.includes('<a href="#privacy" data-page-link="privacy">Privacy</a>'),'footer privacy link missing');
+assert.ok(indexHtml.includes('<a href="#terms" data-page-link="terms">Terms</a>'),'footer terms link missing');
+assert.ok(indexHtml.includes('<a href="#how" data-page-link="how">Evidence-backed planning</a>'),'footer evidence-backed planning link missing');
+assert.ok(/const pageIds = \['home','about','how','mission','feedback','privacy','terms','plan'\]/.test(appJs),'page routing list is incomplete');
+assert.ok(appJs.includes('function cleanupHiddenAnswers()'),'Continue path is missing answer-cleanup handler');
+assert.ok(appJs.includes("const error = $('error');") && appJs.includes("Please enter your Newton property address before continuing."),'address validation is missing');
+assert.ok(appJs.includes("hero-breathe"),'persistent hero breathing state is missing');
+assert.match(stylesCss,/\.page\.legal-page\{display:none/,'legal pages must be hidden unless routed');
+assert.match(stylesCss,/\.page\.legal-page\.page-active\{display:grid/,'active legal page must be routable');
 
 const catalogCount=catalog.categories.reduce((n,c)=>n+c.items.length,0);
 assert.equal(catalogCount,100,'project catalog should contain 100 detailed options');
