@@ -35,7 +35,7 @@ const knownPropertyFields = new Set(['zoningDistrict','historicDistrict','floodp
 const knownProjectFields = new Set([
   'buildingWork','projectDescription','condo','condoUncertain','condoApproval','condoApprovalUncertain',
   'demolition','demolitionUncertain','guttingMoreThanHalf','guttingUncertain','addedAreaOver1000','addedAreaUncertain',
-  'additionStories','additionStoriesUncertain','footprintChange','footprintChangeUncertain','setbackConstraint','setbackConstraintUncertain',
+  'additionStories','additionStoriesUncertain','footprintChange','footprintChangeUncertain',
   'deckNew','deckNewUncertain','deckHeightFt','deckHeightUncertain','stairsOrGuard','stairsOrGuardUncertain',
   'ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain',
   'siteWork','siteWorkUncertain','electricalWork','electricalUncertain','plumbingWork','plumbingUncertain','gasWork','gasUncertain',
