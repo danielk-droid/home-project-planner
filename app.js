@@ -371,17 +371,17 @@ $('mobileMenuClose')?.addEventListener('click', closeMobileMenu);
 $('mobileMenu')?.querySelectorAll('[data-page-link]').forEach(link => link.addEventListener('click', closeMobileMenu));
 
 function setCatalogSelection(id) {
-  selectedCatalogId = id;
   const item = projectCatalogItem(id);
-  if (item) {
-    answers.projectCatalogId = item.id;
-    answers.projectCatalogLabel = item.label;
-    if ($('projectType')) {
-      const option = [...$('projectType').options].find(o => o.dataset.catalogId === item.id);
-      if (option) $('projectType').value = option.value;
-      else $('projectType').value = item.flow || 'general_project';
-    }
+  if (!item) return;
+  selectedCatalogId = item.id;
+  answers = {projectCatalogId:item.id, projectCatalogLabel:item.label};
+  if ($('projectType')) {
+    const option = [...$('projectType').options].find(o => o.dataset.catalogId === item.id);
+    $('projectType').value = option?.value || item.flow || 'general_project';
   }
+  document.querySelectorAll('[data-picker-project]').forEach(x => x.classList.remove('selected'));
+  document.querySelector('[data-picker-catalog]')?.classList.add('selected');
+  updateProjectSummary();
   renderProjectCatalog();
 }
 function renderProjectCatalog() {
