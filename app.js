@@ -596,14 +596,14 @@ function questionCluster(all, index) {
     parent = candidate;
   }
   // For any choice question with an "I'm not sure" option, add clarifiers directly beneath it.
-  // These are UI-only context questions; the original uncertain answer remains the authoritative state.
-  let cursor = root;
+  // Existing data-defined clarifiers are used first; synthetic clarifiers fill gaps.
+  let cursor = cluster[cluster.length - 1];
   for (let depth=1; depth<=2; depth++) {
     const value = cursor.id.startsWith('__clarifier_') ? clarifierState[cursor.id] : answers[cursor.id];
     if (value !== 'unsure' || cursor.kind !== 'choice') break;
     const synthetic = clarifierFor(root, depth);
     synthetic.parentId = cursor.id;
-    cluster.push(synthetic);
+    if (!cluster.some(x => x.id === synthetic.id)) cluster.push(synthetic);
     cursor = synthetic;
   }
   return cluster;
