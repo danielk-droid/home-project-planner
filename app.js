@@ -129,7 +129,7 @@ function renderSavedProjects() {
       if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
       localStorage.removeItem(key);
       if (projectSaveKey() === key) {
-        property = null; type = null; answers = {}; questionIndex = 0; editingFromReview = false;
+        property = null; type = null; answers = {}; selectedCatalogId = null; questionIndex = 0; editingFromReview = false;
       }
       renderSavedProjects();
     });
@@ -332,14 +332,17 @@ function setCatalogSelection(id) {
   if (item) {
     answers.projectCatalogId = item.id;
     answers.projectCatalogLabel = item.label;
-    if ($('projectType')) $('projectType').value = item.flow || 'general_project';
+    if ($('projectType')) {
+      const option = [...$('projectType').options].find(o => o.dataset.catalogId === item.id);
+      if (option) $('projectType').value = option.value;
+      else $('projectType').value = item.flow || 'general_project';
+    }
   }
   $('projectCatalog')?.classList.add('hidden');
 }
 function renderProjectCatalog() {
   const root = $('projectCatalog');
   if (!root) return;
-  root.classList.remove('hidden');
   const all = PROJECT_CATALOG.categories || [];
   root.innerHTML = '<div class="catalog-heading"><div><div class="eyebrow">DIFFERENT PROJECT</div><h3>Find the work you are actually doing.</h3><p class="small">Choose from broader categories, then pick the closest description. You can still mark any follow-up question “I\'m not sure.”</p></div><input id="catalogSearch" type="search" placeholder="Search projects…" aria-label="Search projects"></div><div class="catalog-grid">' +
     all.map(c => '<details class="catalog-category" open><summary><b>' + escape(c.label) + '</b><span>' + c.items.length + ' options</span></summary><div>' +
@@ -366,6 +369,7 @@ projectSelect?.addEventListener('change', () => {
     selectedCatalogId = null;
     delete answers.projectCatalogId; delete answers.projectCatalogLabel;
     renderProjectCatalog();
+    $('projectCatalog')?.classList.remove('hidden');
     $('projectCatalog')?.scrollIntoView({behavior:'smooth',block:'nearest'});
   } else {
     const option = projectSelect.selectedOptions[0];
@@ -462,7 +466,7 @@ $('resolve').onclick = async () => {
   try {
     property = await resolveProperty(addressInput.value);
     type = $('projectType').value;
-    answers = {};
+    answers = selectedCatalogId ? {projectCatalogId:selectedCatalogId, projectCatalogLabel:projectCatalogItem(selectedCatalogId)?.label || null} : {};
     questionIndex = 0;
     history.pushState(null,'','#plan');
     renderQuestions();
@@ -666,7 +670,7 @@ function formatAnswer(q, value) {
 }
 
 function projectSaveKey() {
-  return 'nhpp-project:' + type + ':' + (property?.resolvedAddress || '');
+  return 'nhpp-project:' + type + ':' + (answers.projectCatalogId || '') + ':' + (property?.resolvedAddress || '');
 }
 
 const stepGuidance = {
@@ -832,8 +836,8 @@ function renderResult(plan, options = {}) {
       if (!cb.checked) {
         item?.classList.remove('collapsing','collapsed');
       } else {
-        setTimeout(() => item?.classList.add('collapsing'), 260);
-        setTimeout(() => item?.classList.add('collapsed'), 760);
+        setTimeout(() => item?.classList.add('collapsing'), 80);
+        setTimeout(() => item?.classList.add('collapsed'), 410);
       }
       updateCompletion(plan);
     };
