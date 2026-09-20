@@ -301,7 +301,7 @@
       },
       {
         "id": "projectDescription",
-        "text": "In one sentence, what are you changing or adding?",
+        "text": "Add a short note about the project (optional)",
         "kind": "text",
         "required": false,
         "optional": true,
@@ -518,7 +518,7 @@
       },
       {
         "id": "projectDescription",
-        "text": "In one sentence, what are you changing or adding?",
+        "text": "Add a short note about the project (optional)",
         "kind": "text",
         "required": false,
         "optional": true,
@@ -718,7 +718,7 @@
       },
       {
         "id": "projectDescription",
-        "text": "In one sentence, what are you changing or adding?",
+        "text": "Add a short note about the project (optional)",
         "kind": "text",
         "required": false,
         "optional": true,
@@ -955,7 +955,7 @@
       },
       {
         "id": "projectDescription",
-        "text": "In one sentence, what are you changing or adding?",
+        "text": "Add a short note about the project (optional)",
         "kind": "text",
         "required": false,
         "optional": true,
