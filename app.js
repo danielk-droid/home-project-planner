@@ -600,26 +600,26 @@ function renderResult(plan, options = {}) {
       const item = cb.closest('.step-item');
       item?.classList.add('completed','collapsed');
     }
-    cb.onchange = () => {
-    const current = JSON.parse(localStorage.getItem(savedKey) || '{}');
-    current.steps = current.steps || plan.steps;
-    const index = Number(cb.dataset.step);
-    current.steps[index].status = cb.checked ? 'complete' : 'not_started';
-    current.updatedAt = new Date().toISOString();
-    localStorage.setItem(savedKey, JSON.stringify(current));
 
-    const item = cb.closest('.step-item');
-    item?.classList.toggle('completed', cb.checked);
-    if (!cb.checked) {
-      item?.classList.remove('collapsing','collapsed');
-    } else {
-      // Let the checkmark and strike-through land first, then collapse the supporting guidance.
-      setTimeout(() => item?.classList.add('collapsing'), 260);
-      setTimeout(() => item?.classList.add('collapsed'), 760);
-    }
-    updateCompletion(plan);
-  };
-  
+    cb.onchange = () => {
+      const current = JSON.parse(localStorage.getItem(savedKey) || '{}');
+      current.steps = current.steps || plan.steps;
+      const index = Number(cb.dataset.step);
+      current.steps[index].status = cb.checked ? 'complete' : 'not_started';
+      current.updatedAt = new Date().toISOString();
+      localStorage.setItem(savedKey, JSON.stringify(current));
+
+      const item = cb.closest('.step-item');
+      item?.classList.toggle('completed', cb.checked);
+      if (!cb.checked) {
+        item?.classList.remove('collapsing','collapsed');
+      } else {
+        setTimeout(() => item?.classList.add('collapsing'), 260);
+        setTimeout(() => item?.classList.add('collapsed'), 760);
+      }
+      updateCompletion(plan);
+    };
+  });
   $('dismissCompletion').onclick = () => $('completionToast')?.classList.add('hidden');
   $('printPlan').onclick = () => window.print();
   $('editProject').onclick = () => {
@@ -650,7 +650,7 @@ function checklistSection(plan) {
     <ol class="steps">${plan.steps.map((s,i) => {
       const g = stepGuidance[s.id] || stepGuidance.scope;
       const url = sourceById(g.sourceId);
-      return `<li class="step-item"><label class="stepcheck"><input data-step="${i}" type="checkbox"> <b>${i+1}. ${escape(s.title)}</b></label>
+      return `<li class="step-item"><label class="stepcheck"><input data-step="${i}" type="checkbox" ${s.status === 'complete' ? 'checked' : ''}> <b>${i+1}. ${escape(s.title)}</b></label>
         <div class="step-extra"><span class="step-depends">Depends on: ${s.dependsOn.length ? s.dependsOn.join(', ') : 'project scope'}</span>
         <div class="step-guidance"><div class="step-guidance-label">HOW TO COMPLETE THIS STEP</div><p>${escape(g.description)}</p><p class="step-where"><strong>Where to go:</strong> ${escape(g.where)}</p>${url ? '<a class="guidance-button" href="' + escape(url) + '" target="_blank" rel="noreferrer">Open official guidance ↗</a>' : ''}</div></div>
       </li>`;
