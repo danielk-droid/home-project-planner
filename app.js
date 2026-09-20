@@ -67,6 +67,8 @@ if (heroGraphic && heroStart) {
     const startY = a.top + a.height/2;
     const endX = b.left + b.width*.52;
     const endY = b.top + b.height*.52;
+    lessonDot.style.setProperty('--start-x', startX + 'px');
+    lessonDot.style.setProperty('--start-y', startY + 'px');
     lessonDot.style.left = startX + 'px';
     lessonDot.style.top = startY + 'px';
     lessonDot.classList.add('fly');
