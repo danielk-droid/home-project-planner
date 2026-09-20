@@ -79,29 +79,113 @@ export async function resolveProperty(addressInput) {
   if (!addressFeature) throw new Error('Newton GIS could not resolve that address. No property-specific plan was generated.');
 
   const a = addressFeature.attributes;
-  const parcelData = await query(47, {
-    where: `AddressNum='${String(a.Number).replace(/'/g,"''")}' AND UPPER(Street)=UPPER('${String(a.StreetName).replace(/'/g,"''")}')`,
-    outFields:'*', returnGeometry:true, resultRecordCount:10
+  const point = addressFeature.geometry;
+  if (!point?.x || !point?.y) {
+    throw new Error('Newton GIS resolved the address, but did not return a usable map point.');
+  }
+
+  // Do not join the parcel table by street text. Newton's address and parcel
+  // layers are separate datasets and their text fields are not guaranteed to
+  // use identical formatting. Resolve the parcel spatially from the official
+  // address point instead.
+  let parcelData = await query(47, {
+    geometry: JSON.stringify(point),
+    geometryType: 'esriGeometryPoint',
+    inSR: 2249,
+    spatialRel: 'esriSpatialRelIntersects',
+    outFields:'*',
+    returnGeometry:true,
+    resultRecordCount:10
   });
+
+  // Some address points can sit just outside the mapped parcel boundary.
+  // Give the parcel resolver a small official-GIS spatial tolerance before
+  // declaring the property unresolved.
+  if (!parcelData.features?.length) {
+    parcelData = await query(47, {
+      geometry: JSON.stringify(point),
+      geometryType: 'esriGeometryPoint',
+      inSR: 2249,
+      distance: 75,
+      units: 'esriSRUnit_Foot',
+      spatialRel: 'esriSpatialRelIntersects',
+      outFields:'*',
+      returnGeometry:true,
+      resultRecordCount:10
+    });
+  }
+
+  // Last fallback: try the parcel's own address fields using the normalized
+  // address number/street. This handles parcels whose GIS point/boundary
+  // relationship is imperfect.
+  if (!parcelData.features?.length) {
+    const parsed = parseStreetAddress(a.Address || address);
+    if (parsed) {
+      const street = parsed.street.replace(/'/g,"''");
+      const number = parsed.number.replace(/'/g,"''");
+      const variants = [
+        `AddressNum='${number}' AND UPPER(Street)=UPPER('${street}')`,
+        `Number=${number} AND UPPER(Street)=UPPER('${street}')`
+      ];
+      for (const where of variants) {
+        const candidate = await query(47, {
+          where, outFields:'*', returnGeometry:true, resultRecordCount:10
+        });
+        if (candidate.features?.length) {
+          parcelData = candidate;
+          break;
+        }
+      }
+    }
+  }
+
   const parcel = parcelData.features?.[0];
-  if (!parcel) throw new Error('Newton GIS resolved the address point but did not resolve a parcel. The plan is not property-specific yet.');
+  if (!parcel) throw new Error('Newton GIS resolved the address but did not resolve a parcel. The plan is not property-specific yet.');
 
   const p = parcel.attributes;
 
   const [zoning, historic, flood] = await Promise.all([
-    query(24,{geometry:JSON.stringify(point),geometryType:'esriGeometryPoint',inSR:2249,spatialRel:'esriSpatialRelIntersects',outFields:'Zoning',returnGeometry:false,resultRecordCount:10}),
-    query(39,{geometry:JSON.stringify(point),geometryType:'esriGeometryPoint',inSR:2249,spatialRel:'esriSpatialRelIntersects',outFields:'Name,Type',returnGeometry:false,resultRecordCount:10}),
-    query(41,{geometry:JSON.stringify(point),geometryType:'esriGeometryPoint',inSR:2249,spatialRel:'esriSpatialRelIntersects',outFields:'Name,Type,OrdinanceCat',returnGeometry:false,resultRecordCount:10})
+    query(24,{
+      geometry:JSON.stringify(point),
+      geometryType:'esriGeometryPoint',
+      inSR:2249,
+      spatialRel:'esriSpatialRelIntersects',
+      outFields:'*',
+      returnGeometry:false,
+      resultRecordCount:10
+    }),
+    query(39,{
+      geometry:JSON.stringify(point),
+      geometryType:'esriGeometryPoint',
+      inSR:2249,
+      spatialRel:'esriSpatialRelIntersects',
+      outFields:'*',
+      returnGeometry:false,
+      resultRecordCount:10
+    }),
+    query(41,{
+      geometry:JSON.stringify(point),
+      geometryType:'esriGeometryPoint',
+      inSR:2249,
+      spatialRel:'esriSpatialRelIntersects',
+      outFields:'*',
+      returnGeometry:false,
+      resultRecordCount:10
+    })
   ]);
+
+  const zoningAttrs = zoning.features?.[0]?.attributes || {};
+  const historicAttrs = historic.features?.[0]?.attributes || {};
+  const floodAttrs = flood.features?.[0]?.attributes || {};
 
   return {
     resolvedAddress: a.Address || address,
     parcelId: p.MAP_PAR_ID || null,
-    zoningDistrict: zoning.features?.[0]?.attributes?.Zoning || null,
+    zoningDistrict: zoningAttrs.Zoning || p.Zoning || null,
     lotSizeSqFt: p.Lot_Size ?? null,
     yearBuilt: p.Year_Built ?? null,
-    historicDistrict: historic.features?.[0]?.attributes?.Name || null,
-    floodplain: flood.features?.[0]?.attributes?.Name || null,
+    historicDistrict: historicAttrs.Name || null,
+    floodplain: floodAttrs.Name || null,
     conservationPotential: Boolean(flood.features?.length),
     historicExteriorReview: Boolean(historic.features?.length),
     openPermitsUnknown: true,
@@ -109,15 +193,14 @@ export async function resolveProperty(addressInput) {
     evidence: [
       {label:'Address',value:a.Address || address,source:'newton-addresses'},
       {label:'Parcel',value:p.MAP_PAR_ID || 'Not returned',source:'newton-parcels'},
-      {label:'Zoning',value:zoning.features?.[0]?.attributes?.Zoning || 'Not resolved',source:'newton-zoning'},
+      {label:'Zoning',value:zoningAttrs.Zoning || p.Zoning || 'Not resolved',source:'newton-zoning'},
       {label:'Year built',value:p.Year_Built ?? 'Not returned',source:'newton-parcels'},
       {label:'Lot size',value:p.Lot_Size ?? 'Not returned',source:'newton-parcels'},
-      {label:'Historic district',value:historic.features?.[0]?.attributes?.Name || 'None returned by layer',source:'newton-historic-districts'},
-      {label:'Floodplain',value:flood.features?.[0]?.attributes?.Name || 'None returned by layer',source:'newton-floodplain'}
+      {label:'Historic district',value:historicAttrs.Name || 'None returned by layer',source:'newton-historic-districts'},
+      {label:'Floodplain',value:floodAttrs.Name || 'None returned by layer',source:'newton-floodplain'}
     ]
   };
 }
-
 function parseStreetAddress(s) {
   const m = s.match(/^\s*(\d+)\s+(.+?)\s*$/);
   return m ? {number:m[1],street:m[2]} : null;
