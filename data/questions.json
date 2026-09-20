@@ -1,0 +1,673 @@
+[
+  {
+    "id": "basement_finish",
+    "label": "Finish or remodel a basement",
+    "questions": [
+      {
+        "id": "sleepingRoomAdded",
+        "text": "Will you create a bedroom or other room intended for sleeping?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "sleepingUse",
+        "text": "What will the new room be used for?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "sleepingRoomAdded",
+            "unsure"
+          ]
+        ],
+        "options": [
+          [
+            "sleeping",
+            "Someone may sleep here"
+          ],
+          [
+            "other",
+            "Something else"
+          ],
+          [
+            "unsure",
+            "I'm still not sure"
+          ]
+        ]
+      },
+      {
+        "id": "egressType",
+        "text": "How will the sleeping room have emergency escape/rescue access?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "sleepingRoomAdded",
+            "yes"
+          ],
+          [
+            "sleepingUse",
+            "sleeping"
+          ]
+        ],
+        "options": [
+          [
+            "window",
+            "An existing window"
+          ],
+          [
+            "new_window",
+            "A new or enlarged window"
+          ],
+          [
+            "bulkhead",
+            "A bulkhead / exterior exit"
+          ],
+          [
+            "other",
+            "Something else"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "egressKnown",
+        "text": "Do you know the approximate clear opening dimensions and how the opening relates to grade?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "egressType",
+            "window"
+          ],
+          [
+            "egressType",
+            "new_window"
+          ],
+          [
+            "egressType",
+            "bulkhead"
+          ]
+        ],
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "egressMeasurements",
+        "text": "Do you have the actual opening/grade measurements available?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "egressKnown",
+            "no"
+          ],
+          [
+            "egressKnown",
+            "unsure"
+          ],
+          [
+            "egressType",
+            "unsure"
+          ]
+        ],
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "bathroomAdded",
+        "text": "Will you add a bathroom?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "bathroomIntent",
+        "text": "Are you considering adding plumbing fixtures for a bathroom, even if you haven't decided yet?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "bathroomAdded",
+            "unsure"
+          ]
+        ],
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm still not sure"
+          ]
+        ]
+      },
+      {
+        "id": "electricalWork",
+        "text": "Will you add, move, or alter electrical wiring, fixtures, or equipment?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "plumbingWork",
+        "text": "Will you add, move, or alter plumbing?",
+        "kind": "choice",
+        "showWhen": [
+          [
+            "bathroomAdded",
+            "no"
+          ],
+          [
+            "bathroomAdded",
+            "unsure"
+          ]
+        ],
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "gasWork",
+        "text": "Will you add, move, or alter gas piping or gas equipment?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "structuralChanges",
+        "text": "Will you alter structural walls, beams, columns, joists, or framing?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "exteriorExpansion",
+        "text": "Will the project change the exterior building envelope, excavate outside, or add/enlarge an exterior opening?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bathroom_renovation",
+    "label": "Renovate a bathroom",
+    "questions": [
+      {
+        "id": "plumbingWork",
+        "text": "Will plumbing be moved, added, or substantially altered?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "electricalWork",
+        "text": "Will you add or alter electrical work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "gasWork",
+        "text": "Will you add or alter gas work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "structuralChanges",
+        "text": "Will you alter structural walls, beams, or framing?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "newVentilation",
+        "text": "Will you add or alter ventilation or exhaust?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "newWindow",
+        "text": "Will you add or enlarge a window or make another exterior opening?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deck",
+    "label": "Build or replace a deck / exterior platform",
+    "questions": [
+      {
+        "id": "deckNew",
+        "text": "Is this a new deck rather than a replacement of an existing deck?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "deckHeight",
+        "text": "Approximately how high will the deck be above grade at its highest point?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0
+      },
+      {
+        "id": "deckArea",
+        "text": "Approximately how large will the deck be?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0
+      },
+      {
+        "id": "electricalWork",
+        "text": "Will you add or alter electrical work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "structuralChanges",
+        "text": "Will the deck attach to or alter structural components of the house?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "treeImpact",
+        "text": "Could construction affect trees or require work near trees?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "addition",
+    "label": "Build a residential addition",
+    "questions": [
+      {
+        "id": "newArea",
+        "text": "Approximately how much new floor area will be added?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0
+      },
+      {
+        "id": "stories",
+        "text": "How many stories will the addition have?",
+        "kind": "number",
+        "min": 1,
+        "max": 5
+      },
+      {
+        "id": "structuralChanges",
+        "text": "Will the addition involve structural work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "electricalWork",
+        "text": "Will you add or alter electrical work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "plumbingWork",
+        "text": "Will you add or alter plumbing?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "gasWork",
+        "text": "Will you add or alter gas work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "windowsOrDoors",
+        "text": "Will you add, enlarge, or relocate exterior windows or doors?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "siteWork",
+        "text": "Will the addition require grading, excavation, retaining walls, or other significant site work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "treeImpact",
+        "text": "Could construction affect trees or require work near trees?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      }
+    ]
+  }
+]
