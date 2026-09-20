@@ -87,7 +87,6 @@ export async function resolveProperty(addressInput) {
   if (!parcel) throw new Error('Newton GIS resolved the address point but did not resolve a parcel. The plan is not property-specific yet.');
 
   const p = parcel.attributes;
-  const point = addressFeature.geometry;
 
   const [zoning, historic, flood] = await Promise.all([
     query(24,{geometry:JSON.stringify(point),geometryType:'esriGeometryPoint',inSR:2249,spatialRel:'esriSpatialRelIntersects',outFields:'Zoning',returnGeometry:false,resultRecordCount:10}),
