@@ -122,7 +122,7 @@ function renderQuestionCard() {
     <div class="question-card">
       <div class="eyebrow">PROJECT SCOPE</div>
       <h1>${escape(q.text)}</h1>
-      ${q.kind === 'choice' ? choiceControl(q, current) : numberControl(q, current)}
+      ${q.kind === 'choice' ? choiceControl(q, current) : q.kind === 'text' ? textControl(q, current) : numberControl(q, current)}
       <div id="questionHint" class="small hint">${q.kind === 'choice' && q.options.some(o => o[0] === 'unsure') ? 'Not sure? That is a valid answer. We will narrow it down with follow-up questions.' : 'An estimate is fine when the exact number is not known yet.'}</div>
       <div class="question-actions">
         <button type="button" id="backQuestion" class="secondary" ${questionIndex === 0 ? 'disabled' : ''}>Back</button>
@@ -160,8 +160,16 @@ function numberControl(q, current) {
   return `<div class="number-wrap"><input id="questionNumber" type="number" min="${q.min ?? 0}" ${q.max != null ? 'max="' + q.max + '"' : ''} step="any" value="${current ?? ''}" placeholder="Enter an estimate"><span>${escape(q.unit || '')}</span></div>`;
 }
 
+function textControl(q, current) {
+  return `<div class="text-wrap"><textarea id="questionText" rows="4" maxlength="500" placeholder="Describe it briefly">${escape(current ?? '')}</textarea></div>`;
+}
+
 function readQuestionValue(q) {
   if (q.kind === 'choice') return document.querySelector('input[name="questionChoice"]:checked')?.value;
+  if (q.kind === 'text') {
+    const value = $('questionText')?.value.trim();
+    return value || undefined;
+  }
   const raw = $('questionNumber')?.value.trim();
   if (raw === '') return undefined;
   const value = Number(raw);
@@ -220,14 +228,7 @@ function renderResult(plan) {
     ${sectionFor('What still needs to be clarified', confirm, statusClass)}
     <section class="panel"><h2>Information to prepare</h2>
       <p class="muted">The City may require additional project-specific information or documents during review. This list is a preparation guide, not a guarantee of completeness.</p>
-      <ul class="prep-list">
-        <li>Clear description of the proposed work and affected rooms/areas</li>
-        <li>Existing and proposed plans or drawings appropriate to the project</li>
-        <li>Dimensions and site information needed for any applicable zoning, egress, structural, or exterior review</li>
-        <li>Applicable electrical, plumbing, and gas scope details</li>
-        <li>Fire-protection information where applicable</li>
-        <li>Any site, historic, tree, conservation, or professional documentation identified by the planner</li>
-      </ul>
+      <ul class="prep-list">${preparationItems(plan).map(x => '<li>' + escape(x) + '</li>').join('')}</ul>
     </section>
     <section class="panel"><h2>Project sequence</h2>
       <p class="small">A planning sequence. Dependencies indicate what should be understood before the next stage; they are not a City-issued schedule.</p>
@@ -256,6 +257,15 @@ function renderResult(plan) {
     renderQuestions();
   };
   $('restart').onclick = () => location.reload();
+}
+
+function preparationItems(plan) {
+  const items = new Set([
+    'Clear description of the proposed work and affected rooms/areas',
+    'Existing and proposed plans or drawings appropriate to the project'
+  ]);
+  for (const result of plan.results) for (const item of (result.preparation || [])) items.add(item);
+  return [...items];
 }
 
 function sectionFor(title, results, statusClass) {
