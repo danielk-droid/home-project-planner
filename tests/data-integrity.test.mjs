@@ -26,7 +26,28 @@ for(const flow of questions){
       assert.ok(q.options?.length>=2,'choice needs options '+flow.id+'.'+q.id);
       assert.ok(q.options.every(x=>Array.isArray(x)&&x.length===2),'malformed option '+flow.id+'.'+q.id);
     }
-    for(const [key] of (q.showWhen||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhen key '+flow.id+'.'+key);\n    for(const [key] of (q.showWhenAny||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhenAny key '+flow.id+'.'+key);
+    for(const [key] of (q.showWhen||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhen key '+flow.id+'.'+key);
+    for(const [key] of (q.showWhenAny||[])) assert.ok(flow.questions.some(x=>x.id===key),'unknown showWhenAny key '+flow.id+'.'+key);
   }
 }
+// Verify every rule condition references a property/project field that the core context can provide.
+const knownPropertyFields = new Set(['zoningDistrict','historicDistrict','floodplain','conservationPotential','historicExteriorReview','openPermitsUnknown','yearBuilt','lotSizeSqFt','parcelId']);
+const knownProjectFields = new Set([
+  'buildingWork','projectDescription','projectCost','condo','condoUncertain','condoApproval','condoApprovalUncertain',
+  'demolition','demolitionUncertain','guttingMoreThanHalf','guttingUncertain','addedAreaOver1000','addedAreaUncertain',
+  'additionStories','additionStoriesUncertain','footprintChange','footprintChangeUncertain','setbackConstraint','setbackConstraintUncertain',
+  'deckNew','deckNewUncertain','deckHeightFt','deckHeightUncertain','deckAreaSqFt','deckAreaUncertain','stairsOrGuard','stairsOrGuardUncertain',
+  'basementAreaSqFt','basementAreaUncertain','ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain',
+  'siteWork','siteWorkUncertain','electricalWork','electricalUncertain','plumbingWork','plumbingUncertain','gasWork','gasUncertain',
+  'structuralChanges','structuralUncertain','exteriorConstruction','exteriorUncertain','expansion','sleepingRoomAdded','sleepingRoomUncertain',
+  'bathroomAdded','bathroomUncertain','ventilationWork','ventilationUncertain','windowWork','windowUncertain','treeImpact','treeImpactUncertain'
+]);
+for(const r of rules){
+  for(const token of r.when.match(/[\\w]+\\.[\\w]+/g)||[]){
+    const [scope,key]=token.split('.');
+    assert.ok(scope==='property'||scope==='project','unknown rule scope '+r.id+' '+token);
+    assert.ok(scope==='property'?knownPropertyFields.has(key):knownProjectFields.has(key),'unknown rule field '+r.id+' '+token);
+  }
+}
+assert.ok(sources.every(s=>s.lastVerified),'source freshness metadata missing');
 console.log('data integrity: PASS ('+rules.length+' rules, '+sources.length+' sources, '+dependencies.length+' steps, '+questions.length+' adaptive flows)');
