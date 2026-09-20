@@ -227,7 +227,7 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
       { transform:'translate(-50%,-50%) translate(' + (dx*.76) + 'px,' + (dy*.76-3) + 'px) scale(1)', opacity:1, offset:.79 },
       { transform:'translate(-50%,-50%) translate(' + dx + 'px,' + dy + 'px) scale(1)', opacity:1, offset:1 }
     ], {
-      duration:3200,
+      duration:2200,
       easing:'cubic-bezier(.22,.72,.18,1)',
       fill:'forwards'
     }).finished.then(async () => {
