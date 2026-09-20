@@ -594,22 +594,6 @@
     ]
   },
   {
-    "id": "basement.area",
-    "when": "project.basementAreaSqFt > 0",
-    "status": "potentially_required",
-    "title": "Basement area and existing-condition documentation",
-    "action": "Use the basement area and existing-condition measurements when preparing drawings and evaluating the scope; confirm any project-specific zoning or code implications with the permit reviewer.",
-    "sourceIds": [
-      "newton-building-checklist",
-      "ma-building-code"
-    ],
-    "reviewRequired": true,
-    "preparation": [
-      "Basement area measurement",
-      "Existing-condition floor plan"
-    ]
-  },
-  {
     "id": "bathroom.layout",
     "when": "project.bathroomLayoutChange == true",
     "status": "potentially_required",
@@ -679,23 +663,6 @@
       "ma-building-code"
     ],
     "reviewRequired": true
-  },
-  {
-    "id": "deck.lot-coverage",
-    "when": "project.deckNew == true || project.deckAreaSqFt > 0",
-    "status": "potentially_required",
-    "title": "Deck site / lot-coverage review",
-    "action": "Include the proposed deck footprint in the site and zoning review because Newton's building checklist calls for existing and proposed lot coverage, setbacks, and related site information.",
-    "sourceIds": [
-      "newton-building-checklist",
-      "newton-planning"
-    ],
-    "reviewRequired": true,
-    "preparation": [
-      "Deck footprint dimensions",
-      "Existing/proposed lot-coverage information",
-      "Site plan showing the deck"
-    ]
   },
   {
     "id": "addition.stories",
