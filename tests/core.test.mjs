@@ -67,4 +67,34 @@ assert.ok(p.results.some(x=>x.id==='property.historic'));
 assert.ok(p.results.some(x=>x.id==='project.conservation'));
 assert.ok(p.results.some(x=>x.id==='project.tree-uncertain'));
 
+p = buildPlan('deck', property, {
+  deckNew:'yes', deckHeight:5, deckArea:240, electricalWork:'no', structuralChanges:'yes',
+  treeImpact:'unsure', stairsOrGuard:'yes', setbackConstraint:12, demolition:'no', condo:'no'
+});
+assert.ok(p.results.some(x=>x.id==='deck.elevated'));
+assert.ok(p.results.some(x=>x.id==='deck.lot-coverage'));
+assert.ok(p.results.some(x=>x.id==='deck.stairs-guards'));
+assert.ok(p.results.some(x=>x.id==='project.tree-uncertain'));
+
+p = buildPlan('bathroom_renovation', property, {
+  plumbingWork:'yes', electricalWork:'yes', gasWork:'no', structuralChanges:'no',
+  newVentilation:'yes', newWindow:'yes', layoutChange:'yes', condo:'yes', condoApproval:'unsure',
+  demolition:'no', guttingExtent:'no'
+});
+assert.ok(p.results.some(x=>x.id==='bathroom.layout'));
+assert.ok(p.results.some(x=>x.id==='project.ventilation'));
+assert.ok(p.results.some(x=>x.id==='project.window'));
+assert.ok(p.results.some(x=>x.id==='project.condo-approval-uncertain'));
+
+p = buildPlan('addition', property, {
+  newArea:1200, stories:2, structuralChanges:'yes', electricalWork:'yes', plumbingWork:'yes', gasWork:'no',
+  windowsOrDoors:'yes', siteWork:'yes', treeImpact:'no', footprintChange:'yes', setbackConstraint:15,
+  condo:'no', demolition:'no', guttingExtent:'no'
+});
+assert.ok(p.results.some(x=>x.id==='addition.stories'));
+assert.ok(p.results.some(x=>x.id==='addition.footprint'));
+assert.ok(p.results.some(x=>x.id==='addition.setback'));
+assert.ok(p.results.some(x=>x.id==='project.water-sewer'));
+assert.ok(p.results.some(x=>x.id==='project.energy-major'));
+
 console.log('core adaptive regression tests: PASS');
