@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "scripts": {
+    "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs"
+  }
+}
