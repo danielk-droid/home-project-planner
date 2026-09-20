@@ -40,10 +40,6 @@
           [
             "other",
             "Something else"
-          ],
-          [
-            "unsure",
-            "I'm still not sure"
           ]
         ]
       },
@@ -187,10 +183,6 @@
           [
             "no",
             "No"
-          ],
-          [
-            "unsure",
-            "I'm still not sure"
           ]
         ]
       },
@@ -305,7 +297,7 @@
         "kind": "text",
         "required": false,
         "optional": true,
-        "skipLabel": "Skip for now"
+        "skipLabel": "Skip"
       },
       {
         "id": "condo",
@@ -522,7 +514,7 @@
         "kind": "text",
         "required": false,
         "optional": true,
-        "skipLabel": "Skip for now"
+        "skipLabel": "Skip"
       },
       {
         "id": "condo",
@@ -657,7 +649,7 @@
         "unit": "feet",
         "min": 0,
         "optional": true,
-        "skipLabel": "Skip for now"
+        "skipLabel": "Skip"
       },
       {
         "id": "electricalWork",
@@ -722,7 +714,7 @@
         "kind": "text",
         "required": false,
         "optional": true,
-        "skipLabel": "Skip for now"
+        "skipLabel": "Skip"
       },
       {
         "id": "condo",
@@ -959,7 +951,7 @@
         "kind": "text",
         "required": false,
         "optional": true,
-        "skipLabel": "Skip for now"
+        "skipLabel": "Skip"
       },
       {
         "id": "condo",
@@ -1110,44 +1102,6 @@
           [
             "site",
             "Change the property or site"
-          ],
-          [
-            "unsure",
-            "I'm still not sure"
-          ]
-        ]
-      },
-      {
-        "id": "primaryWorkAreaDetail2",
-        "text": "What is the closest description of the work?",
-        "kind": "choice",
-        "why": "This gives the planner one more level of context when the project is still unclear, so it can keep uncertainty visible instead of guessing.",
-        "showWhen": [
-          [
-            "primaryWorkAreaDetail",
-            "unsure"
-          ]
-        ],
-        "options": [
-          [
-            "repair",
-            "Repair or replace something"
-          ],
-          [
-            "remodel",
-            "Remodel or reconfigure something"
-          ],
-          [
-            "add",
-            "Add something new"
-          ],
-          [
-            "remove",
-            "Remove or demolish something"
-          ],
-          [
-            "unsure",
-            "I'm still not sure"
           ]
         ]
       },
@@ -1278,10 +1232,6 @@
           [
             "site",
             "Ground, trees, drainage, or other site work"
-          ],
-          [
-            "unsure",
-            "I'm still not sure"
           ]
         ]
       },
@@ -1352,7 +1302,7 @@
         "why": "A plain-language description gives the planner context without requiring you to know construction terminology.",
         "required": false,
         "optional": true,
-        "skipLabel": "Skip for now"
+        "skipLabel": "Skip"
       }
     ]
   }
