@@ -1038,5 +1038,322 @@
         ]
       }
     ]
+  },
+  {
+    "id": "general_project",
+    "label": "Other home project",
+    "questions": [
+      {
+        "id": "primaryWorkArea",
+        "text": "What part of the home are you changing?",
+        "kind": "choice",
+        "why": "This identifies the main work area so the planner can focus the next questions on the requirements most likely to affect your project.",
+        "options": [
+          [
+            "interior",
+            "Interior space"
+          ],
+          [
+            "bath",
+            "Bathroom or plumbing area"
+          ],
+          [
+            "kitchen",
+            "Kitchen"
+          ],
+          [
+            "exterior",
+            "Exterior or outdoor structure"
+          ],
+          [
+            "addition",
+            "Adding or expanding space"
+          ],
+          [
+            "systems",
+            "Electrical, HVAC, gas, or other systems"
+          ],
+          [
+            "site",
+            "Yard, grading, drainage, driveway, or trees"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "primaryWorkAreaDetail",
+        "text": "What are you trying to change in that area?",
+        "kind": "choice",
+        "why": "A broad area can lead to very different review paths; this narrows the work without making you know the permit terminology.",
+        "showWhen": [
+          [
+            "primaryWorkArea",
+            "unsure"
+          ]
+        ],
+        "options": [
+          [
+            "room",
+            "Change or finish a room"
+          ],
+          [
+            "structure",
+            "Change a structure or building exterior"
+          ],
+          [
+            "systems",
+            "Change a home system or utility"
+          ],
+          [
+            "site",
+            "Change the property or site"
+          ],
+          [
+            "unsure",
+            "I'm still not sure"
+          ]
+        ]
+      },
+      {
+        "id": "primaryWorkAreaDetail2",
+        "text": "What is the closest description of the work?",
+        "kind": "choice",
+        "why": "This gives the planner one more level of context when the project is still unclear, so it can keep uncertainty visible instead of guessing.",
+        "showWhen": [
+          [
+            "primaryWorkAreaDetail",
+            "unsure"
+          ]
+        ],
+        "options": [
+          [
+            "repair",
+            "Repair or replace something"
+          ],
+          [
+            "remodel",
+            "Remodel or reconfigure something"
+          ],
+          [
+            "add",
+            "Add something new"
+          ],
+          [
+            "remove",
+            "Remove or demolish something"
+          ],
+          [
+            "unsure",
+            "I'm still not sure"
+          ]
+        ]
+      },
+      {
+        "id": "structuralChanges",
+        "text": "Will you change walls, framing, foundations, beams, columns, or other structural parts?",
+        "kind": "choice",
+        "why": "Structural work can change the building-plan, engineering, and inspection path.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "electricalWork",
+        "text": "Will you add, move, or alter electrical wiring, fixtures, service, or equipment?",
+        "kind": "choice",
+        "why": "Electrical work can create a separate permit and inspection path.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "plumbingWork",
+        "text": "Will you add, move, or alter plumbing or plumbing fixtures?",
+        "kind": "choice",
+        "why": "Plumbing work can create a separate permit and inspection path.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "gasWork",
+        "text": "Will you add, move, or alter gas piping or gas equipment?",
+        "kind": "choice",
+        "why": "Gas work can create a separate permit and inspection path.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "exteriorChange",
+        "text": "Will the project change the outside of the building or add exterior construction?",
+        "kind": "choice",
+        "why": "Exterior work can trigger zoning, historic, tree, conservation, and building reviews that interior work may not.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "exteriorChangeDetail",
+        "text": "What kind of exterior change is closest?",
+        "kind": "choice",
+        "why": "Different exterior changes can trigger different site or historic reviews.",
+        "showWhen": [
+          [
+            "exteriorChange",
+            "unsure"
+          ]
+        ],
+        "options": [
+          [
+            "opening",
+            "Windows, doors, or another opening"
+          ],
+          [
+            "structure",
+            "Deck, porch, addition, or structure"
+          ],
+          [
+            "surface",
+            "Roof, siding, or exterior finish"
+          ],
+          [
+            "site",
+            "Ground, trees, drainage, or other site work"
+          ],
+          [
+            "unsure",
+            "I'm still not sure"
+          ]
+        ]
+      },
+      {
+        "id": "siteWork",
+        "text": "Will the project change grading, drainage, excavation, retaining walls, paving, trees, or other site features?",
+        "kind": "choice",
+        "why": "Site work can trigger property-specific zoning, conservation, tree, or engineering review.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "condo",
+        "text": "Is this property part of a condominium or other shared ownership?",
+        "kind": "choice",
+        "why": "Shared ownership can add an approval path that is separate from city requirements.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "demolition",
+        "text": "Will anything existing be demolished or substantially removed?",
+        "kind": "choice",
+        "why": "Demolition can change the permit, historic, structural, and inspection requirements.",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "projectDescription",
+        "text": "Add a short note about what you want to accomplish (optional)",
+        "kind": "text",
+        "why": "A plain-language description gives the planner context without requiring you to know construction terminology.",
+        "required": false,
+        "optional": true,
+        "skipLabel": "Skip for now"
+      }
+    ]
   }
 ]
