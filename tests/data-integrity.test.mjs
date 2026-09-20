@@ -74,8 +74,10 @@ assert.match(stylesCss,/\.page\.legal-page\{display:none/,'legal pages must be h
 assert.match(stylesCss,/\.page\.legal-page\.page-active\{display:grid/,'active legal page must be routable');
 
 const catalogCount=catalog.categories.reduce((n,c)=>n+c.items.length,0);
-assert.equal(catalogCount,100,'project catalog should contain 100 detailed options');
+assert.equal(catalogCount,66,'permit-audited project catalog should contain the 66 retained detailed options');
 assert.ok(['basement_finish','bathroom_renovation','deck','addition','general_project'].every(id => questions.some(flow => flow.id === id)),'all core project flows remain present');
 assert.equal(new Set(catalog.categories.map(c=>c.id)).size,catalog.categories.length,'duplicate catalog categories');
-assert.ok(catalog.categories.every(c=>c.label&&c.items?.length===10),'catalog categories should each contain 10 options');
+assert.ok(catalog.categories.every(c=>c.label&&Array.isArray(c.items)&&c.items.length>0),'catalog categories should contain at least one audited option');
+const removedNonPermitExamples = new Set(['Replace kitchen cabinets','Replace kitchen countertops','Build a patio','Build or replace a fence','Build a shed','Repair a roof','Install a walkway','Landscape a large area','Something else not listed here']);
+for(const cat of catalog.categories) for(const item of cat.items) assert.ok(!removedNonPermitExamples.has(item),'non-permit catalog item remains: '+item);
 console.log('project catalog integrity: PASS ('+catalogCount+' detailed options)');
