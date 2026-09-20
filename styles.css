@@ -718,3 +718,219 @@ label{display:block;font-weight:700;margin:30px 0 0}label>input,label>select,lab
   .mission-node span{font-size:7px}
   .checklist-disclaimer{padding:16px}
 }
+
+/* Navigation and page typography cleanup */
+footer{
+  margin:0 30px;
+  padding:26px 0 30px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:25px;
+  color:var(--muted);
+}
+.footer-brand{
+  color:var(--ink);
+  font-size:13px;
+  font-weight:850;
+  letter-spacing:-.01em;
+}
+.footer-meta{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  font-size:10px;
+  letter-spacing:.05em;
+}
+.footer-meta span+span:before{
+  content:"";
+  display:inline-block;
+  width:3px;height:3px;
+  border-radius:50%;
+  background:var(--olive);
+  margin:0 10px 2px 0;
+}
+.focus-mode footer{display:none}
+
+/* Plan view selection */
+.plan-choice{margin-top:0}
+.plan-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:25px;
+}
+.plan-choice-card{
+  position:relative;
+  text-align:left;
+  border:1px solid var(--line);
+  background:var(--surface);
+  padding:26px 27px 24px;
+  color:var(--ink);
+  cursor:pointer;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease,background .25s ease;
+}
+.plan-choice-card:hover{
+  transform:translateY(-4px);
+  border-color:#9da78e;
+  box-shadow:0 16px 34px rgba(42,48,38,.1);
+  background:#f8f7f1;
+}
+.choice-number{
+  display:block;
+  color:var(--olive);
+  font-size:9px;
+  letter-spacing:.16em;
+  font-weight:850;
+  margin-bottom:16px;
+}
+.plan-choice-card strong{
+  display:block;
+  font-size:21px;
+  letter-spacing:-.025em;
+}
+.plan-choice-card p{
+  margin:9px 0 18px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  max-width:440px;
+}
+.choice-arrow{
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--olive-dark);
+  font-weight:850;
+}
+.plan-view{margin-top:14px}
+.view-switch-bottom{
+  margin:22px 0 35px;
+  padding:20px 22px;
+  border:1px solid var(--line);
+  background:var(--warm);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.view-switch-bottom span{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+/* Completed step text: use real line-through per line instead of a single mid-element rule. */
+.stepcheck b:after{display:none!important}
+.stepcheck input:checked~b{
+  text-decoration-line:line-through;
+  text-decoration-thickness:2px;
+  text-decoration-color:var(--muted);
+  text-decoration-skip-ink:none;
+  text-decoration-style:solid;
+}
+
+/* Meaningful feedback graphic */
+.feedback-visual{
+  min-height:300px;
+  border:1px solid var(--line);
+  background:var(--warm);
+  display:grid;
+  place-items:center;
+  padding:18px;
+}
+.feedback-visual svg{width:100%;height:auto;overflow:visible}
+.feedback-path{
+  fill:none;
+  stroke:var(--olive-dark);
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.feedback-node{
+  fill:var(--warm);
+  stroke:var(--olive-dark);
+  stroke-width:2;
+}
+.feedback-node-solid{fill:var(--olive-dark)}
+.feedback-visual text{
+  fill:var(--olive-dark);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:1.5px;
+}
+
+/* Mission diagram: simple property-to-plan sequence rather than arbitrary geometry. */
+.mission-visual{
+  min-height:350px;
+  display:grid;
+  grid-template-columns:1fr;
+  align-content:center;
+  gap:15px;
+  padding:35px;
+}
+.mission-map-line{display:none}
+.mission-node{
+  position:relative;
+  inset:auto!important;
+  transform:none!important;
+  width:auto;
+  height:auto;
+  min-height:66px;
+  border-radius:0;
+  border:1px solid rgba(224,231,214,.3);
+  background:#273023;
+  display:grid;
+  grid-template-columns:38px 1fr;
+  align-items:center;
+  justify-content:start;
+  text-align:left;
+  padding:0 18px;
+  box-shadow:none;
+}
+.mission-node b{font-size:10px;color:#c7d0bb;letter-spacing:.12em}
+.mission-node span{font-size:9px;color:#eef1e8;letter-spacing:.12em;font-weight:850}
+.mission-node:after{
+  content:"";
+  position:absolute;
+  left:37px;
+  bottom:-16px;
+  width:1px;
+  height:16px;
+  background:#aeb8a2;
+}
+.mission-node:last-child:after{display:none}
+
+/* Guided dot: fixed viewport overlay, independent of page scrolling. */
+.lesson-dot{
+  position:fixed!important;
+  left:0;
+  top:0;
+  will-change:transform,left,top;
+}
+.dot-spark{
+  position:fixed!important;
+  will-change:transform,opacity;
+}
+@keyframes guidedClick{
+  0%{transform:translateY(-2px) scale(1);box-shadow:0 0 0 6px rgba(227,231,220,.35),0 14px 32px rgba(48,59,41,.28)}
+  20%{transform:translateY(-2px) scale(1.055);box-shadow:0 0 0 14px rgba(227,231,220,.24),0 19px 40px rgba(48,59,41,.32)}
+  45%{transform:translateY(0) scale(.98);box-shadow:0 0 0 6px rgba(227,231,220,.13),0 9px 24px rgba(48,59,41,.2)}
+  100%{transform:translateY(0) scale(1);box-shadow:none}
+}
+.primary-link.guided-click{animation:guidedClick .62s cubic-bezier(.22,.61,.36,1) both}
+
+@media(max-width:850px){
+  .plan-choice-grid{grid-template-columns:1fr}
+  .view-switch-bottom{align-items:flex-start;flex-direction:column}
+  footer{margin-left:20px;margin-right:20px;align-items:flex-start;flex-direction:column;gap:10px}
+  .footer-meta{justify-content:flex-start}
+}
+@media(max-width:500px){
+  .footer-meta{display:block}
+  .footer-meta span{display:block;margin-top:6px}
+  .footer-meta span+span:before{display:none}
+  .plan-choice-card{padding:23px 20px}
+}
