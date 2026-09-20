@@ -341,7 +341,7 @@ const stepGuidance = {
 
 const sourceById = id => ({
   'newton-gis':'https://www.newtonma.gov/government/information-technology/gis',
-  'newton-zoning':'https://www.newtonma.gov/government/planning',
+  'newton-zoning':'https://www.newtonma.gov/about/city-maps-available-for-download',
   'newton-planning':'https://www.newtonma.gov/government/planning',
   'newton-newgov':'https://newtonma.portal.opengov.com/categories/1086',
   'newton-fire':'https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews',
@@ -349,8 +349,8 @@ const sourceById = id => ({
   'newton-conservation':'https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev',
   'newton-historic':'https://www.newtonma.gov/government/planning/historic-preservation',
   'newton-inspections':'https://www.newtonma.gov/government/inspectional-services',
-  'newton-final-checklist':'https://www.newtonma.gov/government/inspectional-services',
-  'newton-closeout':'https://www.newtonma.gov/government/inspectional-services'
+  'newton-final-checklist':'https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376',
+  'newton-closeout':'https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits'
 }[id]);
 
 function guidanceForRequirement(x) {
