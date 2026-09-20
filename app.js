@@ -660,8 +660,13 @@ function renderQuestionCard({animate=false} = {}) {
     input.addEventListener('change', () => {
       const q = cluster.find(x => x.id === input.name.replace('questionChoice-',''));
       if (!q) return;
-      if (q.id.startsWith('__clarifier_')) clarifierState[q.id] = input.value;
-      else answers[q.id] = input.value;
+      if (q.id.startsWith('__clarifier_')) {
+        clarifierState[q.id] = input.value;
+        if (input.value !== 'unsure') Object.keys(clarifierState).filter(k => k.startsWith(q.id.split('_').slice(0,-1).join('_')) && k !== q.id).forEach(k => delete clarifierState[k]);
+      } else {
+        answers[q.id] = input.value;
+        Object.keys(clarifierState).filter(k => k.startsWith('__clarifier_' + q.id + '_')).forEach(k => delete clarifierState[k]);
+      }
       // Update the selected styling without replaying the entire question transition.
       input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
       input.closest('.choice')?.classList.add('selected');
