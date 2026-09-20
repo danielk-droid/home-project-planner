@@ -119,6 +119,7 @@ assert.equal(general[0].id,'primaryWorkArea');
 let unsure = getQuestions('general_project',{primaryWorkArea:'unsure'});
 assert.equal(unsure[1].id,'primaryWorkAreaDetail');
 assert.ok(!unsure[1].options.some(([value])=>value==='unsure'));
-assert.equal(getQuestions('general_project',{primaryWorkArea:'unsure',primaryWorkAreaDetail:'room'}).length,2);
+assert.equal(getQuestions('general_project',{primaryWorkArea:'unsure',primaryWorkAreaDetail:'room'})[1].id,'primaryWorkAreaDetail');
+assert.ok(!getQuestions('general_project',{primaryWorkArea:'unsure',primaryWorkAreaDetail:'room'}).some(q => q.id === 'primaryWorkAreaDetail2'));
 assert.ok(PROJECT_CATALOG.categories.reduce((n,c)=>n+c.items.length,0) >= 100);
 assert.ok(buildPlan('general_project',property,{projectCatalogId:'kitchen_renovation',projectCatalogLabel:'Renovate a kitchen'}).project.projectCatalogLabel==='Renovate a kitchen');
