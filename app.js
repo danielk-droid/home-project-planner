@@ -650,7 +650,7 @@ function renderQuestionCard({animate=false} = {}) {
       '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
       '</div>';
   }).join('');
-  card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card' + (animate ? ' question-transition' : '') + '"'><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint"></div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
+  card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card' + (animate ? ' question-transition' : '') + '"><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint"></div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
     (editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : '') +
     (cluster[cluster.length-1]?.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(cluster[cluster.length-1].skipLabel || 'Skip for now') + '</button>' : '') +
     '<button type="button" id="nextQuestion">' + (questionIndex + cluster.length >= all.length ? 'Review my answers' : 'Continue') + '</button></div></div>';
