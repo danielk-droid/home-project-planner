@@ -660,15 +660,6 @@
         "skipLabel": "Skip for now"
       },
       {
-        "id": "deckArea",
-        "text": "Approximately how large will the deck be?",
-        "kind": "number",
-        "unit": "square feet",
-        "min": 0,
-        "optional": true,
-        "skipLabel": "Skip for now"
-      },
-      {
         "id": "electricalWork",
         "text": "Will you add or alter electrical work?",
         "kind": "choice",
