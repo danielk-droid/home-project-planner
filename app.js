@@ -450,6 +450,7 @@ function renderResult(plan) {
   $('dismissCompletion').onclick = () => $('completionToast')?.classList.add('hidden');
   $('printPlan').onclick = () => window.print();
   $('editProject').onclick = () => {
+    editingFromReview = false;
     r.classList.add('hidden');
     $('questions').classList.remove('hidden');
     questionIndex = 0;
