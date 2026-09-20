@@ -82,27 +82,90 @@ function renderSavedProjects() {
   const root = $('resume');
   if (!root) return;
   const projects = savedProjects();
-  if (!projects.length) {
-    root.classList.add('hidden');
-    root.innerHTML = '';
-    return;
-  }
   root.classList.remove('hidden');
   root.innerHTML = `
     <div class="resume-inner">
-      <div><div class="eyebrow">YOUR PROJECTS</div><h2>Pick up where you left off.</h2><p>Saved on this browser so you can come back while the project is in progress.</p></div>
-      <div class="resume-list">${projects.slice(0,4).map((p,index) => {
+      <div class="resume-intro">
+        <div class="eyebrow">PICK UP WHERE YOU LEFT OFF</div>
+        <h2>${projects.length ? 'Your saved projects.' : 'Your project can stay with you.'}</h2>
+        <p>${projects.length
+          ? 'Projects are saved on this browser. Open one to continue exactly where you left off.'
+          : 'No account is required. Start a project and it will be saved on this browser so you can return later.'}</p>
+        <div class="resume-tools">
+          <button type="button" class="secondary" id="importProject">Import project file</button>
+          <input id="importProjectInput" type="file" accept=".json,application/json" class="file-input" aria-label="Import a saved project file">
+          <span class="resume-storage-note">Browser-saved · portable backup available</span>
+        </div>
+      </div>
+      ${projects.length ? `<div class="resume-list">${projects.slice(0,8).map((p,index) => {
         const completed = (p.steps || []).filter(s => s.status === 'complete').length;
         const total = (p.steps || []).length || 0;
-        return '<button type="button" class="resume-card" data-resume-key="' + escape(projectSaveKeyFor(p)) + '">' +
+        const key = projectSaveKeyFor(p);
+        return '<div class="resume-card">' +
           '<span>' + escape(String(index + 1).padStart(2,'0')) + '</span>' +
-          '<div><b>' + escape(projectLabel(p.type)) + '</b><strong>' + escape(p.property.resolvedAddress) + '</strong><small>' + completed + ' / ' + total + ' steps complete</small></div>' +
-          '<i>Continue →</i></button>';
-      }).join('')}</div>
+          '<button type="button" class="resume-open" data-resume-key="' + escape(key) + '">' +
+            '<b>' + escape(projectLabel(p.type)) + '</b>' +
+            '<strong>' + escape(p.property.resolvedAddress) + '</strong>' +
+            '<small>' + completed + ' / ' + total + ' steps complete · saved ' + formatSavedDate(p.updatedAt) + '</small>' +
+          '</button>' +
+          '<button type="button" class="resume-delete" data-delete-key="' + escape(key) + '" aria-label="Delete saved project">Delete</button>' +
+        '</div>';
+      }).join('')}</div>` : '<div class="resume-empty"><strong>No projects saved yet.</strong><span>Your first generated plan will appear here.</span></div>'}
     </div>`;
   root.querySelectorAll('[data-resume-key]').forEach(btn => {
     btn.addEventListener('click', () => resumeSavedProject(btn.dataset.resumeKey));
   });
+  root.querySelectorAll('[data-delete-key]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.deleteKey;
+      const saved = JSON.parse(localStorage.getItem(key) || 'null');
+      if (!saved) return;
+      const name = projectLabel(saved.type) + ' · ' + saved.property.resolvedAddress;
+      if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
+      localStorage.removeItem(key);
+      if (projectSaveKey() === key) {
+        property = null; type = null; answers = {}; questionIndex = 0; editingFromReview = false;
+      }
+      renderSavedProjects();
+    });
+  });
+  $('importProject')?.addEventListener('click', () => $('importProjectInput')?.click());
+  $('importProjectInput')?.addEventListener('change', async e => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const imported = JSON.parse(await file.text());
+      if (importSavedProject(imported)) {
+        renderSavedProjects();
+        resumeSavedProject(projectSaveKeyFor(imported));
+      } else {
+        window.alert('That file is not a valid Home Project Planner project.');
+      }
+    } catch {
+      window.alert('The project file could not be read.');
+    } finally {
+      e.target.value = '';
+    }
+  });
+}
+
+function formatSavedDate(value) {
+  if (!value) return 'recently';
+  try { return new Date(value).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
+  catch { return 'recently'; }
+}
+
+function importSavedProject(project) {
+  if (!project?.type || !project?.property?.resolvedAddress || !Array.isArray(project.steps)) return false;
+  const key=projectSaveKeyFor(project);
+  localStorage.setItem(key, JSON.stringify({
+    type:project.type,
+    property:project.property,
+    answers:project.answers || {},
+    steps:project.steps.map(s=>({...s,status:s.status==='complete'?'complete':'not_started'})),
+    updatedAt:project.updatedAt || new Date().toISOString()
+  }));
+  return true;
 }
 
 function projectSaveKeyFor(project) {
@@ -602,7 +665,7 @@ function renderResult(plan, options = {}) {
       ${propertyFactsMarkup(property)}
       <p class="small">These facts come from Newton’s official GIS layers. GIS evidence does not by itself determine permit approval.</p>
     </section>
-    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="restart">Start another project</button></div>
+    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="downloadProject" class="secondary">Download project backup</button><button id="restart">Start another project</button></div>
     <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Project sequence complete.</strong><span>You’ve checked every planning step. Keep following the City’s current instructions and approvals.</span></div>
     <div id="confetti" class="confetti" aria-hidden="true"></div>`;
 
@@ -633,6 +696,7 @@ function renderResult(plan, options = {}) {
   });
   $('dismissCompletion').onclick = () => $('completionToast')?.classList.add('hidden');
   $('printPlan').onclick = () => window.print();
+  $('downloadProject').onclick = () => downloadProjectFile(savedKey);
   $('editProject').onclick = () => {
     editingFromReview = false;
     r.classList.add('hidden');
@@ -652,6 +716,25 @@ function renderResult(plan, options = {}) {
   };
   window.scrollTo({top:0,behavior:'smooth'});
   updateCompletion(plan);
+}
+
+
+function downloadProjectFile(key) {
+  const saved = JSON.parse(localStorage.getItem(key) || 'null');
+  if (!saved) return;
+  const blob = new Blob([JSON.stringify(saved,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'home-project-planner-' + slugify(saved.property.resolvedAddress) + '.json';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function slugify(value) {
+  return String(value || 'project').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,70) || 'project';
 }
 
 function checklistSection(plan) {
