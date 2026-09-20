@@ -1036,3 +1036,6 @@ footer{
 .lesson-dot{background:#b9d89f;box-shadow:0 0 0 5px rgba(185,216,159,.18),0 0 18px rgba(185,216,159,.28)}
 .primary-link.guided-click{animation:guidedBreath 2.1s cubic-bezier(.22,.61,.36,1) both}
 @keyframes guidedBreath{0%{transform:translateY(0) scale(1);box-shadow:none}12%{transform:translateY(-2px) scale(1.045);box-shadow:0 0 0 5px rgba(185,216,159,.18),0 10px 26px rgba(48,59,41,.18)}28%{transform:translateY(0) scale(.99);box-shadow:0 0 0 2px rgba(185,216,159,.12)}44%{transform:translateY(-1px) scale(1.025);box-shadow:0 0 0 4px rgba(185,216,159,.13),0 8px 20px rgba(48,59,41,.12)}60%{transform:translateY(0) scale(1)}76%{transform:scale(1.015)}100%{transform:scale(1)}}
+
+.resume-open:hover{transform:none!important;box-shadow:none!important;background:transparent!important}
+.catalog-selected{margin-top:10px;font-size:10px;color:var(--olive-dark);letter-spacing:.03em}.catalog-item.selected{background:var(--olive-soft);border-color:var(--olive);color:var(--olive-dark);box-shadow:inset 3px 0 0 var(--olive)}
