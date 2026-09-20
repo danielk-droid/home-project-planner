@@ -54,56 +54,68 @@ routeFromHash();
 
 const heroGraphic = document.querySelector('.hero-graphic');
 const heroStart = $('heroStart');
-if (heroGraphic && heroStart) {
+
+if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const lessonDot = document.createElement('span');
   lessonDot.className = 'lesson-dot';
-  lessonDot.setAttribute('aria-hidden','true');
+  lessonDot.setAttribute('aria-hidden', 'true');
   document.body.appendChild(lessonDot);
+
   setTimeout(() => {
     const dot = heroGraphic.querySelector('.site-point');
     if (!dot) return;
+
     const a = dot.getBoundingClientRect();
     const b = heroStart.getBoundingClientRect();
-    const startX = a.left + a.width / 2;
-    const startY = a.top + a.height / 2;
-    const endX = b.left + b.width * .52;
-    const endY = b.top + b.height * .52;
-    lessonDot.style.setProperty('--start-x', startX + 'px');
-    lessonDot.style.setProperty('--start-y', startY + 'px');
-    lessonDot.style.setProperty('--end-x', endX + 'px');
-    lessonDot.style.setProperty('--end-y', endY + 'px');
-    lessonDot.style.left = startX + 'px';
-    lessonDot.style.top = startY + 'px';
-    lessonDot.classList.add('fly');
-    setTimeout(() => {
+    const sx = a.left + a.width / 2;
+    const sy = a.top + a.height / 2;
+    const ex = b.left + b.width * .52;
+    const ey = b.top + b.height * .52;
+
+    lessonDot.style.left = sx + 'px';
+    lessonDot.style.top = sy + 'px';
+
+    const dx = ex - sx;
+    const dy = ey - sy;
+    lessonDot.animate([
+      { transform:'translate(-50%,-50%) translate(0,0)', opacity:0 },
+      { transform:'translate(-50%,-50%) translate(0,-26px)', opacity:1, offset:.14 },
+      { transform:'translate(-50%,-50%) translate(' + (dx*.28) + 'px,' + (dy*.28-12) + 'px)', opacity:1, offset:.42 },
+      { transform:'translate(-50%,-50%) translate(' + (dx*.68) + 'px,' + (dy*.68-4) + 'px)', opacity:1, offset:.72 },
+      { transform:'translate(-50%,-50%) translate(' + dx + 'px,' + dy + 'px)', opacity:1, offset:1 }
+    ], {duration:1550, easing:'cubic-bezier(.22,.8,.2,1)', fill:'forwards'}).finished.then(() => {
       heroStart.classList.add('guided-click');
       spawnButtonSparks(heroStart);
-      lessonDot.classList.add('arrived');
+      lessonDot.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:'translate(-50%,-50%) scale(.35)', opacity:0 }
+      ], {duration:420, easing:'cubic-bezier(.3,0,.7,1)', fill:'forwards'});
       setTimeout(() => {
         heroStart.classList.remove('guided-click');
         lessonDot.remove();
-      }, 650);
-    }, 1500);
+      }, 450);
+    });
   }, 3000);
 }
+
 function spawnButtonSparks(button) {
   const rect = button.getBoundingClientRect();
   const cx = rect.left + rect.width * .52;
   const cy = rect.top + rect.height * .52;
-  for (let i = 0; i < 9; i++) {
+
+  for (let i = 0; i < 11; i++) {
     const spark = document.createElement('span');
     spark.className = 'dot-spark';
-    const angle = (Math.PI * 2 * i / 9) + (Math.random() - .5) * .35;
-    const distance = 18 + Math.random() * 24;
+    const angle = (Math.PI * 2 * i / 11) + (Math.random() - .5) * .3;
+    const distance = 16 + Math.random() * 28;
     spark.style.left = cx + 'px';
     spark.style.top = cy + 'px';
     spark.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
     spark.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
     document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 650);
+    setTimeout(() => spark.remove(), 720);
   }
 }
-
 function openMobileMenu() {
   $('mobileMenu')?.classList.add('open');
   $('mobileMenu')?.setAttribute('aria-hidden','false');
