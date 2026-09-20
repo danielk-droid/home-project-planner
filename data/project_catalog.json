@@ -1,0 +1,216 @@
+{
+  "common": [
+    [
+      "basement_finish",
+      "Finish or remodel a basement",
+      "basement_finish"
+    ],
+    [
+      "bathroom_renovation",
+      "Renovate a bathroom",
+      "bathroom_renovation"
+    ],
+    [
+      "kitchen_renovation",
+      "Renovate a kitchen",
+      "general_project"
+    ],
+    [
+      "deck",
+      "Build or replace a deck / exterior platform",
+      "deck"
+    ],
+    [
+      "addition",
+      "Build a residential addition",
+      "addition"
+    ],
+    [
+      "garage",
+      "Build, convert, or renovate a garage",
+      "general_project"
+    ],
+    [
+      "adu",
+      "Create an accessory dwelling unit (ADU)",
+      "general_project"
+    ],
+    [
+      "exterior",
+      "Change windows, doors, siding, or other exterior elements",
+      "general_project"
+    ],
+    [
+      "roofing",
+      "Repair or replace a roof",
+      "general_project"
+    ],
+    [
+      "site",
+      "Change the yard, grading, drainage, driveway, or other site features",
+      "general_project"
+    ]
+  ],
+  "categories": [
+    {
+      "id": "interior",
+      "label": "Interior spaces",
+      "items": [
+        "Finish a basement",
+        "Create a bedroom",
+        "Create a home office",
+        "Remodel a living room",
+        "Remodel a dining room",
+        "Reconfigure interior rooms",
+        "Remove or add interior walls",
+        "Finish an attic",
+        "Convert a room to another use",
+        "General interior renovation"
+      ]
+    },
+    {
+      "id": "kitchen",
+      "label": "Kitchen",
+      "items": [
+        "Full kitchen renovation",
+        "Replace kitchen cabinets",
+        "Replace kitchen countertops",
+        "Move kitchen plumbing",
+        "Move kitchen electrical",
+        "Add kitchen appliances",
+        "Change kitchen layout",
+        "Add a kitchen island",
+        "Create an open kitchen",
+        "Other kitchen improvement"
+      ]
+    },
+    {
+      "id": "bath",
+      "label": "Bathrooms & plumbing",
+      "items": [
+        "Add a bathroom",
+        "Remodel a bathroom",
+        "Add a half bath",
+        "Move bathroom fixtures",
+        "Add or move plumbing",
+        "Replace a shower or tub",
+        "Replace a toilet or sink",
+        "Add a new shower",
+        "Add bathroom ventilation",
+        "Other bathroom improvement"
+      ]
+    },
+    {
+      "id": "exterior",
+      "label": "Exterior & outdoor structures",
+      "items": [
+        "Build a deck",
+        "Replace a deck",
+        "Build a porch",
+        "Build a patio",
+        "Build a balcony",
+        "Build exterior stairs",
+        "Build a pergola or covered structure",
+        "Build or replace a fence",
+        "Build a small outdoor structure",
+        "Other exterior structure"
+      ]
+    },
+    {
+      "id": "expansion",
+      "label": "Additions & new space",
+      "items": [
+        "Build a room addition",
+        "Build a second-story addition",
+        "Build a rear addition",
+        "Build a side addition",
+        "Expand an existing room",
+        "Enclose an existing porch",
+        "Convert exterior space to conditioned space",
+        "Build an attached addition",
+        "Build a detached addition",
+        "Other building expansion"
+      ]
+    },
+    {
+      "id": "garage",
+      "label": "Garages & accessory buildings",
+      "items": [
+        "Build a garage",
+        "Replace a garage",
+        "Convert a garage to living space",
+        "Finish a garage",
+        "Expand a garage",
+        "Build a detached garage",
+        "Build a shed",
+        "Build an accessory structure",
+        "Convert an accessory structure",
+        "Other garage or accessory-building work"
+      ]
+    },
+    {
+      "id": "envelope",
+      "label": "Roof, windows & exterior envelope",
+      "items": [
+        "Replace a roof",
+        "Repair a roof",
+        "Add a roof window or skylight",
+        "Replace windows",
+        "Enlarge windows",
+        "Add new windows",
+        "Replace exterior doors",
+        "Add or relocate exterior doors",
+        "Replace siding or exterior cladding",
+        "Other exterior-envelope work"
+      ]
+    },
+    {
+      "id": "systems",
+      "label": "Home systems & utilities",
+      "items": [
+        "Upgrade electrical service",
+        "Add electrical circuits",
+        "Install new lighting",
+        "Add or replace HVAC",
+        "Install central air conditioning",
+        "Install a heat pump",
+        "Replace a furnace or boiler",
+        "Add or replace plumbing systems",
+        "Add or modify gas equipment",
+        "Other mechanical or utility work"
+      ]
+    },
+    {
+      "id": "site",
+      "label": "Yard, land & site work",
+      "items": [
+        "Regrade the yard",
+        "Install or replace drainage",
+        "Build a retaining wall",
+        "Change a driveway",
+        "Add or modify parking",
+        "Install a walkway",
+        "Remove or add substantial paving",
+        "Landscape a large area",
+        "Remove or plant trees as part of construction",
+        "Other site or land work"
+      ]
+    },
+    {
+      "id": "accessibility",
+      "label": "Accessibility, safety & other improvements",
+      "items": [
+        "Make the home wheelchair accessible",
+        "Add an accessibility ramp",
+        "Widen doors for accessibility",
+        "Modify a bathroom for accessibility",
+        "Add a stair lift or similar equipment",
+        "Improve emergency egress",
+        "Add or modify fire-safety systems",
+        "Add a home elevator or lift",
+        "Repair structural damage",
+        "Something else not listed here"
+      ]
+    }
+  ]
+}
