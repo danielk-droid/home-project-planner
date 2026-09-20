@@ -1,16 +1,310 @@
 [
-{"id":"property.zoning","when":"property.zoningDistrict != null","status":"required","title":"Review zoning/site conditions","action":"Use the property's official zoning designation as an input to the applicable project review.","sourceIds":["newton-zoning","newton-planning"],"reviewRequired":true},
-{"id":"property.historic","when":"property.historicDistrict != null && project.exteriorConstruction == true","status":"potentially_required","title":"Historic review","action":"Check the applicable Newton historic-review track before exterior work or other work that triggers review.","sourceIds":["newton-historic-districts","newton-historic"],"reviewRequired":true},
-{"id":"property.floodplain","when":"property.floodplain != null","status":"potentially_required","title":"Floodplain review","action":"Verify whether the proposed work is within the applicable floodplain jurisdiction and what review it triggers.","sourceIds":["newton-floodplain","newton-conservation"],"reviewRequired":true},
-{"id":"project.building","when":"project.buildingWork == true","status":"required","title":"Building permit workflow","action":"Enter Newton's building-permit workflow and verify the exact application subtype and plan requirements.","sourceIds":["newton-planning"],"reviewRequired":true},
-{"id":"project.electrical","when":"project.electricalWork == true","status":"required","title":"Electrical permit","action":"Evaluate the separate electrical permit and inspection workflow.","sourceIds":["newton-electrical-plumbing-gas"],"reviewRequired":true},
-{"id":"project.plumbing","when":"project.plumbingWork == true","status":"required","title":"Plumbing permit","action":"Evaluate the separate plumbing permit and inspection workflow.","sourceIds":["newton-electrical-plumbing-gas"],"reviewRequired":true},
-{"id":"project.gas","when":"project.gasWork == true","status":"required","title":"Gas permit","action":"Evaluate the separate gas permit and inspection workflow.","sourceIds":["newton-electrical-plumbing-gas"],"reviewRequired":true},
-{"id":"project.fire","when":"project.buildingWork == true","status":"potentially_required","title":"Fire plan review","action":"Determine whether Newton Fire approval is required before permit issuance for this scope.","sourceIds":["newton-fire"],"reviewRequired":true},
-{"id":"project.tree","when":"project.exteriorConstruction == true","status":"required","title":"Tree Permit evaluation","action":"Evaluate Newton Tree Permit requirements before exterior construction starts.","sourceIds":["newton-tree"],"reviewRequired":true},
-{"id":"project.conservation","when":"property.conservationPotential == true && project.exteriorConstruction == true","status":"potentially_required","title":"Conservation review","action":"Route the site to Conservation review and verify the applicable wetland, stream, or floodplain jurisdiction.","sourceIds":["newton-conservation"],"reviewRequired":true},
-{"id":"project.far","when":"project.expansion == true","status":"required","title":"FAR / zoning analysis","action":"Perform a current Newton zoning/FAR analysis using the actual project geometry; do not infer compliance from a rough description.","sourceIds":["newton-far","newton-planning"],"reviewRequired":true},
-{"id":"basement.egress","when":"project.sleepingRoomAdded == true","status":"needs_confirmation","title":"Emergency egress","action":"Verify the applicable egress requirements using actual opening, grade, well/bulkhead, and room measurements.","sourceIds":["ma-building-code"],"reviewRequired":true},
-{"id":"workflow.inspections","when":"project.buildingWork == true","status":"required","title":"Inspections and final","action":"Plan required inspections, trade/department signoffs, final inspection, and permit closeout.","sourceIds":["newton-inspections","newton-closeout"],"reviewRequired":false},
-{"id":"workflow.open-permits","when":"property.openPermitsUnknown == true","status":"needs_confirmation","title":"Existing open permits","action":"Check Newton permit records for open permits before finalizing the plan.","sourceIds":["newton-closeout"],"reviewRequired":true}
+  {
+    "id": "property.zoning",
+    "when": "property.zoningDistrict != null",
+    "status": "required",
+    "title": "Review zoning/site conditions",
+    "action": "Use the property's official zoning designation as an input to the applicable project review; the planner does not determine zoning compliance from the district alone.",
+    "sourceIds": [
+      "newton-zoning",
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.historic",
+    "when": "property.historicDistrict != null && project.exteriorConstruction == true",
+    "status": "potentially_required",
+    "title": "Historic review",
+    "action": "Check the applicable Newton historic-review track before exterior work or other work that triggers review.",
+    "sourceIds": [
+      "newton-historic-districts",
+      "newton-historic"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.floodplain",
+    "when": "property.floodplain != null",
+    "status": "potentially_required",
+    "title": "Floodplain review",
+    "action": "Verify whether the proposed work is within the applicable floodplain jurisdiction and what review it triggers.",
+    "sourceIds": [
+      "newton-floodplain",
+      "newton-conservation"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.building",
+    "when": "project.buildingWork == true",
+    "status": "required",
+    "title": "Building permit workflow",
+    "action": "Enter Newton's building-permit workflow and verify the exact application subtype, drawings, calculations, and supporting documents for this scope.",
+    "sourceIds": [
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.electrical",
+    "when": "project.electricalWork == true",
+    "status": "required",
+    "title": "Electrical permit",
+    "action": "Evaluate the separate electrical permit and inspection workflow for the electrical scope.",
+    "sourceIds": [
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.electrical-uncertain",
+    "when": "project.electricalUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Electrical scope needs clarification",
+    "action": "Confirm whether any wiring, fixtures, equipment, or other electrical work will be added or altered before deciding whether a separate electrical permit applies.",
+    "sourceIds": [
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.plumbing",
+    "when": "project.plumbingWork == true",
+    "status": "required",
+    "title": "Plumbing permit",
+    "action": "Evaluate the separate plumbing permit and inspection workflow for the plumbing scope.",
+    "sourceIds": [
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.plumbing-uncertain",
+    "when": "project.plumbingUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Plumbing scope needs clarification",
+    "action": "Confirm whether plumbing fixtures or piping will be added, moved, or altered before deciding the plumbing workflow.",
+    "sourceIds": [
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.gas",
+    "when": "project.gasWork == true",
+    "status": "required",
+    "title": "Gas permit",
+    "action": "Evaluate the separate gas permit and inspection workflow for the gas scope.",
+    "sourceIds": [
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.gas-uncertain",
+    "when": "project.gasUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Gas scope needs clarification",
+    "action": "Confirm whether gas piping or gas equipment will be added, moved, or altered.",
+    "sourceIds": [
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.structural",
+    "when": "project.structuralChanges == true",
+    "status": "potentially_required",
+    "title": "Structural documentation",
+    "action": "Confirm the structural scope and whether plans, calculations, or professional documentation are required for the proposed work.",
+    "sourceIds": [
+      "newton-planning",
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.structural-uncertain",
+    "when": "project.structuralUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Structural scope needs clarification",
+    "action": "Do not assume the work is non-structural. Identify the affected walls, beams, columns, joists, framing, or foundation before finalizing the plan.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.fire",
+    "when": "project.buildingWork == true",
+    "status": "potentially_required",
+    "title": "Fire plan review",
+    "action": "Determine whether Newton Fire approval is required for this scope and prepare the applicable work description and plans.",
+    "sourceIds": [
+      "newton-fire"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.tree",
+    "when": "project.exteriorConstruction == true",
+    "status": "required",
+    "title": "Tree Permit evaluation",
+    "action": "Evaluate Newton Tree Permit requirements before exterior construction starts, including whether construction may affect protected trees.",
+    "sourceIds": [
+      "newton-tree"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.tree-uncertain",
+    "when": "project.treeImpactUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Tree impact needs clarification",
+    "action": "Determine whether the exterior work could affect trees or fall within a regulated Tree Save Area before construction.",
+    "sourceIds": [
+      "newton-tree"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.conservation",
+    "when": "property.conservationPotential == true && project.exteriorConstruction == true",
+    "status": "potentially_required",
+    "title": "Conservation review",
+    "action": "Route the site to Conservation review and verify the applicable wetland, stream, or floodplain jurisdiction.",
+    "sourceIds": [
+      "newton-conservation"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.far",
+    "when": "project.expansion == true",
+    "status": "required",
+    "title": "FAR / zoning analysis",
+    "action": "Perform a current Newton zoning/FAR analysis using the actual project geometry; do not infer compliance from a rough description.",
+    "sourceIds": [
+      "newton-far",
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.exterior-uncertain",
+    "when": "project.exteriorUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Exterior scope needs clarification",
+    "action": "Confirm whether the work changes the exterior envelope, creates an exterior opening, excavates outside, or otherwise changes the site.",
+    "sourceIds": [
+      "newton-planning",
+      "newton-tree",
+      "newton-conservation"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.ventilation",
+    "when": "project.ventilationWork == true",
+    "status": "potentially_required",
+    "title": "Ventilation scope",
+    "action": "Include the proposed ventilation/exhaust work in the building and applicable trade review and verify the exact requirements for the design.",
+    "sourceIds": [
+      "newton-planning",
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.ventilation-uncertain",
+    "when": "project.ventilationUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Ventilation scope needs clarification",
+    "action": "Determine whether new or altered ventilation/exhaust is part of the project before finalizing the plan.",
+    "sourceIds": [
+      "newton-planning",
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.window",
+    "when": "project.windowWork == true",
+    "status": "potentially_required",
+    "title": "Exterior opening review",
+    "action": "Include new or enlarged exterior windows/doors in the building and site review; project-specific dimensions and location may affect requirements.",
+    "sourceIds": [
+      "newton-planning",
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.window-uncertain",
+    "when": "project.windowUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Exterior opening needs clarification",
+    "action": "Confirm whether exterior windows or doors will be added, enlarged, or relocated before finalizing the scope.",
+    "sourceIds": [
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "basement.egress",
+    "when": "project.sleepingRoomAdded == true",
+    "status": "needs_confirmation",
+    "title": "Emergency egress",
+    "action": "Verify the applicable egress requirements using actual opening, grade, well/bulkhead, and room measurements. The planner does not declare an opening compliant from a description alone.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "basement.sleeping-uncertain",
+    "when": "project.sleepingRoomUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Sleeping-room use needs clarification",
+    "action": "Clarify whether the room is intended for sleeping because that can change applicable code and egress requirements.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "basement.bathroom-uncertain",
+    "when": "project.bathroomUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Bathroom scope needs clarification",
+    "action": "Clarify whether a bathroom and its plumbing fixtures are part of the project before finalizing the trade-permit workflow.",
+    "sourceIds": [
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "workflow.inspections",
+    "when": "project.buildingWork == true",
+    "status": "required",
+    "title": "Inspections and final",
+    "action": "Plan required inspections, trade/department signoffs, final inspection, and permit closeout.",
+    "sourceIds": [
+      "newton-inspections",
+      "newton-closeout"
+    ],
+    "reviewRequired": false
+  },
+  {
+    "id": "workflow.open-permits",
+    "when": "property.openPermitsUnknown == true",
+    "status": "needs_confirmation",
+    "title": "Existing open permits",
+    "action": "Check Newton permit records for open permits before finalizing the project plan or relying on existing work.",
+    "sourceIds": [
+      "newton-closeout"
+    ],
+    "reviewRequired": true
+  }
 ]
