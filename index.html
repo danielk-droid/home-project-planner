@@ -168,9 +168,9 @@
         <h2>A planning layer between a homeowner and a pile of disconnected information.</h2>
       </div>
       <div class="mission-body-copy">
-        <p>The planner starts with a real Newton property, then follows the project. It connects the relevant local requirements and official sources instead of asking the homeowner to know which department to search first.</p>
-        <p>It also separates what is established from what is conditional or still needs confirmation. That distinction matters: a planner should never turn incomplete information into false certainty.</p>
-        <p>The result is meant to be used over time. A homeowner can come back, review the same project, work through the checklist, and keep the unresolved questions visible while the project moves forward.</p>
+        <p>Home Project Planner starts with a real Newton property, then follows the project. The website connects relevant local requirements and official sources instead of asking homeowners to know which department to search first.</p>
+        <p>Home Project Planner also separates what is established from what is conditional or still needs confirmation. That distinction matters: the website should never turn incomplete information into false certainty.</p>
+        <p>The website is designed to be used over time. Homeowners can return to the same saved project, review the plan, work through the checklist, and keep unresolved questions visible while the project moves forward.</p>
       </div>
     </section>
     <section class="mission-principles">
@@ -188,14 +188,29 @@
         <h1>Help sharpen the planning experience.</h1>
         <p class="editorial-lede">The useful feedback is specific: a missing requirement, an unclear question, a wrong source, or a step that does not match the way the work actually happens.</p>
       </div>
-      <div class="feedback-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="feedback-visual" aria-hidden="true">
+        <svg viewBox="0 0 360 280">
+          <path class="feedback-path" d="M55 74H250L303 127L250 180H108L62 226" />
+          <path class="feedback-path" d="M108 74V180" />
+          <circle class="feedback-node" cx="55" cy="74" r="12" />
+          <circle class="feedback-node" cx="250" cy="74" r="12" />
+          <circle class="feedback-node" cx="303" cy="127" r="12" />
+          <circle class="feedback-node" cx="108" cy="180" r="12" />
+          <circle class="feedback-node feedback-node-solid" cx="62" cy="226" r="12" />
+          <text x="40" y="48">USE</text>
+          <text x="228" y="48">NOTICE</text>
+          <text x="274" y="112">REPORT</text>
+          <text x="80" y="205">REVIEW</text>
+          <text x="37" y="258">IMPROVE</text>
+        </svg>
+      </div>
     </section>
     <section class="feedback-body">
-      <div class="feedback-note"><strong>Feedback submission</strong><p>The submission form will be connected to a real review workflow before launch. This page intentionally does not use a fake email address or placeholder endpoint.</p></div>
-      <div><div class="eyebrow">WHAT HELPS</div><p>Project type, the step that felt wrong or confusing, what you expected to happen, and a link or source when you have one.</p></div>
+      <div class="feedback-note"><strong>Feedback submission</strong><p>Home Project Planner is being developed around real homeowner use. Before launch, this page will connect to a real review workflow rather than pretending that feedback has already been routed somewhere.</p></div>
+      <div><div class="eyebrow">WHAT HELPS</div><p>Tell us the project type, the question or step that felt wrong or confusing, what you expected Home Project Planner to do, and a link or official source when you have one.</p></div>
     </section>
   </section>
 </main>
-<footer><span>Home Project Planner</span><span>Newton, Massachusetts · Evidence-backed planning</span></footer>
+<footer><div class="footer-brand">Home Project Planner</div><div class="footer-meta"><span>Newton, Massachusetts</span><span>Evidence-backed planning</span></div></footer>
 <script type="module" src="app.js"></script>
 </body></html>
