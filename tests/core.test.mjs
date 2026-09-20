@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {buildPlan, normalizeAddress, getQuestions, deriveProject, PROJECT_CATALOG} from '../src/core.js';
+import {buildPlan, normalizeAddress, getQuestions, deriveProject, PROJECT_CATALOG, inferClarifiedAnswer} from '../src/core.js';
 
 const property = {
   zoningDistrict:'R3',
@@ -96,6 +96,22 @@ assert.ok(p.results.some(x=>x.id==='addition.setback'));
 assert.ok(p.results.some(x=>x.id==='project.water-sewer'));
 assert.ok(p.results.some(x=>x.id==='project.energy-major'));
 
+
+
+assert.equal(inferClarifiedAnswer('demolition',['interior','structural']),'yes');
+assert.equal(inferClarifiedAnswer('demolition',['none']),'no');
+assert.equal(inferClarifiedAnswer('electricalWork',['circuits','fixtures']),'yes');
+assert.equal(inferClarifiedAnswer('electricalWork',['none']),'no');
+assert.equal(inferClarifiedAnswer('sleepingRoomAdded','sleeping'),'yes');
+assert.equal(inferClarifiedAnswer('sleepingRoomAdded','other'),'no');
+assert.equal(inferClarifiedAnswer('bathroomAdded','yes'),'yes');
+assert.equal(inferClarifiedAnswer('bathroomAdded','no'),'no');
+assert.equal(inferClarifiedAnswer('exteriorChange','structure'),'yes');
+assert.equal(inferClarifiedAnswer('deckNew','replacement'),'no');
+assert.equal(inferClarifiedAnswer('condo','shared'),'yes');
+assert.equal(inferClarifiedAnswer('condo','not_shared'),'no');
+assert.equal(inferClarifiedAnswer('guttingExtent','more_than_half'),'yes');
+assert.equal(inferClarifiedAnswer('guttingExtent','not_more_than_half'),'no');
 console.log('core adaptive regression tests: PASS');
 
 const general = getQuestions('general_project', {});
