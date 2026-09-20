@@ -495,7 +495,7 @@ function renderResult(plan) {
       <ul class="prep-list">${preparationItems(plan).map(x => '<li>' + escape(x) + '</li>').join('')}</ul>
     </section>
     <section class="panel"><div class="section-heading"><div><div class="eyebrow">PROPERTY</div><h2>Property evidence</h2></div><span class="small">Official Newton GIS context</span></div>
-      <div class="facts">${property.evidence.map(x => `<span><b>${escape(x.label)}</b><strong>${escape(String(x.value))}</strong></span>`).join('')}</div>
+      ${propertyEvidenceBlock(property).replace('<section class="property-evidence-below">','<div class="property-evidence-inline">').replace('</section>','</div>')}
       <p class="small">These facts come from Newton’s official GIS layers. GIS evidence does not by itself determine permit approval.</p>
     </section>
     <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="restart">Start another project</button></div>
