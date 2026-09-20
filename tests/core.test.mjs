@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {buildPlan, normalizeAddress, getQuestions, deriveProject} from '../src/core.js';
+import {buildPlan, normalizeAddress, getQuestions, deriveProject, PROJECT_CATALOG} from '../src/core.js';
 
 const property = {
   zoningDistrict:'R3',
@@ -97,3 +97,12 @@ assert.ok(p.results.some(x=>x.id==='project.water-sewer'));
 assert.ok(p.results.some(x=>x.id==='project.energy-major'));
 
 console.log('core adaptive regression tests: PASS');
+
+const general = getQuestions('general_project', {});
+assert.equal(general[0].id,'primaryWorkArea');
+let unsure = getQuestions('general_project',{primaryWorkArea:'unsure'});
+assert.equal(unsure[1].id,'primaryWorkAreaDetail');
+unsure = getQuestions('general_project',{primaryWorkArea:'unsure',primaryWorkAreaDetail:'unsure'});
+assert.equal(unsure[2].id,'primaryWorkAreaDetail2');
+assert.ok(PROJECT_CATALOG.categories.reduce((n,c)=>n+c.items.length,0) >= 100);
+assert.ok(buildPlan('general_project',property,{projectCatalogId:'kitchen_renovation',projectCatalogLabel:'Renovate a kitchen'}).project.projectCatalogLabel==='Renovate a kitchen');
