@@ -33,11 +33,11 @@ for(const flow of questions){
 // Verify every rule condition references a property/project field that the core context can provide.
 const knownPropertyFields = new Set(['zoningDistrict','historicDistrict','floodplain','conservationPotential','historicExteriorReview','openPermitsUnknown','yearBuilt','lotSizeSqFt','parcelId']);
 const knownProjectFields = new Set([
-  'buildingWork','projectDescription','projectCost','condo','condoUncertain','condoApproval','condoApprovalUncertain',
+  'buildingWork','projectDescription','condo','condoUncertain','condoApproval','condoApprovalUncertain',
   'demolition','demolitionUncertain','guttingMoreThanHalf','guttingUncertain','addedAreaOver1000','addedAreaUncertain',
   'additionStories','additionStoriesUncertain','footprintChange','footprintChangeUncertain','setbackConstraint','setbackConstraintUncertain',
-  'deckNew','deckNewUncertain','deckHeightFt','deckHeightUncertain','deckAreaSqFt','deckAreaUncertain','stairsOrGuard','stairsOrGuardUncertain',
-  'basementAreaSqFt','basementAreaUncertain','ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain',
+  'deckNew','deckNewUncertain','deckHeightFt','deckHeightUncertain','stairsOrGuard','stairsOrGuardUncertain',
+  'ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain',
   'siteWork','siteWorkUncertain','electricalWork','electricalUncertain','plumbingWork','plumbingUncertain','gasWork','gasUncertain',
   'structuralChanges','structuralUncertain','exteriorConstruction','exteriorUncertain','expansion','sleepingRoomAdded','sleepingRoomUncertain',
   'bathroomAdded','bathroomUncertain','ventilationWork','ventilationUncertain','windowWork','windowUncertain','treeImpact','treeImpactUncertain'
