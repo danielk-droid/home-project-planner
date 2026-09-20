@@ -568,7 +568,7 @@ function renderResult(plan, options = {}) {
     ...x,
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
-  checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
+  checklistWasComplete = false;
   localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
   renderSavedProjects();
 
@@ -595,7 +595,12 @@ function renderResult(plan, options = {}) {
     <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Project sequence complete.</strong><span>You’ve checked every planning step. Keep following the City’s current instructions and approvals.</span></div>
     <div id="confetti" class="confetti" aria-hidden="true"></div>`;
 
-  document.querySelectorAll('[data-step]').forEach(cb => cb.onchange = () => {
+  document.querySelectorAll('[data-step]').forEach(cb => {
+    if (options.resume && cb.checked) {
+      const item = cb.closest('.step-item');
+      item?.classList.add('completed','collapsed');
+    }
+    cb.onchange = () => {
     const current = JSON.parse(localStorage.getItem(savedKey) || '{}');
     current.steps = current.steps || plan.steps;
     const index = Number(cb.dataset.step);
@@ -613,8 +618,8 @@ function renderResult(plan, options = {}) {
       setTimeout(() => item?.classList.add('collapsed'), 760);
     }
     updateCompletion(plan);
-  });
-
+  };
+  
   $('dismissCompletion').onclick = () => $('completionToast')?.classList.add('hidden');
   $('printPlan').onclick = () => window.print();
   $('editProject').onclick = () => {
@@ -624,7 +629,16 @@ function renderResult(plan, options = {}) {
     questionIndex = 0;
     renderQuestions();
   };
-  $('restart').onclick = () => { property = null; type = null; answers = {}; questionIndex = 0; history.pushState(null,'','#plan'); navigate('plan'); $('result').classList.add('hidden'); $('questions').classList.add('hidden'); document.querySelector('.planner-shell')?.classList.remove('hidden'); renderSavedProjects(); window.scrollTo({top:0,behavior:'smooth'}); };
+  $('restart').onclick = () => {
+    property = null; type = null; answers = {}; questionIndex = 0; editingFromReview = false;
+    r.classList.add('hidden'); $('questions').classList.add('hidden');
+    document.querySelector('.planner-shell')?.classList.remove('hidden');
+    history.pushState(null,'','#plan');
+    navigate('plan');
+    $('projectType').focus();
+    renderSavedProjects();
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
   window.scrollTo({top:0,behavior:'smooth'});
   updateCompletion(plan);
 }
@@ -632,14 +646,7 @@ function renderResult(plan, options = {}) {
 function checklistSection(plan) {
   const allNext = [...plan.confirm, ...plan.required];
   return `<section class="panel checklist-panel combined-workflow">
-    <div class="section-heading"><div><div class="eyebrow">NEXT STEPS / CHECKLIST</div><h2>What to do next</h2><p class="muted">Start with the items that can affect your project, then work through the steps below.</p></div><span class="check-count" id="checkCount">0 / ${plan.steps.length}</span></div>
-    ${allNext.length ? '<div class="action-strip"><div class="eyebrow">FIRST THINGS TO RESOLVE</div><ol>' + allNext.slice(0,4).map((x,i) => {
-      const g = guidanceForRequirement(x);
-      const url = g ? sourceById(g.sourceId) : null;
-      return '<li><span>0' + (i+1) + '</span><div><b>' + escape(x.title) + '</b><p>' + escape(x.action) + '</p>' +
-        (g && url ? '<a class="guidance-button" href="' + escape(url) + '" target="_blank" rel="noreferrer">Open the relevant City page ↗</a>' : '') +
-        '</div></li>';
-    }).join('') + '</ol></div>' : ''}
+    <div class="section-heading"><div><div class="eyebrow">PROJECT CHECKLIST</div><h2>What to do next</h2><p class="muted">This is your working project list. Check off each step as you complete it.</p></div><span class="check-count" id="checkCount">0 / ${plan.steps.length}</span></div>
     <ol class="steps">${plan.steps.map((s,i) => {
       const g = stepGuidance[s.id] || stepGuidance.scope;
       const url = sourceById(g.sourceId);
