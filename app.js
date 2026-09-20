@@ -666,7 +666,7 @@ function renderResult(plan, options = {}) {
       <p class="small">These facts come from Newton’s official GIS layers. GIS evidence does not by itself determine permit approval.</p>
     </section>
     <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="downloadProject" class="secondary">Download project backup</button><button id="restart">Start another project</button></div>
-    <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Project sequence complete.</strong><span>You’ve checked every planning step. Keep following the City’s current instructions and approvals.</span></div>
+    <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Planner checklist complete.</strong><span>This does not mean the project is approved or that every construction requirement has been satisfied. Confirm the applicable requirements and approvals before work begins.</span></div>
     <div id="confetti" class="confetti" aria-hidden="true"></div>`;
 
   document.querySelectorAll('[data-step]').forEach(cb => {
@@ -738,9 +738,12 @@ function slugify(value) {
 }
 
 function checklistSection(plan) {
-  const allNext = [...plan.confirm, ...plan.required];
   return `<section class="panel checklist-panel combined-workflow">
     <div class="section-heading"><div><div class="eyebrow">PROJECT CHECKLIST</div><h2>What to do next</h2><p class="muted">This is your working project list. Check off each step as you complete it.</p></div><span class="check-count" id="checkCount">0 / ${plan.steps.length}</span></div>
+    <div class="checklist-disclaimer">
+      <strong>IMPORTANT: A completed checklist does not mean the project is approved or that you are ready to start construction.</strong>
+      <span>It means you have worked through the planner's current steps. Requirements can depend on details the planner cannot establish from the available information. Before beginning work, confirm the applicable requirements, approvals, inspections, and property-specific conditions with the appropriate Newton department and qualified professionals.</span>
+    </div>
     <ol class="steps">${plan.steps.map((s,i) => {
       const g = stepGuidance[s.id] || stepGuidance.scope;
       const url = sourceById(g.sourceId);
