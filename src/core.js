@@ -38,6 +38,9 @@ export function inferClarifiedAnswer(questionId, value) {
     return null;
   }
   const map = {
+    sleepingRoomAdded: {sleeping:'yes',other:'no'},
+    bathroomAdded: {yes:'yes',no:'no'},
+    exteriorChange: {opening:'yes',structure:'yes',surface:'yes',site:'yes'},
     deckNew: {new_deck:'yes',replacement:'no'},
     condo: {shared:'yes',not_shared:'no'},
     condoApproval: {yes:'yes',no:'no'},
