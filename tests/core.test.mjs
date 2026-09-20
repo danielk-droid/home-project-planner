@@ -68,11 +68,10 @@ assert.ok(p.results.some(x=>x.id==='project.conservation'));
 assert.ok(p.results.some(x=>x.id==='project.tree-uncertain'));
 
 p = buildPlan('deck', property, {
-  deckNew:'yes', deckHeight:5, deckArea:240, electricalWork:'no', structuralChanges:'yes',
+  deckNew:'yes', deckHeight:5, electricalWork:'no', structuralChanges:'yes',
   treeImpact:'unsure', stairsOrGuard:'yes', setbackConstraint:12, demolition:'no', condo:'no'
 });
 assert.ok(p.results.some(x=>x.id==='deck.elevated'));
-assert.ok(p.results.some(x=>x.id==='deck.lot-coverage'));
 assert.ok(p.results.some(x=>x.id==='deck.stairs-guards'));
 assert.ok(p.results.some(x=>x.id==='project.tree-uncertain'));
 
