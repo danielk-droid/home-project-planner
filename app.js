@@ -1,6 +1,60 @@
 import {PROJECTS,resolveProperty,buildPlan,sourcesFor} from './src/core.js';
 const $=id=>document.getElementById(id);
 let property=null, type=null;
+const addressInput=$('address'), suggestions=$('addressSuggestions');
+let suggestionTimer=null, suggestionRequest=0;
+
+addressInput.addEventListener('input',()=>{
+  const value=addressInput.value.trim();
+  clearTimeout(suggestionTimer);
+  if(value.length<3){suggestions.innerHTML='';suggestions.classList.add('hidden');return;}
+  suggestionTimer=setTimeout(async()=>{
+    const request=++suggestionRequest;
+    try{
+      const matches=await searchAddresses(value);
+      if(request!==suggestionRequest)return;
+      renderSuggestions(matches);
+    }catch(e){
+      suggestions.innerHTML='<div class="suggestion-empty">Address search is temporarily unavailable.</div>';
+      suggestions.classList.remove('hidden');
+    }
+  },180);
+});
+addressInput.addEventListener('keydown',e=>{
+  if(e.key==='Escape') suggestions.classList.add('hidden');
+  if(e.key==='Enter' && suggestions.querySelector('[role="option"]')){
+    e.preventDefault(); suggestions.querySelector('[role="option"]').click();
+  }
+});
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.address-wrap')) suggestions.classList.add('hidden');
+});
+async function searchAddresses(value){
+  const u=new URL('https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12/query');
+  u.searchParams.set('where',`UPPER(Address) LIKE UPPER('${value.replace(/'/g,"''")}%')`);
+  u.searchParams.set('outFields','Address,AddressID,Number,NumberSuffix,FullStName,City,ZipCode');
+  u.searchParams.set('orderByFields','Address ASC');
+  u.searchParams.set('resultRecordCount','8');
+  u.searchParams.set('returnGeometry','false');
+  u.searchParams.set('f','json');
+  const res=await fetch(u);
+  if(!res.ok)throw new Error('Address search failed');
+  const data=await res.json();
+  if(data.error)throw new Error(data.error.message||'Address search failed');
+  return (data.features||[]).map(f=>f.attributes).filter(x=>x.Address);
+}
+function renderSuggestions(matches){
+  suggestions.innerHTML=matches.length
+    ? matches.map(x=>`<button type="button" class="suggestion" role="option" data-address="${escape(x.Address)}"><strong>${escape(x.Address)}</strong><span>${escape(x.City||'Newton')}${x.ZipCode?' · '+escape(x.ZipCode):''}</span></button>`).join('')
+    : '<div class="suggestion-empty">No official Newton GIS address matches yet.</div>';
+  suggestions.classList.remove('hidden');
+  suggestions.querySelectorAll('.suggestion').forEach(btn=>btn.onclick=()=>{
+    addressInput.value=btn.dataset.address;
+    suggestions.classList.add('hidden');
+    $('resolve').focus();
+  });
+}
+
 $('resolve').onclick=async()=>{
   $('error').classList.add('hidden'); $('resolve').disabled=true; $('resolve').textContent='Resolving…';
   try { property=await resolveProperty($('address').value); type=$('projectType').value; renderQuestions(); }
