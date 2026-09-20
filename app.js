@@ -10,6 +10,7 @@ let selectedCatalogId = null;
 let clarifierState = {};
 
 const pageIds = ['home','about','how','mission','feedback','privacy','terms','plan'];
+const pageIdSet = new Set(pageIds);
 const addressInput = $('address');
 const suggestions = $('addressSuggestions');
 let suggestionTimer = null;
@@ -47,14 +48,14 @@ function navigate(page) {
 
 function routeFromHash() {
   const hash = location.hash.replace('#','') || 'home';
-  if (['about','how','mission','feedback','privacy','terms','plan'].includes(hash)) navigate(hash);
-  else navigate('home');
+  navigate(pageIdSet.has(hash) ? hash : 'home');
 }
 
 document.querySelectorAll('[data-page-link]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
     const page = link.dataset.pageLink;
+    if (!pageIdSet.has(page)) return;
     history.pushState(null,'','#' + page);
     navigate(page);
     closeMobileMenu();
@@ -227,6 +228,13 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
 
     lessonDot.style.left = sx + 'px';
     lessonDot.style.top = sy + 'px';
+
+    if (typeof lessonDot.animate !== 'function') {
+      lessonDot.style.opacity = '1';
+      lessonDot.style.transform = 'translate(-50%,-50%) scale(1)';
+      setTimeout(() => lessonDot.remove(), 900);
+      return;
+    }
 
     lessonDot.animate([
       { transform:'translate(-50%,-50%) translate(0,0) scale(.82)', opacity:0 },
