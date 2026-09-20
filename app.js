@@ -143,11 +143,22 @@ function renderQuestionCard() {
       return;
     }
     answers[q.id] = value;
+
+    // When an answer changes, dependent questions can disappear. Remove
+    // answers that are no longer reachable so stale hidden answers cannot
+    // silently affect the generated plan later.
+    const visibleIds = new Set(getQuestions(type, answers).map(x => x.id));
+    for (const key of Object.keys(answers)) {
+      if (!visibleIds.has(key)) delete answers[key];
+    }
+
     // Recompute visibility after every answer. This is what makes the
     // questionnaire adaptive rather than a fixed checklist.
     const nextAll = getQuestions(type, answers);
     questionIndex++;
-    if (questionIndex > nextAll.length) questionIndex = nextAll.length;
+    if (questionIndex >= nextAll.length) {
+      questionIndex = nextAll.length;
+    }
     renderQuestionCard();
   };
 }
