@@ -414,3 +414,21 @@ label{display:block;font-weight:700;margin:30px 0 0}label>input,label>select,lab
   .about-columns,.about-principles,.feedback-body{margin-left:20px;margin-right:20px}
   .mission-hero,.mission-body{padding-left:20px;padding-right:20px}
 }
+
+.project-image-card h3:after{
+  content:"Start project →";
+  display:block;
+  margin-top:14px;
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--olive);
+  font-weight:850;
+  opacity:.72;
+  transform:translateX(0);
+  transition:transform .25s ease,opacity .25s ease;
+}
+.project-image-card:hover h3:after{
+  opacity:1;
+  transform:translateX(5px);
+}
