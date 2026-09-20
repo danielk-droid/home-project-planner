@@ -1,4 +1,4 @@
-import {PROJECTS, PROJECT_CATALOG, resolveProperty, buildPlan, getQuestions, sourcesFor} from './src/core.js';
+import {PROJECTS, PROJECT_CATALOG, resolveProperty, buildPlan, getQuestions, sourcesFor, inferClarifiedAnswer} from './src/core.js';
 
 const $ = id => document.getElementById(id);
 let property = null;
@@ -319,12 +319,46 @@ function closeMobileMenu() {
   $('mobileMenu')?.setAttribute('aria-hidden','true');
 }
 
+function updateProjectSummary() {
+  const root = $('projectSummary');
+  const label = $('projectSummaryLabel');
+  if (!root || !label) return;
+  const item = selectedCatalogId ? projectCatalogItem(selectedCatalogId) : null;
+  const selectedButton = document.querySelector('[data-picker-project].selected');
+  const differentSelected = document.querySelector('[data-picker-catalog].selected');
+  const text = item?.label || selectedButton?.querySelector('b')?.textContent?.trim() || (differentSelected ? 'Choose a project from the library' : '');
+  label.textContent = text;
+  root.classList.toggle('hidden', !text);
+}
+
+function resetProjectSelection() {
+  answers = {};
+  selectedCatalogId = null;
+  if ($('projectType')) $('projectType').value = '';
+  document.querySelectorAll('[data-picker-project], [data-picker-catalog]').forEach(x => x.classList.remove('selected'));
+  $('projectCatalog')?.classList.add('hidden');
+  updateProjectSummary();
+}
+
+function selectProject(projectType, catalogId = null) {
+  answers = {};
+  selectedCatalogId = catalogId || null;
+  if ($('projectType')) $('projectType').value = projectType;
+  if (catalogId) {
+    const item = projectCatalogItem(catalogId);
+    if (item) answers = {projectCatalogId:item.id, projectCatalogLabel:item.label};
+  }
+  document.querySelectorAll('[data-picker-project]').forEach(x => {
+    x.classList.toggle('selected', Boolean(catalogId) && x.dataset.catalogId === catalogId);
+  });
+  document.querySelector('[data-picker-catalog]')?.classList.remove('selected');
+  $('projectCatalog')?.classList.add('hidden');
+  updateProjectSummary();
+}
+
 document.querySelectorAll('[data-project-start]').forEach(card => {
   card.addEventListener('click', () => {
-    const projectType = card.dataset.projectStart;
-    selectedCatalogId = card.dataset.projectCatalog || null;
-    if ($('projectType')) $('projectType').value = projectType;
-    if (selectedCatalogId) setCatalogSelection(selectedCatalogId);
+    selectProject(card.dataset.projectStart, card.dataset.projectCatalog || null);
     history.pushState(null,'','#plan');
     navigate('plan');
     window.scrollTo({top:0,behavior:'smooth'});
@@ -378,52 +412,37 @@ function renderProjectCatalog() {
   };
 }
 document.querySelectorAll('[data-picker-project]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const projectType = btn.dataset.pickerProject;
-    const catalogId = btn.dataset.catalogId;
-    selectedCatalogId = catalogId || null;
-    if ($('projectType')) $('projectType').value = projectType;
-    if (catalogId) {
-      const item = projectCatalogItem(catalogId);
-      if (item) {
-        answers.projectCatalogId = item.id;
-        answers.projectCatalogLabel = item.label;
-      }
-    }
-    document.querySelectorAll('[data-picker-project]').forEach(x => x.classList.toggle('selected', x === btn));
-    $('projectCatalog')?.classList.add('hidden');
-  });
+  btn.addEventListener('click', () => selectProject(btn.dataset.pickerProject, btn.dataset.catalogId || null));
 });
+
 document.querySelector('[data-picker-catalog]')?.addEventListener('click', () => {
-  selectedCatalogId = null;
-  delete answers.projectCatalogId; delete answers.projectCatalogLabel;
+  resetProjectSelection();
   if ($('projectType')) $('projectType').value = '__catalog';
+  const different = document.querySelector('[data-picker-catalog]');
+  different?.classList.add('selected');
   renderProjectCatalog();
   $('projectCatalog')?.classList.remove('hidden');
+  updateProjectSummary();
   $('projectCatalog')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 });
+
 const projectSelect = $('projectType');
 projectSelect?.addEventListener('change', () => {
   if (projectSelect.value === '__catalog') {
-    selectedCatalogId = null;
-    delete answers.projectCatalogId; delete answers.projectCatalogLabel;
+    resetProjectSelection();
+    projectSelect.value = '__catalog';
+    const different = document.querySelector('[data-picker-catalog]');
+    different?.classList.add('selected');
     renderProjectCatalog();
     $('projectCatalog')?.classList.remove('hidden');
-    $('projectCatalog')?.scrollIntoView({behavior:'smooth',block:'nearest'});
-  } else {
-    const option = projectSelect.selectedOptions[0];
-    const catalogId = option?.dataset.catalogId || null;
-    selectedCatalogId = catalogId;
-    if (catalogId) {
-      const item = projectCatalogItem(catalogId);
-      if (item) { answers.projectCatalogId=item.id; answers.projectCatalogLabel=item.label; }
-    } else {
-      delete answers.projectCatalogId; delete answers.projectCatalogLabel;
-    }
-    $('projectCatalog')?.classList.add('hidden');
-    document.querySelectorAll('[data-picker-project]').forEach(btn => btn.classList.toggle('selected', btn.dataset.pickerProject === projectSelect.value && (!catalogId || btn.dataset.catalogId === catalogId)));
+    updateProjectSummary();
+    return;
   }
+  if (!projectSelect.value) return;
+  const option = projectSelect.selectedOptions[0];
+  selectProject(projectSelect.value, option?.dataset.catalogId || null);
 });
+
 (function tagCommonProjectOptions(){
   const ids = ['basement_finish','bathroom_renovation','kitchen_renovation','deck','addition','garage','adu','exterior','roofing','site'];
   ids.forEach(id => {
@@ -433,7 +452,6 @@ projectSelect?.addEventListener('change', () => {
     if (option) option.dataset.catalogId = item.id;
   });
 })();
-renderProjectCatalog();
 
 if (addressInput) {
   addressInput.addEventListener('input', () => {
@@ -500,19 +518,37 @@ function renderSuggestions(matches) {
 }
 
 $('resolve').onclick = async () => {
-  $('error').classList.add('hidden');
+  const error = $('error');
+  const address = addressInput?.value.trim() || '';
+  const chosenType = projectSelect?.value || '';
+  error?.classList.add('hidden');
+
+  if (!address) {
+    error.textContent = 'Please enter your Newton property address before continuing.';
+    error.classList.remove('hidden');
+    addressInput?.focus();
+    return;
+  }
+  if (!chosenType || chosenType === '__catalog') {
+    error.textContent = 'Please choose the type of project you are planning before continuing.';
+    error.classList.remove('hidden');
+    document.querySelector('.project-picker-label')?.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
   $('resolve').disabled = true;
   $('resolve').textContent = 'Checking property…';
   try {
-    property = await resolveProperty(addressInput.value);    type = $('projectType').value;
+    property = await resolveProperty(address);
+    type = chosenType;
     answers = selectedCatalogId ? {projectCatalogId:selectedCatalogId, projectCatalogLabel:projectCatalogItem(selectedCatalogId)?.label || null} : {};
     clarifierState = {};
     questionIndex = 0;
     history.pushState(null,'','#plan');
     renderQuestions();
   } catch (e) {
-    $('error').textContent = e.message;
-    $('error').classList.remove('hidden');
+    error.textContent = e.message;
+    error.classList.remove('hidden');
   } finally {
     $('resolve').disabled = false;
     $('resolve').textContent = 'Check property & continue';
