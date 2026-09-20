@@ -579,7 +579,7 @@ function renderResult(plan, options = {}) {
     ...x,
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
-  checklistWasComplete = false;
+  checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
   localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
   renderSavedProjects();
 
