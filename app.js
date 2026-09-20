@@ -1,4 +1,4 @@
-import {PROJECTS, resolveProperty, buildPlan, getQuestions, sourcesFor} from './src/core.js';
+import {PROJECTS, PROJECT_CATALOG, resolveProperty, buildPlan, getQuestions, sourcesFor} from './src/core.js';
 
 const $ = id => document.getElementById(id);
 let property = null;
@@ -6,6 +6,7 @@ let type = null;
 let answers = {};
 let questionIndex = 0;
 let editingFromReview = false;
+let selectedCatalogId = null;
 
 const pageIds = ['home','about','mission','feedback','plan'];
 const addressInput = $('address');
@@ -61,8 +62,12 @@ document.querySelectorAll('[data-page-link]').forEach(link => {
 window.addEventListener('popstate', routeFromHash);
 window.addEventListener('hashchange', routeFromHash);
 routeFromHash();
-function projectLabel(projectType) {
-  return PROJECTS[projectType]?.label || projectType;
+function projectCatalogItem(id) {
+  return [...(PROJECT_CATALOG.common || []).map(([id,label,flow]) => ({id,label,flow})), ...(PROJECT_CATALOG.categories || []).flatMap(c => c.items.map((label,i) => ({id:`${c.id}-${i}`,label,flow:'general_project',category:c.label})))]
+    .find(x => x.id === id) || null;
+}
+function projectLabel(projectType, project = null) {
+  return project?.answers?.projectCatalogLabel || project?.projectCatalogLabel || (projectType === 'general_project' && selectedCatalogId ? projectCatalogItem(selectedCatalogId)?.label : null) || PROJECTS[projectType]?.label || projectType;
 }
 
 function savedProjects() {
@@ -108,7 +113,7 @@ function renderSavedProjects() {
             '<strong>' + escape(p.property.resolvedAddress) + '</strong>' +
             '<small>' + completed + ' / ' + total + ' steps complete · saved ' + formatSavedDate(p.updatedAt) + '</small>' +
           '</button>' +
-          '<button type="button" class="resume-delete" data-delete-key="' + escape(key) + '" aria-label="Delete saved project">Delete</button>' +
+          '<button type="button" class="resume-delete" data-delete-key="' + escape(key) + '" aria-label="Delete saved project" title="Delete saved project">⌫</button>' +
         '</div>';
       }).join('')}</div>` : '<div class="resume-empty"><strong>No projects saved yet.</strong><span>Your first generated plan will appear here.</span></div>'}
     </div>`;
@@ -120,7 +125,7 @@ function renderSavedProjects() {
       const key = btn.dataset.deleteKey;
       const saved = JSON.parse(localStorage.getItem(key) || 'null');
       if (!saved) return;
-      const name = projectLabel(saved.type) + ' · ' + saved.property.resolvedAddress;
+      const name = projectLabel(saved.type, saved) + ' · ' + saved.property.resolvedAddress;
       if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
       localStorage.removeItem(key);
       if (projectSaveKey() === key) {
@@ -169,7 +174,7 @@ function importSavedProject(project) {
 }
 
 function projectSaveKeyFor(project) {
-  return 'nhpp-project:' + project.type + ':' + (project.property?.resolvedAddress || '');
+  return 'nhpp-project:' + project.type + ':' + (project.answers?.projectCatalogId || '') + ':' + (project.property?.resolvedAddress || '');
 }
 
 function resumeSavedProject(key) {
@@ -179,6 +184,7 @@ function resumeSavedProject(key) {
     type = saved.type;
     property = saved.property;
     answers = saved.answers || {};
+    selectedCatalogId = answers.projectCatalogId || null;
     questionIndex = 0;
     editingFromReview = false;
     history.pushState(null,'','#plan');
@@ -233,9 +239,10 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
     }).finished.then(async () => {
       // Hold the dot on the button long enough to read and physically tap it.
       heroStart.classList.add('guided-hover');
-      await new Promise(resolve => setTimeout(resolve, 650));
+      await new Promise(resolve => setTimeout(resolve, 260));
 
       spawnButtonSparks(heroStart);
+      spawnButtonEcho(heroStart);
       heroStart.classList.add('guided-click');
 
       const fade = lessonDot.animate([
@@ -252,7 +259,19 @@ if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: red
       heroStart.classList.remove('guided-hover','guided-click');
       lessonDot.remove();
     }).catch(() => lessonDot.remove());
-  }, 3000);
+  }, 450);
+}
+
+function spawnButtonEcho(button) {
+  const rect = button.getBoundingClientRect();
+  const echo = document.createElement('span');
+  echo.className = 'button-echo';
+  echo.style.left = rect.left + 'px';
+  echo.style.top = rect.top + 'px';
+  echo.style.width = rect.width + 'px';
+  echo.style.height = rect.height + 'px';
+  document.body.appendChild(echo);
+  setTimeout(() => echo.remove(), 850);
 }
 
 function spawnButtonSparks(button) {
@@ -293,7 +312,9 @@ function closeMobileMenu() {
 document.querySelectorAll('[data-project-start]').forEach(card => {
   card.addEventListener('click', () => {
     const projectType = card.dataset.projectStart;
+    selectedCatalogId = card.dataset.projectCatalog || null;
     if ($('projectType')) $('projectType').value = projectType;
+    if (selectedCatalogId) setCatalogSelection(selectedCatalogId);
     history.pushState(null,'','#plan');
     navigate('plan');
     window.scrollTo({top:0,behavior:'smooth'});
@@ -304,6 +325,71 @@ document.querySelectorAll('[data-project-start]').forEach(card => {
 $('menuToggle')?.addEventListener('click', openMobileMenu);
 $('mobileMenuClose')?.addEventListener('click', closeMobileMenu);
 $('mobileMenu')?.querySelectorAll('[data-page-link]').forEach(link => link.addEventListener('click', closeMobileMenu));
+
+function setCatalogSelection(id) {
+  selectedCatalogId = id;
+  const item = projectCatalogItem(id);
+  if (item) {
+    answers.projectCatalogId = item.id;
+    answers.projectCatalogLabel = item.label;
+    if ($('projectType')) $('projectType').value = item.flow || 'general_project';
+  }
+  $('projectCatalog')?.classList.add('hidden');
+}
+function renderProjectCatalog() {
+  const root = $('projectCatalog');
+  if (!root) return;
+  root.classList.remove('hidden');
+  const all = PROJECT_CATALOG.categories || [];
+  root.innerHTML = '<div class="catalog-heading"><div><div class="eyebrow">DIFFERENT PROJECT</div><h3>Find the work you are actually doing.</h3><p class="small">Choose from broader categories, then pick the closest description. You can still mark any follow-up question “I\'m not sure.”</p></div><input id="catalogSearch" type="search" placeholder="Search projects…" aria-label="Search projects"></div><div class="catalog-grid">' +
+    all.map(c => '<details class="catalog-category" open><summary><b>' + escape(c.label) + '</b><span>' + c.items.length + ' options</span></summary><div>' +
+      c.items.map((label,i) => '<button type="button" class="catalog-item" data-catalog-id="' + escape(c.id + '-' + i) + '">' + escape(label) + '<span>→</span></button>').join('') +
+    '</div></details>').join('') + '</div>';
+  root.querySelectorAll('.catalog-item').forEach(btn => btn.onclick = () => setCatalogSelection(btn.dataset.catalogId));
+  $('catalogSearch').oninput = e => {
+    const query = e.target.value.trim().toLowerCase();
+    root.querySelectorAll('.catalog-category').forEach(cat => {
+      let visible = 0;
+      cat.querySelectorAll('.catalog-item').forEach(btn => {
+        const show = !query || btn.textContent.toLowerCase().includes(query);
+        btn.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      cat.classList.toggle('hidden', visible === 0);
+      if (query && visible) cat.open = true;
+    });
+  };
+}
+const projectSelect = $('projectType');
+projectSelect?.addEventListener('change', () => {
+  if (projectSelect.value === '__catalog') {
+    selectedCatalogId = null;
+    delete answers.projectCatalogId; delete answers.projectCatalogLabel;
+    renderProjectCatalog();
+    $('projectCatalog')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+  } else {
+    const option = projectSelect.selectedOptions[0];
+    const catalogId = option?.dataset.catalogId || null;
+    selectedCatalogId = catalogId;
+    if (catalogId) {
+      const item = projectCatalogItem(catalogId);
+      if (item) { answers.projectCatalogId=item.id; answers.projectCatalogLabel=item.label; }
+    } else {
+      delete answers.projectCatalogId; delete answers.projectCatalogLabel;
+    }
+    $('projectCatalog')?.classList.add('hidden');
+  }
+});
+(function tagCommonProjectOptions(){
+  const ids = ['basement_finish','bathroom_renovation','kitchen_renovation','deck','addition','garage','adu','exterior','roofing','site'];
+  ids.forEach(id => {
+    const item = projectCatalogItem(id);
+    if (!item) return;
+    const option = [...(projectSelect?.options || [])].find(o => o.textContent.trim() === item.label);
+    if (option) option.dataset.catalogId = item.id;
+  });
+})();
+renderProjectCatalog();
 
 if (addressInput) {
   addressInput.addEventListener('input', () => {
@@ -432,96 +518,110 @@ function propertyEvidenceBlock(property) {
   '</section>';
 }
 
+function inlineClarifierFor(parent, q) {
+  const direct = (q.showWhen || []).some(([key,value]) => key === parent.id && value === 'unsure');
+  const any = (q.showWhenAny || []).some(([key,value]) => key === parent.id && value === 'unsure');
+  return direct || any;
+}
+function questionWhy(q) {
+  if (q.why) return q.why;
+  const t = String(q.text || '').toLowerCase();
+  if (t.includes('electrical')) return 'Electrical scope can create a separate permit and inspection path.';
+  if (t.includes('plumbing') || t.includes('bathroom')) return 'This can change the plumbing, building, or inspection path.';
+  if (t.includes('gas')) return 'Gas scope can create a separate permit and inspection path.';
+  if (t.includes('structur')) return 'Structural work can change the building-plan, engineering, and inspection requirements.';
+  if (t.includes('window') || t.includes('door') || t.includes('exterior')) return 'Exterior changes can trigger additional zoning, historic, tree, or site review.';
+  if (t.includes('tree') || t.includes('grading') || t.includes('excavat') || t.includes('site')) return 'Site work can trigger property-specific review.';
+  if (q.kind === 'number') return 'This helps determine which thresholds, dimensions, or review steps may apply.';
+  return 'This answer can change which requirements and follow-up questions apply to the project.';
+}
+function questionCluster(all, index) {
+  const root = all[index];
+  const cluster = [root];
+  let parent = root;
+  for (let j=index+1; j<all.length; j++) {
+    const candidate = all[j];
+    if (!inlineClarifierFor(parent, candidate)) break;
+    cluster.push(candidate);
+    parent = candidate;
+  }
+  return cluster;
+}
 function renderQuestionCard() {
   const all = getQuestions(type, answers);
   const card = $('questionCard');
-  if (questionIndex >= all.length) {
-    renderReview(all);
-    return;
-  }
-  const q = all[questionIndex];
-  const progress = Math.round(((questionIndex) / all.length) * 100);
-  const current = answers[q.id];
-  card.innerHTML = `<div class="question-progress"><span>Question ${questionIndex + 1} of ${all.length}</span><span>${progress}%</span></div>
-    <div class="progress"><div style="width:${progress}%"></div></div>
-    <div class="question-card">
-      <div class="eyebrow">PROJECT SCOPE</div>
-      <h1>${escape(q.text)}</h1>
-      ${q.kind === 'choice' ? choiceControl(q, current) : q.kind === 'text' ? textControl(q, current) : numberControl(q, current)}
-      <div id="questionHint" class="small hint">${q.kind === 'choice' && q.options.some(o => o[0] === 'unsure') ? 'Not sure? That is a valid answer. We will narrow it down with follow-up questions.' : 'An estimate is fine when the exact number is not known yet.'}</div>
-      <div class="question-actions">
-        <button type="button" id="backQuestion" class="secondary" ${questionIndex === 0 ? 'disabled' : ''}>Back</button>
-        ${editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : ''}
-        ${q.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(q.skipLabel || 'Skip for now') + '</button>' : ''}
-        <button type="button" id="nextQuestion">${questionIndex === all.length - 1 ? 'Review my answers' : 'Continue'}</button>
-      </div>
-    </div>`;
-  $('backQuestion').onclick = () => {
-    if (questionIndex > 0) {
-      questionIndex--;
+  if (questionIndex >= all.length) { renderReview(all); return; }
+  const cluster = questionCluster(all, questionIndex);
+  const progress = Math.round((questionIndex / all.length) * 100);
+  const controls = cluster.map((q,i) => {
+    const current = answers[q.id];
+    return '<div class="inline-question ' + (i ? 'clarifier-question' : '') + '">' +
+      (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
+      '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
+      '<h1>' + escape(q.text) + '</h1>' +
+      (q.kind === 'choice' ? choiceControl(q,current,q.id) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
+      '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
+      '</div>';
+  }).join('');
+  card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card"><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint">If you are unsure, choose “I\'m not sure.” The clarification will open here without moving you to another screen.</div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
+    (editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : '') +
+    (cluster[cluster.length-1]?.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(cluster[cluster.length-1].skipLabel || 'Skip for now') + '</button>' : '') +
+    '<button type="button" id="nextQuestion">' + (questionIndex + cluster.length >= all.length ? 'Review my answers' : 'Continue') + '</button></div></div>';
+  card.querySelectorAll('.inline-question input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const q = cluster.find(x => x.id === input.name.replace('questionChoice-',''));
+      if (!q) return;
+      answers[q.id] = input.value;
+      cleanupHiddenAnswers();
       renderQuestionCard();
-    }
-  };
-  if (editingFromReview) {
-    $('returnToReview').onclick = () => {
-      const value = readQuestionValue(q);
-      if (value !== undefined) answers[q.id] = value;
-      const visibleIds = new Set(getQuestions(type, answers).map(x => x.id));
-      for (const key of Object.keys(answers)) {
-        if (!visibleIds.has(key)) delete answers[key];
-      }
-      editingFromReview = false;
-      questionIndex = 0;
-      renderReview(getQuestions(type, answers));
-    };
-  }
-  $('skipQuestion')?.addEventListener('click', () => {
-    answers[q.id] = null;
-    const visibleIds = new Set(getQuestions(type, answers).map(x => x.id));
-    for (const key of Object.keys(answers)) {
-      if (!visibleIds.has(key)) delete answers[key];
-    }
-    const nextAll = getQuestions(type, answers);
-    questionIndex++;
-    if (questionIndex >= nextAll.length) questionIndex = nextAll.length;
-    renderQuestionCard();
+    });
   });
-
+  $('backQuestion').onclick = () => {
+    if (questionIndex > 0) { questionIndex--; renderQuestionCard(); }
+  };
+  $('returnToReview')?.addEventListener('click', () => {
+    saveClusterValues(cluster);
+    editingFromReview=false; questionIndex=0; renderReview(getQuestions(type,answers));
+  });
+  $('skipQuestion')?.addEventListener('click', () => {
+    const last=cluster[cluster.length-1]; answers[last.id]=null; cleanupHiddenAnswers(); questionIndex += cluster.length; renderQuestionCard();
+  });
   $('nextQuestion').onclick = () => {
-    const value = readQuestionValue(q);
-    if (value === undefined) {
-      $('questionHint').textContent = q.kind === 'number' ? 'Enter an estimate or use 0 if the answer is genuinely zero.' : 'Choose an answer to continue.';
+    if (!saveClusterValues(cluster)) {
+      $('questionHint').textContent='Complete the questions shown above, or use “I\'m not sure” to open a clarification.';
       $('questionHint').classList.add('validation');
       return;
     }
-    answers[q.id] = value;
-    const visibleIds = new Set(getQuestions(type, answers).map(x => x.id));
-    for (const key of Object.keys(answers)) {
-      if (!visibleIds.has(key)) delete answers[key];
-    }
-    const nextAll = getQuestions(type, answers);
-    questionIndex++;
-    if (questionIndex >= nextAll.length) questionIndex = nextAll.length;
+    questionIndex += cluster.length;
     renderQuestionCard();
   };
 }
-
-function choiceControl(q, current) {
-  return `<div class="choice-list">${q.options.map(([value,label]) => `<label class="choice ${current === value ? 'selected' : ''}"><input type="radio" name="questionChoice" value="${escape(value)}" ${current === value ? 'checked' : ''}><span>${escape(label)}</span></label>`).join('')}</div>`;
+function cleanupHiddenAnswers() {
+  const visibleIds = new Set(getQuestions(type, answers).map(x=>x.id));
+  for (const key of Object.keys(answers)) if (!visibleIds.has(key)) delete answers[key];
 }
-function numberControl(q, current) {
-  return `<div class="number-wrap"><input id="questionNumber" type="number" min="${q.min ?? 0}" ${q.max != null ? 'max="' + q.max + '"' : ''} step="any" value="${current ?? ''}" placeholder="Enter an estimate"><span>${escape(q.unit || '')}</span></div>`;
+function saveClusterValues(cluster) {
+  for (const q of cluster) {
+    const value = readQuestionValue(q);
+    if (value === undefined) return false;
+    answers[q.id]=value;
+  }
+  cleanupHiddenAnswers();
+  return true;
 }
-function textControl(q, current) {
-  return `<div class="text-wrap"><textarea id="questionText" rows="4" maxlength="500" placeholder="Describe it briefly">${escape(current ?? '')}</textarea></div>`;
+function choiceControl(q,current,name) {
+  return '<div class="choice-list">' + q.options.map(([value,label]) => '<label class="choice ' + (current===value?'selected':'') + '"><input type="radio" name="questionChoice-' + escape(name) + '" value="' + escape(value) + '" ' + (current===value?'checked':'') + '><span>' + escape(label) + '</span></label>').join('') + '</div>';
+}
+function numberControl(q,current,id) {
+  return '<div class="number-wrap"><input id="questionNumber-' + escape(id) + '" type="number" min="' + (q.min ?? 0) + '" ' + (q.max != null ? 'max="' + q.max + '"' : '') + ' step="any" value="' + (current ?? '') + '" placeholder="Enter an estimate"><span>' + escape(q.unit || '') + '</span></div>';
+}
+function textControl(q,current,id) {
+  return '<div class="text-wrap"><textarea id="questionText-' + escape(id) + '" rows="4" maxlength="500" placeholder="Describe it briefly">' + escape(current ?? '') + '</textarea></div>';
 }
 function readQuestionValue(q) {
-  if (q.kind === 'choice') return document.querySelector('input[name="questionChoice"]:checked')?.value;
-  if (q.kind === 'text') {
-    const value = $('questionText')?.value.trim();
-    return value || undefined;
-  }
-  const raw = $('questionNumber')?.value.trim();
+  if (q.kind === 'choice') return document.querySelector('input[name="questionChoice-' + q.id + '"]:checked')?.value;
+  if (q.kind === 'text') { const value = document.querySelector('#questionText-' + q.id)?.value.trim(); return value || undefined; }
+  const raw = document.querySelector('#questionNumber-' + q.id)?.value.trim();
   if (raw === '') return undefined;
   const value = Number(raw);
   if (!Number.isFinite(value) || value < (q.min ?? 0) || (q.max != null && value > q.max)) return undefined;
@@ -643,14 +743,14 @@ function renderResult(plan, options = {}) {
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
   checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
-  localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
+  localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, projectCatalogLabel:plan.project.projectCatalogLabel || null, updatedAt:new Date().toISOString()}));
   renderSavedProjects();
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
 
   r.innerHTML = `
     <section class="plan-hero">
-      <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>${plan.project.projectDescription ? '<p class="plan-note">Project note: ' + escape(plan.project.projectDescription) + '</p>' : ''}</div>
+      <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(plan.project.projectCatalogLabel || PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>${plan.project.projectDescription ? '<p class="plan-note">Project note: ' + escape(plan.project.projectDescription) + '</p>' : ''}</div>
       <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
     </section>
 
