@@ -215,11 +215,15 @@ function formatAnswer(q, value) {
   return q.unit ? `${value} ${q.unit}` : String(value);
 }
 
+function projectSaveKey() {
+  return 'nhpp-project:' + type + ':' + (property?.resolvedAddress || '');
+}
+
 function renderResult(plan) {
   $('questions').classList.add('hidden');
   const r = $('result');
   r.classList.remove('hidden');
-  const savedKey = 'nhpp-project';
+  const savedKey = projectSaveKey();
   const saved = JSON.parse(localStorage.getItem(savedKey) || 'null');
   if (saved?.steps) plan.steps = plan.steps.map((x, i) => ({...x, status: saved.steps[i]?.status || 'not_started'}));
   localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, updatedAt:new Date().toISOString()}));
