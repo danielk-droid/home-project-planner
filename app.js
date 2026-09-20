@@ -366,6 +366,31 @@ function renderProjectCatalog() {
     });
   };
 }
+document.querySelectorAll('[data-picker-project]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const projectType = btn.dataset.pickerProject;
+    const catalogId = btn.dataset.catalogId;
+    selectedCatalogId = catalogId || null;
+    if ($('projectType')) $('projectType').value = projectType;
+    if (catalogId) {
+      const item = projectCatalogItem(catalogId);
+      if (item) {
+        answers.projectCatalogId = item.id;
+        answers.projectCatalogLabel = item.label;
+      }
+    }
+    document.querySelectorAll('[data-picker-project]').forEach(x => x.classList.toggle('selected', x === btn));
+    $('projectCatalog')?.classList.add('hidden');
+  });
+});
+document.querySelector('[data-picker-catalog]')?.addEventListener('click', () => {
+  selectedCatalogId = null;
+  delete answers.projectCatalogId; delete answers.projectCatalogLabel;
+  if ($('projectType')) $('projectType').value = '__catalog';
+  renderProjectCatalog();
+  $('projectCatalog')?.classList.remove('hidden');
+  $('projectCatalog')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
 const projectSelect = $('projectType');
 projectSelect?.addEventListener('change', () => {
   if (projectSelect.value === '__catalog') {
@@ -385,6 +410,7 @@ projectSelect?.addEventListener('change', () => {
       delete answers.projectCatalogId; delete answers.projectCatalogLabel;
     }
     $('projectCatalog')?.classList.add('hidden');
+    document.querySelectorAll('[data-picker-project]').forEach(btn => btn.classList.toggle('selected', btn.dataset.pickerProject === projectSelect.value && (!catalogId || btn.dataset.catalogId === catalogId)));
   }
 });
 (function tagCommonProjectOptions(){
