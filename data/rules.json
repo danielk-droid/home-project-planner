@@ -553,5 +553,211 @@
       "Proposed floor area",
       "Energy/HERS documentation if applicable"
     ]
+  },
+  {
+    "id": "project.condo-approval",
+    "when": "project.condo == true && project.condoApproval == true",
+    "status": "potentially_required",
+    "title": "Condominium / association approval",
+    "action": "Keep the condominium or association approval/notification documentation with the project file and confirm any building-specific requirements before construction.",
+    "sourceIds": [
+      "newton-building-checklist"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Condominium or association approval/notification documentation"
+    ]
+  },
+  {
+    "id": "project.condo-approval-uncertain",
+    "when": "project.condoApprovalUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Condominium approval needs clarification",
+    "action": "Confirm the association's approval or notification requirements before finalizing the construction workflow.",
+    "sourceIds": [
+      "newton-building-checklist"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "basement.ceiling-height",
+    "when": "project.sleepingRoomAdded == true",
+    "status": "needs_confirmation",
+    "title": "Basement room dimensions",
+    "action": "Verify the proposed sleeping-room dimensions and ceiling conditions against the applicable Massachusetts requirements. The planner does not declare a basement room habitable from a single measurement.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Room dimensions and ceiling-height measurements"
+    ]
+  },
+  {
+    "id": "basement.area",
+    "when": "project.basementAreaSqFt > 0",
+    "status": "potentially_required",
+    "title": "Basement area and existing-condition documentation",
+    "action": "Use the basement area and existing-condition measurements when preparing drawings and evaluating the scope; confirm any project-specific zoning or code implications with the permit reviewer.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "ma-building-code"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Basement area measurement",
+      "Existing-condition floor plan"
+    ]
+  },
+  {
+    "id": "bathroom.layout",
+    "when": "project.bathroomLayoutChange == true",
+    "status": "potentially_required",
+    "title": "Bathroom layout change",
+    "action": "Include the changed room layout, fixture locations, and affected walls/openings in the plans and verify the applicable building, plumbing, ventilation, and electrical requirements.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-electrical-plumbing-gas",
+      "ma-building-code"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Existing and proposed bathroom floor plan",
+      "Fixture locations"
+    ]
+  },
+  {
+    "id": "bathroom.layout-uncertain",
+    "when": "project.bathroomLayoutUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Bathroom layout change needs clarification",
+    "action": "Confirm whether walls, doors, fixtures, or room layout will change before finalizing the plan.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-electrical-plumbing-gas"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "deck.elevated",
+    "when": "project.deckNew == true && project.deckHeightFt > 0",
+    "status": "potentially_required",
+    "title": "Elevated deck structure review",
+    "action": "Use the proposed deck height, structure, stairs, and guards in the building-code review. Exact guard, stair, structural, and foundation requirements depend on the final design and site conditions.",
+    "sourceIds": [
+      "ma-building-code",
+      "newton-building-checklist"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Deck height measurement",
+      "Deck framing/foundation concept",
+      "Stair and guard dimensions if applicable"
+    ]
+  },
+  {
+    "id": "deck.stairs-guards",
+    "when": "project.stairsOrGuard == true",
+    "status": "potentially_required",
+    "title": "Deck stairs / guards",
+    "action": "Include stairs and guard details in the building plans and verify the applicable Massachusetts requirements for the final design.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Stair and guard dimensions/details"
+    ]
+  },
+  {
+    "id": "deck.stairs-guards-uncertain",
+    "when": "project.stairsOrGuardUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Deck stairs / guards need clarification",
+    "action": "Confirm whether the deck has stairs, guards, or other fall-protection features before finalizing the building-plan scope.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "deck.lot-coverage",
+    "when": "project.deckNew == true || project.deckAreaSqFt > 0",
+    "status": "potentially_required",
+    "title": "Deck site / lot-coverage review",
+    "action": "Include the proposed deck footprint in the site and zoning review because Newton's building checklist calls for existing and proposed lot coverage, setbacks, and related site information.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Deck footprint dimensions",
+      "Existing/proposed lot-coverage information",
+      "Site plan showing the deck"
+    ]
+  },
+  {
+    "id": "addition.stories",
+    "when": "project.additionStories > 1",
+    "status": "potentially_required",
+    "title": "Multi-story addition review",
+    "action": "A multi-story addition requires the proposed story count, building height, elevations, structural design, and zoning/site implications to be reviewed together.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-planning",
+      "ma-building-code"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Proposed elevations showing all stories",
+      "Building-height information",
+      "Structural design as applicable"
+    ]
+  },
+  {
+    "id": "addition.footprint",
+    "when": "project.footprintChange == true",
+    "status": "required",
+    "title": "Addition footprint / site-plan review",
+    "action": "Treat the changed building footprint as a site-planning issue and verify setbacks, lot coverage, open space, grades, height, and related site constraints before finalizing the design.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Existing/proposed site plan",
+      "Setback dimensions",
+      "Existing/proposed lot coverage and open space"
+    ]
+  },
+  {
+    "id": "addition.footprint-uncertain",
+    "when": "project.footprintChangeUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Addition footprint needs clarification",
+    "action": "Confirm whether the addition changes the building footprint before deciding which site and zoning reviews are needed.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "addition.setback",
+    "when": "project.expansion == true",
+    "status": "required",
+    "title": "Setback verification",
+    "action": "Verify the proposed addition location against the applicable Newton setbacks using a current survey/site plan. A user-entered distance is not treated as proof of compliance.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Current property survey",
+      "Measured/proposed setbacks"
+    ]
   }
 ]
