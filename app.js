@@ -771,7 +771,7 @@ function renderQuestionCard({animate=false} = {}) {
   const cluster = questionCluster(all, questionIndex);
   const progress = Math.round((questionIndex / all.length) * 100);
   const controls = cluster.map((q,i) => {
-    const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
+    const current = (q.parentId || q.id.startsWith('__clarifier_')) ? clarifierState[q.id] : answers[q.id];
     const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
     const inferenceNotice = i > 0 && q.parentId && clarificationMeta[q.id]
       ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(clarificationMeta[q.id].inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> Your clarification indicates that this answer is ' + escape(clarificationMeta[q.id].inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
@@ -787,7 +787,7 @@ function renderQuestionCard({animate=false} = {}) {
   }).join('');
 
   const clusterComplete = cluster.every(q => {
-    const current = q.id.startsWith('__clarifier_') ? clarifierState[q.id] : answers[q.id];
+    const current = (q.parentId || q.id.startsWith('__clarifier_')) ? clarifierState[q.id] : answers[q.id];
     return questionValueComplete(q, current);
   });
   const reachesEnd = questionIndex + cluster.length >= all.length;
@@ -913,7 +913,7 @@ function saveClusterValues(cluster) {
   for (const q of cluster) {
     const value = readQuestionValue(q);
     if (!questionValueComplete(q, value)) return false;
-    if (q.id.startsWith('__clarifier_')) {
+    if (q.parentId || q.id.startsWith('__clarifier_')) {
       clarifierState[q.id] = value;
       applyClarificationInference(q, value);
     } else {
