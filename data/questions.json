@@ -303,14 +303,9 @@
         "id": "projectDescription",
         "text": "In one sentence, what are you changing or adding?",
         "kind": "text",
-        "required": true
-      },
-      {
-        "id": "projectCost",
-        "text": "What is your rough construction cost, if you know it?",
-        "kind": "number",
-        "unit": "USD",
-        "min": 0
+        "required": false,
+        "optional": true,
+        "skipLabel": "Skip for now"
       },
       {
         "id": "condo",
@@ -368,13 +363,6 @@
             "I'm not sure"
           ]
         ]
-      },
-      {
-        "id": "basementArea",
-        "text": "Approximately how many square feet of basement area are being finished?",
-        "kind": "number",
-        "unit": "square feet",
-        "min": 0
       },
       {
         "id": "ceilingHeight",
@@ -532,14 +520,9 @@
         "id": "projectDescription",
         "text": "In one sentence, what are you changing or adding?",
         "kind": "text",
-        "required": true
-      },
-      {
-        "id": "projectCost",
-        "text": "What is your rough construction cost, if you know it?",
-        "kind": "number",
-        "unit": "USD",
-        "min": 0
+        "required": false,
+        "optional": true,
+        "skipLabel": "Skip for now"
       },
       {
         "id": "condo",
@@ -672,14 +655,18 @@
         "text": "Approximately how high will the deck be above grade at its highest point?",
         "kind": "number",
         "unit": "feet",
-        "min": 0
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip for now"
       },
       {
         "id": "deckArea",
         "text": "Approximately how large will the deck be?",
         "kind": "number",
         "unit": "square feet",
-        "min": 0
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip for now"
       },
       {
         "id": "electricalWork",
@@ -742,14 +729,9 @@
         "id": "projectDescription",
         "text": "In one sentence, what are you changing or adding?",
         "kind": "text",
-        "required": true
-      },
-      {
-        "id": "projectCost",
-        "text": "What is your rough construction cost, if you know it?",
-        "kind": "number",
-        "unit": "USD",
-        "min": 0
+        "required": false,
+        "optional": true,
+        "skipLabel": "Skip for now"
       },
       {
         "id": "condo",
@@ -813,7 +795,9 @@
         "text": "Do you know the deck's approximate distance from the nearest property line?",
         "kind": "number",
         "unit": "feet",
-        "min": 0
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip for now"
       },
       {
         "id": "stairsOrGuard",
@@ -991,14 +975,9 @@
         "id": "projectDescription",
         "text": "In one sentence, what are you changing or adding?",
         "kind": "text",
-        "required": true
-      },
-      {
-        "id": "projectCost",
-        "text": "What is your rough construction cost, if you know it?",
-        "kind": "number",
-        "unit": "USD",
-        "min": 0
+        "required": false,
+        "optional": true,
+        "skipLabel": "Skip for now"
       },
       {
         "id": "condo",
