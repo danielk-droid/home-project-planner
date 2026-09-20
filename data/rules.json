@@ -507,5 +507,51 @@
       "Site plan",
       "Existing/proposed grades if applicable"
     ]
+  },
+  {
+    "id": "project.condo-uncertain",
+    "when": "project.condoUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Condominium status needs clarification",
+    "action": "Confirm whether the property is subject to condominium or shared-building requirements before finalizing the workflow.",
+    "sourceIds": [
+      "newton-building-checklist"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Condominium status and association requirements"
+    ]
+  },
+  {
+    "id": "project.demolition-uncertain",
+    "when": "project.demolitionUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Demolition scope needs clarification",
+    "action": "Confirm what existing work will be removed before finalizing the application path.",
+    "sourceIds": [
+      "newton-building-checklist",
+      "newton-historic"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Description of existing work to be removed",
+      "Existing-condition photos"
+    ]
+  },
+  {
+    "id": "project.energy-major",
+    "when": "project.addedAreaOver1000 == true",
+    "status": "potentially_required",
+    "title": "Major/addition energy review",
+    "action": "Confirm the applicable energy-code pathway for the final design.",
+    "sourceIds": [
+      "newton-energy-code",
+      "ma-building-code"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Proposed floor area",
+      "Energy/HERS documentation if applicable"
+    ]
   }
 ]
