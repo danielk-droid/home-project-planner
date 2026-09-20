@@ -229,6 +229,8 @@ export function deriveProject(projectType, answers = {}) {
     projectCost: a.projectCost ?? null,
     condo: a.condo === 'yes',
     condoUncertain: a.condo === 'unsure',
+    condoApproval: a.condoApproval === 'yes',
+    condoApprovalUncertain: a.condo === 'yes' && a.condoApproval === 'unsure',
     demolition: a.demolition === 'yes',
     demolitionUncertain: a.demolition === 'unsure',
     guttingMoreThanHalf: a.guttingExtent === 'yes',
