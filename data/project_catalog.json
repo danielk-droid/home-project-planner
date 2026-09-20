@@ -58,30 +58,19 @@
       "items": [
         "Finish a basement",
         "Create a bedroom",
-        "Create a home office",
-        "Remodel a living room",
-        "Remodel a dining room",
         "Reconfigure interior rooms",
         "Remove or add interior walls",
         "Finish an attic",
-        "Convert a room to another use",
-        "General interior renovation"
+        "Convert a room to another use"
       ]
     },
     {
       "id": "kitchen",
       "label": "Kitchen",
       "items": [
-        "Full kitchen renovation",
-        "Replace kitchen cabinets",
-        "Replace kitchen countertops",
         "Move kitchen plumbing",
         "Move kitchen electrical",
-        "Add kitchen appliances",
-        "Change kitchen layout",
-        "Add a kitchen island",
-        "Create an open kitchen",
-        "Other kitchen improvement"
+        "Create an open kitchen"
       ]
     },
     {
@@ -89,15 +78,11 @@
       "label": "Bathrooms & plumbing",
       "items": [
         "Add a bathroom",
-        "Remodel a bathroom",
         "Add a half bath",
         "Move bathroom fixtures",
         "Add or move plumbing",
-        "Replace a shower or tub",
-        "Replace a toilet or sink",
         "Add a new shower",
-        "Add bathroom ventilation",
-        "Other bathroom improvement"
+        "Add bathroom ventilation"
       ]
     },
     {
@@ -107,13 +92,8 @@
         "Build a deck",
         "Replace a deck",
         "Build a porch",
-        "Build a patio",
         "Build a balcony",
-        "Build exterior stairs",
-        "Build a pergola or covered structure",
-        "Build or replace a fence",
-        "Build a small outdoor structure",
-        "Other exterior structure"
+        "Build exterior stairs"
       ]
     },
     {
@@ -137,15 +117,10 @@
       "label": "Garages & accessory buildings",
       "items": [
         "Build a garage",
-        "Replace a garage",
         "Convert a garage to living space",
-        "Finish a garage",
         "Expand a garage",
         "Build a detached garage",
-        "Build a shed",
-        "Build an accessory structure",
-        "Convert an accessory structure",
-        "Other garage or accessory-building work"
+        "Convert an accessory structure"
       ]
     },
     {
@@ -153,15 +128,12 @@
       "label": "Roof, windows & exterior envelope",
       "items": [
         "Replace a roof",
-        "Repair a roof",
         "Add a roof window or skylight",
         "Replace windows",
         "Enlarge windows",
         "Add new windows",
-        "Replace exterior doors",
         "Add or relocate exterior doors",
-        "Replace siding or exterior cladding",
-        "Other exterior-envelope work"
+        "Replace siding or exterior cladding"
       ]
     },
     {
@@ -176,8 +148,7 @@
         "Install a heat pump",
         "Replace a furnace or boiler",
         "Add or replace plumbing systems",
-        "Add or modify gas equipment",
-        "Other mechanical or utility work"
+        "Add or modify gas equipment"
       ]
     },
     {
@@ -186,14 +157,10 @@
       "items": [
         "Regrade the yard",
         "Install or replace drainage",
-        "Build a retaining wall",
+        "Build a retaining wall 4 feet or taller",
         "Change a driveway",
         "Add or modify parking",
-        "Install a walkway",
-        "Remove or add substantial paving",
-        "Landscape a large area",
-        "Remove or plant trees as part of construction",
-        "Other site or land work"
+        "Remove a tree 6 inches in diameter or larger"
       ]
     },
     {
@@ -208,9 +175,16 @@
         "Improve emergency egress",
         "Add or modify fire-safety systems",
         "Add a home elevator or lift",
-        "Repair structural damage",
-        "Something else not listed here"
+        "Repair structural damage"
       ]
     }
-  ]
+  ],
+  "_permitAudit": {
+    "reviewedOn": "2026-09-20",
+    "basis": [
+      "Massachusetts 780 CMR Section 105 requires permits for construction, reconstruction, alteration, repair, removal, demolition, change of use/occupancy, and regulated equipment, with listed exemptions.",
+      "Massachusetts HIC guidance identifies decks, demolition, structural carpentry, HVAC, wiring, new/replacement roofing, siding, stairs, windows, and similar work as permit-regulated depending on scope.",
+      "Newton separately regulates zoning, site-plan, historic, wetland, tree, and related approvals for certain site/exterior work."
+    ]
+  }
 }
