@@ -9,7 +9,11 @@
       "newton-zoning",
       "newton-planning"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "preparation": [
+      "Current property/site information",
+      "Project dimensions and proposed site plan if zoning review requires them"
+    ]
   },
   {
     "id": "property.historic",
@@ -44,7 +48,11 @@
     "sourceIds": [
       "newton-planning"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "preparation": [
+      "Building permit application",
+      "Floor plans/elevations/foundation/framing plans as applicable"
+    ]
   },
   {
     "id": "project.electrical",
@@ -144,7 +152,11 @@
     "sourceIds": [
       "newton-fire"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "preparation": [
+      "Work description",
+      "Plans showing applicable fire-protection systems"
+    ]
   },
   {
     "id": "project.tree",
@@ -155,7 +167,11 @@
     "sourceIds": [
       "newton-tree"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "preparation": [
+      "Tree Permit application for exterior construction",
+      "Tree protection information if applicable"
+    ]
   },
   {
     "id": "project.tree-uncertain",
@@ -189,7 +205,11 @@
       "newton-far",
       "newton-planning"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "preparation": [
+      "Existing/proposed floor area calculations",
+      "Survey/site plan"
+    ]
   },
   {
     "id": "project.exterior-uncertain",
@@ -294,7 +314,11 @@
       "newton-inspections",
       "newton-closeout"
     ],
-    "reviewRequired": false
+    "reviewRequired": false,
+    "preparation": [
+      "Inspection requests",
+      "Trade signoffs and final documentation"
+    ]
   },
   {
     "id": "workflow.open-permits",
@@ -305,7 +329,10 @@
     "sourceIds": [
       "newton-closeout"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "preparation": [
+      "Check existing Newton permit records"
+    ]
   },
   {
     "id": "property.historic-age",
