@@ -119,3 +119,45 @@ label{display:block;font-weight:700;margin:30px 0 0}label>input,label>select,lab
   .project-gallery{padding-top:55px;padding-bottom:70px}
   .project-art{height:210px}
 }
+
+/* Questionnaire/property and checklist refinement */
+.property-evidence-below{
+  margin-top:34px;
+  padding-top:30px;
+  border-top:1px solid var(--line);
+}
+.property-evidence-below .section-heading{margin-bottom:16px}
+.property-evidence-inline .property-evidence-below{
+  margin-top:0;
+  padding-top:0;
+  border-top:0;
+}
+.step-extra{
+  grid-column:2;
+  max-height:520px;
+  overflow:hidden;
+  opacity:1;
+  transform:translateY(0);
+  transform-origin:top;
+  transition:max-height .52s cubic-bezier(.22,.61,.36,1),opacity .28s ease,transform .52s cubic-bezier(.22,.61,.36,1),margin .52s cubic-bezier(.22,.61,.36,1);
+}
+.step-item.collapsing .step-extra{
+  opacity:0;
+  transform:translateY(-10px) scale(.985);
+}
+.step-item.collapsed .step-extra{
+  max-height:0;
+  opacity:0;
+  margin-top:0;
+  transform:translateY(-18px) scale(.97);
+}
+.step-item.collapsed .stepcheck b{
+  color:#8b9087;
+}
+.step-item.collapsed{
+  padding-bottom:9px;
+}
+#skipQuestion{margin-left:auto}
+@media(max-width:500px){
+  #skipQuestion{margin-left:auto}
+}
