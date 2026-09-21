@@ -10,6 +10,8 @@ let selectedCatalogId = null;
 let clarifierState = {};
 let clarificationMeta = {};
 let clarifierQuestionMemory = {};
+const PROJECT_RETENTION_DAYS = 30;
+const PROJECT_RETENTION_MS = PROJECT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
 
 const pageIds = ['home','about','how','mission','feedback','privacy','terms','plan'];
 const pageIdSet = new Set(pageIds);
@@ -76,12 +78,21 @@ function projectLabel(projectType, project = null) {
 
 function savedProjects() {
   const items = [];
+  const now = Date.now();
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (!key?.startsWith('nhpp-project:')) continue;
     try {
       const saved = JSON.parse(localStorage.getItem(key));
-      if (saved?.type && saved?.property?.resolvedAddress) items.push(saved);
+      if (!saved?.type || !saved?.property?.resolvedAddress) continue;
+      const lastUpdated = Date.parse(saved.updatedAt || '') || 0;
+      const expiresAt = Date.parse(saved.expiresAt || '') || (lastUpdated + PROJECT_RETENTION_MS);
+      if (!lastUpdated || expiresAt <= now) {
+        localStorage.removeItem(key);
+        continue;
+      }
+      if (!saved.expiresAt) saved.expiresAt = new Date(expiresAt).toISOString();
+      items.push(saved);
     } catch {}
   }
   return items.sort((a,b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
@@ -103,7 +114,7 @@ function renderSavedProjects() {
         <div class="resume-tools">
           <button type="button" class="secondary" id="importProject">Import project file</button>
           <input id="importProjectInput" type="file" accept=".json,application/json" class="file-input" aria-label="Import a saved project file">
-          <span class="resume-storage-note">Browser-saved · portable backup available</span>
+          <span class="resume-storage-note">Browser-saved · automatically expires after 30 days of inactivity</span>
         </div>
       </div>
       ${projects.length ? `<div class="resume-list">${projects.slice(0,8).map((p,index) => {
@@ -173,7 +184,8 @@ function importSavedProject(project) {
     property:project.property,
     answers:project.answers || {},
     steps:project.steps.map(s=>({...s,status:s.status==='complete'?'complete':'not_started'})),
-    updatedAt:project.updatedAt || new Date().toISOString()
+    updatedAt:project.updatedAt || new Date().toISOString(),
+    expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()
   }));
   return true;
 }
@@ -313,13 +325,22 @@ function spawnButtonSparks(button) {
 }
 
 function openMobileMenu() {
-  $('mobileMenu')?.classList.add('open');
-  $('mobileMenu')?.setAttribute('aria-hidden','false');
+  const menu = $('mobileMenu');
+  if (!menu) return;
+  menu.classList.add('open');
+  menu.setAttribute('aria-hidden','false');
+  menu.inert = false;
+  $('mobileMenuClose')?.focus();
 }
 function closeMobileMenu() {
-  $('mobileMenu')?.classList.remove('open');
-  $('mobileMenu')?.setAttribute('aria-hidden','true');
+  const menu = $('mobileMenu');
+  if (!menu) return;
+  menu.classList.remove('open');
+  menu.setAttribute('aria-hidden','true');
+  menu.inert = true;
+  $('menuToggle')?.focus();
 }
+closeMobileMenu();
 
 function updateProjectSummary() {
   const root = $('projectSummary');
@@ -510,9 +531,11 @@ function renderSuggestions(matches) {
     ? matches.map(x => `<button type="button" class="suggestion" role="option" data-address="${escape(x.Address)}"><strong>${escape(x.Address)}</strong><span>${escape(x.City || 'Newton')}${x.ZipCode ? ' · ' + escape(x.ZipCode) : ''}</span></button>`).join('')
     : '<div class="suggestion-empty">No official Newton GIS address matches yet.</div>';
   suggestions.classList.remove('hidden');
+  addressInput?.setAttribute('aria-expanded','true');
   suggestions.querySelectorAll('.suggestion').forEach(btn => {
     btn.onclick = () => {
       addressInput.value = btn.dataset.address;
+       addressInput.setAttribute('aria-expanded','false');
       suggestions.classList.add('hidden');
       $('resolve').focus();
     };
@@ -1082,7 +1105,7 @@ function renderResult(plan, options = {}) {
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
   checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
-  localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, projectCatalogLabel:plan.project.projectCatalogLabel || null, updatedAt:new Date().toISOString()}));
+  localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, projectCatalogLabel:plan.project.projectCatalogLabel || null, updatedAt:new Date().toISOString(), expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()}));
   renderSavedProjects();
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
@@ -1209,7 +1232,7 @@ function downloadProjectFile(key) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'home-project-planner-' + slugify(saved.property.resolvedAddress) + '.json';
+  link.download = 'home-project-planner-project.json';
   document.body.appendChild(link);
   link.click();
   link.remove();
