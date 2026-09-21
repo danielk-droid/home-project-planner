@@ -1,6 +1,9 @@
 name: Regulatory Monitor
 
 on:
+  push:
+    branches:
+      - 'feat/regulatory-monitoring-v1'
   schedule:
     - cron: '17 10 * * *'
   workflow_dispatch:
