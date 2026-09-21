@@ -32,3 +32,8 @@ Because this is a static application, any static HTTP server can serve the direc
 `python -m http.server 8000`
 
 Then open `http://localhost:8000`.
+
+
+## Regulatory monitoring
+
+HPP now includes a conservative official-source monitoring layer. See docs/regulatory-monitoring.md. It is review-gated and does not silently rewrite the planner.

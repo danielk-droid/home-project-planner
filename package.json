@@ -1,6 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs"
+    "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs",
+    "monitor": "node monitor/index.mjs",
+    "monitor:test": "node monitor/tests/monitor.test.mjs"
   }
 }
