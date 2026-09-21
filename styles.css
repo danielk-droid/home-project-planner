@@ -1209,3 +1209,18 @@ footer{
   .clarifier-inference{grid-template-columns:26px minmax(0,1fr);align-items:start}
   .clarifier-change{grid-column:2;justify-self:start}
 }
+
+
+/* Accessibility: preserve the visual system while respecting reduced-motion preferences. */
+:focus-visible{
+  outline:2px solid var(--olive-dark);
+  outline-offset:3px;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
