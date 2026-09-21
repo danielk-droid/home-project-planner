@@ -1,5 +1,12 @@
 import assert from 'node:assert/strict';
 import {normalizeHtml,normalizeText,sha256,meaningfulDiff,classifyChange,safetyAssessment} from '../index.mjs';
+import fs from 'node:fs';
+const map=JSON.parse(fs.readFileSync(new URL('../config/knowledge-map.json',import.meta.url)));
+const sources=JSON.parse(fs.readFileSync(new URL('../config/sources.json',import.meta.url)));
+assert.ok(map.mappings.length>0);
+assert.ok(map.mappings.every(m=>Array.isArray(m.ruleIds)&&Array.isArray(m.projectTypes)&&Array.isArray(m.questionIds)));
+assert.ok(new Set(map.mappings.map(m=>m.sourceId)).size===map.mappings.length);
+assert.ok(map.mappings.every(m=>sources.some(s=>s.id===m.sourceId)));
 const a='<header>Menu</header><main><h1>Permit</h1><p>Permit is required.</p></main><footer>Cookie</footer><script>x()</script>';
 const b='<header>Other menu</header><main><h1>Permit</h1><p>Permit is required.</p></main><footer>Other</footer>';
 assert.equal(normalizeHtml(a),normalizeHtml(b));
