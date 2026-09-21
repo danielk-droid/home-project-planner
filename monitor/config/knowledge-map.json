@@ -27,7 +27,16 @@
     },
     {
       "sourceId": "newton-planning",
-      "ruleIds": "planning",
+      "ruleIds": [
+        "property.zoning",
+        "project.building",
+        "project.structural",
+        "project.far",
+        "project.exterior-uncertain",
+        "project.ventilation",
+        "project.window",
+        "property.historic-status"
+      ],
       "projectTypes": [
         "basement_finish",
         "bathroom_renovation",
@@ -44,7 +53,11 @@
     },
     {
       "sourceId": "newton-tree",
-      "ruleIds": "tree permit",
+      "ruleIds": [
+        "project.tree",
+        "project.tree-uncertain",
+        "project.exterior-uncertain"
+      ],
       "projectTypes": [
         "deck",
         "addition",
@@ -59,7 +72,11 @@
     },
     {
       "sourceId": "newton-historic",
-      "ruleIds": "demolition delay",
+      "ruleIds": [
+        "property.historic",
+        "property.historic-age",
+        "property.historic-status"
+      ],
       "projectTypes": [
         "deck",
         "addition",
@@ -71,7 +88,10 @@
     },
     {
       "sourceId": "newton-conservation",
-      "ruleIds": "wetlands",
+      "ruleIds": [
+        "property.floodplain",
+        "project.conservation"
+      ],
       "projectTypes": [
         "deck",
         "addition",
@@ -84,7 +104,11 @@
     },
     {
       "sourceId": "newton-electrical-plumbing-gas",
-      "ruleIds": "plumbing",
+      "ruleIds": [
+        "project.electrical",
+        "project.plumbing",
+        "project.gas"
+      ],
       "projectTypes": [
         "basement_finish",
         "bathroom_renovation",
@@ -143,7 +167,13 @@
     },
     {
       "sourceId": "newton-building-checklist",
-      "ruleIds": "checklist",
+      "ruleIds": [
+        "project.building",
+        "project.tree",
+        "project.fire",
+        "project.far",
+        "project.structural"
+      ],
       "projectTypes": [
         "basement_finish",
         "bathroom_renovation",
@@ -157,7 +187,10 @@
     },
     {
       "sourceId": "newton-energy-code",
-      "ruleIds": "hers",
+      "ruleIds": [
+        "project.building",
+        "project.ventilation"
+      ],
       "projectTypes": [
         "basement_finish",
         "bathroom_renovation",
@@ -171,7 +204,12 @@
     },
     {
       "sourceId": "newton-newgov",
-      "ruleIds": "application",
+      "ruleIds": [
+        "project.building",
+        "property.zoning",
+        "property.historic",
+        "project.conservation"
+      ],
       "projectTypes": [
         "basement_finish",
         "bathroom_renovation",
@@ -197,7 +235,14 @@
     },
     {
       "sourceId": "ma-building-code",
-      "ruleIds": "780 cmr",
+      "ruleIds": [
+        "project.structural",
+        "project.structural-uncertain",
+        "basement.egress",
+        "basement.sleeping-uncertain",
+        "project.ventilation",
+        "project.window"
+      ],
       "projectTypes": [
         "basement_finish",
         "bathroom_renovation",
