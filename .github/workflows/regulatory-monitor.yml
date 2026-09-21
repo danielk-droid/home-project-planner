@@ -114,7 +114,7 @@ jobs:
           fi
 
       - name: Optional email notification
-        if: ${{ secrets.SMTP_HOST != '' && secrets.REVIEW_EMAIL_TO != '' }}
+        if: env.SMTP_HOST != '' && env.REVIEW_EMAIL_TO != ''
         env:
           SMTP_HOST: "${{ secrets.SMTP_HOST }}"
           SMTP_PORT: "${{ secrets.SMTP_PORT }}"
