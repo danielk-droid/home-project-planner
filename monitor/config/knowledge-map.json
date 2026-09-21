@@ -1,0 +1,220 @@
+{
+  "version": 1,
+  "policy": {
+    "defaultAction": "human_review",
+    "automaticProductionChanges": false,
+    "rationale": "V1 never auto-publishes a regulatory interpretation."
+  },
+  "mappings": [
+    {
+      "sourceId": "newton-zoning-ordinance",
+      "ruleIds": [
+        "property.zoning",
+        "project.far"
+      ],
+      "projectTypes": [
+        "addition",
+        "deck",
+        "general_project"
+      ],
+      "questionIds": [
+        "addition.newArea",
+        "addition.stories",
+        "addition.footprintChange",
+        "deck.deckHeight",
+        "general_project.primaryWorkArea"
+      ]
+    },
+    {
+      "sourceId": "newton-planning",
+      "ruleIds": "planning",
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "structuralChanges",
+        "siteWork",
+        "exteriorChange",
+        "exteriorChangeDetail"
+      ]
+    },
+    {
+      "sourceId": "newton-tree",
+      "ruleIds": "tree permit",
+      "projectTypes": [
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "deck.treeImpact",
+        "addition.treeImpact",
+        "addition.siteWork",
+        "general_project.siteWork"
+      ]
+    },
+    {
+      "sourceId": "newton-historic",
+      "ruleIds": "demolition delay",
+      "projectTypes": [
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "general_project.exteriorChange"
+      ]
+    },
+    {
+      "sourceId": "newton-conservation",
+      "ruleIds": "wetlands",
+      "projectTypes": [
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "addition.siteWork",
+        "general_project.siteWork"
+      ]
+    },
+    {
+      "sourceId": "newton-electrical-plumbing-gas",
+      "ruleIds": "plumbing",
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "electricalWork",
+        "plumbingWork",
+        "gasWork"
+      ]
+    },
+    {
+      "sourceId": "newton-fire",
+      "ruleIds": [
+        "project.fire"
+      ],
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": []
+    },
+    {
+      "sourceId": "newton-inspections",
+      "ruleIds": [
+        "workflow.inspections"
+      ],
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": []
+    },
+    {
+      "sourceId": "newton-closeout",
+      "ruleIds": [
+        "workflow.inspections",
+        "workflow.open-permits"
+      ],
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": []
+    },
+    {
+      "sourceId": "newton-building-checklist",
+      "ruleIds": "checklist",
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "structuralChanges"
+      ]
+    },
+    {
+      "sourceId": "newton-energy-code",
+      "ruleIds": "hers",
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "newVentilation",
+        "structuralChanges"
+      ]
+    },
+    {
+      "sourceId": "newton-newgov",
+      "ruleIds": "application",
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": []
+    },
+    {
+      "sourceId": "newton-final-checklist",
+      "ruleIds": [
+        "workflow.inspections"
+      ],
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "deck",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": []
+    },
+    {
+      "sourceId": "ma-building-code",
+      "ruleIds": "780 cmr",
+      "projectTypes": [
+        "basement_finish",
+        "bathroom_renovation",
+        "addition",
+        "general_project"
+      ],
+      "questionIds": [
+        "structuralChanges",
+        "sleepingRoomAdded",
+        "sleepingUse",
+        "egressType",
+        "egressKnown",
+        "egressMeasurements",
+        "newVentilation",
+        "newWindow",
+        "windowsOrDoors"
+      ]
+    }
+  ]
+}

@@ -1,59 +1,5 @@
 [
   {
-    "id": "newton-gis",
-    "title": "City of Newton GIS",
-    "publisher": "City of Newton",
-    "url": "https://www.newtonma.gov/government/information-technology/gis",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
-  },
-  {
-    "id": "newton-addresses",
-    "title": "Addresses GIS Layer",
-    "publisher": "City of Newton GIS",
-    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
-  },
-  {
-    "id": "newton-parcels",
-    "title": "Parcels GIS Layer",
-    "publisher": "City of Newton GIS",
-    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/47",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
-  },
-  {
-    "id": "newton-zoning",
-    "title": "Zoning GIS Layer",
-    "publisher": "City of Newton GIS",
-    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/24",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
-  },
-  {
-    "id": "newton-historic-districts",
-    "title": "Historic Districts GIS Layer",
-    "publisher": "City of Newton GIS",
-    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/39",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
-  },
-  {
-    "id": "newton-floodplain",
-    "title": "Floodplains GIS Layer",
-    "publisher": "City of Newton GIS",
-    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/41",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
-  },
-  {
     "id": "newton-planning",
     "title": "Planning & Development",
     "publisher": "City of Newton",
@@ -402,24 +348,6 @@
       "failurePolicy": "preserve_last_verified_state_and_escalate_after_retries",
       "automationPolicy": "review_only"
     }
-  },
-  {
-    "id": "newton-wetlands",
-    "title": "Wetlands GIS Layer",
-    "publisher": "City of Newton GIS",
-    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/27",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
-  },
-  {
-    "id": "newton-streams",
-    "title": "Streams GIS Layer",
-    "publisher": "City of Newton GIS",
-    "url": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/16",
-    "authority": "official_data",
-    "lastVerified": "2026-09-19",
-    "sourceType": "official_gis"
   },
   {
     "id": "newton-zoning-ordinance",

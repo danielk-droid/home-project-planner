@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {normalizeHtml,normalizeText,sha256,meaningfulDiff,classifyChange,safetyAssessment} from '../index.mjs';
+const a='<header>Menu</header><main><h1>Permit</h1><p>Permit is required.</p></main><footer>Cookie</footer><script>x()</script>';
+const b='<header>Other menu</header><main><h1>Permit</h1><p>Permit is required.</p></main><footer>Other</footer>';
+assert.equal(normalizeHtml(a),normalizeHtml(b));
+assert.equal(normalizeText(' a  b\n\n\nc '),'a b\n\nc');
+const prev={hash:sha256('Permit required.'),text:'Permit required.'};
+assert.equal(meaningfulDiff(prev,{hash:prev.hash,text:prev.text}).changed,false);
+const changed={hash:sha256('Permit required. Setback is 10 ft.'),text:'Permit required. Setback is 10 ft.'};
+assert.equal(meaningfulDiff(prev,changed).changed,true);
+const source={monitoring:{authorityTier:'primary',topics:['setback','permit']}};
+assert.equal(classifyChange(source,{changed:false,added:[],removed:[]}),'A_NO_MEANINGFUL_CHANGE');
+assert.equal(classifyChange(source,{changed:true,added:['Navigation only'],removed:[]}),'C_INFORMATIONAL_IRRELEVANT_TO_HPP');
+assert.equal(classifyChange(source,{changed:true,added:['Setback requirement changed from 10 ft to 8 ft'],removed:[]}),'E_POTENTIALLY_REGULATORY_CHANGE');
+const safety=safetyAssessment(source,'E_POTENTIALLY_REGULATORY_CHANGE',{ruleIds:['project.far']});
+assert.equal(safety.decision,'HUMAN_REVIEW'); assert.equal(safety.confidence,'LOW');
+console.log('monitor tests: PASS');
