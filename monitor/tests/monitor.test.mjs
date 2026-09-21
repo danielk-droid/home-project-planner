@@ -14,4 +14,8 @@ assert.equal(classifyChange(source,{changed:true,added:['Navigation only'],remov
 assert.equal(classifyChange(source,{changed:true,added:['Setback requirement changed from 10 ft to 8 ft'],removed:[]}),'E_POTENTIALLY_REGULATORY_CHANGE');
 const safety=safetyAssessment(source,'E_POTENTIALLY_REGULATORY_CHANGE',{ruleIds:['project.far']});
 assert.equal(safety.decision,'HUMAN_REVIEW'); assert.equal(safety.confidence,'LOW');
+const formattingSource={monitoring:{authorityTier:'primary',topics:['permit']}};
+assert.equal(classifyChange(formattingSource,{changed:true,added:['Unrelated office hours'],removed:[]}),'C_INFORMATIONAL_IRRELEVANT_TO_HPP');
+assert.deepEqual(safetyAssessment(formattingSource,'F_CLEAR_REGULATORY_CHANGE',{ruleIds:['project.building']}).decision,'HUMAN_REVIEW');
+console.log('fixture scenarios: no-change, formatting/irrelevant, regulatory, safety gate');
 console.log('monitor tests: PASS');
