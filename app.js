@@ -499,7 +499,7 @@ if (addressInput) {
   });
 
   addressInput.addEventListener('keydown', e => {
-    if (e.key === 'Escape') suggestions.classList.add('hidden');
+    if (e.key === 'Escape') { suggestions.classList.add('hidden'); addressInput.setAttribute('aria-expanded','false'); }
     if (e.key === 'Enter' && suggestions.querySelector('[role="option"]')) {
       e.preventDefault();
       suggestions.querySelector('[role="option"]').click();
@@ -508,7 +508,7 @@ if (addressInput) {
 }
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('.address-wrap')) suggestions?.classList.add('hidden');
+  if (!e.target.closest('.address-wrap')) { suggestions?.classList.add('hidden'); addressInput?.setAttribute('aria-expanded','false'); }
 });
 
 async function searchAddresses(value) {
