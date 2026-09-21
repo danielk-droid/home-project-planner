@@ -76,6 +76,7 @@ jobs:
           git config user.name "HPP Regulatory Monitor"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin monitor-state:refs/remotes/origin/monitor-state || true
+          rm -f monitor-state.json
           if git show origin/monitor-state:monitor-state.json >/dev/null 2>&1; then
             git checkout -B monitor-state origin/monitor-state
           else
