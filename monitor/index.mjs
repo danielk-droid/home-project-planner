@@ -64,6 +64,9 @@ export async function runMonitor({configPath=DEFAULT_CONFIG,mapPath=DEFAULT_MAP,
   const sources=JSON.parse(await fs.readFile(configPath,'utf8')).filter(x=>x.monitoring?.enabled);
   const map=JSON.parse(await fs.readFile(mapPath,'utf8')); let state={version:1,sources:{},history:[]};
   try{state=JSON.parse(await fs.readFile(statePath,'utf8'));}catch{}
+  if(!state || typeof state!=='object') state={};
+  if(!state.sources || typeof state.sources!=='object') state.sources={};
+  if(!Array.isArray(state.history)) state.history=[];
   const results=[],proposals=[];
   for(const source of sources){
     const previous=state.sources[source.id];
