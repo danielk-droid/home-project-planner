@@ -1073,7 +1073,7 @@ const sourceById = id => ({
   'newton-gis':'https://www.newtonma.gov/government/information-technology/gis',
   'newton-zoning':'https://www.newtonma.gov/about/city-maps-available-for-download',
   'newton-planning':'https://www.newtonma.gov/government/planning',
-  'newton-newgov':'https://newtonma.portal.opengov.com/categories/1086',
+  'newton-newgov':'https://newtonma.viewpointcloud.com/',
   'newton-fire':'https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews',
   'newton-tree':'https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance',
   'newton-conservation':'https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev',
