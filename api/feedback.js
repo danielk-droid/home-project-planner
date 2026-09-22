@@ -121,13 +121,33 @@ function validEmail(value) {
 }
 
 export default async function handler(request) {
-  if (request.method !== 'POST') {
-    return json({ error: 'Method not allowed.' }, 405);
-  }
-
   const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
   const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, '\n');
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+
+  if (request.method === 'GET') {
+    if (!serviceAccountEmail || !privateKey || !spreadsheetId) {
+      return json({ ok: false, configured: false }, 503);
+    }
+
+    try {
+      const token = await getAccessToken(serviceAccountEmail, privateKey);
+      await sheetsRequest(
+        'https://sheets.googleapis.com/v4/spreadsheets/' +
+          encodeURIComponent(spreadsheetId) +
+          '?fields=spreadsheetId',
+        token
+      );
+      return json({ ok: true, configured: true });
+    } catch (error) {
+      console.error('Feedback health check failed:', error?.message || 'Unknown error');
+      return json({ ok: false, configured: true }, 502);
+    }
+  }
+
+  if (request.method !== 'POST') {
+    return json({ error: 'Method not allowed.' }, 405);
+  }
 
   if (!serviceAccountEmail || !privateKey || !spreadsheetId) {
     return json({ error: 'Feedback service is not configured.' }, 503);
