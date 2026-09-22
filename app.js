@@ -197,9 +197,47 @@ const feedbackForm = $('feedbackForm');
 if (feedbackForm) {
   const feedbackStatus = $('feedbackStatus');
   const feedbackSubmit = $('feedbackSubmit');
+  const feedbackProgress = $('feedbackProgress');
+  const feedbackFieldset = $('feedbackFields');
+  let feedbackSubmitting = false;
+
+  const feedbackChoiceInputs = [...feedbackForm.querySelectorAll('.feedback-choice-input')];
+
+  function updateFeedbackProgress() {
+    const completed = new Set(
+      feedbackChoiceInputs.filter(input => input.checked).map(input => input.name)
+    ).size;
+    const total = 4;
+    const percentage = Math.round((completed / total) * 100);
+    if (feedbackProgress) {
+      feedbackProgress.style.setProperty('--feedback-progress', percentage + '%');
+      feedbackProgress.querySelector('strong').textContent = completed + ' / ' + total;
+      feedbackProgress.querySelector('span').textContent =
+        completed === total ? 'Core questions complete' : 'Quick questions completed';
+    }
+    feedbackForm.classList.toggle('feedback-ready', completed === total);
+  }
+
+  feedbackChoiceInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      updateFeedbackProgress();
+      feedbackStatus.textContent = '';
+      feedbackStatus.className = 'feedback-status';
+    });
+  });
+
+  feedbackForm.querySelectorAll('.feedback-choice-card').forEach(card => {
+    card.addEventListener('click', () => {
+      if (feedbackSubmitting) return;
+      const input = card.querySelector('input');
+      if (input) input.focus();
+    });
+  });
 
   feedbackForm.addEventListener('submit', async event => {
     event.preventDefault();
+    if (feedbackSubmitting) return;
+
     feedbackStatus.textContent = '';
     feedbackStatus.className = 'feedback-status';
 
@@ -219,19 +257,29 @@ if (feedbackForm) {
 
     if (!payload.role || !payload.project || !payload.usefulness || !payload.newInformation || !payload.feedback) {
       feedbackStatus.className = 'feedback-status error';
-      feedbackStatus.textContent = 'Please complete the required fields.';
+      feedbackStatus.textContent = 'Complete the four quick questions and your feedback before submitting.';
       return;
     }
 
+    feedbackSubmitting = true;
+    feedbackFieldset.disabled = true;
     feedbackSubmit.disabled = true;
     feedbackSubmit.setAttribute('aria-busy', 'true');
-    feedbackSubmit.querySelector('span').textContent = 'Submitting…';
+    feedbackSubmit.classList.add('is-submitting');
+    feedbackSubmit.querySelector('.feedback-submit-label').textContent = 'Sending feedback';
+    feedbackSubmit.querySelector('.feedback-submit-icon').textContent = '…';
+    feedbackStatus.className = 'feedback-status submitting';
+    feedbackStatus.textContent = 'Sending your feedback securely…';
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     try {
       const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: controller.signal
       });
 
       let result = null;
@@ -243,16 +291,28 @@ if (feedbackForm) {
 
       feedbackForm.reset();
       feedbackStatus.className = 'feedback-status success';
-      feedbackStatus.textContent = 'Thank you. Your feedback was submitted successfully.';
-    } catch {
+      feedbackStatus.innerHTML = '<strong>Feedback received.</strong><span>Thank you for helping improve HPP.</span>';
+      feedbackForm.classList.remove('feedback-ready');
+      updateFeedbackProgress();
+    } catch (error) {
       feedbackStatus.className = 'feedback-status error';
-      feedbackStatus.textContent = 'We could not submit your feedback right now. Please try again.';
+      feedbackStatus.textContent = error?.name === 'AbortError'
+        ? 'The submission timed out. Your answers are still here. Please try again.'
+        : 'We could not submit your feedback right now. Your answers are still here. Please try again.';
     } finally {
+      clearTimeout(timeoutId);
+      feedbackSubmitting = false;
+      feedbackFieldset.disabled = false;
       feedbackSubmit.disabled = false;
       feedbackSubmit.removeAttribute('aria-busy');
-      feedbackSubmit.querySelector('span').textContent = '→';
+      feedbackSubmit.classList.remove('is-submitting');
+      feedbackSubmit.querySelector('.feedback-submit-label').textContent = 'Submit feedback';
+      feedbackSubmit.querySelector('.feedback-submit-icon').textContent = '→';
+      updateFeedbackProgress();
     }
   });
+
+  updateFeedbackProgress();
 }
 
 
