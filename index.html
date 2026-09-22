@@ -258,10 +258,10 @@
   <section id="feedback" class="page info-page">
     <section class="feedback-hero">
       <div class="editorial-index">04</div>
-      <div>
-        <div class="eyebrow">FEEDBACK / INQUIRIES</div>
-        <h1>Help make the planning path more accurate.</h1>
-        <p class="editorial-lede">A one-minute feedback form helps us find what is confusing, missing, incorrect, or especially useful in HPP.</p>
+      <div class="feedback-hero-copy">
+        <div class="eyebrow">FEEDBACK / HELP SHAPE HPP</div>
+        <h1>Tell us where the planning path gets better.</h1>
+        <p class="editorial-lede">A short, focused form helps us find what is confusing, missing, incorrect, or especially useful.</p>
       </div>
       <div class="feedback-visual feedback-bubble" aria-hidden="true">
         <div class="feedback-bubble-shape"><span>?</span><span>!</span></div>
@@ -270,64 +270,71 @@
     </section>
     <section class="feedback-form-section">
       <div class="feedback-form-intro">
-        <div class="eyebrow">TELL US WHAT YOU FOUND</div>
-        <h2>What should we keep, fix, or clarify?</h2>
-        <p>Your feedback goes to the HPP review workflow. You do not need to provide your name or email.</p>
+        <div class="feedback-kicker"><span>04</span><b>YOUR INPUT</b></div>
+        <h2>Four quick choices, then tell us what you saw.</h2>
+        <p>No account. No name required. Your optional email is used only if you want a response about your feedback.</p>
+        <div class="feedback-progress" id="feedbackProgress" style="--feedback-progress:0%">
+          <div class="feedback-progress-track"><i></i></div>
+          <strong>0 / 4</strong>
+          <span>Quick questions completed</span>
+        </div>
       </div>
       <form id="feedbackForm" class="feedback-form" novalidate>
-        <div class="feedback-field">
-          <label for="feedbackRole">Your role <span aria-hidden="true">*</span></label>
-          <select id="feedbackRole" name="role" required>
-            <option value="">Select one</option>
-            <option value="Homeowner">Homeowner</option>
-            <option value="Contractor">Contractor</option>
-            <option value="Architect/designer">Architect/designer</option>
-            <option value="Developer">Developer</option>
-            <option value="Realtor">Realtor</option>
-            <option value="City/planning professional">City/planning professional</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="feedback-field">
-          <label for="feedbackProject">What were you using HPP for? <span aria-hidden="true">*</span></label>
-          <select id="feedbackProject" name="project" required>
-            <option value="">Select one</option>
-            <option value="Planning a home project">Planning a home project</option>
-            <option value="Checking what approvals might apply">Checking what approvals might apply</option>
-            <option value="Understanding a Newton requirement">Understanding a Newton requirement</option>
-            <option value="Testing/reviewing HPP">Testing/reviewing HPP</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <fieldset class="feedback-field feedback-options">
-          <legend>How useful was HPP? <span aria-hidden="true">*</span></legend>
-          <div class="feedback-choice-grid">
-            <label><input type="radio" name="usefulness" value="Very useful" required><span>Very useful</span></label>
-            <label><input type="radio" name="usefulness" value="Somewhat useful"><span>Somewhat useful</span></label>
-            <label><input type="radio" name="usefulness" value="Not very useful"><span>Not very useful</span></label>
-            <label><input type="radio" name="usefulness" value="Not useful"><span>Not useful</span></label>
+        <fieldset id="feedbackFields" class="feedback-fields">
+          <div class="feedback-field feedback-choice-field">
+            <legend class="feedback-question"><span class="feedback-question-number">01</span><span><b>Your role</b><small>Who are you using HPP as?</small></span></legend>
+            <div class="feedback-card-grid feedback-card-grid-role">
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="role" value="Homeowner" required><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Homeowner</b><small>Planning work on your property</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="role" value="Contractor"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Contractor</b><small>Working on residential projects</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="role" value="Architect/designer"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Architect / designer</b><small>Designing or advising on a project</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="role" value="Developer"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Developer</b><small>Developing or evaluating property</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="role" value="Realtor"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Realtor</b><small>Working with buyers or sellers</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="role" value="City/planning professional"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>City / planning professional</b><small>Working with local planning or rules</small></span></label>
+              <label class="feedback-choice-card feedback-card-wide"><input class="feedback-choice-input" type="radio" name="role" value="Other"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Other</b><small>A different perspective</small></span></label>
+            </div>
+          </div>
+          <div class="feedback-field feedback-choice-field">
+            <legend class="feedback-question"><span class="feedback-question-number">02</span><span><b>What were you using HPP for?</b><small>Choose the closest match.</small></span></legend>
+            <div class="feedback-card-grid feedback-card-grid-project">
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="project" value="Planning a home project" required><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Planning a home project</b><small>Figuring out what comes next</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="project" value="Checking what approvals might apply"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Checking approvals</b><small>Understanding what reviews may apply</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="project" value="Understanding a Newton requirement"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Understanding a Newton requirement</b><small>Looking into a specific local rule</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="project" value="Testing/reviewing HPP"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Testing / reviewing HPP</b><small>Evaluating the planner itself</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="project" value="Other"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Other</b><small>A different reason</small></span></label>
+            </div>
+          </div>
+          <div class="feedback-field feedback-choice-field">
+            <legend class="feedback-question"><span class="feedback-question-number">03</span><span><b>How useful was HPP?</b><small>Your overall experience.</small></span></legend>
+            <div class="feedback-card-grid feedback-card-grid-four">
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="usefulness" value="Very useful" required><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Very useful</b><small>It clearly helped</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="usefulness" value="Somewhat useful"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Somewhat useful</b><small>Helpful in places</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="usefulness" value="Not very useful"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Not very useful</b><small>It needs work</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="usefulness" value="Not useful"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Not useful</b><small>It did not help</small></span></label>
+            </div>
+          </div>
+          <div class="feedback-field feedback-choice-field">
+            <legend class="feedback-question"><span class="feedback-question-number">04</span><span><b>Did HPP give you information you didn't already know?</b><small>What did you learn?</small></span></legend>
+            <div class="feedback-card-grid feedback-card-grid-three">
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="newInformation" value="Yes" required><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Yes</b><small>Definitely new</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="newInformation" value="Somewhat"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>Somewhat</b><small>A little was new</small></span></label>
+              <label class="feedback-choice-card"><input class="feedback-choice-input" type="radio" name="newInformation" value="No"><span class="feedback-card-check">✓</span><span class="feedback-card-copy"><b>No</b><small>Mostly familiar</small></span></label>
+            </div>
+          </div>
+          <div class="feedback-field feedback-field-main">
+            <div class="feedback-question feedback-question-text"><span class="feedback-question-number">05</span><span><b>What did you notice?</b><small>What was confusing, incorrect, missing, or especially useful?</small></span></div>
+            <textarea id="feedbackMessage" name="feedback" rows="7" maxlength="3000" required placeholder="Be specific. Even one detail can help us fix something."></textarea>
+            <div class="feedback-text-meta"><span>Your feedback stays focused on improving HPP.</span><span id="feedbackCharacterCount">0 / 3000</span></div>
+          </div>
+          <div class="feedback-field feedback-field-email">
+            <div class="feedback-question feedback-question-text"><span class="feedback-question-number">06</span><span><b>Want a response?</b><small>Optional. Leave blank if you do not want to be contacted.</small></span></div>
+            <input id="feedbackEmail" name="contactEmail" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com">
           </div>
         </fieldset>
-        <fieldset class="feedback-field feedback-options">
-          <legend>Did HPP give you information you didn't already know? <span aria-hidden="true">*</span></legend>
-          <div class="feedback-choice-grid feedback-choice-grid-three">
-            <label><input type="radio" name="newInformation" value="Yes" required><span>Yes</span></label>
-            <label><input type="radio" name="newInformation" value="Somewhat"><span>Somewhat</span></label>
-            <label><input type="radio" name="newInformation" value="No"><span>No</span></label>
-          </div>
-        </fieldset>
-        <div class="feedback-field feedback-field-main">
-          <label for="feedbackMessage">Feedback <span aria-hidden="true">*</span></label>
-          <p class="feedback-help">What was confusing, incorrect, missing, or especially useful?</p>
-          <textarea id="feedbackMessage" name="feedback" rows="7" maxlength="3000" required placeholder="Tell us what you noticed."></textarea>
-        </div>
-        <div class="feedback-field">
-          <label for="feedbackEmail">Contact email <span class="optional">optional</span></label>
-          <p class="feedback-help">Leave this blank unless you want to be contacted about your feedback.</p>
-          <input id="feedbackEmail" name="contactEmail" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com">
-        </div>
         <div id="feedbackStatus" class="feedback-status" role="status" aria-live="polite"></div>
-        <button id="feedbackSubmit" type="submit" class="feedback-submit">Submit feedback <span>→</span></button>
+        <button id="feedbackSubmit" type="submit" class="feedback-submit">
+          <span class="feedback-submit-label">Submit feedback</span>
+          <span class="feedback-submit-icon" aria-hidden="true">→</span>
+        </button>
       </form>
     </section>
   </section>
