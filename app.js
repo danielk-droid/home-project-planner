@@ -170,6 +170,69 @@ function renderSavedProjects() {
         property = null; type = null; answers = {}; selectedCatalogId = null; clarifierState = {}; clarificationMeta = {}; clarifierQuestionMemory = {}; questionIndex = 0; editingFromReview = false;
       }
       renderSavedProjects();
+
+const feedbackForm = $('feedbackForm');
+if (feedbackForm) {
+  const feedbackStatus = $('feedbackStatus');
+  const feedbackSubmit = $('feedbackSubmit');
+
+  feedbackForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    feedbackStatus.textContent = '';
+    feedbackStatus.className = 'feedback-status';
+
+    if (!feedbackForm.checkValidity()) {
+      feedbackForm.reportValidity();
+      return;
+    }
+
+    const payload = {
+      role: feedbackForm.elements.role.value,
+      project: feedbackForm.elements.project.value,
+      usefulness: feedbackForm.elements.usefulness.value,
+      newInformation: feedbackForm.elements.newInformation.value,
+      feedback: feedbackForm.elements.feedback.value.trim(),
+      contactEmail: feedbackForm.elements.contactEmail.value.trim()
+    };
+
+    if (!payload.role || !payload.project || !payload.usefulness || !payload.newInformation || !payload.feedback) {
+      feedbackStatus.className = 'feedback-status error';
+      feedbackStatus.textContent = 'Please complete the required fields.';
+      return;
+    }
+
+    feedbackSubmit.disabled = true;
+    feedbackSubmit.setAttribute('aria-busy', 'true');
+    feedbackSubmit.querySelector('span').textContent = 'Submitting…';
+
+    try {
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+
+      let result = null;
+      try { result = await response.json(); } catch {}
+
+      if (!response.ok) {
+        throw new Error(result?.error || 'Feedback could not be submitted.');
+      }
+
+      feedbackForm.reset();
+      feedbackStatus.className = 'feedback-status success';
+      feedbackStatus.textContent = 'Thank you. Your feedback was submitted successfully.';
+    } catch {
+      feedbackStatus.className = 'feedback-status error';
+      feedbackStatus.textContent = 'We could not submit your feedback right now. Please try again.';
+    } finally {
+      feedbackSubmit.disabled = false;
+      feedbackSubmit.removeAttribute('aria-busy');
+      feedbackSubmit.querySelector('span').textContent = '→';
+    }
+  });
+}
+
     });
   });
   $('importProject')?.addEventListener('click', () => $('importProjectInput')?.click());
