@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Home Project Planner helps homeowners in Newton, Massachusetts work through property context, project questions, local requirements, and next steps using identified public sources.">
+<meta name="theme-color" content="#303b29">
+<meta property="og:title" content="Home Project Planner · Newton">
+<meta property="og:description" content="A property-first planning tool for residential projects in Newton, Massachusetts.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Home Project Planner · Newton</title><link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,7 +26,7 @@
       <a href="#mission" data-page-link="mission">Mission</a>
       <a href="#feedback" data-page-link="feedback">Feedback</a>
     </nav>
-    <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open navigation">Menu</button>
+    <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
   </div>
 </header>
 
@@ -109,7 +115,7 @@
       <div id="planIntro" class="planner-heading"><div><div class="eyebrow">01 / START HERE</div><h2>Plan your project</h2></div><span class="planner-meta">Newton property data · project-specific questions</span></div>
       <section id="start" class="panel">
         <div class="start-intro"><div><h3>First, identify the property.</h3><p class="muted">We use the official Newton address database to establish the property context before asking about your project.</p></div></div>
-        <label for="address">Newton property address<div class="address-wrap"><input id="address" autocomplete="off" placeholder="Start typing a Newton address, e.g. 130 Wheeler Road" aria-autocomplete="list" aria-expanded="false" aria-controls="addressSuggestions"><div id="addressSuggestions" class="suggestions hidden" role="listbox"></div></div></label>
+        <label for="address">Newton property address<div class="address-wrap"><input id="address" maxlength="200" autocomplete="off" placeholder="Start typing a Newton address, e.g. 130 Wheeler Road" aria-autocomplete="list" aria-expanded="false" aria-controls="addressSuggestions"><div id="addressSuggestions" class="suggestions hidden" role="listbox"></div></div></label>
         <div id="error" class="error hidden" role="alert"></div>
         <div id="projectSummary" class="project-summary" aria-live="polite"><span>Planning:</span><strong id="projectSummaryLabel">Not selected yet</strong></div>
         <p class="small">Select an official Newton GIS suggestion. The planner is not a permit application or approval.</p>
@@ -157,7 +163,7 @@
   <section id="privacy" class="page info-page legal-page"><div class="legal-copy"><div class="eyebrow">PRIVACY / EFFECTIVE SEPTEMBER 21, 2026</div><h1>Privacy</h1>
 <p>Home Project Planner (HPP) is an independent planning tool for residential projects in Newton, Massachusetts. It is not operated by, affiliated with, endorsed by, or a service of the City of Newton.</p>
 <p><strong>Information you enter.</strong> The planner uses the Newton property address you enter, property information returned by Newton GIS, your project selection, answers to planning questions, checklist status, and any project notes you choose to enter. No account, name, email address, phone number, or payment information is currently requested by the website. The property address is sent directly from your browser to City of Newton GIS services for property resolution; HPP does not currently receive or store that address on an HPP application server.</p>
-<p><strong>Where information goes.</strong> Address searches and property-resolution requests are sent directly from your browser to City of Newton GIS services so HPP can establish property context. HPP does not currently send project answers, notes, or saved project records to an HPP application server. Vercel hosts the website and may process technical request information such as IP address, approximate IP-derived location, device/browser information, timestamps, logs, and related service information as described in Vercel's current Privacy Notice.</p>
+<p><strong>Where information goes.</strong> Address searches and property-resolution requests are sent directly from your browser to City of Newton GIS services so HPP can establish property context. HPP does not currently send project answers, notes, or saved project records to an HPP application server. Vercel hosts the website and may process technical request information such as IP address, approximate IP-derived location, device/browser information, timestamps, logs, and related service information as described in Vercel's current <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Privacy Notice</a>.</p>
 <p><strong>Browser storage and retention.</strong> Generated project records are stored locally in your browser using local storage so you can return to them. HPP does not intentionally upload those saved records to its own server. The planner assigns saved project records a 30-day inactivity period and removes expired records when saved-project data is next processed by the website. Saved records can also be deleted from the website. Downloaded project backups are controlled by you and may remain wherever you save them.</p>
 <p><strong>Cookies and analytics.</strong> HPP currently does not intentionally set advertising cookies, use fingerprinting, use Google Analytics, or use Vercel Analytics. If analytics or another tracking service is added, HPP's privacy disclosures and technical controls will be updated before that service is enabled.</p>
 <p><strong>Children.</strong> HPP is a general-audience service and is not directed to children under 13. The planner does not intentionally request a child's name, email, or other account information. A property address can constitute personal information under COPPA when collected from a child under 13. If HPP obtains actual knowledge that it has collected personal information from a child under 13 in circumstances covered by COPPA, HPP will take the steps required by applicable law, which may include deleting the information or obtaining verifiable parental consent where required.</p>
