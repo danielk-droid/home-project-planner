@@ -63,6 +63,7 @@ function createServiceAccountAssertion(email, privateKey) {
 async function getAccessToken(email, privateKey) {
   const assertion = createServiceAccountAssertion(email, privateKey);
   const response = await fetch(TOKEN_URL, {
+    signal: AbortSignal.timeout(10000),
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -86,6 +87,7 @@ async function getAccessToken(email, privateKey) {
 async function sheetsRequest(url, token, options = {}) {
   const response = await fetch(url, {
     ...options,
+    signal: options.signal || AbortSignal.timeout(10000),
     headers: {
       Accept: 'application/json',
       Authorization: 'Bearer ' + token,
