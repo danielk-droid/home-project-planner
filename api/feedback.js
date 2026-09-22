@@ -60,17 +60,26 @@ function createServiceAccountAssertion(email, privateKey) {
   return unsigned + '.' + signer.sign(privateKey, 'base64url');
 }
 
+async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 async function getAccessToken(email, privateKey) {
   const assertion = createServiceAccountAssertion(email, privateKey);
-  const response = await fetch(TOKEN_URL, {
-    signal: AbortSignal.timeout(8000),
+  const response = await fetchWithTimeout(TOKEN_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
       grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
       assertion
     })
-  });
+  }, 7000);
 
   if (!response.ok) {
     throw new Error('Google authentication failed.');
@@ -85,9 +94,9 @@ async function getAccessToken(email, privateKey) {
 }
 
 async function sheetsRequest(url, token, options = {}) {
-  const response = await fetch(url, {
-    ...options,
-    signal: options.signal || AbortSignal.timeout(8000),
+  const { signal: ignoredSignal, ...fetchOptions } = options;
+  const response = await fetchWithTimeout(url, {
+    ...fetchOptions,
     headers: {
       Accept: 'application/json',
       Authorization: 'Bearer ' + token,
@@ -180,7 +189,10 @@ export default async function handler(request) {
 
     return json({ ok: true });
   } catch (error) {
-    console.error('Feedback submission failed:', error?.message || 'Unknown error');
+    const message = error?.name === 'AbortError'
+      ? 'Google service request timed out.'
+      : (error?.message || 'Unknown error');
+    console.error('Feedback submission failed:', message);
     return json({ error: 'Feedback could not be submitted.' }, 502);
   }
 }
