@@ -171,6 +171,28 @@ function renderSavedProjects() {
       }
       renderSavedProjects();
 
+    });
+  });
+  $('importProject')?.addEventListener('click', () => $('importProjectInput')?.click());
+  $('importProjectInput')?.addEventListener('change', async e => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const imported = JSON.parse(await file.text());
+      if (importSavedProject(imported)) {
+        renderSavedProjects();
+        resumeSavedProject(projectSaveKeyFor(imported));
+      } else {
+        window.alert('That file is not a valid Home Project Planner project.');
+      }
+    } catch {
+      window.alert('The project file could not be read.');
+    } finally {
+      e.target.value = '';
+    }
+  });
+}
+
 const feedbackForm = $('feedbackForm');
 if (feedbackForm) {
   const feedbackStatus = $('feedbackStatus');
@@ -233,27 +255,6 @@ if (feedbackForm) {
   });
 }
 
-    });
-  });
-  $('importProject')?.addEventListener('click', () => $('importProjectInput')?.click());
-  $('importProjectInput')?.addEventListener('change', async e => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      const imported = JSON.parse(await file.text());
-      if (importSavedProject(imported)) {
-        renderSavedProjects();
-        resumeSavedProject(projectSaveKeyFor(imported));
-      } else {
-        window.alert('That file is not a valid Home Project Planner project.');
-      }
-    } catch {
-      window.alert('The project file could not be read.');
-    } finally {
-      e.target.value = '';
-    }
-  });
-}
 
 function formatSavedDate(value) {
   if (!value) return 'recently';
