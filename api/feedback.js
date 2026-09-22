@@ -127,21 +127,28 @@ export default async function handler(request) {
 
   if (request.method === 'GET') {
     if (!serviceAccountEmail || !privateKey || !spreadsheetId) {
-      return json({ ok: false, configured: false }, 503);
+      return json({ ok: false, configured: false, stage: 'configuration' }, 503);
+    }
+
+    let token;
+    try {
+      token = await getAccessToken(serviceAccountEmail, privateKey);
+    } catch (error) {
+      console.error('Feedback health check authentication failed:', error?.message || 'Unknown error');
+      return json({ ok: false, configured: true, stage: 'google-auth' }, 502);
     }
 
     try {
-      const token = await getAccessToken(serviceAccountEmail, privateKey);
       await sheetsRequest(
         'https://sheets.googleapis.com/v4/spreadsheets/' +
           encodeURIComponent(spreadsheetId) +
           '?fields=spreadsheetId',
         token
       );
-      return json({ ok: true, configured: true });
+      return json({ ok: true, configured: true, stage: 'ready' });
     } catch (error) {
-      console.error('Feedback health check failed:', error?.message || 'Unknown error');
-      return json({ ok: false, configured: true }, 502);
+      console.error('Feedback health check Sheets access failed:', error?.message || 'Unknown error');
+      return json({ ok: false, configured: true, stage: 'sheets-access' }, 502);
     }
   }
 
