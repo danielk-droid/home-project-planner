@@ -261,23 +261,74 @@
       <div>
         <div class="eyebrow">FEEDBACK / INQUIRIES</div>
         <h1>Help make the planning path more accurate.</h1>
-        <p class="editorial-lede">Homeowners, contractors, designers, and local professionals can help identify missing requirements, confusing questions, incorrect sources, or steps that do not match the real process.</p>
+        <p class="editorial-lede">A one-minute feedback form helps us find what is confusing, missing, incorrect, or especially useful in HPP.</p>
       </div>
       <div class="feedback-visual feedback-bubble" aria-hidden="true">
         <div class="feedback-bubble-shape"><span>?</span><span>!</span></div>
         <div class="feedback-bubble-lines"><i></i><i></i><i></i></div>
       </div>
     </section>
-    <section class="feedback-body">
-      <div class="feedback-note">
-        <div class="eyebrow">WHAT TO SEND</div>
-        <strong>Specific observations are the most useful.</strong>
-        <p>Tell us the project type, the question or step that felt wrong, what you expected Home Project Planner to show, and—when possible—the official source or real-world requirement behind your observation.</p>
+    <section class="feedback-form-section">
+      <div class="feedback-form-intro">
+        <div class="eyebrow">TELL US WHAT YOU FOUND</div>
+        <h2>What should we keep, fix, or clarify?</h2>
+        <p>Your feedback goes to the HPP review workflow. You do not need to provide your name or email.</p>
       </div>
-      <div>
-        <div class="eyebrow">BEFORE LAUNCH</div>
-        <p>The feedback channel will connect to a real review workflow before the product is launched. Until then, this page describes what the team needs to learn rather than pretending a placeholder form is connected to someone.</p>
-      </div>
+      <form id="feedbackForm" class="feedback-form" novalidate>
+        <div class="feedback-field">
+          <label for="feedbackRole">Your role <span aria-hidden="true">*</span></label>
+          <select id="feedbackRole" name="role" required>
+            <option value="">Select one</option>
+            <option value="Homeowner">Homeowner</option>
+            <option value="Contractor">Contractor</option>
+            <option value="Architect/designer">Architect/designer</option>
+            <option value="Developer">Developer</option>
+            <option value="Realtor">Realtor</option>
+            <option value="City/planning professional">City/planning professional</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="feedback-field">
+          <label for="feedbackProject">What were you using HPP for? <span aria-hidden="true">*</span></label>
+          <select id="feedbackProject" name="project" required>
+            <option value="">Select one</option>
+            <option value="Planning a home project">Planning a home project</option>
+            <option value="Checking what approvals might apply">Checking what approvals might apply</option>
+            <option value="Understanding a Newton requirement">Understanding a Newton requirement</option>
+            <option value="Testing/reviewing HPP">Testing/reviewing HPP</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <fieldset class="feedback-field feedback-options">
+          <legend>How useful was HPP? <span aria-hidden="true">*</span></legend>
+          <div class="feedback-choice-grid">
+            <label><input type="radio" name="usefulness" value="Very useful" required><span>Very useful</span></label>
+            <label><input type="radio" name="usefulness" value="Somewhat useful"><span>Somewhat useful</span></label>
+            <label><input type="radio" name="usefulness" value="Not very useful"><span>Not very useful</span></label>
+            <label><input type="radio" name="usefulness" value="Not useful"><span>Not useful</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="feedback-field feedback-options">
+          <legend>Did HPP give you information you didn't already know? <span aria-hidden="true">*</span></legend>
+          <div class="feedback-choice-grid feedback-choice-grid-three">
+            <label><input type="radio" name="newInformation" value="Yes" required><span>Yes</span></label>
+            <label><input type="radio" name="newInformation" value="Somewhat"><span>Somewhat</span></label>
+            <label><input type="radio" name="newInformation" value="No"><span>No</span></label>
+          </div>
+        </fieldset>
+        <div class="feedback-field feedback-field-main">
+          <label for="feedbackMessage">Feedback <span aria-hidden="true">*</span></label>
+          <p class="feedback-help">What was confusing, incorrect, missing, or especially useful?</p>
+          <textarea id="feedbackMessage" name="feedback" rows="7" maxlength="3000" required placeholder="Tell us what you noticed."></textarea>
+        </div>
+        <div class="feedback-field">
+          <label for="feedbackEmail">Contact email <span class="optional">optional</span></label>
+          <p class="feedback-help">Leave this blank unless you want to be contacted about your feedback.</p>
+          <input id="feedbackEmail" name="contactEmail" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div id="feedbackStatus" class="feedback-status" role="status" aria-live="polite"></div>
+        <button id="feedbackSubmit" type="submit" class="feedback-submit">Submit feedback <span>→</span></button>
+      </form>
     </section>
   </section>
 
