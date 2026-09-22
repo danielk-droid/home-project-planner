@@ -63,7 +63,7 @@ function createServiceAccountAssertion(email, privateKey) {
 async function getAccessToken(email, privateKey) {
   const assertion = createServiceAccountAssertion(email, privateKey);
   const response = await fetch(TOKEN_URL, {
-    signal: AbortSignal.timeout(10000),
+    signal: AbortSignal.timeout(8000),
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -87,7 +87,7 @@ async function getAccessToken(email, privateKey) {
 async function sheetsRequest(url, token, options = {}) {
   const response = await fetch(url, {
     ...options,
-    signal: options.signal || AbortSignal.timeout(10000),
+    signal: options.signal || AbortSignal.timeout(8000),
     headers: {
       Accept: 'application/json',
       Authorization: 'Bearer ' + token,
@@ -108,7 +108,7 @@ function cleanString(value, maxLength) {
 
 function validEmail(value) {
   if (!value) return true;
-  return value.length <= 254 && /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(value);
+  return value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 export default async function handler(request) {
@@ -152,24 +152,8 @@ export default async function handler(request) {
   try {
     const token = await getAccessToken(serviceAccountEmail, privateKey);
 
-    const metadataResponse = await sheetsRequest(
-      'https://sheets.googleapis.com/v4/spreadsheets/' +
-        encodeURIComponent(spreadsheetId) +
-        '?fields=sheets.properties',
-      token
-    );
-    const metadata = await metadataResponse.json();
-    const sheets = Array.isArray(metadata.sheets) ? metadata.sheets : [];
-    const firstSheet = sheets
-      .map(sheet => sheet?.properties)
-      .filter(Boolean)
-      .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))[0];
-
-    if (!firstSheet?.title) {
-      return json({ error: 'Feedback service is not configured.' }, 503);
-    }
-
-    const range = firstSheet.title + '!A:G';
+    // Sheet1 is the confirmed feedback destination. Avoid an extra metadata round trip.
+    const range = 'Sheet1!A:G';
     const appendUrl =
       'https://sheets.googleapis.com/v4/spreadsheets/' +
       encodeURIComponent(spreadsheetId) +
@@ -195,7 +179,8 @@ export default async function handler(request) {
     });
 
     return json({ ok: true });
-  } catch {
+  } catch (error) {
+    console.error('Feedback submission failed:', error?.message || 'Unknown error');
     return json({ error: 'Feedback could not be submitted.' }, 502);
   }
 }
