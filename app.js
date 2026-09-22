@@ -12,6 +12,24 @@ let clarificationMeta = {};
 let clarifierQuestionMemory = {};
 const PROJECT_RETENTION_DAYS = 30;
 const PROJECT_RETENTION_MS = PROJECT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+const STORAGE_PREFIX = 'nhpp-project:';
+const STORAGE_AVAILABLE = (() => {
+  try {
+    const key = '__nhpp_storage_test__';
+    storage.set(key, '1');
+    storage.remove(key);
+    return true;
+  } catch {
+    return false;
+  }
+})();
+const storage = {
+  get(key) { if (!STORAGE_AVAILABLE) return null; try { return storage.get(key); } catch { return null; } },
+  set(key, value) { if (!STORAGE_AVAILABLE) return false; try { storage.set(key, value); return true; } catch { return false; } },
+  remove(key) { if (!STORAGE_AVAILABLE) return false; try { storage.remove(key); return true; } catch { return false; } },
+  length() { if (!STORAGE_AVAILABLE) return 0; try { return storage.length(); } catch { return 0; } },
+  key(index) { if (!STORAGE_AVAILABLE) return null; try { return storage.key(index); } catch { return null; } }
+};
 
 const pageIds = ['home','about','how','mission','feedback','privacy','terms','plan'];
 const pageIdSet = new Set(pageIds);
@@ -79,16 +97,17 @@ function projectLabel(projectType, project = null) {
 function savedProjects() {
   const items = [];
   const now = Date.now();
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
+  if (!STORAGE_AVAILABLE) return items;
+  for (let i = 0; i < storage.length(); i++) {
+    const key = storage.key(i);
     if (!key?.startsWith('nhpp-project:')) continue;
     try {
-      const saved = JSON.parse(localStorage.getItem(key));
+      const saved = JSON.parse(storage.get(key));
       if (!saved?.type || !saved?.property?.resolvedAddress) continue;
       const lastUpdated = Date.parse(saved.updatedAt || '') || 0;
       const expiresAt = Date.parse(saved.expiresAt || '') || (lastUpdated + PROJECT_RETENTION_MS);
       if (!lastUpdated || expiresAt <= now) {
-        localStorage.removeItem(key);
+        storage.remove(key);
         continue;
       }
       if (!saved.expiresAt) saved.expiresAt = new Date(expiresAt).toISOString();
@@ -102,6 +121,9 @@ function renderSavedProjects() {
   const root = $('resume');
   if (!root) return;
   const projects = savedProjects();
+  const storageNote = STORAGE_AVAILABLE
+    ? storageNote
+    : 'Browser saving is unavailable in this browser session';
   root.classList.remove('hidden');
   root.innerHTML = `
     <div class="resume-inner">
@@ -139,11 +161,11 @@ function renderSavedProjects() {
   root.querySelectorAll('[data-delete-key]').forEach(btn => {
     btn.addEventListener('click', () => {
       const key = btn.dataset.deleteKey;
-      const saved = JSON.parse(localStorage.getItem(key) || 'null');
+      const saved = JSON.parse(storage.get(key) || 'null');
       if (!saved) return;
       const name = projectLabel(saved.type, saved) + ' · ' + saved.property.resolvedAddress;
       if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
-      localStorage.removeItem(key);
+      storage.remove(key);
       if (projectSaveKey() === key) {
         property = null; type = null; answers = {}; selectedCatalogId = null; clarifierState = {}; clarificationMeta = {}; clarifierQuestionMemory = {}; questionIndex = 0; editingFromReview = false;
       }
@@ -177,9 +199,10 @@ function formatSavedDate(value) {
 }
 
 function importSavedProject(project) {
+  if (!STORAGE_AVAILABLE) return false;
   if (!project?.type || !project?.property?.resolvedAddress || !Array.isArray(project.steps)) return false;
   const key=projectSaveKeyFor(project);
-  localStorage.setItem(key, JSON.stringify({
+  storage.set(key, JSON.stringify({
     type:project.type,
     property:project.property,
     answers:project.answers || {},
@@ -196,7 +219,7 @@ function projectSaveKeyFor(project) {
 
 function resumeSavedProject(key) {
   try {
-    const saved = JSON.parse(localStorage.getItem(key));
+    const saved = JSON.parse(storage.get(key));
     if (!saved?.type || !saved?.property) return;
     type = saved.type;
     property = saved.property;
@@ -330,16 +353,21 @@ function openMobileMenu() {
   menu.classList.add('open');
   menu.setAttribute('aria-hidden','false');
   menu.inert = false;
+  $('menuToggle')?.setAttribute('aria-expanded','true');
   $('mobileMenuClose')?.focus();
 }
-function closeMobileMenu() {
+function closeMobileMenu(returnFocus = true) {
   const menu = $('mobileMenu');
   if (!menu) return;
   menu.classList.remove('open');
   menu.setAttribute('aria-hidden','true');
   menu.inert = true;
-  $('menuToggle')?.focus();
+  $('menuToggle')?.setAttribute('aria-expanded','false');
+  if (returnFocus) $('menuToggle')?.focus();
 }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('mobileMenu')?.classList.contains('open')) closeMobileMenu();
+});
 closeMobileMenu();
 
 function updateProjectSummary() {
@@ -391,7 +419,7 @@ document.querySelectorAll('[data-project-start]').forEach(card => {
 
 $('menuToggle')?.addEventListener('click', openMobileMenu);
 $('mobileMenuClose')?.addEventListener('click', closeMobileMenu);
-$('mobileMenu')?.querySelectorAll('[data-page-link]').forEach(link => link.addEventListener('click', closeMobileMenu));
+$('mobileMenu')?.querySelectorAll('[data-page-link]').forEach(link => link.addEventListener('click', () => closeMobileMenu(false)));
 
 function setCatalogSelection(id) {
   const item = projectCatalogItem(id);
@@ -478,7 +506,7 @@ projectSelect?.addEventListener('change', () => {
 
 if (addressInput) {
   addressInput.addEventListener('input', () => {
-    const value = addressInput.value.trim();
+    const value = addressInput.value.trim().slice(0, 200);
     clearTimeout(suggestionTimer);
     if (!value) {
       suggestions.innerHTML = '';
@@ -512,14 +540,26 @@ document.addEventListener('click', e => {
 });
 
 async function searchAddresses(value) {
+  const boundedValue = String(value || '').trim().slice(0, 200);
+  if (!boundedValue) return [];
   const u = new URL('https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12/query');
-  u.searchParams.set('where', `UPPER(Address) LIKE UPPER('${value.replace(/'/g, "''")}%')`);
+  u.searchParams.set('where', `UPPER(Address) LIKE UPPER('${boundedValue.replace(/'/g, "''")}%')`);
   u.searchParams.set('outFields', 'Address,AddressID,Number,NumberSuffix,FullStName,City,ZipCode');
   u.searchParams.set('orderByFields', 'Address ASC');
   u.searchParams.set('resultRecordCount', '8');
   u.searchParams.set('returnGeometry', 'false');
   u.searchParams.set('f', 'json');
-  const res = await fetch(u);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+  let res;
+  try {
+    res = await fetch(u, {signal: controller.signal});
+  } catch (error) {
+    if (error?.name === 'AbortError') throw new Error('Address search timed out. Please try again.');
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
   if (!res.ok) throw new Error('Address search failed');
   const data = await res.json();
   if (data.error) throw new Error(data.error.message || 'Address search failed');
@@ -548,6 +588,12 @@ $('resolve').onclick = async () => {
   const chosenType = projectSelect?.value || '';
   error?.classList.add('hidden');
 
+  if (address.length > 200) {
+    error.textContent = 'Please keep the property address under 200 characters.';
+    error.classList.remove('hidden');
+    addressInput?.focus();
+    return;
+  }
   if (!address) {
     error.textContent = 'Please enter your Newton property address before continuing.';
     error.classList.remove('hidden');
@@ -1099,13 +1145,13 @@ function renderResult(plan, options = {}) {
   const r = $('result');
   r.classList.remove('hidden');
   const savedKey = projectSaveKey();
-  const saved = options.resume ? (options.saved || JSON.parse(localStorage.getItem(savedKey) || 'null')) : null;
+  const saved = options.resume ? (options.saved || JSON.parse(storage.get(savedKey) || 'null')) : null;
   plan.steps = plan.steps.map((x,i) => ({
     ...x,
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
   checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
-  localStorage.setItem(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, projectCatalogLabel:plan.project.projectCatalogLabel || null, updatedAt:new Date().toISOString(), expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()}));
+  storage.set(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, projectCatalogLabel:plan.project.projectCatalogLabel || null, updatedAt:new Date().toISOString(), expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()}));
   renderSavedProjects();
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
@@ -1182,12 +1228,12 @@ function renderResult(plan, options = {}) {
     }
 
     cb.onchange = () => {
-      const current = JSON.parse(localStorage.getItem(savedKey) || '{}');
+      const current = JSON.parse(storage.get(savedKey) || '{}');
       current.steps = current.steps || plan.steps;
       const index = Number(cb.dataset.step);
       current.steps[index].status = cb.checked ? 'complete' : 'not_started';
       current.updatedAt = new Date().toISOString();
-      localStorage.setItem(savedKey, JSON.stringify(current));
+      storage.set(savedKey, JSON.stringify(current));
 
       const item = cb.closest('.step-item');
       item?.classList.toggle('completed', cb.checked);
@@ -1226,7 +1272,7 @@ function renderResult(plan, options = {}) {
 
 
 function downloadProjectFile(key) {
-  const saved = JSON.parse(localStorage.getItem(key) || 'null');
+  const saved = JSON.parse(storage.get(key) || 'null');
   if (!saved) return;
   const blob = new Blob([JSON.stringify(saved,null,2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
