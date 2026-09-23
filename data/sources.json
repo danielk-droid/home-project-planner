@@ -232,5 +232,23 @@
     "authority": "official_guidance",
     "lastVerified": "2026-09-22",
     "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-isd",
+    "title": "Inspectional Services Department",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/inspectional-services",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-newgov-portal",
+    "title": "Newton NewGov Permitting Portal",
+    "publisher": "City of Newton",
+    "url": "https://newtonma.viewpointcloud.com/",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
   }
 ]
