@@ -8,7 +8,7 @@ const root = path.resolve(new URL('..', import.meta.url).pathname);
 const script = path.join(root, 'scripts', 'monitor-sources.mjs');
 assert.ok(fs.existsSync(script), 'monitor script missing');
 assert.match(fs.readFileSync(script, 'utf8'), /changed_requires_review/, 'changes must require review');
-assert.match(fs.readFileSync(script, 'utf8'), /reviewRequired:changed\|\|!result\.ok/, 'unreachable/changed sources must require review');
+assert.match(fs.readFileSync(script, 'utf8'), /reviewRequired:changed\s*\|\|\s*!result\.ok/, 'unreachable/changed sources must require review');
 assert.match(fs.readFileSync(script, 'utf8'), /substantiveRulesNotModifiedByMonitor:true/, 'monitor must not directly modify substantive rules');
 assert.match(fs.readFileSync(script, 'utf8'), /impactedRuleIds/, 'source-to-rule impact mapping missing');
 
