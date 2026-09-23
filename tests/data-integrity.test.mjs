@@ -37,14 +37,14 @@ for(const flow of questions){
 // Verify every rule condition references a property/project field that the core context can provide.
 const knownPropertyFields = new Set(['zoningDistrict','historicDistrict','floodplain','conservationPotential','historicExteriorReview','openPermitsUnknown','yearBuilt','lotSizeSqFt','parcelId']);
 const knownProjectFields = new Set([
-  'buildingWork','projectDescription','condo','condoUncertain','condoApproval','condoApprovalUncertain',
+  'buildingWork','buildingWorkUncertain','projectDescription','condo','condoUncertain','condoApproval','condoApprovalUncertain',
   'demolition','demolitionUncertain','guttingMoreThanHalf','guttingUncertain','addedAreaOver1000','addedAreaUncertain',
   'additionStories','additionStoriesUncertain','footprintChange','footprintChangeUncertain',
   'deckNew','deckNewUncertain','deckHeightFt','deckHeightUncertain','stairsOrGuard','stairsOrGuardUncertain',
   'ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain',
   'siteWork','siteWorkUncertain','electricalWork','electricalUncertain','plumbingWork','plumbingUncertain','gasWork','gasUncertain',
   'structuralChanges','structuralUncertain','exteriorConstruction','exteriorUncertain','expansion','sleepingRoomAdded','sleepingRoomUncertain',
-  'bathroomAdded','bathroomUncertain','ventilationWork','ventilationUncertain','windowWork','windowUncertain','treeImpact','treeImpactUncertain'
+  'bathroomAdded','bathroomUncertain','ventilationWork','ventilationUncertain','windowWork','windowUncertain','treeImpact','treeImpactUncertain','treeSaveAreaUncertain','mechanicalWork','mechanicalUncertain','mechanicalExterior','zoningRelevant','zoningUncertain','siteReviewRelevant','landDisturbanceSqFt','newImperviousSqFt','newRetainingWall','trenchDewatering','drainageChange','stormwaterFactsUncertain','localLandmark','preservationRestriction','nationalRegister','ageAtLeast50','ageBoundaryUncertain','historicStatusUncertain','useChange','useChangeUncertain','unitCountChange','unitCountChangeUncertain','fireProtectionWork','hotWork','advanceFireApprovalPotential','basementPresent','eeroFactsUncertain'
 ]);
 for(const r of rules){
   for(const token of r.when.match(/[\\w]+\\.[\\w]+/g)||[]){
