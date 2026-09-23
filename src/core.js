@@ -198,6 +198,10 @@ export async function resolveProperty(addressInput) {
     stream: streamAttrs.Name || null,
     conservationPotential: conservationSignals,
     historicExteriorReview: Boolean(historic.features?.length),
+    localLandmark: null,
+    preservationRestriction: null,
+    nationalRegister: null,
+    historicStatusUnknown: true,
     openPermitsUnknown: true,
     sources: ['newton-addresses','newton-parcels','newton-zoning','newton-historic-districts','newton-floodplain','newton-wetlands','newton-streams'],
     evidence: [
