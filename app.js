@@ -1222,7 +1222,7 @@ function renderResult(plan, options = {}) {
 
     <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="downloadProject" class="secondary">Download project backup</button><button id="restart">Start another project</button></div>
     <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Planner checklist complete.</strong><span>This does not mean the project is approved or that every construction requirement has been satisfied. Confirm the applicable requirements and approvals before work begins.</span></div>
-    <div id="confetti" class="confetti" aria-hidden="true"></div>`;
+`;
 
 
   const checklistView = $('checklistView');
@@ -1332,31 +1332,10 @@ function updateCompletion(plan) {  const boxes = [...document.querySelectorAll('
   const complete = done === boxes.length && boxes.length > 0;
   if (complete) {
     $('completionToast')?.classList.remove('hidden');
-    if (!checklistWasComplete) launchConfetti();
   } else {
     $('completionToast')?.classList.add('hidden');
   }
   checklistWasComplete = complete;
-}
-
-let confettiRunning = false;
-let checklistWasComplete = false;
-function launchConfetti() {
-  if (confettiRunning) return;
-  confettiRunning = true;
-  const root = $('confetti');
-  if (!root) { confettiRunning = false; return; }
-  root.innerHTML = '';
-  for (let i=0;i<80;i++) {
-    const piece = document.createElement('i');
-    piece.style.setProperty('--x', (Math.random()*100) + '%');
-    piece.style.setProperty('--y', (Math.random()*22) + '%');
-    piece.style.setProperty('--delay', (Math.random()*.55) + 's');
-    piece.style.setProperty('--rot', (Math.random()*360) + 'deg');
-    piece.style.setProperty('--drift', ((Math.random()-.5)*220) + 'px');
-    root.appendChild(piece);
-  }
-  setTimeout(() => { root.innerHTML=''; confettiRunning=false; }, 3000);
 }
 
 function preparationItems(plan) {
