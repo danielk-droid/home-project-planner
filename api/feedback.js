@@ -2,7 +2,7 @@ import { createSign } from 'node:crypto';
 
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const SHEETS_SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
-const GOOGLE_TIMEOUT_MS = 6000;
+const GOOGLE_TIMEOUT_MS = 4000;
 const REQUEST_TIMEOUT_MS = 9000;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT = 5;
@@ -187,16 +187,29 @@ export default async function handler(request) {
     }
 
     try {
-      await Promise.race([
+      const token = await Promise.race([
         getAccessToken(serviceAccountEmail, privateKey),
         new Promise((_, reject) =>
           setTimeout(() => reject(new Error('health check timeout')), REQUEST_TIMEOUT_MS)
         )
       ]);
-      return json({ ok: true, configured: true, stage: 'google-auth' });
+      const metadataUrl =
+        'https://sheets.googleapis.com/v4/spreadsheets/' +
+        encodeURIComponent(spreadsheetId) +
+        '?fields=spreadsheetId';
+      await fetchWithTimeout(metadataUrl, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      });
+      return json({ ok: true, configured: true, stage: 'ready' });
     } catch (error) {
       console.error('Feedback health check failed:', error?.message || 'Unknown error');
-      return json({ ok: false, configured: true, stage: 'google-auth' }, 502);
+      const stage = error?.message === 'Google authentication failed.'
+        ? 'google-auth'
+        : 'sheets-access';
+      return json({ ok: false, configured: true, stage }, 502);
     }
   }
 
