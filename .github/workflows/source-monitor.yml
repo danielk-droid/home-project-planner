@@ -1,6 +1,12 @@
 name: HPP Source Monitor
 
 on:
+  push:
+    paths:
+      - "scripts/monitor-sources.mjs"
+      - "tests/source-monitor.test.mjs"
+      - ".github/workflows/source-monitor.yml"
+      - "data/sources.json"
   schedule:
     - cron: "17 6 * * *"
   workflow_dispatch:
