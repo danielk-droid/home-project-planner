@@ -20,7 +20,7 @@ try{
  fs.writeFileSync(sources,JSON.stringify([source('unmapped','/unmapped'),source('newton-planning','/mapped'),source('unavailable','/unavailable'),source('malformed','/malformed'),source('pdf-source','/pdf')]));
  fs.writeFileSync(state,JSON.stringify({version:2,sources:{}}));
  let r=await run(script,{MONITOR_SOURCES_PATH:sources,MONITOR_STATE_PATH:state,MONITOR_OUT:out});assert.equal(r.code,0,r.err);
- let report=JSON.parse(fs.readFileSync(path.join(out,'monitor-results.json'),'utf8'));assert.equal(report.firstSeen,2);assert.equal(report.unreachable,1);assert.equal(report.extractionFailures,2);
+ let report=JSON.parse(fs.readFileSync(path.join(out,'monitor-results.json'),'utf8'));console.log('baseline report',JSON.stringify(report));assert.equal(report.firstSeen,2);assert.equal(report.unreachable,1);assert.equal(report.extractionFailures,2);
  mode='changed';r=await run(script,{MONITOR_SOURCES_PATH:sources,MONITOR_STATE_PATH:state,MONITOR_OUT:out});assert.equal(r.code,0,r.err);
  report=JSON.parse(fs.readFileSync(path.join(out,'monitor-results.json'),'utf8'));
  assert.equal(report.changed,2);
