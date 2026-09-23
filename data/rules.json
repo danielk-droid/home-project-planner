@@ -238,7 +238,7 @@
   },
   {
     "id": "property.national-register",
-    "when": "project.nationalRegister == true && (project.exteriorConstruction == true || project.demolition == true)",
+    "when": "project.nationalRegister == true && project.exteriorConstruction == true || project.nationalRegister == true && project.demolition == true",
     "status": "required",
     "title": "National Register historic review",
     "action": "Newton's historic workflow identifies a Historical Review Application for alterations/demolitions involving National Register-listed properties.",
