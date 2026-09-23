@@ -204,7 +204,7 @@
     "reviewRequired": true
   },
   {
-    "id": "property.historic-district",
+    "id": "property.historic",
     "when": "property.historicDistrict != null && project.exteriorConstruction == true",
     "status": "required",
     "title": "Historic District Commission review",
