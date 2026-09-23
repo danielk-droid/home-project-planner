@@ -51,43 +51,6 @@ label{display:block;font-weight:700;margin:30px 0 0}label>input,label>select,lab
 @media(max-width:380px){.hero-graphic{min-height:270px}}
 @media print{.site-header,footer,.result-actions,.stepcheck input,.completion-toast,.confetti,.lesson-dot{display:none!important}body{background:#fff}.panel{box-shadow:none;border:0;break-inside:avoid;margin-bottom:10px}.result{grid-template-columns:1fr}.page:not(#plan){display:none!important}}
 
-/* Final interaction polish */
-.lesson-dot{
-  position:fixed;
-  width:13px;height:13px;border-radius:50%;
-  background:var(--olive-dark);
-  box-shadow:0 0 0 5px rgba(86,99,70,.16),0 4px 12px rgba(32,36,31,.18);
-  z-index:200;pointer-events:none;
-  transform:translate(-50%,-50%);
-}
-.primary-link.guided-hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 0 6px rgba(227,231,220,.35),0 14px 32px rgba(48,59,41,.28);
-}
-.dot-spark{
-  position:fixed;
-  width:6px;height:3px;
-  border-radius:999px;
-  background:var(--white);
-  z-index:201;
-  pointer-events:none;
-  opacity:0;
-  box-shadow:0 0 8px rgba(255,254,250,.65);
-  transform-origin:center;
-  animation:dotSpark 1s cubic-bezier(.18,.8,.25,1) var(--delay) forwards;
-}
-@keyframes dotSpark{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(var(--rot))}
-  12%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(var(--rot))}
-  100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.05) rotate(var(--rot))}
-}
-@keyframes guidedClick{
-  0%{transform:translateY(-2px) scale(1);box-shadow:0 0 0 6px rgba(227,231,220,.35),0 14px 32px rgba(48,59,41,.28)}
-  24%{transform:translateY(-2px) scale(1.045);box-shadow:0 0 0 13px rgba(227,231,220,.22),0 18px 38px rgba(48,59,41,.32)}
-  48%{transform:translateY(0) scale(.985);box-shadow:0 0 0 5px rgba(227,231,220,.14),0 9px 24px rgba(48,59,41,.2)}
-  100%{transform:translateY(0) scale(1);box-shadow:none}
-}
-
 .project-gallery{
   padding:96px 34px 130px;
   border-top:1px solid var(--line);
@@ -1111,20 +1074,6 @@ footer{
 .project-choice #resolve{
   width:100%;
   margin-top:16px;
-}
-
-/* Persistent hero breathing after the dot reaches Start planning. */
-.primary-link.hero-breathe{
-  animation:heroBreathe 2.2s ease-in-out infinite;
-  transform-origin:center;
-}
-.primary-link.guided-click.hero-breathe{
-  animation:guidedClick .62s cubic-bezier(.22,.61,.36,1) both,
-             heroBreathe 2.2s .62s ease-in-out infinite;
-}
-@keyframes heroBreathe{
-  0%,100%{transform:translateY(0) scale(1);box-shadow:0 0 0 0 rgba(185,216,159,0)}
-  50%{transform:translateY(-1px) scale(1.025);box-shadow:0 0 0 5px rgba(185,216,159,.13),0 10px 26px rgba(48,59,41,.16)}
 }
 
 /* Keep the address error compact and immediately visible. */
