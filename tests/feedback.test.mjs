@@ -35,7 +35,7 @@ assert.equal(
 
 assert.equal(
   validateFeedbackPayload({...valid, extra:'should not be forwarded'}).ok,
-  true
+  false
 );
 
 const normalized = validateFeedbackPayload({...valid, feedback:'  specific feedback  '});
