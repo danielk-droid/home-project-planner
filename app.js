@@ -199,8 +199,10 @@ if (feedbackForm) {
   const feedbackSubmit = $('feedbackSubmit');
   const feedbackProgress = $('feedbackProgress');
   const feedbackFieldset = $('feedbackFields');
+  const feedbackEmail = $('feedbackEmail');
+  const feedbackMessage = $('feedbackMessage');
+  const feedbackHoneypot = $('feedbackWebsite');
   let feedbackSubmitting = false;
-
   const feedbackChoiceInputs = [...feedbackForm.querySelectorAll('.feedback-choice-input')];
 
   function updateFeedbackProgress() {
@@ -208,9 +210,8 @@ if (feedbackForm) {
       feedbackChoiceInputs.filter(input => input.checked).map(input => input.name)
     ).size;
     const total = 4;
-    const percentage = Math.round((completed / total) * 100);
     if (feedbackProgress) {
-      feedbackProgress.style.setProperty('--feedback-progress', percentage + '%');
+      feedbackProgress.style.setProperty('--feedback-progress', Math.round(completed / total * 100) + '%');
       feedbackProgress.querySelector('strong').textContent = completed + ' / ' + total;
       feedbackProgress.querySelector('span').textContent =
         completed === total ? 'Core questions complete' : 'Quick questions completed';
@@ -218,28 +219,39 @@ if (feedbackForm) {
     feedbackForm.classList.toggle('feedback-ready', completed === total);
   }
 
+  function setFeedbackBusy(busy) {
+    feedbackSubmitting = busy;
+    feedbackFieldset.disabled = busy;
+    feedbackSubmit.disabled = busy;
+    feedbackSubmit.setAttribute('aria-busy', String(busy));
+    feedbackSubmit.classList.toggle('is-submitting', busy);
+    feedbackSubmit.querySelector('.feedback-submit-label').textContent =
+      busy ? 'Sending feedback' : 'Submit feedback';
+    feedbackSubmit.querySelector('.feedback-submit-icon').textContent = busy ? '…' : '→';
+  }
+
+  function clearFeedbackStatus() {
+    feedbackStatus.textContent = '';
+    feedbackStatus.className = 'feedback-status';
+  }
+
   feedbackChoiceInputs.forEach(input => {
     input.addEventListener('change', () => {
       updateFeedbackProgress();
-      feedbackStatus.textContent = '';
-      feedbackStatus.className = 'feedback-status';
+      clearFeedbackStatus();
     });
   });
 
-  feedbackForm.querySelectorAll('.feedback-choice-card').forEach(card => {
-    card.addEventListener('click', () => {
-      if (feedbackSubmitting) return;
-      const input = card.querySelector('input');
-      if (input) input.focus();
-    });
+  feedbackMessage?.addEventListener('input', () => {
+    const count = $('feedbackCharacterCount');
+    if (count) count.textContent = feedbackMessage.value.length + ' / 3000';
   });
 
   feedbackForm.addEventListener('submit', async event => {
     event.preventDefault();
     if (feedbackSubmitting) return;
 
-    feedbackStatus.textContent = '';
-    feedbackStatus.className = 'feedback-status';
+    clearFeedbackStatus();
 
     if (!feedbackForm.checkValidity()) {
       feedbackForm.reportValidity();
@@ -252,38 +264,32 @@ if (feedbackForm) {
       usefulness: feedbackForm.elements.usefulness.value,
       newInformation: feedbackForm.elements.newInformation.value,
       feedback: feedbackForm.elements.feedback.value.trim(),
-      contactEmail: feedbackForm.elements.contactEmail.value.trim()
+      contactEmail: feedbackEmail?.value.trim() || '',
+      website: feedbackHoneypot?.value.trim() || ''
     };
 
-    if (!payload.role || !payload.project || !payload.usefulness || !payload.newInformation || !payload.feedback) {
-      feedbackStatus.className = 'feedback-status error';
-      feedbackStatus.textContent = 'Complete the four quick questions and your feedback before submitting.';
-      return;
-    }
-
-    feedbackSubmitting = true;
-    feedbackFieldset.disabled = true;
-    feedbackSubmit.disabled = true;
-    feedbackSubmit.setAttribute('aria-busy', 'true');
-    feedbackSubmit.classList.add('is-submitting');
-    feedbackSubmit.querySelector('.feedback-submit-label').textContent = 'Sending feedback';
-    feedbackSubmit.querySelector('.feedback-submit-icon').textContent = '…';
+    setFeedbackBusy(true);
     feedbackStatus.className = 'feedback-status submitting';
     feedbackStatus.textContent = 'Sending your feedback securely…';
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
       const response = await fetch('/api/feedback', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(payload),
         signal: controller.signal
       });
 
       let result = null;
-      try { result = await response.json(); } catch {}
+      try {
+        result = await response.json();
+      } catch {}
 
       if (!response.ok) {
         throw new Error(result?.error || 'Feedback could not be submitted.');
@@ -291,30 +297,26 @@ if (feedbackForm) {
 
       feedbackForm.reset();
       feedbackStatus.className = 'feedback-status success';
-      feedbackStatus.innerHTML = '<strong>Feedback received.</strong><span>Thank you for helping improve HPP.</span>';
+      feedbackStatus.innerHTML =
+        '<strong>Feedback received.</strong><span>Your response was saved securely.</span>';
       feedbackForm.classList.remove('feedback-ready');
+      const count = $('feedbackCharacterCount');
+      if (count) count.textContent = '0 / 3000';
       updateFeedbackProgress();
     } catch (error) {
       feedbackStatus.className = 'feedback-status error';
       feedbackStatus.textContent = error?.name === 'AbortError'
-        ? 'The submission timed out. Your answers are still here. Please try again.'
-        : 'We could not submit your feedback right now. Your answers are still here. Please try again.';
+        ? 'The server did not respond in time. Your answers are still here. Please try again.'
+        : 'We could not save your feedback. Your answers are still here. Please try again.';
     } finally {
       clearTimeout(timeoutId);
-      feedbackSubmitting = false;
-      feedbackFieldset.disabled = false;
-      feedbackSubmit.disabled = false;
-      feedbackSubmit.removeAttribute('aria-busy');
-      feedbackSubmit.classList.remove('is-submitting');
-      feedbackSubmit.querySelector('.feedback-submit-label').textContent = 'Submit feedback';
-      feedbackSubmit.querySelector('.feedback-submit-icon').textContent = '→';
+      setFeedbackBusy(false);
       updateFeedbackProgress();
     }
   });
 
   updateFeedbackProgress();
 }
-
 
 function formatSavedDate(value) {
   if (!value) return 'recently';
