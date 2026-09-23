@@ -149,6 +149,13 @@ export function validateFeedbackPayload(body) {
     return { ok: false, error: 'Invalid request.' };
   }
 
+  const expectedFields = new Set([
+    'role', 'project', 'usefulness', 'newInformation', 'feedback', 'contactEmail', 'website'
+  ]);
+  if (Object.keys(body).some(key => !expectedFields.has(key))) {
+    return { ok: false, error: 'Invalid request.' };
+  }
+
   const role = cleanString(body.role, 100);
   const project = cleanString(body.project, 150);
   const usefulness = cleanString(body.usefulness, 50);
