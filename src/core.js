@@ -249,7 +249,32 @@ export function deriveProject(projectType, answers = {}) {
   const exteriorAnswer = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('yes') ? 'yes' : ([a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure') ? 'unsure' : 'no');
   const exteriorUncertain = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure');
   return {
-    buildingWork: true,
+    buildingWork: projectType === 'addition' || projectType === 'deck' ||
+      ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
+      projectType === 'basement_finish' ||
+      a.primaryWorkArea === 'interior' ||
+      a.primaryWorkArea === 'bath' ||
+      a.primaryWorkArea === 'addition' ||
+      a.primaryWorkArea === 'exterior' ||
+      a.structuralChanges === 'yes' ||
+      a.demolition === 'yes' ||
+      a.guttingExtent === 'yes' ||
+      a.layoutChange === 'yes' ||
+      a.footprintChange === 'yes',
+    buildingWorkUncertain: projectType === 'general_project' && !(
+      projectType === 'addition' || projectType === 'deck' ||
+      ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
+      a.primaryWorkArea === 'interior' || a.primaryWorkArea === 'bath' ||
+      a.primaryWorkArea === 'addition' || a.primaryWorkArea === 'exterior' ||
+      a.structuralChanges === 'yes' || a.demolition === 'yes' ||
+      a.guttingExtent === 'yes' || a.layoutChange === 'yes' ||
+      a.footprintChange === 'yes' || a.primaryWorkArea === 'kitchen' ||
+      a.primaryWorkArea === 'systems' || a.primaryWorkArea === 'site'
+    ) && (
+      a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' ||
+      a.structuralChanges === 'unsure' || a.demolition === 'unsure' ||
+      a.exteriorChange === 'unsure' || a.siteWork === 'unsure'
+    ),
     projectDescription: a.projectDescription || null,
     projectCatalogId: a.projectCatalogId || null,
     projectCatalogLabel: a.projectCatalogLabel || null,
