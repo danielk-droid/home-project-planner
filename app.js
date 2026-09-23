@@ -1325,6 +1325,7 @@ function checklistSection(plan) {
   </section>`;
 }
 
+let checklistWasComplete = false;
 function updateCompletion(plan) {  const boxes = [...document.querySelectorAll('[data-step]')];
   const done = boxes.filter(x => x.checked).length;
   const count = $('checkCount');
