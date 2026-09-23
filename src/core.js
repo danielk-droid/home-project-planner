@@ -327,12 +327,47 @@ export function deriveProject(projectType, answers = {}) {
     treeImpactUncertain: a.treeImpact === 'unsure',
     exteriorChange: a.exteriorChange === 'yes' || a.exteriorChangeDetail === 'structure' || a.exteriorChangeDetail === 'opening' || a.exteriorChangeDetail === 'surface',
     exteriorChangeUncertain: a.exteriorChange === 'unsure' || a.exteriorChangeDetail === 'unsure',
-    generalScopeUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' || a.primaryWorkAreaDetail2 === 'unsure'
+    mechanicalWork: a.systemType === 'mechanical' || ['systems-3','systems-4','systems-5','systems-6'].includes(a.projectCatalogId),
+    mechanicalUncertain: a.systemType === 'unsure' || (a.primaryWorkArea === 'systems' && !a.systemType && !['systems-0','systems-1','systems-2','systems-7','systems-8'].includes(a.projectCatalogId || '')),
+    mechanicalExterior: a.mechanicalExterior === 'yes',
+    zoningRelevant: projectType === 'addition' || projectType === 'deck' ||
+      ['garage','adu','exterior','roofing','site'].includes(a.projectCatalogId) ||
+      ['addition','exterior','site'].includes(a.primaryWorkArea) ||
+      a.footprintChange === 'yes' || a.useChange === 'yes' || a.unitCountChange === 'yes' ||
+      a.mechanicalExterior === 'yes',
+    zoningUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' ||
+      a.exteriorChange === 'unsure' || a.siteWork === 'unsure' ||
+      a.footprintChange === 'unsure' || a.useChange === 'unsure' || a.unitCountChange === 'unsure',
+    siteReviewRelevant: projectType === 'addition' || projectType === 'deck' ||
+      a.exteriorChange === 'yes' || a.siteWork === 'yes' || a.mechanicalExterior === 'yes' ||
+      a.windowsOrDoors === 'yes' || a.newWindow === 'yes',
+    landDisturbanceSqFt: a.landDisturbanceSqFt == null || a.landDisturbanceSqFt === '' ? null : Number(a.landDisturbanceSqFt),
+    newImperviousSqFt: a.newImperviousSqFt == null || a.newImperviousSqFt === '' ? null : Number(a.newImperviousSqFt),
+    newRetainingWall: a.retainingWallNew === 'yes',
+    trenchDewatering: a.trenchDewatering === 'yes',
+    stormwaterFactsUncertain: (projectType === 'addition' || projectType === 'deck' || a.siteWork === 'yes' || a.exteriorChange === 'yes') &&
+      a.landDisturbanceKnown !== 'no' && a.landDisturbanceSqFt == null && a.newImperviousSqFt == null &&
+      a.retainingWallNew !== 'no' && a.trenchDewatering !== 'no',
+    treeSaveAreaUncertain: (projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes') &&
+      a.treeSaveAreaKnown !== 'no',
+    localLandmark: a.historicLocalLandmark === 'yes',
+    preservationRestriction: a.historicPreservationRestriction === 'yes',
+    nationalRegister: a.historicNationalRegister === 'yes',
+    ageAtLeast50: a.historicAgeKnown === 'yes' || (a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) >= 50),
+    ageBoundaryUncertain: a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) === 50,
+    historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
+      a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
+      (projectType !== 'general_project' && (projectType === 'addition' || projectType === 'deck') && property?.historicStatusUnknown === true),
+    advanceFireApprovalPotential: projectType === 'addition' || a.demolition === 'yes' || a.fireProtectionWork === 'yes' || a.hotWork === 'yes',
+    basementPresent: projectType === 'basement_finish',
+    eeroFactsUncertain: projectType === 'basement_finish' &&
+      (a.egressMeasurements !== 'yes' || a.egressClearWidth == null || a.egressClearHeight == null || a.egressSillHeight == null),
+    generalScopeUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' || a.primaryWorkAreaDetail2 === 'unsure',
   };
 }
 
 export function buildPlan(projectType, property, answers) {
-  const project = deriveProject(projectType, answers);
+  const project = deriveProject(projectType, answers, property);
   const ctx = {property, project, answers};
   const results = evaluateRules(ctx);
   const required = results.filter(r => r.status === 'required');
