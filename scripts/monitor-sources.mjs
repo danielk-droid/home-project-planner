@@ -42,11 +42,13 @@ async function fetchSource(source) {
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   const started = Date.now();
   try {
-    const response = await fetch(source.url, {signal: controller.signal, redirect: 'follow',
+    let url = source.url;
+    if (source.sourceType === 'official_gis' && /MapServer\/\d+(?:\?|$)/i.test(url) && !/[?&]f=/i.test(url)) url += (url.includes('?') ? '&' : '?') + 'f=pjson';
+    const response = await fetch(url, {signal: controller.signal, redirect: 'follow',
       headers: { 'user-agent': 'HPP-source-monitor/1.0', 'accept': 'text/html,application/json,text/plain,application/pdf,*/*' }});
     const buffer = Buffer.from(await response.arrayBuffer());
     const contentType = response.headers.get('content-type') || '';
-    const normalized = normalize(contentType.includes('text') || contentType.includes('json') || contentType.includes('xml') ? buffer.toString('utf8') : buffer, contentType);
+    const normalized = normalize(contentType.includes('text') || contentType.includes('json') || contentType.includes('xml') ? buffer.toString('utf8') : buffer, contentType, source);
     const normalizedText = Buffer.isBuffer(normalized.text) ? normalized.text : String(normalized.text);
     return {ok:response.ok,status:response.status,finalUrl:response.url,contentType,bytes:buffer.length,
       normalizedBytes:Buffer.byteLength(normalizedText),hash:sha256(normalizedText),elapsedMs:Date.now()-started,body:buffer,
