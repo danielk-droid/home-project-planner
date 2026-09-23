@@ -246,7 +246,7 @@ function condition(expr,ctx) {
   }));
 }
 
-export function deriveProject(projectType, answers = {}) {
+export function deriveProject(projectType, answers = {}, property = {}) {
   const a = answers;
   const basementBathroom = a.bathroomAdded === 'yes' || a.bathroomIntent === 'yes';
   const basementPlumbing = a.plumbingWork === 'yes' || basementBathroom;
