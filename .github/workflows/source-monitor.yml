@@ -4,15 +4,19 @@ on:
   push:
     paths:
       - "scripts/monitor-sources.mjs"
+      - "scripts/validate-monitor-output.mjs"
       - "tests/source-monitor.test.mjs"
       - ".github/workflows/source-monitor.yml"
       - "data/sources.json"
+      - "data/rules.json"
+      - "data/questions.json"
   schedule:
     - cron: "17 6 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   monitor:
@@ -25,12 +29,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run automation tests
+      - name: Run monitoring automation tests
         run: node tests/source-monitor.test.mjs
       - name: Monitor official sources
         run: node scripts/monitor-sources.mjs --write-state
         env:
           MONITOR_TIMEOUT_MS: 30000
+          MONITOR_HISTORY_LIMIT: 20
+      - name: Validate monitoring output
+        run: node scripts/validate-monitor-output.mjs
       - name: Upload monitoring evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -39,7 +46,7 @@ jobs:
           path: source-monitor-output/
           if-no-files-found: error
           retention-days: 90
-      - name: Commit monitor state only
+      - name: Commit monitor state and version history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -50,6 +57,34 @@ jobs:
             git commit -m "chore: update source monitor state"
             git push
           fi
-      - name: Flag source health or changes for review
+      - name: Create review request for actionable changes
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync('source-monitor-output/monitor-results.json','utf8')); console.log(JSON.stringify({changed:r.changed,unreachable:r.unreachable,reviewRequired:r.reviewRequired},null,2)); process.exit(r.unreachable ? 1 : 0)"
+          node - <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('source-monitor-output/monitor-results.json','utf8'));
+          const p=JSON.parse(fs.readFileSync('source-monitor-output/proposals.json','utf8'));
+          if(!p.proposals.length)process.exit(0);
+          const body=[
+            'Automated HPP source monitoring detected changes requiring human review.',
+            '',
+            `Run: ${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            `Generated: ${r.generatedAt}`,
+            '',
+            ...p.proposals.map(x=>`- **${x.sourceId}** — ${x.classification}; risk=${x.risk}; confidence=${x.confidence}; rules=${x.impactedRuleIds.join(', ')||'none'}`),
+            '',
+            'Safety gate: substantive regulatory rule/content changes are never auto-published by this workflow.'
+          ].join('\n');
+          fs.writeFileSync('/tmp/hpp-review-body.md',body);
+          fs.writeFileSync('/tmp/hpp-review-title.txt',`[HPP Regulatory Review] ${p.proposals.length} source change(s) detected`);
+          NODE
+          if [ "$(gh issue list --state open --search "[HPP Regulatory Review] in:title" --json number --jq 'length')" -eq 0 ]; then
+            gh issue create --title "$(cat /tmp/hpp-review-title.txt)" --body-file /tmp/hpp-review-body.md
+          else
+            echo "An open HPP regulatory review issue already exists; not creating a duplicate."
+          fi
+      - name: Report source health
+        run: |
+          node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync('source-monitor-output/monitor-results.json','utf8')); console.log(JSON.stringify({changed:r.changed,irrelevant:r.irrelevant,unreachable:r.unreachable,extractionFailures:r.extractionFailures,highImpact:r.highImpact,reviewRequired:r.reviewRequired},null,2)); process.exit(r.unreachable ? 1 : 0)"
