@@ -216,7 +216,7 @@ assert.equal(hasResult(p,'project.fire'),false);
 // Historic pathways are distinct.
 const historicBase = {...regulatoryProperty, historicDistrict:'Newtonville'};
 p = buildPlan('general_project', historicBase, {primaryWorkArea:'exterior',exteriorChange:'yes',structuralChanges:'no',demolition:'no'});
-assert.equal(hasResult(p,'property.historic-district','required'),true);
+assert.equal(hasResult(p,'property.historic','required'),true);
 p = buildPlan('general_project', regulatoryProperty, {primaryWorkArea:'exterior',exteriorChange:'yes',historicLocalLandmark:'yes',structuralChanges:'no',demolition:'no'});
 assert.equal(hasResult(p,'property.local-landmark','required'),true);
 p = buildPlan('general_project', regulatoryProperty, {primaryWorkArea:'exterior',exteriorChange:'yes',historicPreservationRestriction:'yes',structuralChanges:'no',demolition:'no'});
