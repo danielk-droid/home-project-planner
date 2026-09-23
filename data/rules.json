@@ -1,41 +1,282 @@
 [
   {
     "id": "property.zoning",
-    "when": "property.zoningDistrict != null",
+    "when": "project.zoningRelevant == true",
     "status": "required",
-    "title": "Review zoning/site conditions",
-    "action": "Use the property's official zoning designation as an input to the applicable project review; the planner does not determine zoning compliance from the district alone.",
+    "title": "Zoning / land-use review",
+    "action": "Review the zoning issue implicated by the project scope, such as use, setbacks, lot coverage, FAR, nonconformity, parking, or site development. The zoning district alone does not trigger this pathway.",
     "sourceIds": [
-      "newton-zoning",
+      "newton-zoning-applications",
       "newton-planning"
     ],
-    "reviewRequired": true,
-    "preparation": [
-      "Current property/site information",
-      "Project dimensions and proposed site plan if zoning review requires them"
-    ]
+    "reviewRequired": true
   },
   {
-    "id": "property.historic",
-    "when": "property.historicDistrict != null && project.exteriorConstruction == true",
-    "status": "potentially_required",
-    "title": "Historic review",
-    "action": "Check the applicable Newton historic-review track before exterior work or other work that triggers review.",
+    "id": "project.zoning-uncertain",
+    "when": "project.zoningUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Zoning applicability needs confirmation",
+    "action": "The project description is not sufficient to determine whether it changes a zoning-regulated condition. Confirm use, dimensional, nonconformity, parking, or site facts before deciding whether zoning review applies.",
     "sourceIds": [
-      "newton-historic-districts",
-      "newton-historic"
+      "newton-zoning-applications",
+      "newton-planning"
     ],
     "reviewRequired": true
   },
   {
     "id": "property.floodplain",
-    "when": "property.floodplain != null",
+    "when": "project.siteReviewRelevant == true && property.floodplain != null",
     "status": "potentially_required",
     "title": "Floodplain review",
-    "action": "Verify whether the proposed work is within the applicable floodplain jurisdiction and what review it triggers.",
+    "action": "Verify whether the proposed exterior/site work is within the applicable floodplain jurisdiction and what review it triggers.",
     "sourceIds": [
       "newton-floodplain",
       "newton-conservation"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.building-uncertain",
+    "when": "project.buildingWorkUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Building scope needs confirmation",
+    "action": "The available project answers do not establish whether building-scope work is part of the project. Clarify the affected building elements before selecting a definitive building-permit pathway.",
+    "sourceIds": [
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.mechanical",
+    "when": "project.mechanicalWork == true",
+    "status": "required",
+    "title": "Mechanical permit workflow",
+    "action": "Newton has a separate mechanical-permit pathway. The exact permit bundle depends on the HVAC equipment and whether electrical, gas, plumbing, duct/ventilation, or building work is also changing.",
+    "sourceIds": [
+      "newton-mechanical",
+      "newton-newgov"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.mechanical-uncertain",
+    "when": "project.mechanicalUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Mechanical scope needs confirmation",
+    "action": "Confirm the HVAC equipment type, installation versus replacement, fuel/source, duct or ventilation scope, and related electrical, gas, plumbing, exterior, or building changes before determining the exact mechanical permit bundle.",
+    "sourceIds": [
+      "newton-mechanical",
+      "newton-newgov"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.fire",
+    "when": "project.buildingWork == true",
+    "status": "required",
+    "title": "Fire review within the building-permit workflow",
+    "action": "Newton Fire Department review/approval is part of the residential building-permit workflow. The exact advance Fire approval requirement depends on the project scope and is ultimately determined by ISD.",
+    "sourceIds": [
+      "newton-fire"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.fire-advance",
+    "when": "project.buildingWork == true && project.advanceFireApprovalPotential == true",
+    "status": "potentially_required",
+    "title": "Advance Fire approval may be required",
+    "action": "This building scope may require Fire Department approval before the building-permit application is submitted. Newton's Fire requirements identify scope such as new construction, demolition, fire-protection/alarm work, and hot work; ISD ultimately determines whether advance approval is required.",
+    "sourceIds": [
+      "newton-fire"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "basement.eero",
+    "when": "project.basementPresent == true",
+    "status": "required",
+    "title": "Basement EERO/code evaluation",
+    "action": "Basement work requires an Emergency Escape and Rescue Opening (EERO) code evaluation. Existing compliant openings and applicable exceptions must be checked using the actual conditions.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "basement.eero-uncertain",
+    "when": "project.basementPresent == true && project.eeroFactsUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Basement EERO facts need confirmation",
+    "action": "Confirm the existing opening, clear dimensions, sill height, grade relationship, window-well or bulkhead conditions, and any applicable exception before determining compliance.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "basement.egress",
+    "when": "project.sleepingRoomAdded == true",
+    "status": "needs_confirmation",
+    "title": "Sleeping-room EERO evaluation",
+    "action": "A basement bedroom has an additional sleeping-room EERO evaluation. Use the actual opening, grade, well/bulkhead, room, and applicable exception facts; the planner does not declare compliance from a description alone.",
+    "sourceIds": [
+      "ma-building-code"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.stormwater-land-disturbance",
+    "when": "project.landDisturbanceSqFt > 5000",
+    "status": "required",
+    "title": "Stormwater Management Permit — land disturbance",
+    "action": "Newton's Stormwater Management Ordinance requires a stormwater management and erosion control permit for qualifying projects that disturb more than 5,000 square feet of land, subject to the ordinance's exceptions and waivers.",
+    "sourceIds": [
+      "newton-stormwater"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.stormwater-minor-impervious",
+    "when": "project.newImperviousSqFt >= 401 && project.newImperviousSqFt <= 1000",
+    "status": "required",
+    "title": "Minor Stormwater Management Permit",
+    "action": "The stated project scope creates 401–1,000 square feet of new impervious area, which is within Newton's verified Minor Stormwater category, subject to applicable exceptions or waivers.",
+    "sourceIds": [
+      "newton-stormwater"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.stormwater-major-impervious",
+    "when": "project.newImperviousSqFt > 1000",
+    "status": "required",
+    "title": "Major Stormwater Management Permit",
+    "action": "The stated new impervious area exceeds the verified 401–1,000 square foot Minor Stormwater range. Confirm the applicable Major Stormwater pathway and any ordinance exceptions or waivers.",
+    "sourceIds": [
+      "newton-stormwater"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.stormwater-retaining-wall",
+    "when": "project.newRetainingWall == true",
+    "status": "required",
+    "title": "Minor Stormwater Management Permit — retaining wall",
+    "action": "A new retaining wall required because of a proposed grade change is a verified Minor Stormwater category under Newton's ordinance, subject to the ordinance's exceptions.",
+    "sourceIds": [
+      "newton-stormwater"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.stormwater-dewatering",
+    "when": "project.trenchDewatering == true",
+    "status": "required",
+    "title": "Minor Stormwater Management Permit — dewatering",
+    "action": "Trench excavation requiring dewatering is a verified Minor Stormwater category under Newton's ordinance.",
+    "sourceIds": [
+      "newton-stormwater"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.stormwater-uncertain",
+    "when": "project.stormwaterFactsUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Stormwater applicability needs confirmation",
+    "action": "Exterior or site work is proposed, but the measurable stormwater facts needed for a threshold determination are missing. Confirm land disturbance, new impervious area, retaining-wall, dewatering, and drainage facts before determining the pathway.",
+    "sourceIds": [
+      "newton-stormwater"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.tree-save-area-uncertain",
+    "when": "project.exteriorConstruction == true && project.treeSaveAreaUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Tree Save Area status needs confirmation",
+    "action": "Confirm whether construction enters the Tree Save Area of a protected tree, including a protected tree on an adjoining property. Tree protection requirements are separate from the basic exterior-construction Tree Permit evaluation.",
+    "sourceIds": [
+      "newton-tree"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.historic-district",
+    "when": "property.historicDistrict != null && project.exteriorConstruction == true",
+    "status": "required",
+    "title": "Historic District Commission review",
+    "action": "Exterior changes to a property in a Newton local historic district require the applicable Historic District review track.",
+    "sourceIds": [
+      "newton-historic-districts",
+      "newton-historic-applications"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.local-landmark",
+    "when": "project.localLandmark == true && project.exteriorConstruction == true",
+    "status": "required",
+    "title": "Local Landmark review",
+    "action": "Exterior work on a designated Newton Local Landmark requires the applicable Local Landmark Review pathway.",
+    "sourceIds": [
+      "newton-historic-applications"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.preservation-restriction",
+    "when": "project.preservationRestriction == true && project.exteriorConstruction == true",
+    "status": "required",
+    "title": "Preservation Restriction review",
+    "action": "Exterior work on a property with a Preservation Restriction requires the applicable Preservation Restriction Review pathway.",
+    "sourceIds": [
+      "newton-historic-applications"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.national-register",
+    "when": "project.nationalRegister == true && (project.exteriorConstruction == true || project.demolition == true)",
+    "status": "required",
+    "title": "National Register historic review",
+    "action": "Newton's historic workflow identifies a Historical Review Application for alterations/demolitions involving National Register-listed properties.",
+    "sourceIds": [
+      "newton-historic-applications"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.historic-age-demolition",
+    "when": "project.ageAtLeast50 == true && project.demolition == true",
+    "status": "required",
+    "title": "50+ year demolition review",
+    "action": "Partial or total demolition of a building or structure at least 50 years old enters Newton's Historical Review pathway. The exact historic significance and demolition-delay outcome are determined through that process.",
+    "sourceIds": [
+      "newton-historic-applications"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.historic-status-uncertain",
+    "when": "project.historicStatusUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Historic property status needs confirmation",
+    "action": "Newton's public GIS data available to HPP does not establish every historic status. Confirm local landmark, preservation restriction, National Register, and age status before relying on the historic pathway.",
+    "sourceIds": [
+      "newton-historic-applications"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "project.age-boundary-uncertain",
+    "when": "project.ageBoundaryUncertain == true && project.demolition == true",
+    "status": "needs_confirmation",
+    "title": "Historic age boundary needs confirmation",
+    "action": "The property record is at the 50-year boundary and the available year-only data is not precise enough to decide the current historic threshold. Confirm the City's current historic classification before determining demolition review.",
+    "sourceIds": [
+      "newton-historic-applications"
     ],
     "reviewRequired": true
   },
@@ -144,26 +385,11 @@
     "reviewRequired": true
   },
   {
-    "id": "project.fire",
-    "when": "project.buildingWork == true",
-    "status": "potentially_required",
-    "title": "Fire plan review",
-    "action": "Determine whether Newton Fire approval is required for this scope and prepare the applicable work description and plans.",
-    "sourceIds": [
-      "newton-fire"
-    ],
-    "reviewRequired": true,
-    "preparation": [
-      "Work description",
-      "Plans showing applicable fire-protection systems"
-    ]
-  },
-  {
     "id": "project.tree",
     "when": "project.exteriorConstruction == true",
     "status": "required",
-    "title": "Tree Permit evaluation",
-    "action": "Evaluate Newton Tree Permit requirements before exterior construction starts, including whether construction may affect protected trees.",
+    "title": "Tree Permit — exterior construction",
+    "action": "Because the project includes exterior construction, Newton requires a Tree Permit evaluation even if no tree will be removed. Tree Save Area and protected-tree controls are separate conditions.",
     "sourceIds": [
       "newton-tree"
     ],
@@ -272,17 +498,6 @@
     "reviewRequired": true
   },
   {
-    "id": "basement.egress",
-    "when": "project.sleepingRoomAdded == true",
-    "status": "needs_confirmation",
-    "title": "Emergency egress",
-    "action": "Verify the applicable egress requirements using actual opening, grade, well/bulkhead, and room measurements. The planner does not declare an opening compliant from a description alone.",
-    "sourceIds": [
-      "ma-building-code"
-    ],
-    "reviewRequired": true
-  },
-  {
     "id": "basement.sleeping-uncertain",
     "when": "project.sleepingRoomUncertain == true",
     "status": "needs_confirmation",
@@ -332,36 +547,6 @@
     "reviewRequired": true,
     "preparation": [
       "Check existing Newton permit records"
-    ]
-  },
-  {
-    "id": "property.historic-age",
-    "when": "property.yearBuilt < 1976 && project.exteriorConstruction == true",
-    "status": "potentially_required",
-    "title": "Historic review based on building age",
-    "action": "Because the property record indicates a building older than 50 years, confirm the applicable Newton Historical Commission review for exterior alterations before relying on the standard building workflow.",
-    "sourceIds": [
-      "newton-historic",
-      "newton-parcels"
-    ],
-    "reviewRequired": true,
-    "preparation": [
-      "Current exterior photos",
-      "Description of proposed exterior changes"
-    ]
-  },
-  {
-    "id": "property.historic-status",
-    "when": "project.exteriorConstruction == true",
-    "status": "needs_confirmation",
-    "title": "Check for Landmark / Preservation Restriction / other historic status",
-    "action": "Newton's public historic workflow includes Local Landmarks, Preservation Restrictions, and other historic-status checks that are not fully represented by the historic-district GIS layer. Confirm whether any apply to the property.",
-    "sourceIds": [
-      "newton-historic"
-    ],
-    "reviewRequired": true,
-    "preparation": [
-      "Assessor/historic status confirmation"
     ]
   },
   {
