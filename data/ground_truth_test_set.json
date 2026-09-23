@@ -1,0 +1,639 @@
+{
+  "metadata": {
+    "title": "HPP Newton Residential Regulatory Ground-Truth Test Set",
+    "version": "2026-09-22",
+    "verifiedOn": "2026-09-22",
+    "purpose": "QA validation of HPP outputs against authoritative Newton/Massachusetts requirements; not a project catalog.",
+    "status": "research-baseline"
+  },
+  "evidence": {
+    "newton_building_checklist": {
+      "title": "Newton Building Permit Application Checklist",
+      "url": "https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564",
+      "relevant": "Building permit application, contractor/licensing documents, tree permit for any exterior work, energy code/HERS, FAR calculation, Fire Department approval, plans, structural stamps as applicable, survey/site information."
+    },
+    "ma_780_cmr": {
+      "title": "Massachusetts State Building Code — 780 CMR",
+      "url": "https://www.mass.gov/massachusetts-state-building-code-780-cmr",
+      "relevant": "State building code framework for one- and two-family residential structures and accessory structures."
+    },
+    "ma_780_105": {
+      "title": "780 CMR Section 105 Permits",
+      "url": "https://www.mass.gov/files/documents/2017/10/30/780%20CMR%20ninth%20edition%2C%20base%20code%20amendments.pdf",
+      "relevant": "Section 105.1 requires permits before constructing, reconstructing, altering, repairing, removing or demolishing regulated buildings/structures or installing/altering regulated equipment, subject to listed exemptions."
+    },
+    "newton_electrical_plumbing_gas": {
+      "title": "Newton Electrical, Plumbing and Gas",
+      "url": "https://www.newtonma.gov/government/inspectional-services/plumbing-gas-and-electrical",
+      "relevant": "Separate electrical, plumbing and gas permit workflows; inspection process and online applications."
+    },
+    "newton_fire": {
+      "title": "Newton Fire Department Plan Reviews",
+      "url": "https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews",
+      "relevant": "All residential and commercial building permit applications are reviewed/approved by Newton Fire Department; residential submissions include work description and plans showing required fire-protection systems."
+    },
+    "newton_closeout": {
+      "title": "Newton How to Close Open Permits",
+      "url": "https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits",
+      "relevant": "Inspections are required to close ISD permits; electrical, plumbing, gas and other department permits should be closed before final building inspection."
+    },
+    "newton_tree": {
+      "title": "Newton Tree Preservation Ordinance",
+      "url": "https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance",
+      "relevant": "As of March 1, 2024, permits are required for removal of trees 6 inches DBH or greater; a Tree Permit is also required for exterior construction, including when no trees are removed. Tree Save Area protections apply."
+    },
+    "newton_conservation": {
+      "title": "Newton Wetlands Permitting Info",
+      "url": "https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev",
+      "relevant": "Land-altering work within 100 ft of vegetated wetland/intermittent stream/pond, 200 ft of perennial stream, or FEMA/City floodplain must be reviewed/permitted by Conservation Commission; grading, construction, tree/shrub removal and drainage are examples."
+    },
+    "newton_historic": {
+      "title": "Newton Historic Preservation",
+      "url": "https://www.newtonma.gov/government/planning/historic-preservation",
+      "relevant": "Properties over 50 years old are subject to Historic Review for proposed exterior alterations; 50+ year old structures proposed for total/partial demolition require review. Local Historic Districts have exterior/site review; landmarks and preservation restrictions have separate tracks."
+    },
+    "newton_hdc": {
+      "title": "Newton Local Historic District Commissions",
+      "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/local-historic-district-commissions",
+      "relevant": "In four local historic districts, exterior changes and site/hardscape changes require an application; in-kind/non-visible work may qualify for administrative/non-applicability treatment."
+    },
+    "newton_preservation_restrictions": {
+      "title": "Newton Preservation Restrictions",
+      "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/newton-city-landmarks/preservation-restrictions",
+      "relevant": "Work within the restricted area requires review; restrictions can cover exterior, and depending on the restriction landscaping/interior."
+    },
+    "newton_landmarks": {
+      "title": "Newton City Landmarks",
+      "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/newton-city-landmarks",
+      "relevant": "Exterior alterations and property changes to landmarks require Newton Historical Commission review and approval."
+    },
+    "newton_flood_storm": {
+      "title": "Newton Engineering / Stormwater",
+      "url": "https://www.newtonma.gov/government/public-works/engineering",
+      "relevant": "Newton maintains Stormwater Management Ordinance/rules; engineering review and drainage/CCTV requirements can apply depending on site/utility scope."
+    },
+    "newton_far": {
+      "title": "Newton FAR FAQs",
+      "url": "https://apps.newtonma.gov/apps/far/FARfaqs.htm",
+      "relevant": "Existing basement/attic can be finished within existing building envelope without regard to FAR; additions, replacement of part of a house and new construction require FAR calculation; setbacks, lot coverage, height and open space remain separate zoning controls."
+    },
+    "newton_planning": {
+      "title": "Newton Planning & Development",
+      "url": "https://www.newtonma.gov/government/planning",
+      "relevant": "Current zoning ordinance, zoning maps, planning applications and NewGov application pathways."
+    },
+    "newton_energy": {
+      "title": "Newton Energy Code / Fossil Fuel-Free",
+      "url": "https://www.newtonma.gov/government/inspectional-services/energy-code",
+      "relevant": "Newton enforces the Specialized Energy Code for complete building-permit applications received after January 1, 2024; Newton also describes its fossil-fuel-free ordinance and 2026 change for major renovations/additions over 1,000 sq ft."
+    },
+    "ma_electrical": {
+      "title": "Massachusetts Electrical Code",
+      "url": "https://www.mass.gov/info-details/massachusetts-electrical-code",
+      "relevant": "Current state electrical code is based on NFPA 70, 2026 edition, effective April 24, 2026, with Massachusetts amendments."
+    },
+    "ma_eero": {
+      "title": "BBRS Official Interpretation 2026-08 — Bulkheads and Emergency Escape Rescue Openings",
+      "url": "https://www.mass.gov/info-details/bbrs-official-interpretation-no-2026-08-rfi-bulkheads-and-emergency-escape-rescue-openings",
+      "relevant": "EEROs are required in nearly all basements and basement bedrooms; an interior stair alone does not satisfy the requirement by right. Bulkhead treatment has specific conditions."
+    },
+    "ma_smoke_co": {
+      "title": "Massachusetts Smoke and Carbon Monoxide Alarms",
+      "url": "https://www.mass.gov/info-details/smoke-and-carbon-monoxide-alarms",
+      "relevant": "State fire-safety guidance describes required smoke/CO alarm placement; exact application depends on code provisions and project scope."
+    }
+  },
+  "scenarios": [
+    {
+      "id": "GT-01",
+      "projectDescription": "Finish an existing basement as a family room; no bathroom, bedroom, exterior excavation, or footprint change.",
+      "propertyContextAssumptions": "Ordinary one-family Newton property; not in a local historic district; no known landmark/preservation restriction; no wetland/floodplain/site trigger known.",
+      "knownFacts": [
+        "Work remains inside existing building envelope.",
+        "No sleeping room.",
+        "No plumbing/gas work.",
+        "No exterior construction."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit workflow applies to regulated alteration; verify exact permit subtype/application documents.",
+        "zoning": "VERIFIED: Basement finishing within existing building envelope does not require FAR calculation under Newton FAR guidance; other code/zoning requirements still apply.",
+        "historic": "NOT_APPLICABLE on stated facts.",
+        "siteEnvironmental": "NOT_APPLICABLE on stated facts.",
+        "trade": "NOT_APPLICABLE unless electrical/plumbing/gas scope is added.",
+        "fire": "VERIFIED: Newton Fire review is part of the residential building-permit process.",
+        "inspections": "VERIFIED: Required inspections and permit closeout apply."
+      },
+      "dependencies": [
+        "property/scope confirmation",
+        "building permit and Fire review",
+        "applicable inspections",
+        "final/closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION for exact building-plan and fire-system details.",
+      "expectedNextAction": "Use Newton residential building-permit workflow and identify all systems changed inside the basement.",
+      "expectedOfficialDestination": "Newton NewGov / Inspectional Services"
+    },
+    {
+      "id": "GT-02",
+      "projectDescription": "Finish basement and add a bathroom.",
+      "propertyContextAssumptions": "Ordinary one-family property; no exterior work.",
+      "knownFacts": [
+        "Basement finishing.",
+        "New bathroom fixtures and plumbing.",
+        "No bedroom."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit workflow.",
+        "zoning": "VERIFIED: No FAR calculation solely because existing basement space is finished.",
+        "historic": "NOT_APPLICABLE on stated facts.",
+        "siteEnvironmental": "NOT_APPLICABLE on stated facts.",
+        "trade": "VERIFIED: Separate plumbing permit; electrical permit if electrical scope is added; gas permit if gas scope is added.",
+        "fire": "VERIFIED: Fire review through building-permit process.",
+        "inspections": "VERIFIED: Trade and building inspections/closeout."
+      },
+      "dependencies": [
+        "scope",
+        "building + trade applications",
+        "inspections",
+        "closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION for exact plumbing/electrical design and whether ventilation or other regulated equipment is added.",
+      "expectedNextAction": "Separate bathroom plumbing scope from any electrical/gas/ventilation work."
+    },
+    {
+      "id": "GT-03",
+      "projectDescription": "Finish basement and create a new bedroom.",
+      "propertyContextAssumptions": "Ordinary one-family property; bedroom is below grade; exact window/egress geometry not yet supplied.",
+      "knownFacts": [
+        "Sleeping room intended.",
+        "Basement location.",
+        "No exterior opening dimensions supplied."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit workflow.",
+        "zoning": "VERIFIED: Existing-envelope basement finish does not require FAR calculation.",
+        "historic": "NOT_APPLICABLE on stated facts.",
+        "siteEnvironmental": "NOT_APPLICABLE on stated facts.",
+        "trade": "CONDITIONAL on electrical/HVAC/etc.",
+        "fire": "VERIFIED: Fire review and life-safety provisions apply through building/code review.",
+        "inspections": "VERIFIED."
+      },
+      "dependencies": [
+        "confirm sleeping-room status",
+        "verify EERO/egress",
+        "building/fire review",
+        "inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION: actual EERO dimensions/location, well/bulkhead/grade conditions, smoke/CO configuration, and any mechanical requirements must be checked against current code.",
+      "expectedNextAction": "Collect opening, sill, grade, and room measurements before declaring egress compliant.",
+      "expectedOfficialDestination": "Newton ISD + Massachusetts 780 CMR"
+    },
+    {
+      "id": "GT-04",
+      "projectDescription": "Finish basement with one new bedroom and one new bathroom.",
+      "propertyContextAssumptions": "Ordinary one-family property; below-grade bedroom; no exterior footprint change.",
+      "knownFacts": [
+        "Sleeping room.",
+        "Bathroom.",
+        "Plumbing.",
+        "Exact egress/ventilation details unknown."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit plus separate plumbing permit; other trade permits if applicable.",
+        "zoning": "VERIFIED: No FAR calculation for finishing existing basement space.",
+        "historic": "NOT_APPLICABLE on stated facts.",
+        "siteEnvironmental": "NOT_APPLICABLE on stated facts.",
+        "trade": "VERIFIED: Plumbing; electrical/HVAC/gas conditional on scope.",
+        "fire": "VERIFIED: Fire review and life-safety requirements.",
+        "inspections": "VERIFIED: Trade/building inspections and closeout."
+      },
+      "dependencies": [
+        "sleeping-room/eero determination",
+        "trade scope",
+        "building/fire review",
+        "inspections",
+        "closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION for egress, smoke/CO, ventilation and exact plans.",
+      "expectedNextAction": "Treat bedroom and bathroom as separate code/trade branches rather than one generic basement rule."
+    },
+    {
+      "id": "GT-05",
+      "projectDescription": "Build a new deck at the rear of an ordinary house; no tree removal.",
+      "propertyContextAssumptions": "One-family property; deck is exterior construction; no known historic/wetland status.",
+      "knownFacts": [
+        "New exterior structure.",
+        "No tree removal.",
+        "Exact setbacks/lot geometry unknown."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit pathway for regulated construction; exact application requirements depend on design.",
+        "zoning": "CONDITIONAL: setback/lot/site rules depend on property zoning and dimensions.",
+        "historic": "CONDITIONAL: exterior work on >50-year-old properties and all exterior work in local historic districts can trigger historic review.",
+        "siteEnvironmental": "CONDITIONAL: wetlands/floodplain/site jurisdiction depends on location.",
+        "trade": "NOT_APPLICABLE unless systems are added.",
+        "fire": "VERIFIED as part of building permit review where applicable.",
+        "inspections": "VERIFIED."
+      },
+      "dependencies": [
+        "zoning/site context",
+        "tree permit",
+        "historic/conservation checks",
+        "building permit",
+        "inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION: exact setbacks, historic status, conservation jurisdiction and tree proximity.",
+      "expectedNextAction": "Check zoning, historic status, wetland/floodplain status and Tree Permit requirement before permit filing."
+    },
+    {
+      "id": "GT-06",
+      "projectDescription": "Build a 300 sq ft rear addition.",
+      "propertyContextAssumptions": "One-family property; exact zoning district, lot size, age, historic status and environmental constraints unknown.",
+      "knownFacts": [
+        "Footprint and floor area increase.",
+        "Exterior construction.",
+        "Site disturbance likely."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit.",
+        "zoning": "VERIFIED: FAR calculation required for an addition; setbacks, lot coverage, height and open space also matter.",
+        "historic": "CONDITIONAL: 50+ year building/addition may trigger NHC partial-demolition review under stated thresholds; local historic district has HDC exterior review; landmark/restriction tracks may apply.",
+        "siteEnvironmental": "CONDITIONAL: wetland/floodplain/conservation and stormwater/site review depend on location/scope.",
+        "trade": "CONDITIONAL.",
+        "fire": "VERIFIED: Fire review in building-permit process.",
+        "inspections": "VERIFIED."
+      },
+      "dependencies": [
+        "property/zoning/historic/site checks",
+        "FAR/site documentation",
+        "applications",
+        "construction inspections",
+        "closeout"
+      ],
+      "uncertainty": "CONDITIONAL until property-specific zoning, historic and environmental facts are known.",
+      "expectedNextAction": "Obtain survey/site geometry and property-status layers before determining zoning pathway."
+    },
+    {
+      "id": "GT-07",
+      "projectDescription": "Replace existing windows in an ordinary, non-historic-designated house with no change to opening size or location.",
+      "propertyContextAssumptions": "House under 50 years old; outside local historic district; no landmark/preservation restriction.",
+      "knownFacts": [
+        "Window replacement only.",
+        "Existing openings unchanged."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Treat as building alteration requiring permit workflow; exact application subtype should be confirmed with Newton ISD.",
+        "zoning": "CONDITIONAL/likely no separate zoning relief on stated facts, but HPP should not infer zoning compliance solely from scope.",
+        "historic": "NOT_APPLICABLE on stated facts.",
+        "siteEnvironmental": "NOT_APPLICABLE on stated facts.",
+        "trade": "CONDITIONAL if electrical/mechanical changes are added.",
+        "fire": "CONDITIONAL through building permit review.",
+        "inspections": "CONDITIONAL: follow permit-specific inspection requirements."
+      },
+      "dependencies": [
+        "building permit determination",
+        "permit inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION on exact Newton permit subtype for simple replacement; opening changes would materially alter the analysis.",
+      "expectedNextAction": "Confirm whether replacement is exact in-place replacement and whether any opening dimensions change."
+    },
+    {
+      "id": "GT-08",
+      "projectDescription": "Replace a rear window and enlarge the opening for a larger window.",
+      "propertyContextAssumptions": "Ordinary house, not known historic.",
+      "knownFacts": [
+        "Exterior opening changes.",
+        "Structural framing may be affected.",
+        "No property-status facts supplied."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit workflow; structural documentation may be required depending on affected framing.",
+        "zoning": "CONDITIONAL.",
+        "historic": "CONDITIONAL based on age/district/landmark/restriction.",
+        "siteEnvironmental": "NOT_APPLICABLE unless exterior site work occurs.",
+        "trade": "CONDITIONAL.",
+        "fire": "CONDITIONAL through building review.",
+        "inspections": "VERIFIED as applicable to permit."
+      },
+      "dependencies": [
+        "property historic/zoning check",
+        "structural/window design",
+        "building permit",
+        "inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION until property age/status and structural scope are known.",
+      "expectedNextAction": "Ask whether wall/framing is structural and verify historic status before finalizing."
+    },
+    {
+      "id": "GT-09",
+      "projectDescription": "Kitchen renovation with cabinets/counters and replacement fixtures, with no wall removal and no plumbing/electrical/gas changes.",
+      "propertyContextAssumptions": "Ordinary house; no exterior work.",
+      "knownFacts": [
+        "Finish/cabinet work only.",
+        "No trade-system changes."
+      ],
+      "outcome": {
+        "permits": "NEEDS_CONFIRMATION: scope may be permit-exempt/minor or may enter building permit workflow depending on actual alteration.",
+        "zoning": "NOT_APPLICABLE on stated interior-only facts.",
+        "historic": "NOT_APPLICABLE on stated facts, subject to preservation restriction exceptions.",
+        "siteEnvironmental": "NOT_APPLICABLE.",
+        "trade": "NOT_APPLICABLE if systems truly remain untouched.",
+        "fire": "NEEDS_CONFIRMATION.",
+        "inspections": "NEEDS_CONFIRMATION."
+      },
+      "dependencies": [
+        "confirm actual scope",
+        "then determine permit path"
+      ],
+      "uncertainty": "Intentional ambiguity: HPP should not automatically assert a building permit solely from the phrase 'kitchen renovation.'",
+      "expectedNextAction": "Confirm walls, plumbing, wiring, gas, ventilation and structural changes."
+    },
+    {
+      "id": "GT-10",
+      "projectDescription": "Remove a load-bearing interior wall and install a beam.",
+      "propertyContextAssumptions": "Ordinary one-family house; no exterior/site work.",
+      "knownFacts": [
+        "Structural alteration.",
+        "No exterior change."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit.",
+        "zoning": "NOT_APPLICABLE on stated facts.",
+        "historic": "NOT_APPLICABLE unless a preservation restriction separately protects interior work.",
+        "siteEnvironmental": "NOT_APPLICABLE.",
+        "trade": "CONDITIONAL.",
+        "fire": "VERIFIED through building-permit review.",
+        "inspections": "VERIFIED.",
+        "structural": "VERIFIED/CONDITIONAL: Newton checklist calls for structural stamps where structural steel or engineered lumber plans are used."
+      },
+      "dependencies": [
+        "structural design/documentation",
+        "building/fire review",
+        "inspections",
+        "closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION on exact structural design and whether other systems are affected.",
+      "expectedNextAction": "Require project to identify structural member type and affected utilities."
+    },
+    {
+      "id": "GT-11",
+      "projectDescription": "Electrical-only project: add new branch circuits and hardwired lighting; no structural or plumbing/gas work.",
+      "propertyContextAssumptions": "Ordinary one-family house.",
+      "knownFacts": [
+        "Electrical scope only."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Separate electrical permit workflow.",
+        "zoning": "NOT_APPLICABLE on stated facts.",
+        "historic": "NOT_APPLICABLE unless property-specific preservation restriction applies.",
+        "siteEnvironmental": "NOT_APPLICABLE.",
+        "trade": "VERIFIED: Electrical permit and inspection.",
+        "fire": "CONDITIONAL depending on building/fire scope.",
+        "inspections": "VERIFIED: electrical inspection required to close electrical permit."
+      },
+      "dependencies": [
+        "electrical permit",
+        "electrical inspection",
+        "closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION if work also changes service, fire alarm, or building scope.",
+      "expectedNextAction": "Use Newton electrical permitting path."
+    },
+    {
+      "id": "GT-12",
+      "projectDescription": "Plumbing-only project: move a sink and associated water/waste piping; no electrical/gas changes.",
+      "propertyContextAssumptions": "Ordinary one-family house.",
+      "knownFacts": [
+        "Plumbing fixture/piping altered.",
+        "No gas/electrical work."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Plumbing permit workflow.",
+        "zoning": "NOT_APPLICABLE.",
+        "historic": "NOT_APPLICABLE unless property-specific preservation restriction applies.",
+        "siteEnvironmental": "NOT_APPLICABLE.",
+        "trade": "VERIFIED: plumbing permit and inspection.",
+        "fire": "CONDITIONAL.",
+        "inspections": "VERIFIED."
+      },
+      "dependencies": [
+        "plumbing permit",
+        "inspection",
+        "closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION if the project expands to gas, electrical or structural work.",
+      "expectedNextAction": "Use Newton plumbing permitting path."
+    },
+    {
+      "id": "GT-13",
+      "projectDescription": "Gas work: relocate gas piping for a new gas appliance.",
+      "propertyContextAssumptions": "Ordinary one-family house.",
+      "knownFacts": [
+        "Gas piping/equipment changes.",
+        "No exterior/site work."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Gas permit; building/mechanical scope must be checked if appliance installation changes other regulated work.",
+        "zoning": "NOT_APPLICABLE on stated facts.",
+        "historic": "NOT_APPLICABLE unless preservation restriction applies.",
+        "siteEnvironmental": "NOT_APPLICABLE.",
+        "trade": "VERIFIED: separate gas permit workflow.",
+        "fire": "CONDITIONAL.",
+        "inspections": "VERIFIED: gas inspection/closeout."
+      },
+      "dependencies": [
+        "gas permit",
+        "inspection",
+        "closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION if the appliance triggers electrical, ventilation, energy or fossil-fuel-free requirements.",
+      "expectedNextAction": "Identify appliance type and whether this is a new installation, replacement or relocation."
+    },
+    {
+      "id": "GT-14",
+      "projectDescription": "Replace furnace with a new HVAC system and add/alter ductwork.",
+      "propertyContextAssumptions": "Ordinary one-family house; exact fuel and project size unknown.",
+      "knownFacts": [
+        "HVAC equipment changes.",
+        "Duct/ventilation scope.",
+        "Fuel type not supplied."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Newton has a mechanical permit category; exact permit package depends on equipment/scope.",
+        "zoning": "CONDITIONAL if exterior equipment/site placement changes.",
+        "historic": "CONDITIONAL if exterior equipment/penetrations change and property is subject to historic review.",
+        "siteEnvironmental": "CONDITIONAL if exterior site work is required.",
+        "trade": "CONDITIONAL: gas and electrical permits may be separate if those systems change.",
+        "fire": "CONDITIONAL.",
+        "inspections": "VERIFIED as applicable to issued permits.",
+        "energy": "VERIFIED: energy-code/fossil-fuel-free pathway must be checked for current project scope."
+      },
+      "dependencies": [
+        "equipment/fuel determination",
+        "energy-code check",
+        "mechanical/trade permits",
+        "inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION: equipment fuel, capacity, location, venting, and Newton fossil-fuel-free applicability."
+    },
+    {
+      "id": "GT-15",
+      "projectDescription": "Convert an attached garage into conditioned living space with insulation, windows, heating/cooling, and electrical work.",
+      "propertyContextAssumptions": "One-family house; garage may be attached; exact zoning/history/site facts unknown.",
+      "knownFacts": [
+        "Change of use/conditioned space.",
+        "Envelope alteration.",
+        "Electrical/HVAC work.",
+        "Potential structural/opening changes."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit; separate trade permits as applicable.",
+        "zoning": "CONDITIONAL: use, setbacks, lot coverage/FAR and other zoning controls must be checked.",
+        "historic": "CONDITIONAL by property status and exterior changes.",
+        "siteEnvironmental": "CONDITIONAL if exterior work/site disturbance.",
+        "trade": "CONDITIONAL/likely electrical + mechanical; gas if applicable.",
+        "fire": "VERIFIED through building permit process.",
+        "inspections": "VERIFIED.",
+        "energy": "VERIFIED/CONDITIONAL based on applicable alteration/new conditioned-space pathway."
+      },
+      "dependencies": [
+        "property/zoning/historic/site checks",
+        "building + trade applications",
+        "inspections",
+        "closeout"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION: whether zoning use/parking and structural issues change the pathway."
+    },
+    {
+      "id": "GT-16",
+      "projectDescription": "Replace visible front windows on a house inside a Newton local historic district; replacement is not exactly in-kind.",
+      "propertyContextAssumptions": "Property is within one of Newton's four local historic districts; windows visible from public way.",
+      "knownFacts": [
+        "Exterior alteration.",
+        "Visible from public way.",
+        "Not in-kind."
+      ],
+      "outcome": {
+        "permits": "VERIFIED/CONDITIONAL: building permit as applicable.",
+        "zoning": "CONDITIONAL.",
+        "historic": "VERIFIED: Historic District application; non-in-kind visible exterior change goes to HDC review under the city's current process.",
+        "siteEnvironmental": "NOT_APPLICABLE unless site work.",
+        "trade": "CONDITIONAL.",
+        "fire": "CONDITIONAL.",
+        "inspections": "CONDITIONAL based on building permit."
+      },
+      "dependencies": [
+        "HDC review/certificate",
+        "building permit if required",
+        "construction/inspection"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION on exact certificate path if visibility or in-kind status changes.",
+      "expectedNextAction": "Submit Historic District application with window details/specifications and follow the HDC process."
+    },
+    {
+      "id": "GT-17",
+      "projectDescription": "Partially demolish a 60-year-old house to create a large addition, removing more than 50% of an exterior wall.",
+      "propertyContextAssumptions": "House is 60 years old; outside a local historic district; not known landmark/restriction; National Register status unknown.",
+      "knownFacts": [
+        "50+ years old.",
+        "Partial demolition.",
+        "More than 50% exterior wall removed.",
+        "Addition follows."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit plus historic-review pathway.",
+        "zoning": "VERIFIED/CONDITIONAL: addition requires FAR calculation and other dimensional analysis.",
+        "historic": "VERIFIED: Newton says additions outside historic districts may qualify as partial demolition when 50% or more of an exterior wall is removed; 50+ year structures require Historical Review.",
+        "siteEnvironmental": "CONDITIONAL.",
+        "trade": "CONDITIONAL.",
+        "fire": "VERIFIED through building permit review.",
+        "inspections": "VERIFIED."
+      },
+      "dependencies": [
+        "historical review",
+        "zoning/FAR/site",
+        "building permit",
+        "trade permits",
+        "inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION: National Register status can affect demolition-delay treatment; exact historic significance outcome is not predetermined."
+    },
+    {
+      "id": "GT-18",
+      "projectDescription": "Build a rear addition on a lot with a 12-inch protected tree near the proposed excavation; no tree removal planned.",
+      "propertyContextAssumptions": "Exterior construction; protected tree may be within Tree Save Area; wetland/historic status unknown.",
+      "knownFacts": [
+        "Addition/excavation.",
+        "Protected tree near work.",
+        "No tree removal."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit.",
+        "zoning": "VERIFIED: FAR/site dimensional review for addition.",
+        "historic": "CONDITIONAL.",
+        "siteEnvironmental": "CONDITIONAL.",
+        "trade": "CONDITIONAL.",
+        "fire": "VERIFIED through building permit process.",
+        "inspections": "VERIFIED.",
+        "tree": "VERIFIED: Tree Permit required for exterior construction; Tree Save Area protections and Tree Protection Plan may apply even without removal."
+      },
+      "dependencies": [
+        "tree permit/protection plan",
+        "zoning/site/historic/conservation checks",
+        "building permit",
+        "inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION: exact Tree Save Area, tree status and approved protection measures."
+    },
+    {
+      "id": "GT-19",
+      "projectDescription": "Construct a detached accessory structure with grading on a lot within 100 feet of a vegetated wetland.",
+      "propertyContextAssumptions": "Exterior construction and land alteration; wetland resource area confirmed within 100 feet; zoning district and floodplain status unknown.",
+      "knownFacts": [
+        "Construction.",
+        "Grading.",
+        "Within 100 ft of regulated wetland resource.",
+        "No tree facts supplied."
+      ],
+      "outcome": {
+        "permits": "VERIFIED: Building permit pathway; separate conservation application required for regulated wetland work.",
+        "zoning": "CONDITIONAL: accessory structure dimensional/use rules depend on zoning and site.",
+        "historic": "CONDITIONAL by property status.",
+        "siteEnvironmental": "VERIFIED: Conservation Commission review/permitting under Newton wetlands guidance; state DEP filing often also required.",
+        "trade": "CONDITIONAL.",
+        "fire": "VERIFIED through building permit process where applicable.",
+        "inspections": "VERIFIED/CONDITIONAL by permit."
+      },
+      "dependencies": [
+        "wetland/conservation review",
+        "zoning/site review",
+        "tree review",
+        "building permit",
+        "inspections"
+      ],
+      "uncertainty": "NEEDS_CONFIRMATION: exact resource boundary, floodplain status, project size and whether state filing path applies."
+    },
+    {
+      "id": "GT-20",
+      "projectDescription": "Homeowner says 'I want to renovate my house' with no details about rooms, exterior work, systems, age, district, site conditions, or structural changes.",
+      "propertyContextAssumptions": "Insufficient information.",
+      "knownFacts": [
+        "Only generic renovation intent."
+      ],
+      "outcome": {
+        "permits": "NEEDS_CONFIRMATION.",
+        "zoning": "NEEDS_CONFIRMATION.",
+        "historic": "NEEDS_CONFIRMATION.",
+        "siteEnvironmental": "NEEDS_CONFIRMATION.",
+        "trade": "NEEDS_CONFIRMATION.",
+        "fire": "NEEDS_CONFIRMATION.",
+        "inspections": "NEEDS_CONFIRMATION."
+      },
+      "dependencies": [
+        "scope and property context must be established first"
+      ],
+      "uncertainty": "INTENTIONAL: HPP should ask targeted branching questions rather than produce a generic permit list.",
+      "expectedNextAction": "Ask about interior/exterior work, structural changes, plumbing/electrical/gas/HVAC, additions, demolition, site work, property age, historic status, and wetland/floodplain conditions."
+    }
+  ]
+}
