@@ -61,6 +61,7 @@ function loadJson(file, fallback) { try { return JSON.parse(fs.readFileSync(file
 const sources = loadJson(SOURCES_PATH, []);
 const oldState = loadJson(STATE_PATH, {version:1, sources:{}});
 const rules = loadJson(path.join(ROOT, 'data', 'rules.json'), []);
+const questions = loadJson(path.join(ROOT, 'data', 'questions.json'), []);
 if (!Array.isArray(sources) || !sources.length) throw new Error('No sources found in data/sources.json');
 fs.mkdirSync(OUT_DIR, {recursive:true});
 
