@@ -44,7 +44,7 @@ async function fetchSource(source) {
     const contentType = response.headers.get('content-type') || '';
     const normalized = normalize(contentType.includes('text') || contentType.includes('json') || contentType.includes('xml') ? buffer.toString('utf8') : buffer, contentType);
     return {ok: response.ok, status: response.status, finalUrl: response.url, contentType, bytes: buffer.length,
-      normalizedBytes: Buffer.byteLength(normalized), hash: sha256(normalized), elapsedMs: Date.now() - started, body: buffer};
+      normalizedBytes: Buffer.isBuffer(normalized) ? normalized.length : Buffer.byteLength(normalized), hash: sha256(normalized), elapsedMs: Date.now() - started, body: buffer};
   } catch (error) {
     return {ok:false, status:null, finalUrl:source.url, contentType:'', bytes:0, normalizedBytes:0, hash:null,
       elapsedMs:Date.now()-started, error:error?.name === 'AbortError' ? 'timeout' : String(error?.message || error)};
