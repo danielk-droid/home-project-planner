@@ -42,7 +42,8 @@
     "title": "Building scope needs confirmation",
     "action": "The available project answers do not establish whether building-scope work is part of the project. Clarify the affected building elements before selecting a definitive building-permit pathway.",
     "sourceIds": [
-      "newton-planning"
+      "newton-isd",
+      "newton-newgov-portal"
     ],
     "reviewRequired": true
   },
@@ -54,7 +55,7 @@
     "action": "Newton has a separate mechanical-permit pathway. The exact permit bundle depends on the HVAC equipment and whether electrical, gas, plumbing, duct/ventilation, or building work is also changing.",
     "sourceIds": [
       "newton-mechanical",
-      "newton-newgov"
+      "newton-newgov-portal"
     ],
     "reviewRequired": true
   },
@@ -66,7 +67,7 @@
     "action": "Confirm the HVAC equipment type, installation versus replacement, fuel/source, duct or ventilation scope, and related electrical, gas, plumbing, exterior, or building changes before determining the exact mechanical permit bundle.",
     "sourceIds": [
       "newton-mechanical",
-      "newton-newgov"
+      "newton-newgov-portal"
     ],
     "reviewRequired": true
   },
@@ -287,7 +288,8 @@
     "title": "Building permit workflow",
     "action": "Enter Newton's building-permit workflow and verify the exact application subtype, drawings, calculations, and supporting documents for this scope.",
     "sourceIds": [
-      "newton-planning"
+      "newton-isd",
+      "newton-newgov-portal"
     ],
     "reviewRequired": true,
     "preparation": [
