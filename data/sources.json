@@ -196,5 +196,41 @@
     "authority": "official_data",
     "lastVerified": "2026-09-19",
     "sourceType": "official_gis"
+  },
+  {
+    "id": "newton-mechanical",
+    "title": "Inspectional Services / Mechanical Permits",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/inspectional-services",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-stormwater",
+    "title": "Engineering / Stormwater Management",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/public-works/engineering",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-historic-applications",
+    "title": "Historic Preservation — Submit an Application",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/submit-an-application",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-zoning-applications",
+    "title": "Planning Applications, Forms and Brochures",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
   }
 ]
