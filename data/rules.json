@@ -2388,7 +2388,7 @@
   },
   {
     "id": "project.fire-approval-uncertain",
-    "when": "project.advanceFireApprovalUncertain == true",
+    "when": "project.buildingWork == true && project.advanceFireApprovalUncertain == true",
     "status": "needs_confirmation",
     "title": "Fire approval scope needs confirmation",
     "action": "The project answers leave fire-protection or hot-work scope unresolved. Confirm the scope before determining whether advance Fire approval is required.",
@@ -2399,11 +2399,17 @@
     "jurisdiction": "Newton, Massachusetts",
     "authority": "official_guidance",
     "topic": "project",
-    "triggerFacts": [],
-    "requiredFacts": [],
+    "triggerFacts": [
+      "project.buildingWork",
+      "project.advanceFireApprovalUncertain"
+    ],
+    "requiredFacts": [
+      "project.buildingWork",
+      "project.advanceFireApprovalUncertain"
+    ],
     "decisionLogic": {
       "type": "expression",
-      "expression": "project.advanceFireApprovalUncertain == true"
+      "expression": "project.buildingWork == true && project.advanceFireApprovalUncertain == true"
     },
     "possibleOutputs": [
       "needs_confirmation"
