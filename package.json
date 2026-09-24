@@ -2,5 +2,8 @@
   "type": "module",
   "scripts": {
     "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs && node tests/feedback.test.mjs"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }

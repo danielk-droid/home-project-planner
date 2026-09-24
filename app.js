@@ -1,4 +1,5 @@
 import {PROJECTS, PROJECT_CATALOG, resolveProperty, buildPlan, getQuestions, sourcesFor, inferClarifiedAnswer} from './src/core.js';
+import {inject} from '@vercel/analytics';
 
 const $ = id => document.getElementById(id);
 let property = null;
@@ -86,6 +87,9 @@ document.querySelectorAll('[data-page-link]').forEach(link => {
 window.addEventListener('popstate', routeFromHash);
 window.addEventListener('hashchange', routeFromHash);
 routeFromHash();
+
+// Initialize Vercel Web Analytics
+inject();
 function projectCatalogItem(id) {
   return [...(PROJECT_CATALOG.common || []).map(([id,label,flow]) => ({id,label,flow})), ...(PROJECT_CATALOG.categories || []).flatMap(c => c.items.map((label,i) => ({id:`${c.id}-${i}`,label,flow:'general_project',category:c.label})))]
     .find(x => x.id === id) || null;
@@ -765,7 +769,7 @@ function renderQuestions() {
 function propertyHeader() {
   return `<div class="eyebrow">PROPERTY FOUND</div>
     <h2>${escape(property.resolvedAddress)}</h2>
-    <div class="notice"><b>We ask only what can change the plan.</b> If you do not know an answer, choose “I'm not sure.” We will ask clarifying questions instead of making you guess.</div>`;
+    <div class="notice"><b>We ask only what can change the plan.</b> If you do not know an answer, choose ��I'm not sure.” We will ask clarifying questions instead of making you guess.</div>`;
 }
 
 function visiblePropertyEvidence(property) {
