@@ -9,6 +9,7 @@ import {
   storageKeyForId,
   newProjectId
 } from './src/project-state.js';
+import {actionForResult} from './src/result-presentation.js';
 
 const $ = id => document.getElementById(id);
 let property = null;
@@ -1519,7 +1520,7 @@ function sectionFor(title, results, statusClass) {
   ${results.map(x => {
     const tailored = guidanceForRequirement(x);
     const url = tailored ? sourceById(tailored.sourceId) : null;
-    return `<article class="result ${statusClass(x.status)}"><div class="result-main"><span class="badge">${x.status.replaceAll('_',' ')}</span><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><p class="small">${escape(x.explanation || '')}</p>
+    return `<article class="result ${statusClass(x.status)}"><div class="result-main"><span class="badge">${x.status.replaceAll('_',' ')}</span><h3>${escape(x.title)}</h3><p>${escape(actionForResult(x))}</p><p class="small">${escape(x.explanation || '')}</p>
       ${x.indeterminateFacts?.length ? '<p class="small">' + escape('Newton GIS did not return ' + x.indeterminateFacts.map(factLabel).join(', ') + ' for this property, so this item could not be ruled out. Confirm it with the City.') + '</p>' : ''}
       ${tailored && url ? '<div class="result-guidance"><span>Where to start</span><p class="small">' + escape(tailored.where) + '</p><a class="guidance-button" href="' + escape(url) + '" target="_blank" rel="noreferrer">Open the relevant City page ↗</a></div>' : ''}
     </div></article>`;

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import rules from '../data/rules.json' with { type: 'json' };
 import sources from '../data/sources.json' with { type: 'json' };
 import { validateRules, evaluateRules, evaluationIssues, buildPlan } from '../src/core.js';
+import { actionForResult, HISTORIC_AGE_UNKNOWN_ACTION } from '../src/result-presentation.js';
 
 // The shipped rule set must be fully evaluable and fully traceable.
 assert.deepEqual(validateRules(), []);
@@ -35,6 +36,7 @@ assert.ok(ageRule, 'historic-age rule exists');
 const withYear = y => evaluateRules(ctxFor({ yearBuilt: y }, { exteriorConstruction: true }), [ageRule]);
 assert.equal(withYear(1920).length, 1);
 assert.equal(withYear(1920)[0].indeterminateFacts, undefined);
+assert.equal(actionForResult(withYear(1920)[0]), ageRule.action, 'older property keeps the existing explanation');
 assert.equal(withYear('1920').length, 1, 'numeric strings are compared as numbers');
 assert.equal(withYear(2005).length, 0);
 assert.equal(withYear('2005').length, 0);
@@ -42,8 +44,15 @@ for (const missing of [null, undefined, 'unknown', NaN]) {
   const r = withYear(missing);
   assert.equal(r.length, 1, `missing year (${missing}) keeps the review item`);
   assert.deepEqual(r[0].indeterminateFacts, ['property.yearBuilt']);
+  const action = actionForResult(r[0]);
+  assert.equal(action, HISTORIC_AGE_UNKNOWN_ACTION);
+  assert.match(action, /year-built information was not returned/i);
+  assert.match(action, /building-age condition could not be established/i);
+  assert.doesNotMatch(action, /indicates a building older than 50 years/i);
 }
 // The other half of the condition is still enforced.
+const newerBuilding = withYear(2005);
+assert.equal(newerBuilding.length, 0, 'a building under 50 years old keeps the existing no-result behavior');
 assert.equal(evaluateRules(ctxFor({ yearBuilt: null }, { exteriorConstruction: false }), [ageRule]).length, 0);
 
 // Every result in a real plan carries at least one resolved authoritative source,
