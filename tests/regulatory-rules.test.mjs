@@ -69,7 +69,7 @@ assert.ok(treeUnknown.results.some(r=>r.id==='project.tree-save-area-uncertain' 
 const eeroMissing=buildPlan('basement_finish',property,{sleepingRoomAdded:'yes',egressType:'window',egressKnown:'yes'});
 assert.ok(eeroMissing.results.some(r=>r.id==='basement.eero-uncertain' && r.status==='needs_confirmation'));
 
-const historicAgeMissing=buildPlan('general_project',property,{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
+const historicAgeMissing=buildPlan('general_project',{...property,yearBuilt:null},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
 assert.ok(historicAgeMissing.results.some(r=>r.id==='project.historic-age-uncertain' && r.status==='needs_confirmation'));
 
 const yes=buildPlan('general_project',property,{primaryWorkArea:'systems',systemType:'electrical',electricalWork:'yes',structuralChanges:'no',demolition:'no',exteriorChange:'no',siteWork:'no'});
