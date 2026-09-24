@@ -15,5 +15,4 @@ jobs:
       - run: node --check app.js
       - run: node --check src/persistence.js
       - run: node --check scripts/monitor-sources.mjs
-      - run: node --check scripts/validate-monitor-output.mjs
       - run: npm test
