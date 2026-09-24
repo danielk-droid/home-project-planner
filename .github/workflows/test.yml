@@ -14,6 +14,6 @@ jobs:
           node-version: 22
       - run: node --check app.js
       - run: node --check src/persistence.js
-      - run: node tests/core.test.mjs
-      - run: node tests/reliability.test.mjs
-      - run: node tests/data-integrity.test.mjs
+      - run: node --check scripts/monitor-sources.mjs
+      - run: node --check scripts/validate-monitor-output.mjs
+      - run: npm test
