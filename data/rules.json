@@ -2369,5 +2369,87 @@
     "lastVerified": "2026-09-19",
     "sourceVersion": null,
     "reviewStatus": "source_verified"
+  },
+  {
+    "id": "project.contradiction",
+    "when": "project.contradictions.length > 0",
+    "status": "needs_confirmation",
+    "title": "Contradictory project answers need confirmation",
+    "action": "The supplied project answers contain a contradiction that prevents a deterministic regulatory interpretation. Resolve the conflicting answers before relying on the plan.",
+    "sourceIds": [
+      "newton-isd",
+      "newton-newgov-portal"
+    ],
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [],
+    "requiredFacts": [],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.contradictions.length > 0"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-23",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
+  },
+  {
+    "id": "project.fire-approval-uncertain",
+    "when": "project.advanceFireApprovalUncertain == true",
+    "status": "needs_confirmation",
+    "title": "Fire approval scope needs confirmation",
+    "action": "The project answers leave fire-protection or hot-work scope unresolved. Confirm the scope before determining whether advance Fire approval is required.",
+    "sourceIds": [
+      "newton-fire"
+    ],
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [],
+    "requiredFacts": [],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.advanceFireApprovalUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-23",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
+  },
+  {
+    "id": "project.historic-age-uncertain",
+    "when": "project.historicAgeUncertain == true && project.demolition == true",
+    "status": "needs_confirmation",
+    "title": "Historic age status needs confirmation",
+    "action": "The property's historic-age fact is missing or unresolved and demolition is part of the project. Confirm the applicable age/status before relying on historic review conclusions.",
+    "sourceIds": [
+      "newton-historic-applications"
+    ],
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [],
+    "requiredFacts": [],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.historicAgeUncertain == true && project.demolition == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-23",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   }
 ]
