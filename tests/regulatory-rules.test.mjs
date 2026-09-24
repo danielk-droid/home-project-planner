@@ -84,7 +84,7 @@ for (const field of ['electricalWork','plumbingWork','gasWork','structuralChange
   const unsure=buildPlan('general_project',property,{primaryWorkArea:'systems',[field]:'unsure'});
   assert.ok(unsure.results.some(r=>r.status==='needs_confirmation'),field+' unsure must remain uncertain');
 }
-const fireUnknown=buildPlan('general_project',property,{primaryWorkArea:'systems',fireProtectionWork:'unsure',hotWork:'no'});
+const fireUnknown=buildPlan('general_project',property,{primaryWorkArea:'interior',structuralChanges:'yes',fireProtectionWork:'unsure',hotWork:'no'});
 assert.ok(fireUnknown.results.some(r=>r.id==='project.fire-approval-uncertain' && r.status==='needs_confirmation'));
 
 const contradiction=buildPlan('basement_finish',property,{sleepingRoomAdded:'no',sleepingUse:'sleeping'});
@@ -152,3 +152,25 @@ const missingSource = evaluateRules(
 assert.equal(missingSource[0].status,'source_unavailable');
 
 console.log('source availability boundary tests: PASS');
+
+for (const [field, ruleId] of [
+  ['localLandmark','property.local-landmark'],
+  ['preservationRestriction','property.preservation-restriction'],
+  ['nationalRegister','property.national-register'],
+  ['ventilationWork','project.ventilation'],
+  ['windowWork','project.window'],
+  ['condo','project.condo'],
+  ['demolition','project.demolition'],
+  ['bathroomLayoutChange','bathroom.layout'],
+  ['deckNew','deck.elevated'],
+  ['stairsOrGuard','deck.stairs-guards']
+]) {
+  const fieldAnswers = {
+    localLandmark:{historicLocalLandmark:'yes'}, preservationRestriction:{historicPreservationRestriction:'yes'},
+    nationalRegister:{historicNationalRegister:'yes'}, ventilationWork:{newVentilation:'yes'},
+    windowWork:{newWindow:'yes'}, condo:{condo:'yes'}, demolition:{demolition:'yes'},
+    bathroomLayoutChange:{layoutChange:'yes'}, deckNew:{deckNew:'yes',deckHeight:6}, stairsOrGuard:{stairsOrGuard:'yes'}
+  }[field];
+  const yesPlan=buildPlan(field==='deckNew'||field==='stairsOrGuard'?'deck':'general_project',property,fieldAnswers);
+  assert.ok(yesPlan.results.some(r=>r.id===ruleId),field+' yes should trigger');
+}
