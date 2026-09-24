@@ -1,4 +1,15 @@
 import {PROJECTS, PROJECT_CATALOG, resolveProperty, buildPlan, getQuestions, sourcesFor, inferClarifiedAnswer} from './src/core.js';
+import {
+  createStorage,
+  createEmptyProjectState,
+  listSavedProjects,
+  loadProject,
+  saveProject,
+  restoreProjectState,
+  storageKeyForId,
+  projectIdentity,
+  findSavedByIdentity
+} from './src/project-state.js';
 
 const $ = id => document.getElementById(id);
 let property = null;
@@ -10,26 +21,47 @@ let selectedCatalogId = null;
 let clarifierState = {};
 let clarificationMeta = {};
 let clarifierQuestionMemory = {};
-const PROJECT_RETENTION_DAYS = 30;
-const PROJECT_RETENTION_MS = PROJECT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
-const STORAGE_PREFIX = 'nhpp-project:';
-const STORAGE_AVAILABLE = (() => {
-  try {
-    const key = '__nhpp_storage_test__';
-    storage.set(key, '1');
-    storage.remove(key);
-    return true;
-  } catch {
-    return false;
-  }
-})();
-const storage = {
-  get(key) { if (!STORAGE_AVAILABLE) return null; try { return storage.get(key); } catch { return null; } },
-  set(key, value) { if (!STORAGE_AVAILABLE) return false; try { storage.set(key, value); return true; } catch { return false; } },
-  remove(key) { if (!STORAGE_AVAILABLE) return false; try { storage.remove(key); return true; } catch { return false; } },
-  length() { if (!STORAGE_AVAILABLE) return 0; try { return storage.length(); } catch { return 0; } },
-  key(index) { if (!STORAGE_AVAILABLE) return null; try { return storage.key(index); } catch { return null; } }
-};
+let activeProjectId = null;
+let checklistWasComplete = false;
+const storage = createStorage(typeof localStorage !== 'undefined' ? localStorage : null);
+const STORAGE_AVAILABLE = storage.available;
+
+// Applies a fresh (or restored) project state object to the module-level state.
+// Every field is replaced, so nothing can survive from a previous project.
+function applyProjectState(state) {
+  activeProjectId = state.id;
+  property = state.property;
+  type = state.type;
+  answers = state.answers;
+  selectedCatalogId = state.selectedCatalogId;
+  clarifierState = state.clarifierState;
+  clarificationMeta = state.clarificationMeta;
+  clarifierQuestionMemory = state.clarifierQuestionMemory;
+  questionIndex = state.questionIndex;
+  editingFromReview = state.editingFromReview;
+  checklistWasComplete = false;
+}
+
+// Clears both the in-memory project state and the planner inputs that would
+// otherwise still hold the previous project's values.
+function startNewProjectState() {
+  applyProjectState(createEmptyProjectState());
+  const addressField = document.getElementById('address');
+  if (addressField) addressField.value = '';
+  document.getElementById('addressSuggestions')?.classList.add('hidden');
+  addressField?.setAttribute('aria-expanded', 'false');
+  const errorBox = document.getElementById('error');
+  if (errorBox) { errorBox.textContent = ''; errorBox.classList.add('hidden'); }
+  const select = document.getElementById('projectType');
+  if (select) select.value = '';
+  document.querySelectorAll('[data-picker-project], [data-picker-catalog]').forEach(x => x.classList.remove('selected'));
+  document.getElementById('projectCatalog')?.classList.add('hidden');
+  document.getElementById('result')?.classList.add('hidden');
+  document.getElementById('questions')?.classList.add('hidden');
+  document.querySelector('.planner-shell')?.classList.remove('hidden');
+  document.body.classList.remove('focus-mode');
+  updateProjectSummary();
+}
 
 const pageIds = ['home','about','how','mission','feedback','privacy','terms','plan'];
 const pageIdSet = new Set(pageIds);
@@ -95,35 +127,13 @@ function projectLabel(projectType, project = null) {
 }
 
 function savedProjects() {
-  const items = [];
-  const now = Date.now();
-  if (!STORAGE_AVAILABLE) return items;
-  for (let i = 0; i < storage.length(); i++) {
-    const key = storage.key(i);
-    if (!key?.startsWith('nhpp-project:')) continue;
-    try {
-      const saved = JSON.parse(storage.get(key));
-      if (!saved?.type || !saved?.property?.resolvedAddress) continue;
-      const lastUpdated = Date.parse(saved.updatedAt || '') || 0;
-      const expiresAt = Date.parse(saved.expiresAt || '') || (lastUpdated + PROJECT_RETENTION_MS);
-      if (!lastUpdated || expiresAt <= now) {
-        storage.remove(key);
-        continue;
-      }
-      if (!saved.expiresAt) saved.expiresAt = new Date(expiresAt).toISOString();
-      items.push(saved);
-    } catch {}
-  }
-  return items.sort((a,b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
+  return listSavedProjects(storage);
 }
 
 function renderSavedProjects() {
   const root = $('resume');
   if (!root) return;
   const projects = savedProjects();
-  const storageNote = STORAGE_AVAILABLE
-    ? storageNote
-    : 'Browser saving is unavailable in this browser session';
   root.classList.remove('hidden');
   root.innerHTML = `
     <div class="resume-inner">
@@ -166,9 +176,7 @@ function renderSavedProjects() {
       const name = projectLabel(saved.type, saved) + ' · ' + saved.property.resolvedAddress;
       if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
       storage.remove(key);
-      if (projectSaveKey() === key) {
-        property = null; type = null; answers = {}; selectedCatalogId = null; clarifierState = {}; clarificationMeta = {}; clarifierQuestionMemory = {}; questionIndex = 0; editingFromReview = false;
-      }
+      if (projectSaveKey() === key) startNewProjectState();
       renderSavedProjects();
 
     });
@@ -327,39 +335,30 @@ function formatSavedDate(value) {
 function importSavedProject(project) {
   if (!STORAGE_AVAILABLE) return false;
   if (!project?.type || !project?.property?.resolvedAddress || !Array.isArray(project.steps)) return false;
-  const key=projectSaveKeyFor(project);
-  storage.set(key, JSON.stringify({
-    type:project.type,
-    property:project.property,
-    answers:project.answers || {},
-    steps:project.steps.map(s=>({...s,status:s.status==='complete'?'complete':'not_started'})),
-    updatedAt:project.updatedAt || new Date().toISOString(),
-    expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()
+  return Boolean(saveProject(storage, {
+    ...project,
+    id: project.id || null,
+    steps: project.steps.map(s => ({...s, status: s.status === 'complete' ? 'complete' : 'not_started'}))
   }));
-  return true;
 }
 
 function projectSaveKeyFor(project) {
-  return 'nhpp-project:' + project.type + ':' + (project.answers?.projectCatalogId || '') + ':' + (project.property?.resolvedAddress || '');
+  if (project?.storageKey) return project.storageKey;
+  if (project?.id) return storageKeyForId(project.id);
+  const existing = findSavedByIdentity(storage, projectIdentity(project));
+  return existing ? projectSaveKeyFor(existing) : storageKeyForId(projectIdentity(project));
 }
 
 function resumeSavedProject(key) {
-  try {
-    const saved = JSON.parse(storage.get(key));
-    if (!saved?.type || !saved?.property) return;
-    type = saved.type;
-    property = saved.property;
-    answers = saved.answers || {};
-    selectedCatalogId = answers.projectCatalogId || saved.projectCatalogId || null;
-    clarifierState = {};
-    questionIndex = 0;
-    editingFromReview = false;
-    history.pushState(null,'','#plan');
-    navigate('plan');
-    renderResult(buildPlan(type, property, answers), {resume:true, saved});
-  } catch {
-    renderSavedProjects();
-  }
+  const saved = loadProject(storage, key);
+  if (!saved) { renderSavedProjects(); return; }
+  startNewProjectState();
+  const state = restoreProjectState(saved);
+  applyProjectState(state);
+  if (!activeProjectId) activeProjectId = saved.id || null;
+  history.pushState(null,'','#plan');
+  navigate('plan');
+  renderResult(buildPlan(type, property, answers), {resume:true, saved});
 }
 
 renderSavedProjects();
@@ -535,6 +534,7 @@ function selectProject(projectType, catalogId = null) {
 
 document.querySelectorAll('[data-project-start]').forEach(card => {
   card.addEventListener('click', () => {
+    startNewProjectState();
     selectProject(card.dataset.projectStart, card.dataset.projectCatalog || null);
     history.pushState(null,'','#plan');
     navigate('plan');
@@ -736,11 +736,18 @@ $('resolve').onclick = async () => {
   $('resolve').disabled = true;
   $('resolve').textContent = 'Checking property…';
   try {
-    property = await resolveProperty(address);
-    type = chosenType;
-    answers = selectedCatalogId ? {projectCatalogId:selectedCatalogId, projectCatalogLabel:projectCatalogItem(selectedCatalogId)?.label || null} : {};
-    clarifierState = {};
-    questionIndex = 0;
+    const resolved = await resolveProperty(address);
+    const catalogId = selectedCatalogId;
+    const state = createEmptyProjectState();
+    state.property = resolved;
+    state.type = chosenType;
+    state.selectedCatalogId = catalogId || null;
+    state.answers = catalogId
+      ? {projectCatalogId:catalogId, projectCatalogLabel:projectCatalogItem(catalogId)?.label || null}
+      : {};
+    const existing = findSavedByIdentity(storage, projectIdentity(state));
+    state.id = existing?.id || null;
+    applyProjectState(state);
     history.pushState(null,'','#plan');
     renderQuestions();
   } catch (e) {
@@ -1200,7 +1207,9 @@ function formatAnswer(q, value) {
 }
 
 function projectSaveKey() {
-  return 'nhpp-project:' + type + ':' + (answers.projectCatalogId || '') + ':' + (property?.resolvedAddress || '');
+  if (activeProjectId) return storageKeyForId(activeProjectId);
+  const existing = findSavedByIdentity(storage, projectIdentity({type, answers, property}));
+  return existing ? projectSaveKeyFor(existing) : null;
 }
 
 const stepGuidance = {
@@ -1270,14 +1279,28 @@ function renderResult(plan, options = {}) {
   document.body.classList.add('focus-mode');
   const r = $('result');
   r.classList.remove('hidden');
-  const savedKey = projectSaveKey();
-  const saved = options.resume ? (options.saved || JSON.parse(storage.get(savedKey) || 'null')) : null;
+  const existingKey = projectSaveKey();
+  const saved = options.resume ? (options.saved || (existingKey ? loadProject(storage, existingKey) : null)) : null;
   plan.steps = plan.steps.map((x,i) => ({
     ...x,
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
   checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
-  storage.set(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, projectCatalogLabel:plan.project.projectCatalogLabel || null, updatedAt:new Date().toISOString(), expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()}));
+  const record = saveProject(storage, {
+    id: activeProjectId || saved?.id || null,
+    type,
+    property,
+    answers,
+    selectedCatalogId,
+    clarifierState,
+    clarificationMeta,
+    clarifierQuestionMemory,
+    steps: plan.steps,
+    projectCatalogLabel: plan.project.projectCatalogLabel || null,
+    planGenerated: true
+  });
+  if (record?.id) activeProjectId = record.id;
+  const savedKey = record?.storageKey || existingKey;
   renderSavedProjects();
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
@@ -1354,6 +1377,7 @@ function renderResult(plan, options = {}) {
     }
 
     cb.onchange = () => {
+      if (!savedKey) return;
       const current = JSON.parse(storage.get(savedKey) || '{}');
       current.steps = current.steps || plan.steps;
       const index = Number(cb.dataset.step);
@@ -1383,7 +1407,7 @@ function renderResult(plan, options = {}) {
     renderQuestions();
   };
   $('restart').onclick = () => {
-    property = null; type = null; answers = {}; selectedCatalogId = null; questionIndex = 0; editingFromReview = false;
+    startNewProjectState();
     r.classList.add('hidden'); $('questions').classList.add('hidden');
     document.querySelector('.planner-shell')?.classList.remove('hidden');
     history.pushState(null,'','#plan');
@@ -1448,7 +1472,6 @@ function updateCompletion(plan) {  const boxes = [...document.querySelectorAll('
 }
 
 let confettiRunning = false;
-let checklistWasComplete = false;
 function launchConfetti() {
   if (confettiRunning) return;
   confettiRunning = true;
