@@ -6,8 +6,6 @@ import {
   loadProject,
   listSavedProjects,
   restoreProjectState,
-  findSavedByIdentity,
-  projectIdentity,
   storageKeyForId
 } from '../src/project-state.js';
 
@@ -42,7 +40,9 @@ const projectB = () => ({
 // --- new project state is genuinely blank -----------------------------------
 {
   const blank = createEmptyProjectState();
-  assert.equal(blank.id, null);
+  assert.equal(typeof blank.id, 'string');
+  assert.ok(blank.id.length > 0, 'a new project gets its own id at creation');
+  assert.notEqual(createEmptyProjectState().id, blank.id, 'every new project gets a different id');
   assert.equal(blank.type, null);
   assert.equal(blank.property, null);
   assert.deepEqual(blank.answers, {});
@@ -70,10 +70,10 @@ const projectB = () => ({
   assert.equal(again.id, first.id);
   assert.equal(listSavedProjects(store).length, 1);
 
-  // Even without the id in hand (e.g. after a refresh), identity dedupes.
-  const rediscovered = saveProject(store, projectA());
-  assert.equal(rediscovered.id, first.id);
-  assert.equal(listSavedProjects(store).length, 1);
+  // Identical inputs without the same id are a different project, never merged.
+  const separate = saveProject(store, projectA());
+  assert.notEqual(separate.id, first.id);
+  assert.equal(listSavedProjects(store).length, 2);
 }
 
 // --- project A and project B stay independent -------------------------------
@@ -135,15 +135,99 @@ const projectB = () => ({
   assert.equal(listSavedProjects(store).length, 0);
 }
 
-// --- identity helpers --------------------------------------------------------
+// Simulates the app flow: Start New Project -> fill in -> Generate Plan (save).
+function startProject() { return createEmptyProjectState(); }
+function fill(state, { address, type, answers, catalogId = null, clarifier = {} }) {
+  state.property = { resolvedAddress: address, zoningDistrict: 'SR2' };
+  state.type = type;
+  state.selectedCatalogId = catalogId;
+  state.answers = { ...(catalogId ? { projectCatalogId: catalogId } : {}), ...answers };
+  state.clarifierState = { ...clarifier };
+  state.steps = [{ id: 'property', status: 'not_started' }, { id: 'scope', status: 'not_started' }];
+  return state;
+}
+const generate = (store, state) => saveProject(store, { ...state, planGenerated: true });
+const SAME = '12 Oak Street';
+
+// --- Test A: complete new-project reset --------------------------------------
 {
   const store = createStorage(memoryBackend());
-  const a = saveProject(store, projectA());
-  assert.equal(
-    findSavedByIdentity(store, projectIdentity(projectA())).id,
-    a.id
-  );
-  assert.equal(findSavedByIdentity(store, projectIdentity(projectB())), null);
+  const a = fill(startProject(), { address: SAME, type: 'addition', catalogId: 'addition',
+    answers: { footprintIncrease: 'yes', stories: 2 }, clarifier: { sleepingUse: 'sleeping' } });
+  a.clarificationMeta = { x: { asked: true } };
+  a.clarifierQuestionMemory = { q1: 'yes' };
+  a.questionIndex = 3;
+  a.editingFromReview = true;
+  const savedA = generate(store, a);
+
+  const next = startProject();
+  assert.notEqual(next.id, savedA.id, 'new project id differs from A');
+  assert.equal(next.property, null);
+  assert.equal(next.type, null);
+  assert.equal(next.selectedCatalogId, null);
+  assert.deepEqual(next.answers, {});
+  assert.deepEqual(next.clarifierState, {});
+  assert.deepEqual(next.clarificationMeta, {});
+  assert.deepEqual(next.clarifierQuestionMemory, {});
+  assert.deepEqual(next.steps, []);
+  assert.equal(next.questionIndex, 0);
+  assert.equal(next.editingFromReview, false);
+  assert.ok(loadProject(store, savedA.storageKey), 'project A remains saved');
+  assert.equal(listSavedProjects(store).length, 1);
+}
+
+// --- Test B: same address, different project type ----------------------------
+// --- Test C: same address, same project type, different details ----------------
+{
+  const store = createStorage(memoryBackend());
+  const a = generate(store, fill(startProject(), { address: SAME, type: 'addition', catalogId: 'addition', answers: { stories: 1 } }));
+  const b = generate(store, fill(startProject(), { address: SAME, type: 'general_project', catalogId: 'kitchen_renovation', answers: { layoutChange: 'yes' } }));
+  const c = generate(store, fill(startProject(), { address: SAME, type: 'addition', catalogId: 'addition', answers: { stories: 2 } }));
+  const d = generate(store, fill(startProject(), { address: SAME, type: 'basement_finish', answers: { bathroomAdded: 'yes' } }));
+  assert.equal(new Set([a.id, b.id, c.id, d.id]).size, 4, 'every project has its own id');
+  assert.equal(listSavedProjects(store).length, 4, 'all projects at the same address coexist');
+
+  const ra = restoreProjectState(loadProject(store, a.storageKey));
+  assert.equal(ra.id, a.id); assert.equal(ra.type, 'addition'); assert.deepEqual(ra.answers, { projectCatalogId: 'addition', stories: 1 });
+  const rb = restoreProjectState(loadProject(store, b.storageKey));
+  assert.equal(rb.id, b.id); assert.equal(rb.selectedCatalogId, 'kitchen_renovation'); assert.equal(rb.answers.stories, undefined);
+  const rc = restoreProjectState(loadProject(store, c.storageKey));
+  assert.equal(rc.id, c.id); assert.equal(rc.type, 'addition'); assert.equal(rc.answers.stories, 2, 'same address + type is still a separate project');
+}
+
+// --- Test D: regeneration does not duplicate ---------------------------------
+{
+  const store = createStorage(memoryBackend());
+  const a = fill(startProject(), { address: SAME, type: 'addition', catalogId: 'addition', answers: { stories: 1 } });
+  const first = generate(store, a);
+  const second = generate(store, a);
+  a.answers.stories = 2;
+  const third = generate(store, a);
+  assert.equal(first.id, a.id); assert.equal(second.id, a.id); assert.equal(third.id, a.id);
+  assert.equal(listSavedProjects(store).length, 1, 'regenerating updates the same record');
+  assert.equal(restoreProjectState(loadProject(store, first.storageKey)).answers.stories, 2, 'latest state restored');
+}
+
+// --- Test E: A -> B -> A -> B switching, including across a refresh ----------
+{
+  const backend = memoryBackend();
+  let store = createStorage(backend);
+  const a = generate(store, fill(startProject(), { address: SAME, type: 'addition', catalogId: 'addition', answers: { stories: 1 }, clarifier: { use: 'a' } }));
+  const b = generate(store, fill(startProject(), { address: SAME, type: 'addition', catalogId: 'addition', answers: { stories: 3 }, clarifier: { use: 'b' } }));
+  for (let round = 0; round < 4; round++) {
+    if (round === 2) store = createStorage(memoryBackend(backend.snapshot()));
+    for (const [rec, stories, use] of [[a, 1, 'a'], [b, 3, 'b']]) {
+      const s = restoreProjectState(loadProject(store, rec.storageKey));
+      assert.equal(s.id, rec.id);
+      assert.equal(s.property.resolvedAddress, SAME);
+      assert.equal(s.type, 'addition');
+      assert.equal(s.answers.stories, stories);
+      assert.deepEqual(s.clarifierState, { use });
+      assert.equal(s.steps.length, 2);
+      s.answers.stories = 99; // mutating an open project must not leak anywhere
+    }
+  }
+  assert.equal(listSavedProjects(store).length, 2);
 }
 
 // --- storage unavailable (privacy mode) --------------------------------------

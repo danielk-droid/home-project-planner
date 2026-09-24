@@ -7,8 +7,7 @@ import {
   saveProject,
   restoreProjectState,
   storageKeyForId,
-  projectIdentity,
-  findSavedByIdentity
+  newProjectId
 } from './src/project-state.js';
 
 const $ = id => document.getElementById(id);
@@ -345,8 +344,7 @@ function importSavedProject(project) {
 function projectSaveKeyFor(project) {
   if (project?.storageKey) return project.storageKey;
   if (project?.id) return storageKeyForId(project.id);
-  const existing = findSavedByIdentity(storage, projectIdentity(project));
-  return existing ? projectSaveKeyFor(existing) : storageKeyForId(projectIdentity(project));
+  return null;
 }
 
 function resumeSavedProject(key) {
@@ -541,6 +539,12 @@ document.querySelectorAll('[data-project-start]').forEach(card => {
     window.scrollTo({top:0,behavior:'smooth'});
     setTimeout(() => $('address')?.focus(), 250);
   });
+});
+
+// "Start planning" entry links begin a brand new project through the same
+// fresh-project path as the "Start another project" button.
+document.querySelectorAll('#home a[data-page-link="plan"]').forEach(link => {
+  link.addEventListener('click', () => startNewProjectState());
 });
 
 $('menuToggle')?.addEventListener('click', openMobileMenu);
@@ -745,8 +749,8 @@ $('resolve').onclick = async () => {
     state.answers = catalogId
       ? {projectCatalogId:catalogId, projectCatalogLabel:projectCatalogItem(catalogId)?.label || null}
       : {};
-    const existing = findSavedByIdentity(storage, projectIdentity(state));
-    state.id = existing?.id || null;
+    // Keep the id created when this project was started; never derive it from inputs.
+    state.id = activeProjectId || newProjectId();
     applyProjectState(state);
     history.pushState(null,'','#plan');
     renderQuestions();
@@ -1207,9 +1211,7 @@ function formatAnswer(q, value) {
 }
 
 function projectSaveKey() {
-  if (activeProjectId) return storageKeyForId(activeProjectId);
-  const existing = findSavedByIdentity(storage, projectIdentity({type, answers, property}));
-  return existing ? projectSaveKeyFor(existing) : null;
+  return activeProjectId ? storageKeyForId(activeProjectId) : null;
 }
 
 const stepGuidance = {

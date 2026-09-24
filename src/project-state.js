@@ -6,9 +6,11 @@ export const PROJECT_RETENTION_DAYS = 30;
 export const PROJECT_RETENTION_MS = PROJECT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
 
 // A brand new project must never inherit anything from a previous one.
+// Every new project receives its own generated id at creation time. The id is
+// independent of address, project type, answers, or any other user input.
 export function createEmptyProjectState() {
   return {
-    id: null,
+    id: newProjectId(),
     type: null,
     property: null,
     answers: {},
@@ -33,14 +35,6 @@ export function newProjectId() {
 
 export function storageKeyForId(id) {
   return STORAGE_PREFIX + id;
-}
-
-// Stable identity of a project: the same address + project type + catalog item
-// is the same project, so re-generating a plan updates it instead of duplicating it.
-export function projectIdentity(project) {
-  const catalogId = project?.answers?.projectCatalogId || project?.projectCatalogId || '';
-  const address = project?.property?.resolvedAddress || '';
-  return [project?.type || '', catalogId, address].join('|');
 }
 
 // Safe wrapper around a Storage-like backend (localStorage).
@@ -103,19 +97,6 @@ export function listSavedProjects(store, now = Date.now()) {
   return items.sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
 }
 
-export function findSavedByIdentity(store, identity) {
-  if (!store.available || !identity) return null;
-  for (const key of allSavedKeys(store)) {
-    const saved = parse(store.get(key));
-    if (!validSaved(saved)) continue;
-    if (projectIdentity(saved) === identity) {
-      saved.storageKey = key;
-      return saved;
-    }
-  }
-  return null;
-}
-
 export function loadProject(store, key) {
   const saved = parse(store.get(key));
   return validSaved(saved) ? saved : null;
@@ -125,22 +106,12 @@ export function removeProject(store, key) {
   return store.remove(key);
 }
 
-// Saves the complete project under a stable id. Re-saving the same project
-// (same id, or same address/type/catalog identity) updates the existing record.
+// Saves the complete project under its generated id. Re-saving the same project
+// (same id) updates its record; a project without an id gets a new one. Two
+// projects never merge because they share an address or project type.
 export function saveProject(store, project, now = Date.now()) {
   if (!store.available || !validSaved(project)) return null;
-
-  let id = project.id || null;
-  if (id && !loadProject(store, storageKeyForId(id))) {
-    // keep the id even if the record was removed; it stays this project's identity
-  }
-  if (!id) {
-    const existing = findSavedByIdentity(store, projectIdentity(project));
-    id = existing?.id || newProjectId();
-    if (existing?.storageKey && existing.storageKey !== storageKeyForId(id)) {
-      store.remove(existing.storageKey);
-    }
-  }
+  const id = project.id || newProjectId();
 
   const record = {
     id,
