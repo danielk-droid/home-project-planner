@@ -112,6 +112,8 @@ assert.equal(inferClarifiedAnswer('condo','shared'),'yes');
 assert.equal(inferClarifiedAnswer('condo','not_shared'),'no');
 assert.equal(inferClarifiedAnswer('guttingExtent','more_than_half'),'yes');
 assert.equal(inferClarifiedAnswer('guttingExtent','not_more_than_half'),'no');
+assert.equal(inferClarifiedAnswer('electricalWork','unsure'),null);
+assert.equal(inferClarifiedAnswer('demolition',['unsure']),null);
 console.log('core adaptive regression tests: PASS');
 
 const general = getQuestions('general_project', {});
@@ -212,6 +214,40 @@ assert.equal(hasResult(buildPlan('addition', regulatoryProperty, {newArea:500,st
 assert.equal(hasResult(buildPlan('addition', regulatoryProperty, {newArea:500,stories:1,structuralChanges:'yes'}),'project.fire-advance','potentially_required'),true);
 p = buildPlan('general_project', regulatoryProperty, {primaryWorkArea:'systems',systemType:'electrical',electricalWork:'yes',structuralChanges:'no',demolition:'no',exteriorChange:'no',siteWork:'no'});
 assert.equal(hasResult(p,'project.fire'),false);
+
+// Trade-only plumbing and gas remain independent from building/zoning.
+for (const systemType of ['plumbing','gas']) {
+  p = buildPlan('general_project', regulatoryProperty, {
+    primaryWorkArea:'systems', systemType,
+    electricalWork:'no',
+    plumbingWork:systemType==='plumbing'?'yes':'no',
+    gasWork:systemType==='gas'?'yes':'no',
+    structuralChanges:'no', demolition:'no', exteriorChange:'no', siteWork:'no',
+    useChange:'no', unitCountChange:'no'
+  });
+  assert.equal(p.project.buildingWork,false);
+  assert.equal(hasResult(p,'project.building'),false);
+  assert.equal(hasResult(p,'property.zoning'),false);
+  assert.equal(hasResult(p,'project.'+systemType,'required'),true);
+}
+
+// Kitchen scope escalates only when regulated work is identified.
+p = buildPlan('general_project', regulatoryProperty, {
+  projectCatalogId:'kitchen_renovation', projectCatalogLabel:'Renovate a kitchen',
+  primaryWorkArea:'kitchen', structuralChanges:'yes', demolition:'no',
+  electricalWork:'no', plumbingWork:'no', gasWork:'no', exteriorChange:'no', siteWork:'no'
+});
+assert.equal(p.project.buildingWork,true);
+assert.equal(hasResult(p,'project.building','required'),true);
+
+p = buildPlan('general_project', regulatoryProperty, {
+  projectCatalogId:'kitchen_renovation', projectCatalogLabel:'Renovate a kitchen',
+  primaryWorkArea:'kitchen', structuralChanges:'unsure', demolition:'no',
+  electricalWork:'no', plumbingWork:'no', gasWork:'no', exteriorChange:'no', siteWork:'no'
+});
+assert.equal(p.project.buildingWork,false);
+assert.equal(p.project.buildingWorkUncertain,true);
+assert.equal(hasResult(p,'project.building-uncertain','needs_confirmation'),true);
 
 // Historic pathways are distinct.
 const historicBase = {...regulatoryProperty, historicDistrict:'Newtonville'};
