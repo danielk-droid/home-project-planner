@@ -237,7 +237,6 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     buildingWork: projectType === 'addition' || projectType === 'deck' ||
       ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
       projectType === 'basement_finish' ||
-      a.primaryWorkArea === 'interior' ||
       a.primaryWorkArea === 'bath' ||
       a.primaryWorkArea === 'addition' ||
       a.primaryWorkArea === 'exterior' ||
@@ -252,6 +251,7 @@ export function deriveProject(projectType, answers = {}, property = {}) {
       ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
       a.primaryWorkArea === 'interior' || a.primaryWorkArea === 'bath' ||
       a.primaryWorkArea === 'addition' || a.primaryWorkArea === 'exterior' ||
+      a.primaryWorkArea === 'interior' && (a.primaryWorkAreaDetail === 'structure' || a.layoutChange === 'yes') ||
       a.structuralChanges === 'yes' || a.demolition === 'yes' ||
       a.guttingExtent === 'yes' || a.layoutChange === 'yes' ||
       a.footprintChange === 'yes' ||
@@ -290,15 +290,15 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     ceilingHeightUncertain: a.ceilingHeight === 'unsure',
     bathroomLayoutChange: a.layoutChange === 'yes',
     bathroomLayoutUncertain: a.layoutChange === 'unsure',
-    siteWork: a.siteWork === 'yes',
+    siteWork: a.siteWork == null ? undefined : a.siteWork === 'yes',
     siteWorkUncertain: a.siteWork === 'unsure',
-    electricalWork: a.electricalWork === 'yes',
+    electricalWork: a.electricalWork == null ? undefined : a.electricalWork === 'yes',
     electricalUncertain: a.electricalWork === 'unsure',
-    plumbingWork: basementPlumbing || a.plumbingWork === 'yes',
+    plumbingWork: (a.plumbingWork == null && !basementBathroom) ? undefined : (basementPlumbing || a.plumbingWork === 'yes'),
     plumbingUncertain: a.plumbingWork === 'unsure' || a.bathroomAdded === 'unsure' || a.bathroomIntent === 'unsure',
-    gasWork: a.gasWork === 'yes',
+    gasWork: a.gasWork == null ? undefined : a.gasWork === 'yes',
     gasUncertain: a.gasWork === 'unsure',
-    structuralChanges: a.structuralChanges === 'yes',
+    structuralChanges: a.structuralChanges == null ? undefined : a.structuralChanges === 'yes',
     structuralUncertain: a.structuralChanges === 'unsure',
     exteriorConstruction: projectType === 'deck' || projectType === 'addition' || exteriorAnswer === 'yes' || a.exteriorChange === 'yes' || ['structure','opening','surface'].includes(a.exteriorChangeDetail),
     exteriorUncertain,
@@ -331,11 +331,10 @@ export function deriveProject(projectType, answers = {}, property = {}) {
       a.windowsOrDoors === 'yes' || a.newWindow === 'yes',
     landDisturbanceSqFt: a.landDisturbanceSqFt == null || a.landDisturbanceSqFt === '' ? null : Number(a.landDisturbanceSqFt),
     newImperviousSqFt: a.newImperviousSqFt == null || a.newImperviousSqFt === '' ? null : Number(a.newImperviousSqFt),
-    newRetainingWall: a.retainingWallNew === 'yes',
-    trenchDewatering: a.trenchDewatering === 'yes',
+    newRetainingWall: a.retainingWallNew == null ? undefined : a.retainingWallNew === 'yes',
+    trenchDewatering: a.trenchDewatering == null ? undefined : a.trenchDewatering === 'yes',
     stormwaterFactsUncertain: (projectType === 'addition' || projectType === 'deck' || a.siteWork === 'yes' || a.exteriorChange === 'yes') &&
-      a.landDisturbanceKnown !== 'no' && a.landDisturbanceSqFt == null && a.newImperviousSqFt == null &&
-      a.retainingWallNew !== 'no' && a.trenchDewatering !== 'no',
+      a.landDisturbanceKnown !== 'no' && (a.landDisturbanceSqFt == null || a.newImperviousSqFt == null || a.retainingWallNew == null || a.retainingWallNew === 'unsure' || a.trenchDewatering == null || a.trenchDewatering === 'unsure' || a.drainageChange === 'unsure'),
     treeSaveAreaUncertain: (projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes') &&
       a.treeSaveAreaKnown !== 'no',
     localLandmark: a.historicLocalLandmark === 'yes',
@@ -345,12 +344,23 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     ageBoundaryUncertain: a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) === 50,
     historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
       a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
-      (projectType !== 'general_project' && (projectType === 'addition' || projectType === 'deck') && property?.historicStatusUnknown === true),
+      ((projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes') && property?.historicStatusUnknown === true),
+    historicAgeUncertain: (a.historicAgeKnown == null && (property?.yearBuilt == null || Number(property.yearBuilt) <= 0)) ||
+      a.historicAgeKnown === 'unsure',
+    fireProtectionUncertain: a.fireProtectionWork === 'unsure',
+    hotWorkUncertain: a.hotWork === 'unsure',
+    advanceFireApprovalUncertain: a.fireProtectionWork === 'unsure' || a.hotWork === 'unsure',
+    drainageChange: a.drainageChange === 'yes',
+    drainageChangeUncertain: a.drainageChange === 'unsure',
     advanceFireApprovalPotential: projectType === 'addition' || a.demolition === 'yes' || a.fireProtectionWork === 'yes' || a.hotWork === 'yes',
     basementPresent: projectType === 'basement_finish',
     eeroFactsUncertain: projectType === 'basement_finish' &&
       (a.egressMeasurements !== 'yes' || a.egressClearWidth == null || a.egressClearHeight == null || a.egressSillHeight == null),
     generalScopeUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' || a.primaryWorkAreaDetail2 === 'unsure',
+    contradictions: [
+      a.sleepingRoomAdded === 'no' && a.sleepingUse === 'sleeping' ? 'sleepingRoomAdded=no conflicts with sleepingUse=sleeping' : null,
+      a.primaryWorkArea !== 'systems' && a.systemType != null ? 'systemType is set while primaryWorkArea is not systems' : null
+    ].filter(Boolean),
   };
 }
 
