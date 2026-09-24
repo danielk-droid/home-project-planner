@@ -227,7 +227,7 @@ for (const value of [undefined,null,'no','unsure','yes']) {
   });
   if (value === 'yes') assert.ok(historic.results.some(r=>r.id==='property.local-landmark'));
   if (value === 'no') assert.ok(!historic.results.some(r=>r.id==='property.local-landmark'));
-  if (value === 'unsure' || value == null) assert.ok(historic.results.some(r=>r.id==='property.historic-status-uncertain'));
+  if (value === 'unsure' || value == null) assert.equal(historic.project.historicStatusUncertain,true);
 }
 
 for (const value of [1000,1001]) {
