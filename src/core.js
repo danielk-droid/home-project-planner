@@ -277,7 +277,7 @@ export function deriveProject(projectType, answers = {}, property = {}) {
       a.primaryWorkArea === 'addition' || a.primaryWorkArea === 'exterior' ||
       a.structuralChanges === 'yes' || a.demolition === 'yes' ||
       a.guttingExtent === 'yes' || a.layoutChange === 'yes' ||
-      a.footprintChange === 'yes' || a.primaryWorkArea === 'kitchen' ||
+      a.footprintChange === 'yes' ||
       a.primaryWorkArea === 'systems' || a.primaryWorkArea === 'site' ||
       kitchenHasRegulatedWork
     ) && (
