@@ -9,7 +9,27 @@
       "newton-zoning-applications",
       "newton-planning"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "property",
+    "triggerFacts": [
+      "project.zoningRelevant"
+    ],
+    "requiredFacts": [
+      "project.zoningRelevant"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.zoningRelevant == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.zoning-uncertain",
@@ -21,7 +41,27 @@
       "newton-zoning-applications",
       "newton-planning"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.zoningUncertain"
+    ],
+    "requiredFacts": [
+      "project.zoningUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.zoningUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "property.floodplain",
@@ -33,7 +73,29 @@
       "newton-floodplain",
       "newton-conservation"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_data, official_guidance",
+    "topic": "property",
+    "triggerFacts": [
+      "project.siteReviewRelevant",
+      "property.floodplain"
+    ],
+    "requiredFacts": [
+      "project.siteReviewRelevant",
+      "property.floodplain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.siteReviewRelevant == true && property.floodplain != null"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.building-uncertain",
@@ -45,7 +107,27 @@
       "newton-isd",
       "newton-newgov-portal"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.buildingWorkUncertain"
+    ],
+    "requiredFacts": [
+      "project.buildingWorkUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWorkUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.mechanical",
@@ -57,7 +139,27 @@
       "newton-mechanical",
       "newton-newgov-portal"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.mechanicalWork"
+    ],
+    "requiredFacts": [
+      "project.mechanicalWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.mechanicalWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.mechanical-uncertain",
@@ -69,7 +171,27 @@
       "newton-mechanical",
       "newton-newgov-portal"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.mechanicalUncertain"
+    ],
+    "requiredFacts": [
+      "project.mechanicalUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.mechanicalUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.fire",
@@ -80,7 +202,27 @@
     "sourceIds": [
       "newton-fire"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.buildingWork"
+    ],
+    "requiredFacts": [
+      "project.buildingWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.fire-advance",
@@ -91,7 +233,29 @@
     "sourceIds": [
       "newton-fire"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.buildingWork",
+      "project.advanceFireApprovalPotential"
+    ],
+    "requiredFacts": [
+      "project.buildingWork",
+      "project.advanceFireApprovalPotential"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWork == true && project.advanceFireApprovalPotential == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "basement.eero",
@@ -102,7 +266,27 @@
     "sourceIds": [
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "basement",
+    "triggerFacts": [
+      "project.basementPresent"
+    ],
+    "requiredFacts": [
+      "project.basementPresent"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.basementPresent == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "basement.eero-uncertain",
@@ -113,7 +297,29 @@
     "sourceIds": [
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "basement",
+    "triggerFacts": [
+      "project.basementPresent",
+      "project.eeroFactsUncertain"
+    ],
+    "requiredFacts": [
+      "project.basementPresent",
+      "project.eeroFactsUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.basementPresent == true && project.eeroFactsUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "basement.egress",
@@ -124,7 +330,27 @@
     "sourceIds": [
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "basement",
+    "triggerFacts": [
+      "project.sleepingRoomAdded"
+    ],
+    "requiredFacts": [
+      "project.sleepingRoomAdded"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.sleepingRoomAdded == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.stormwater-land-disturbance",
@@ -135,7 +361,27 @@
     "sourceIds": [
       "newton-stormwater"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.landDisturbanceSqFt"
+    ],
+    "requiredFacts": [
+      "project.landDisturbanceSqFt"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.landDisturbanceSqFt > 5000"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.stormwater-minor-impervious",
@@ -146,7 +392,29 @@
     "sourceIds": [
       "newton-stormwater"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.newImperviousSqFt",
+      "project.newImperviousSqFt"
+    ],
+    "requiredFacts": [
+      "project.newImperviousSqFt",
+      "project.newImperviousSqFt"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.newImperviousSqFt >= 401 && project.newImperviousSqFt <= 1000"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.stormwater-major-impervious",
@@ -157,7 +425,27 @@
     "sourceIds": [
       "newton-stormwater"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.newImperviousSqFt"
+    ],
+    "requiredFacts": [
+      "project.newImperviousSqFt"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.newImperviousSqFt > 1000"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.stormwater-retaining-wall",
@@ -168,7 +456,27 @@
     "sourceIds": [
       "newton-stormwater"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.newRetainingWall"
+    ],
+    "requiredFacts": [
+      "project.newRetainingWall"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.newRetainingWall == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.stormwater-dewatering",
@@ -179,7 +487,27 @@
     "sourceIds": [
       "newton-stormwater"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.trenchDewatering"
+    ],
+    "requiredFacts": [
+      "project.trenchDewatering"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.trenchDewatering == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.stormwater-uncertain",
@@ -190,7 +518,27 @@
     "sourceIds": [
       "newton-stormwater"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.stormwaterFactsUncertain"
+    ],
+    "requiredFacts": [
+      "project.stormwaterFactsUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.stormwaterFactsUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.tree-save-area-uncertain",
@@ -201,7 +549,29 @@
     "sourceIds": [
       "newton-tree"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.exteriorConstruction",
+      "project.treeSaveAreaUncertain"
+    ],
+    "requiredFacts": [
+      "project.exteriorConstruction",
+      "project.treeSaveAreaUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.exteriorConstruction == true && project.treeSaveAreaUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "property.historic",
@@ -213,7 +583,29 @@
       "newton-historic-districts",
       "newton-historic-applications"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_data, official_guidance",
+    "topic": "property",
+    "triggerFacts": [
+      "property.historicDistrict",
+      "project.exteriorConstruction"
+    ],
+    "requiredFacts": [
+      "property.historicDistrict",
+      "project.exteriorConstruction"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "property.historicDistrict != null && project.exteriorConstruction == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "property.local-landmark",
@@ -224,7 +616,29 @@
     "sourceIds": [
       "newton-historic-applications"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "property",
+    "triggerFacts": [
+      "project.localLandmark",
+      "project.exteriorConstruction"
+    ],
+    "requiredFacts": [
+      "project.localLandmark",
+      "project.exteriorConstruction"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.localLandmark == true && project.exteriorConstruction == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "property.preservation-restriction",
@@ -235,7 +649,29 @@
     "sourceIds": [
       "newton-historic-applications"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "property",
+    "triggerFacts": [
+      "project.preservationRestriction",
+      "project.exteriorConstruction"
+    ],
+    "requiredFacts": [
+      "project.preservationRestriction",
+      "project.exteriorConstruction"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.preservationRestriction == true && project.exteriorConstruction == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "property.national-register",
@@ -246,7 +682,33 @@
     "sourceIds": [
       "newton-historic-applications"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "property",
+    "triggerFacts": [
+      "project.nationalRegister",
+      "project.exteriorConstruction",
+      "project.nationalRegister",
+      "project.demolition"
+    ],
+    "requiredFacts": [
+      "project.nationalRegister",
+      "project.exteriorConstruction",
+      "project.nationalRegister",
+      "project.demolition"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.nationalRegister == true && project.exteriorConstruction == true || project.nationalRegister == true && project.demolition == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "property.historic-age-demolition",
@@ -257,7 +719,29 @@
     "sourceIds": [
       "newton-historic-applications"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "property",
+    "triggerFacts": [
+      "project.ageAtLeast50",
+      "project.demolition"
+    ],
+    "requiredFacts": [
+      "project.ageAtLeast50",
+      "project.demolition"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.ageAtLeast50 == true && project.demolition == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.historic-status-uncertain",
@@ -268,7 +752,27 @@
     "sourceIds": [
       "newton-historic-applications"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.historicStatusUncertain"
+    ],
+    "requiredFacts": [
+      "project.historicStatusUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.historicStatusUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.age-boundary-uncertain",
@@ -279,7 +783,29 @@
     "sourceIds": [
       "newton-historic-applications"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.ageBoundaryUncertain",
+      "project.demolition"
+    ],
+    "requiredFacts": [
+      "project.ageBoundaryUncertain",
+      "project.demolition"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.ageBoundaryUncertain == true && project.demolition == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.building",
@@ -295,7 +821,27 @@
     "preparation": [
       "Building permit application",
       "Floor plans/elevations/foundation/framing plans as applicable"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.buildingWork"
+    ],
+    "requiredFacts": [
+      "project.buildingWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-22",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.electrical",
@@ -306,7 +852,27 @@
     "sourceIds": [
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.electricalWork"
+    ],
+    "requiredFacts": [
+      "project.electricalWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.electricalWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.electrical-uncertain",
@@ -317,7 +883,27 @@
     "sourceIds": [
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.electricalUncertain"
+    ],
+    "requiredFacts": [
+      "project.electricalUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.electricalUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.plumbing",
@@ -328,7 +914,27 @@
     "sourceIds": [
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.plumbingWork"
+    ],
+    "requiredFacts": [
+      "project.plumbingWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.plumbingWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.plumbing-uncertain",
@@ -339,7 +945,27 @@
     "sourceIds": [
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.plumbingUncertain"
+    ],
+    "requiredFacts": [
+      "project.plumbingUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.plumbingUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.gas",
@@ -350,7 +976,27 @@
     "sourceIds": [
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.gasWork"
+    ],
+    "requiredFacts": [
+      "project.gasWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.gasWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.gas-uncertain",
@@ -361,7 +1007,27 @@
     "sourceIds": [
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.gasUncertain"
+    ],
+    "requiredFacts": [
+      "project.gasUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.gasUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.structural",
@@ -373,7 +1039,27 @@
       "newton-planning",
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.structuralChanges"
+    ],
+    "requiredFacts": [
+      "project.structuralChanges"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.structuralChanges == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.structural-uncertain",
@@ -384,7 +1070,27 @@
     "sourceIds": [
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.structuralUncertain"
+    ],
+    "requiredFacts": [
+      "project.structuralUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.structuralUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.tree",
@@ -399,7 +1105,27 @@
     "preparation": [
       "Tree Permit application for exterior construction",
       "Tree protection information if applicable"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.exteriorConstruction"
+    ],
+    "requiredFacts": [
+      "project.exteriorConstruction"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.exteriorConstruction == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.tree-uncertain",
@@ -410,7 +1136,27 @@
     "sourceIds": [
       "newton-tree"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.treeImpactUncertain"
+    ],
+    "requiredFacts": [
+      "project.treeImpactUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.treeImpactUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.conservation",
@@ -421,7 +1167,29 @@
     "sourceIds": [
       "newton-conservation"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "property.conservationPotential",
+      "project.exteriorConstruction"
+    ],
+    "requiredFacts": [
+      "property.conservationPotential",
+      "project.exteriorConstruction"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "property.conservationPotential == true && project.exteriorConstruction == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.far",
@@ -437,7 +1205,27 @@
     "preparation": [
       "Existing/proposed floor area calculations",
       "Survey/site plan"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.expansion"
+    ],
+    "requiredFacts": [
+      "project.expansion"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.expansion == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.exterior-uncertain",
@@ -450,7 +1238,27 @@
       "newton-tree",
       "newton-conservation"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.exteriorUncertain"
+    ],
+    "requiredFacts": [
+      "project.exteriorUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.exteriorUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.ventilation",
@@ -462,7 +1270,27 @@
       "newton-planning",
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.ventilationWork"
+    ],
+    "requiredFacts": [
+      "project.ventilationWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.ventilationWork == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.ventilation-uncertain",
@@ -474,7 +1302,27 @@
       "newton-planning",
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.ventilationUncertain"
+    ],
+    "requiredFacts": [
+      "project.ventilationUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.ventilationUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.window",
@@ -486,7 +1334,27 @@
       "newton-planning",
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.windowWork"
+    ],
+    "requiredFacts": [
+      "project.windowWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.windowWork == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.window-uncertain",
@@ -497,7 +1365,27 @@
     "sourceIds": [
       "newton-planning"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.windowUncertain"
+    ],
+    "requiredFacts": [
+      "project.windowUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.windowUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "basement.sleeping-uncertain",
@@ -508,7 +1396,27 @@
     "sourceIds": [
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "basement",
+    "triggerFacts": [
+      "project.sleepingRoomUncertain"
+    ],
+    "requiredFacts": [
+      "project.sleepingRoomUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.sleepingRoomUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "basement.bathroom-uncertain",
@@ -519,7 +1427,27 @@
     "sourceIds": [
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "basement",
+    "triggerFacts": [
+      "project.bathroomUncertain"
+    ],
+    "requiredFacts": [
+      "project.bathroomUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.bathroomUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "workflow.inspections",
@@ -535,7 +1463,27 @@
     "preparation": [
       "Inspection requests",
       "Trade signoffs and final documentation"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "workflow",
+    "triggerFacts": [
+      "project.buildingWork"
+    ],
+    "requiredFacts": [
+      "project.buildingWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "workflow.open-permits",
@@ -549,7 +1497,27 @@
     "reviewRequired": true,
     "preparation": [
       "Check existing Newton permit records"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "workflow",
+    "triggerFacts": [
+      "property.openPermitsUnknown"
+    ],
+    "requiredFacts": [
+      "property.openPermitsUnknown"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "property.openPermitsUnknown == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.energy",
@@ -565,7 +1533,27 @@
     "preparation": [
       "Energy-code compliance information",
       "HERS documentation if applicable"
-    ]
+    ],
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.buildingWork"
+    ],
+    "requiredFacts": [
+      "project.buildingWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWork == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.engineering",
@@ -582,7 +1570,31 @@
       "Registered-land-surveyor survey if required",
       "Site/grade information",
       "Engineering plans if required"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.expansion",
+      "project.siteWork",
+      "project.structuralChanges"
+    ],
+    "requiredFacts": [
+      "project.expansion",
+      "project.siteWork",
+      "project.structuralChanges"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.expansion == true || project.siteWork == true || project.structuralChanges == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.water-sewer",
@@ -599,7 +1611,29 @@
       "Existing building age information",
       "Existing/proposed floor area",
       "Water/sewer scope"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.guttingMoreThanHalf",
+      "project.addedAreaOver1000"
+    ],
+    "requiredFacts": [
+      "project.guttingMoreThanHalf",
+      "project.addedAreaOver1000"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.guttingMoreThanHalf == true || project.addedAreaOver1000 == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.water-sewer-uncertain",
@@ -614,7 +1648,29 @@
     "preparation": [
       "Estimate of percentage of structure being gutted",
       "Proposed added floor area"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.guttingUncertain",
+      "project.addedAreaUncertain"
+    ],
+    "requiredFacts": [
+      "project.guttingUncertain",
+      "project.addedAreaUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.guttingUncertain == true || project.addedAreaUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.condo",
@@ -628,7 +1684,27 @@
     "reviewRequired": true,
     "preparation": [
       "Condominium notification/association approval if applicable"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.condo"
+    ],
+    "requiredFacts": [
+      "project.condo"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.condo == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.demolition",
@@ -645,7 +1721,27 @@
       "Demolition description",
       "Existing-condition photos",
       "Demolition plans if applicable"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.demolition"
+    ],
+    "requiredFacts": [
+      "project.demolition"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.demolition == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.final-docs",
@@ -662,7 +1758,27 @@
       "Final inspection records",
       "Applicable trade signoffs",
       "As-built information if required"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.buildingWork"
+    ],
+    "requiredFacts": [
+      "project.buildingWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWork == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.newgov",
@@ -676,7 +1792,27 @@
     "reviewRequired": false,
     "preparation": [
       "Create/maintain NewGov application account"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.buildingWork"
+    ],
+    "requiredFacts": [
+      "project.buildingWork"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.buildingWork == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.site-work-uncertain",
@@ -693,7 +1829,27 @@
     "preparation": [
       "Site plan",
       "Existing/proposed grades if applicable"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.siteWorkUncertain"
+    ],
+    "requiredFacts": [
+      "project.siteWorkUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.siteWorkUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.condo-uncertain",
@@ -707,7 +1863,27 @@
     "reviewRequired": true,
     "preparation": [
       "Condominium status and association requirements"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.condoUncertain"
+    ],
+    "requiredFacts": [
+      "project.condoUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.condoUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.demolition-uncertain",
@@ -723,7 +1899,27 @@
     "preparation": [
       "Description of existing work to be removed",
       "Existing-condition photos"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.demolitionUncertain"
+    ],
+    "requiredFacts": [
+      "project.demolitionUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.demolitionUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.energy-major",
@@ -739,7 +1935,27 @@
     "preparation": [
       "Proposed floor area",
       "Energy/HERS documentation if applicable"
-    ]
+    ],
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "project",
+    "triggerFacts": [
+      "project.addedAreaOver1000"
+    ],
+    "requiredFacts": [
+      "project.addedAreaOver1000"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.addedAreaOver1000 == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.condo-approval",
@@ -753,7 +1969,29 @@
     "reviewRequired": true,
     "preparation": [
       "Condominium or association approval/notification documentation"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.condo",
+      "project.condoApproval"
+    ],
+    "requiredFacts": [
+      "project.condo",
+      "project.condoApproval"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.condo == true && project.condoApproval == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "project.condo-approval-uncertain",
@@ -764,7 +2002,27 @@
     "sourceIds": [
       "newton-building-checklist"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "project",
+    "triggerFacts": [
+      "project.condoApprovalUncertain"
+    ],
+    "requiredFacts": [
+      "project.condoApprovalUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.condoApprovalUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "basement.ceiling-height",
@@ -778,7 +2036,27 @@
     "reviewRequired": true,
     "preparation": [
       "Room dimensions and ceiling-height measurements"
-    ]
+    ],
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "basement",
+    "triggerFacts": [
+      "project.sleepingRoomAdded"
+    ],
+    "requiredFacts": [
+      "project.sleepingRoomAdded"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.sleepingRoomAdded == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "bathroom.layout",
@@ -795,7 +2073,27 @@
     "preparation": [
       "Existing and proposed bathroom floor plan",
       "Fixture locations"
-    ]
+    ],
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "bathroom",
+    "triggerFacts": [
+      "project.bathroomLayoutChange"
+    ],
+    "requiredFacts": [
+      "project.bathroomLayoutChange"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.bathroomLayoutChange == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "bathroom.layout-uncertain",
@@ -807,7 +2105,27 @@
       "newton-building-checklist",
       "newton-electrical-plumbing-gas"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "bathroom",
+    "triggerFacts": [
+      "project.bathroomLayoutUncertain"
+    ],
+    "requiredFacts": [
+      "project.bathroomLayoutUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.bathroomLayoutUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "deck.elevated",
@@ -824,7 +2142,29 @@
       "Deck height measurement",
       "Deck framing/foundation concept",
       "Stair and guard dimensions if applicable"
-    ]
+    ],
+    "jurisdiction": "Massachusetts",
+    "authority": "primary, official_guidance",
+    "topic": "deck",
+    "triggerFacts": [
+      "project.deckNew",
+      "project.deckHeightFt"
+    ],
+    "requiredFacts": [
+      "project.deckNew",
+      "project.deckHeightFt"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.deckNew == true && project.deckHeightFt > 0"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "deck.stairs-guards",
@@ -838,7 +2178,27 @@
     "reviewRequired": true,
     "preparation": [
       "Stair and guard dimensions/details"
-    ]
+    ],
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "deck",
+    "triggerFacts": [
+      "project.stairsOrGuard"
+    ],
+    "requiredFacts": [
+      "project.stairsOrGuard"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.stairsOrGuard == true"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "deck.stairs-guards-uncertain",
@@ -849,7 +2209,27 @@
     "sourceIds": [
       "ma-building-code"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Massachusetts",
+    "authority": "primary",
+    "topic": "deck",
+    "triggerFacts": [
+      "project.stairsOrGuardUncertain"
+    ],
+    "requiredFacts": [
+      "project.stairsOrGuardUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.stairsOrGuardUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "addition.stories",
@@ -867,7 +2247,27 @@
       "Proposed elevations showing all stories",
       "Building-height information",
       "Structural design as applicable"
-    ]
+    ],
+    "jurisdiction": "Massachusetts",
+    "authority": "official_guidance, primary",
+    "topic": "addition",
+    "triggerFacts": [
+      "project.additionStories"
+    ],
+    "requiredFacts": [
+      "project.additionStories"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.additionStories > 1"
+    },
+    "possibleOutputs": [
+      "potentially_required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "addition.footprint",
@@ -884,7 +2284,27 @@
       "Existing/proposed site plan",
       "Setback dimensions",
       "Existing/proposed lot coverage and open space"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "addition",
+    "triggerFacts": [
+      "project.footprintChange"
+    ],
+    "requiredFacts": [
+      "project.footprintChange"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.footprintChange == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "addition.footprint-uncertain",
@@ -896,7 +2316,27 @@
       "newton-building-checklist",
       "newton-planning"
     ],
-    "reviewRequired": true
+    "reviewRequired": true,
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "addition",
+    "triggerFacts": [
+      "project.footprintChangeUncertain"
+    ],
+    "requiredFacts": [
+      "project.footprintChangeUncertain"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.footprintChangeUncertain == true"
+    },
+    "possibleOutputs": [
+      "needs_confirmation"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   },
   {
     "id": "addition.setback",
@@ -912,6 +2352,26 @@
     "preparation": [
       "Current property survey",
       "Measured/proposed setbacks"
-    ]
+    ],
+    "jurisdiction": "Newton, Massachusetts",
+    "authority": "official_guidance",
+    "topic": "addition",
+    "triggerFacts": [
+      "project.expansion"
+    ],
+    "requiredFacts": [
+      "project.expansion"
+    ],
+    "decisionLogic": {
+      "type": "expression",
+      "expression": "project.expansion == true"
+    },
+    "possibleOutputs": [
+      "required"
+    ],
+    "effectiveDate": null,
+    "lastVerified": "2026-09-19",
+    "sourceVersion": null,
+    "reviewStatus": "source_verified"
   }
 ]
