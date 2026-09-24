@@ -166,11 +166,19 @@ for (const [field, ruleId] of [
   ['stairsOrGuard','deck.stairs-guards']
 ]) {
   const fieldAnswers = {
-    localLandmark:{historicLocalLandmark:'yes'}, preservationRestriction:{historicPreservationRestriction:'yes'},
-    nationalRegister:{historicNationalRegister:'yes'}, ventilationWork:{newVentilation:'yes'},
+    localLandmark:{primaryWorkArea:'exterior',historicLocalLandmark:'yes'}, preservationRestriction:{primaryWorkArea:'exterior',historicPreservationRestriction:'yes'},
+    nationalRegister:{primaryWorkArea:'exterior',historicNationalRegister:'yes',demolition:'no'}, ventilationWork:{newVentilation:'yes'},
     windowWork:{newWindow:'yes'}, condo:{condo:'yes'}, demolition:{demolition:'yes'},
     bathroomLayoutChange:{layoutChange:'yes'}, deckNew:{deckNew:'yes',deckHeight:6}, stairsOrGuard:{stairsOrGuard:'yes'}
   }[field];
   const yesPlan=buildPlan(field==='deckNew'||field==='stairsOrGuard'?'deck':'general_project',property,fieldAnswers);
   assert.ok(yesPlan.results.some(r=>r.id===ruleId),field+' yes should trigger');
+}
+const missingFire = buildPlan('general_project',property,{primaryWorkArea:'interior',structuralChanges:'yes'});
+assert.ok(missingFire.results.some(r=>r.id==='project.fire-approval-uncertain' && r.status==='needs_confirmation'));
+const unsureFire = buildPlan('general_project',property,{primaryWorkArea:'interior',structuralChanges:'yes',fireProtectionWork:'unsure',hotWork:'no'});
+assert.ok(unsureFire.results.some(r=>r.id==='project.fire-approval-uncertain' && r.status==='needs_confirmation'));
+const missingBoolean = buildPlan('general_project',property,{primaryWorkArea:'systems'});
+for (const id of ['project.electrical','project.plumbing','project.gas']) {
+  assert.ok(missingBoolean.results.some(r=>r.id===id && r.status==='needs_confirmation'),id+' missing must not become negative');
 }
