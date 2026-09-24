@@ -316,8 +316,8 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     treeImpactUncertain: a.treeImpact === 'unsure',
     exteriorChange: a.exteriorChange === 'yes' || a.exteriorChangeDetail === 'structure' || a.exteriorChangeDetail === 'opening' || a.exteriorChangeDetail === 'surface',
     exteriorChangeUncertain: a.exteriorChange === 'unsure' || a.exteriorChangeDetail === 'unsure',
-    mechanicalWork: a.systemType === 'mechanical' || ['systems-3','systems-4','systems-5','systems-6'].includes(a.projectCatalogId),
-    mechanicalUncertain: a.systemType === 'unsure' || (a.primaryWorkArea === 'systems' && !a.systemType && !['systems-0','systems-1','systems-2','systems-7','systems-8'].includes(a.projectCatalogId || '')),
+    mechanicalWork: (a.primaryWorkArea === 'systems' && a.systemType === 'mechanical') || ['systems-3','systems-4','systems-5','systems-6'].includes(a.projectCatalogId),
+    mechanicalUncertain: a.systemType === 'unsure' || (a.primaryWorkArea === 'systems' && !a.systemType && !['systems-0','systems-1','systems-2','systems-7','systems-8'].includes(a.projectCatalogId || '')) || (a.primaryWorkArea !== 'systems' && a.systemType != null),
     mechanicalExterior: a.mechanicalExterior == null ? undefined : a.mechanicalExterior === 'yes',
     zoningRelevant: projectType === 'addition' || projectType === 'deck' ||
       ['garage','adu','exterior','roofing','site'].includes(a.projectCatalogId) ||
@@ -345,6 +345,9 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     ageBoundaryUncertain: a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) === 50,
     historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
       a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
+      (a.historicLocalLandmark == null && property?.historicStatusUnknown === true) ||
+      (a.historicPreservationRestriction == null && property?.historicStatusUnknown === true) ||
+      (a.historicNationalRegister == null && property?.historicStatusUnknown === true) ||
       ((projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes') && property?.historicStatusUnknown === true),
     historicAgeUncertain: (a.historicAgeKnown == null && (property?.yearBuilt == null || Number(property.yearBuilt) <= 0)) || a.historicAgeKnown === 'unsure',
     fireProtectionUncertain: a.fireProtectionWork === 'unsure',
