@@ -1349,7 +1349,6 @@ function renderResult(plan, options = {}) {
     clarifierQuestionMemory
   });
   projectId = savedRecord.projectId;
-  const savedKey = savedProjectKeyFor(savedRecord);
   storage.set(savedKey, JSON.stringify(savedRecord));
   renderSavedProjects();
 
