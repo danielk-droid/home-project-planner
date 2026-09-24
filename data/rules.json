@@ -77,8 +77,14 @@
     "jurisdiction": "Newton, Massachusetts",
     "authority": "official_data, official_guidance",
     "topic": "property",
-    "triggerFacts": [],
-    "requiredFacts": [],
+    "triggerFacts": [
+      "project.siteReviewRelevant",
+      "property.floodplain"
+    ],
+    "requiredFacts": [
+      "project.siteReviewRelevant",
+      "property.floodplain"
+    ],
     "decisionLogic": {
       "type": "expression",
       "expression": "project.siteReviewRelevant == true && property.floodplain != null && property.floodplain != false"
@@ -579,8 +585,14 @@
     "jurisdiction": "Newton, Massachusetts",
     "authority": "official_data, official_guidance",
     "topic": "property",
-    "triggerFacts": [],
-    "requiredFacts": [],
+    "triggerFacts": [
+      "property.historicDistrict",
+      "project.exteriorConstruction"
+    ],
+    "requiredFacts": [
+      "property.historicDistrict",
+      "project.exteriorConstruction"
+    ],
     "decisionLogic": {
       "type": "expression",
       "expression": "property.historicDistrict != null && property.historicDistrict != false && project.exteriorConstruction == true"
@@ -2372,8 +2384,12 @@
     "jurisdiction": "Newton, Massachusetts",
     "authority": "official_guidance",
     "topic": "project",
-    "triggerFacts": [],
-    "requiredFacts": [],
+    "triggerFacts": [
+      "project.contradictions.length"
+    ],
+    "requiredFacts": [
+      "project.contradictions.length"
+    ],
     "decisionLogic": {
       "type": "expression",
       "expression": "project.contradictions.length > 0"
@@ -2432,8 +2448,14 @@
     "jurisdiction": "Newton, Massachusetts",
     "authority": "official_guidance",
     "topic": "project",
-    "triggerFacts": [],
-    "requiredFacts": [],
+    "triggerFacts": [
+      "project.historicAgeUncertain",
+      "project.demolition"
+    ],
+    "requiredFacts": [
+      "project.historicAgeUncertain",
+      "project.demolition"
+    ],
     "decisionLogic": {
       "type": "expression",
       "expression": "project.historicAgeUncertain == true && project.demolition == true"
