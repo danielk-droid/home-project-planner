@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: 22
       - run: node --check app.js
+      - run: node --check src/persistence.js
       - run: node tests/core.test.mjs
       - run: node tests/reliability.test.mjs
       - run: node tests/data-integrity.test.mjs
