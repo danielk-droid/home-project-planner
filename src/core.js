@@ -348,7 +348,7 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     historicAgeUncertain: (a.historicAgeKnown == null && (property?.yearBuilt == null || Number(property.yearBuilt) <= 0)) || a.historicAgeKnown === 'unsure',
     fireProtectionUncertain: a.fireProtectionWork === 'unsure',
     hotWorkUncertain: a.hotWork === 'unsure',
-    advanceFireApprovalUncertain: a.fireProtectionWork === 'unsure' || a.hotWork === 'unsure',
+    advanceFireApprovalUncertain: a.fireProtectionWork == null || a.hotWork == null || a.fireProtectionWork === 'unsure' || a.hotWork === 'unsure',
     drainageChange: a.drainageChange === 'yes',
     drainageChangeUncertain: a.drainageChange === 'unsure',
     advanceFireApprovalPotential: projectType === 'addition' || a.demolition === 'yes' || a.fireProtectionWork === 'yes' || a.hotWork === 'yes',
