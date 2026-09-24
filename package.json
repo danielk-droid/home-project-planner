@@ -1,6 +1,6 @@
 {
   "type": "module",
   "scripts": {
-    "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs && node tests/feedback.test.mjs"
+    "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs && node tests/feedback.test.mjs && node tests/persistence.test.mjs && node tests/app-state.test.mjs"
   }
 }
