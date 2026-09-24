@@ -37,11 +37,11 @@ for(const flow of questions){
 // Verify every rule condition references a property/project field that the core context can provide.
 const knownPropertyFields = new Set(['zoningDistrict','historicDistrict','floodplain','conservationPotential','historicExteriorReview','openPermitsUnknown','yearBuilt','lotSizeSqFt','parcelId']);
 const knownProjectFields = new Set([
-  'buildingWork','buildingWorkUncertain','projectDescription','condo','condoUncertain','condoApproval','condoApprovalUncertain',
-  'demolition','demolitionUncertain','guttingMoreThanHalf','guttingUncertain','addedAreaOver1000','addedAreaUncertain',
+  'buildingWork','buildingWorkUncertain','contradictions','projectDescription','condo','condoUncertain','condoApproval','condoApprovalUncertain',
+  'demolition','demolitionUncertain','guttingMoreThanHalf','guttingUncertain','addedAreaOver1000','addedAreaUncertain','historicAgeUncertain','advanceFireApprovalUncertain',
   'additionStories','additionStoriesUncertain','footprintChange','footprintChangeUncertain',
   'deckNew','deckNewUncertain','deckHeightFt','deckHeightUncertain','stairsOrGuard','stairsOrGuardUncertain',
-  'ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain',
+  'ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain','drainageChange',
   'siteWork','siteWorkUncertain','electricalWork','electricalUncertain','plumbingWork','plumbingUncertain','gasWork','gasUncertain',
   'structuralChanges','structuralUncertain','exteriorConstruction','exteriorUncertain','expansion','sleepingRoomAdded','sleepingRoomUncertain',
   'bathroomAdded','bathroomUncertain','ventilationWork','ventilationUncertain','windowWork','windowUncertain','treeImpact','treeImpactUncertain','treeSaveAreaUncertain','mechanicalWork','mechanicalUncertain','mechanicalExterior','zoningRelevant','zoningUncertain','siteReviewRelevant','landDisturbanceSqFt','newImperviousSqFt','newRetainingWall','trenchDewatering','drainageChange','stormwaterFactsUncertain','localLandmark','preservationRestriction','nationalRegister','ageAtLeast50','ageBoundaryUncertain','historicStatusUncertain','useChange','useChangeUncertain','unitCountChange','unitCountChangeUncertain','fireProtectionWork','hotWork','advanceFireApprovalPotential','basementPresent','eeroFactsUncertain'
