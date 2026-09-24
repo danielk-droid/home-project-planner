@@ -950,12 +950,15 @@ function clarifierFor(q) {
     kind:'choice',
     options:[['yes','Yes, this work is part of the project'],['no','No, this work is not part of the project']]
   };
+  const options = entry.options.some(([value]) => value === 'unsure')
+    ? entry.options
+    : [...entry.options, ['unsure','I still don’t know']];
   return {
     id:'__clarifier_' + q.id,
     text:entry.text,
     kind:entry.kind,
-    options:entry.options,
-    why:'This narrows the uncertainty without requiring technical terminology.'
+    options,
+    why:'This narrows the uncertainty without requiring technical terminology. If you still cannot establish the fact, keep it unresolved.'
   };
 }
 
