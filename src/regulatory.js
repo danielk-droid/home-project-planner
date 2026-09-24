@@ -123,6 +123,8 @@ function sourceState(sourceId, sourceRegistry, sourceMonitorState) {
   return {
     registry: 'present',
     monitoring: monitor.health || (monitor.checkedAt ? 'known' : 'unknown'),
+    unavailable: monitor.health === 'unreachable' || monitor.health === 'unavailable',
+    changed: monitor.changeStatus === 'changed_requires_review',
     source
   };
 }
@@ -131,7 +133,9 @@ export function evaluateRules(ctx, registry = rules, sourceRegistry = sources, s
   return registry.flatMap(rule => {
     const sourceStates = (rule.sourceIds || []).map(id => sourceState(id, sourceRegistry, sourceMonitorState));
     const sourceMissing = sourceStates.some(s => s.registry === 'missing');
-    const state = sourceMissing ? 'source_unavailable' : evaluateExpressionState(rule.when, ctx);
+    const sourceUnavailable = sourceStates.some(s => s.unavailable);
+    const sourceChanged = sourceStates.some(s => s.changed);
+    const state = sourceMissing || sourceUnavailable ? 'source_unavailable' : evaluateExpressionState(rule.when, ctx);
 
     // Only affirmative rules and materially unresolved rules are emitted.
     // Known-negative rules remain explicit in the evaluator state but are not
@@ -140,7 +144,7 @@ export function evaluateRules(ctx, registry = rules, sourceRegistry = sources, s
 
     const resultStatus = state === 'source_unavailable'
       ? 'source_unavailable'
-      : state === 'unknown'
+      : state === 'unknown' || sourceChanged
         ? 'needs_confirmation'
         : rule.status;
 
@@ -151,7 +155,9 @@ export function evaluateRules(ctx, registry = rules, sourceRegistry = sources, s
       decisionState: state,
       sourceState: {
         registry: sourceMissing ? 'missing' : 'present',
-        monitoring: sourceStates.every(s => s.monitoring === 'unknown') ? 'unknown' : sourceStates.map(s => s.monitoring)
+        monitoring: sourceStates.every(s => s.monitoring === 'unknown') ? 'unknown' : sourceStates.map(s => s.monitoring),
+        changed: sourceChanged,
+        unavailable: sourceMissing || sourceUnavailable
       },
       sources: ruleSources,
       explanation: {
@@ -163,7 +169,9 @@ export function evaluateRules(ctx, registry = rules, sourceRegistry = sources, s
         sourceIds: rule.sourceIds || [],
         sourceState: {
           registry: sourceMissing ? 'missing' : 'present',
-          monitoring: sourceStates.every(s => s.monitoring === 'unknown') ? 'unknown' : sourceStates.map(s => s.monitoring)
+          monitoring: sourceStates.every(s => s.monitoring === 'unknown') ? 'unknown' : sourceStates.map(s => s.monitoring),
+          changed: sourceChanged,
+          unavailable: sourceMissing || sourceUnavailable
         },
         lastVerified: rule.lastVerified || null
       }
