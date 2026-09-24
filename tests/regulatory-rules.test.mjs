@@ -258,7 +258,7 @@ for (const value of [undefined,null,'no','unsure','yes']) {
 
 const historicDirect = evaluateRules(
   {project:{historicStatusUncertain:true}},
-  [rules.find(r=>r.id==='property.historic-status-uncertain')],
+  [rules.find(r=>r.id==='project.historic-status-uncertain')],
   sources
 );
 assert.equal(historicDirect[0]?.status,'needs_confirmation');
