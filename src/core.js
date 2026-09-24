@@ -357,7 +357,7 @@ export function deriveProject(projectType, answers = {}, property = {}) {
 export function buildPlan(projectType, property, answers) {
   const project = deriveProject(projectType, answers, property);
   const ctx = {property, project, answers};
-  const results = evaluateRules(ctx);
+  const results = evaluateRegulatoryRules(ctx);
   const required = results.filter(r => r.status === 'required');
   const conditional = results.filter(r => r.status === 'potentially_required');
   const confirm = results.filter(r => r.status === 'needs_confirmation');
