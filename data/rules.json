@@ -65,7 +65,7 @@
   },
   {
     "id": "property.floodplain",
-    "when": "project.siteReviewRelevant == true && property.floodplain != null",
+    "when": "project.siteReviewRelevant == true && property.floodplain != null && property.floodplain != false",
     "status": "potentially_required",
     "title": "Floodplain review",
     "action": "Verify whether the proposed exterior/site work is within the applicable floodplain jurisdiction and what review it triggers.",
@@ -77,17 +77,11 @@
     "jurisdiction": "Newton, Massachusetts",
     "authority": "official_data, official_guidance",
     "topic": "property",
-    "triggerFacts": [
-      "project.siteReviewRelevant",
-      "property.floodplain"
-    ],
-    "requiredFacts": [
-      "project.siteReviewRelevant",
-      "property.floodplain"
-    ],
+    "triggerFacts": [],
+    "requiredFacts": [],
     "decisionLogic": {
       "type": "expression",
-      "expression": "project.siteReviewRelevant == true && property.floodplain != null"
+      "expression": "project.siteReviewRelevant == true && property.floodplain != null && property.floodplain != false"
     },
     "possibleOutputs": [
       "potentially_required"
@@ -573,7 +567,7 @@
   },
   {
     "id": "property.historic",
-    "when": "property.historicDistrict != null && project.exteriorConstruction == true",
+    "when": "property.historicDistrict != null && property.historicDistrict != false && project.exteriorConstruction == true",
     "status": "required",
     "title": "Historic District Commission review",
     "action": "Exterior changes to a property in a Newton local historic district require the applicable Historic District review track.",
@@ -585,17 +579,11 @@
     "jurisdiction": "Newton, Massachusetts",
     "authority": "official_data, official_guidance",
     "topic": "property",
-    "triggerFacts": [
-      "property.historicDistrict",
-      "project.exteriorConstruction"
-    ],
-    "requiredFacts": [
-      "property.historicDistrict",
-      "project.exteriorConstruction"
-    ],
+    "triggerFacts": [],
+    "requiredFacts": [],
     "decisionLogic": {
       "type": "expression",
-      "expression": "property.historicDistrict != null && project.exteriorConstruction == true"
+      "expression": "property.historicDistrict != null && property.historicDistrict != false && project.exteriorConstruction == true"
     },
     "possibleOutputs": [
       "required"
