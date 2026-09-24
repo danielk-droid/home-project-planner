@@ -1,4 +1,5 @@
 import {PROJECTS, PROJECT_CATALOG, resolveProperty, buildPlan, getQuestions, sourcesFor, inferClarifiedAnswer} from './src/core.js';
+import {PROJECT_RETENTION_DAYS, PROJECT_RETENTION_MS, STORAGE_PREFIX, projectSaveKeyFor as savedProjectKeyFor, createProjectId, serializeSavedProject, isSavedProjectActive, restoreSavedProjectState} from './src/persistence.js';
 
 const $ = id => document.getElementById(id);
 let property = null;
@@ -7,29 +8,58 @@ let answers = {};
 let questionIndex = 0;
 let editingFromReview = false;
 let selectedCatalogId = null;
+let projectId = null;
 let clarifierState = {};
 let clarificationMeta = {};
 let clarifierQuestionMemory = {};
-const PROJECT_RETENTION_DAYS = 30;
-const PROJECT_RETENTION_MS = PROJECT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
-const STORAGE_PREFIX = 'nhpp-project:';
-const STORAGE_AVAILABLE = (() => {
+const browserStorage = (() => {
   try {
+    const candidate = window.localStorage;
     const key = '__nhpp_storage_test__';
-    storage.set(key, '1');
-    storage.remove(key);
-    return true;
+    candidate.setItem(key, '1');
+    candidate.removeItem(key);
+    return candidate;
   } catch {
-    return false;
+    return null;
   }
 })();
+const STORAGE_AVAILABLE = Boolean(browserStorage);
 const storage = {
-  get(key) { if (!STORAGE_AVAILABLE) return null; try { return storage.get(key); } catch { return null; } },
-  set(key, value) { if (!STORAGE_AVAILABLE) return false; try { storage.set(key, value); return true; } catch { return false; } },
-  remove(key) { if (!STORAGE_AVAILABLE) return false; try { storage.remove(key); return true; } catch { return false; } },
-  length() { if (!STORAGE_AVAILABLE) return 0; try { return storage.length(); } catch { return 0; } },
-  key(index) { if (!STORAGE_AVAILABLE) return null; try { return storage.key(index); } catch { return null; } }
+  get(key) { if (!browserStorage) return null; try { return browserStorage.getItem(key); } catch { return null; } },
+  set(key, value) { if (!browserStorage) return false; try { browserStorage.setItem(key, value); return true; } catch { return false; } },
+  remove(key) { if (!browserStorage) return false; try { browserStorage.removeItem(key); return true; } catch { return false; } },
+  length() { if (!browserStorage) return 0; try { return browserStorage.length; } catch { return 0; } },
+  key(index) { if (!browserStorage) return null; try { return browserStorage.key(index); } catch { return null; } }
 };
+
+function resetProjectState({clearSelection = true} = {}) {
+  property = null;
+  type = null;
+  answers = {};
+  questionIndex = 0;
+  editingFromReview = false;
+  if (clearSelection) selectedCatalogId = null;
+  projectId = null;
+  clarifierState = {};
+  clarificationMeta = {};
+  clarifierQuestionMemory = {};
+  $('questions')?.classList.add('hidden');
+  $('result')?.classList.add('hidden');
+  document.body.classList.remove('focus-mode');
+}
+
+function resetProjectPickerUI() {
+  if ($('projectType')) $('projectType').value = '';
+  document.querySelectorAll('[data-picker-project], [data-picker-catalog]').forEach(x => x.classList.remove('selected'));
+  $('projectCatalog')?.classList.add('hidden');
+  updateProjectSummary();
+}
+
+function beginNewProject() {
+  resetProjectState();
+  resetProjectPickerUI();
+  document.querySelector('.planner-shell')?.classList.remove('hidden');
+}
 
 const pageIds = ['home','about','how','mission','feedback','privacy','terms','plan'];
 const pageIdSet = new Set(pageIds);
@@ -78,6 +108,7 @@ document.querySelectorAll('[data-page-link]').forEach(link => {
     e.preventDefault();
     const page = link.dataset.pageLink;
     if (!pageIdSet.has(page)) return;
+    if (page === 'plan') beginNewProject();
     history.pushState(null,'','#' + page);
     navigate(page);
     closeMobileMenu();
@@ -100,17 +131,16 @@ function savedProjects() {
   if (!STORAGE_AVAILABLE) return items;
   for (let i = 0; i < storage.length(); i++) {
     const key = storage.key(i);
-    if (!key?.startsWith('nhpp-project:')) continue;
+    if (!key?.startsWith(STORAGE_PREFIX)) continue;
     try {
       const saved = JSON.parse(storage.get(key));
-      if (!saved?.type || !saved?.property?.resolvedAddress) continue;
-      const lastUpdated = Date.parse(saved.updatedAt || '') || 0;
-      const expiresAt = Date.parse(saved.expiresAt || '') || (lastUpdated + PROJECT_RETENTION_MS);
-      if (!lastUpdated || expiresAt <= now) {
-        storage.remove(key);
+      if (!isSavedProjectActive(saved, now)) {
+        if (saved?.type || saved?.property) storage.remove(key);
         continue;
       }
-      if (!saved.expiresAt) saved.expiresAt = new Date(expiresAt).toISOString();
+      if (!saved.expiresAt) {
+        saved.expiresAt = new Date(Date.parse(saved.updatedAt) + PROJECT_RETENTION_MS).toISOString();
+      }
       items.push(saved);
     } catch {}
   }
@@ -122,7 +152,7 @@ function renderSavedProjects() {
   if (!root) return;
   const projects = savedProjects();
   const storageNote = STORAGE_AVAILABLE
-    ? storageNote
+    ? 'Browser-saved projects'
     : 'Browser saving is unavailable in this browser session';
   root.classList.remove('hidden');
   root.innerHTML = `
@@ -167,7 +197,8 @@ function renderSavedProjects() {
       if (!window.confirm('Delete this saved project?\\n\\n' + name)) return;
       storage.remove(key);
       if (projectSaveKey() === key) {
-        property = null; type = null; answers = {}; selectedCatalogId = null; clarifierState = {}; clarificationMeta = {}; clarifierQuestionMemory = {}; questionIndex = 0; editingFromReview = false;
+        resetProjectState();
+        resetProjectPickerUI();
       }
       renderSavedProjects();
 
@@ -328,30 +359,39 @@ function importSavedProject(project) {
   if (!STORAGE_AVAILABLE) return false;
   if (!project?.type || !project?.property?.resolvedAddress || !Array.isArray(project.steps)) return false;
   const key=projectSaveKeyFor(project);
-  storage.set(key, JSON.stringify({
+  const saved = serializeSavedProject({
+    projectId:project.projectId || createProjectId(),
     type:project.type,
     property:project.property,
     answers:project.answers || {},
-    steps:project.steps.map(s=>({...s,status:s.status==='complete'?'complete':'not_started'})),
-    updatedAt:project.updatedAt || new Date().toISOString(),
-    expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()
-  }));
+    steps:project.steps,
+    projectCatalogLabel:project.projectCatalogLabel,
+    clarifierState:project.clarifierState,
+    clarificationMeta:project.clarificationMeta,
+    clarifierQuestionMemory:project.clarifierQuestionMemory,
+    updatedAt:project.updatedAt
+  });
+  storage.set(savedProjectKeyFor(saved), JSON.stringify(saved));
   return true;
 }
 
 function projectSaveKeyFor(project) {
-  return 'nhpp-project:' + project.type + ':' + (project.answers?.projectCatalogId || '') + ':' + (project.property?.resolvedAddress || '');
+  return savedProjectKeyFor(project);
 }
 
 function resumeSavedProject(key) {
   try {
     const saved = JSON.parse(storage.get(key));
     if (!saved?.type || !saved?.property) return;
-    type = saved.type;
-    property = saved.property;
-    answers = saved.answers || {};
+    const restored = restoreSavedProjectState(saved);
+    projectId = restored.projectId || createProjectId();
+    type = restored.type;
+    property = restored.property;
+    answers = restored.answers;
     selectedCatalogId = answers.projectCatalogId || saved.projectCatalogId || null;
-    clarifierState = {};
+    clarifierState = restored.clarifierState;
+    clarificationMeta = restored.clarificationMeta;
+    clarifierQuestionMemory = restored.clarifierQuestionMemory;
     questionIndex = 0;
     editingFromReview = false;
     history.pushState(null,'','#plan');
@@ -509,17 +549,16 @@ function updateProjectSummary() {
 }
 
 function resetProjectSelection() {
-  answers = {};
-  selectedCatalogId = null;
-  if ($('projectType')) $('projectType').value = '';
-  document.querySelectorAll('[data-picker-project], [data-picker-catalog]').forEach(x => x.classList.remove('selected'));
-  $('projectCatalog')?.classList.add('hidden');
-  updateProjectSummary();
+  resetProjectState();
+  resetProjectPickerUI();
 }
 
 function selectProject(projectType, catalogId = null) {
-  answers = {};
+  resetProjectState();
+  type = projectType;
+  projectId = createProjectId();
   selectedCatalogId = catalogId || null;
+  answers = {};
   if ($('projectType')) $('projectType').value = projectType;
   if (catalogId) {
     const item = projectCatalogItem(catalogId);
@@ -550,6 +589,9 @@ $('mobileMenu')?.querySelectorAll('[data-page-link]').forEach(link => link.addEv
 function setCatalogSelection(id) {
   const item = projectCatalogItem(id);
   if (!item) return;
+  resetProjectState();
+  type = item.flow || 'general_project';
+  projectId = createProjectId();
   selectedCatalogId = item.id;
   answers = {projectCatalogId:item.id, projectCatalogLabel:item.label};
   if ($('projectType')) {
@@ -738,8 +780,11 @@ $('resolve').onclick = async () => {
   try {
     property = await resolveProperty(address);
     type = chosenType;
+    projectId = projectId || createProjectId();
     answers = selectedCatalogId ? {projectCatalogId:selectedCatalogId, projectCatalogLabel:projectCatalogItem(selectedCatalogId)?.label || null} : {};
     clarifierState = {};
+    clarificationMeta = {};
+    clarifierQuestionMemory = {};
     questionIndex = 0;
     history.pushState(null,'','#plan');
     renderQuestions();
@@ -974,7 +1019,9 @@ function renderQuestionCard({animate=false} = {}) {
     const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
     const meta = q.parentId ? clarificationMeta[q.id] : null;
     const inferenceNotice = i > 0 && meta
-      ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(meta.inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> You chose “' + escape(clarificationSelectionLabel(q, meta.value)) + '”, so we used that to resolve the original answer.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
+      ? meta.unresolved
+        ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">?</span><div><strong>We kept this unresolved.</strong> You still do not have enough information to answer the original question.</div></div>'
+        : '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(meta.inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> You chose “' + escape(clarificationSelectionLabel(q, meta.value)) + '”, so we used that to resolve the original answer.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
       : '';
     return '<div class="inline-question ' + (i ? 'clarifier-question ' : '') + (meta ? 'clarifier-inferred' : '') + '">' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
@@ -1017,6 +1064,11 @@ function renderQuestionCard({animate=false} = {}) {
       if (q.kind === 'multi') {
         const values = [...card.querySelectorAll('input[name="' + input.name + '"]:checked')].map(x => x.value);
         let normalized = values;
+        if (normalized.includes('unsure')) {
+          normalized = input.value === 'unsure' && input.checked
+            ? ['unsure']
+            : normalized.filter(v => v !== 'unsure');
+        }
         if (normalized.includes('none') && normalized.length > 1) {
           normalized = input.value === 'none' && input.checked
             ? ['none']
@@ -1039,6 +1091,11 @@ function renderQuestionCard({animate=false} = {}) {
         else {
           input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
           input.closest('.choice')?.classList.add('selected');
+          if (input.value === 'unsure') {
+            clarificationMeta[q.id] = {parentId:q.parentId, unresolved:true, value:'unsure', questionId:q.id};
+            answers[q.parentId] = 'unsure';
+          }
+          renderQuestionCard({animate:false});
         }
         return;
       }
@@ -1200,7 +1257,7 @@ function formatAnswer(q, value) {
 }
 
 function projectSaveKey() {
-  return 'nhpp-project:' + type + ':' + (answers.projectCatalogId || '') + ':' + (property?.resolvedAddress || '');
+  return savedProjectKeyFor({projectId,type,answers,property});
 }
 
 const stepGuidance = {
@@ -1277,7 +1334,20 @@ function renderResult(plan, options = {}) {
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
   checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
-  storage.set(savedKey, JSON.stringify({type, property, answers, steps:plan.steps, projectCatalogLabel:plan.project.projectCatalogLabel || null, updatedAt:new Date().toISOString(), expiresAt:new Date(Date.now() + PROJECT_RETENTION_MS).toISOString()}));
+  const savedRecord = serializeSavedProject({
+    projectId:projectId || createProjectId(),
+    type,
+    property,
+    answers,
+    steps:plan.steps,
+    projectCatalogLabel:plan.project.projectCatalogLabel || null,
+    clarifierState,
+    clarificationMeta,
+    clarifierQuestionMemory
+  });
+  projectId = savedRecord.projectId;
+  const savedKey = savedProjectKeyFor(savedRecord);
+  storage.set(savedKey, JSON.stringify(savedRecord));
   renderSavedProjects();
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
@@ -1383,7 +1453,8 @@ function renderResult(plan, options = {}) {
     renderQuestions();
   };
   $('restart').onclick = () => {
-    property = null; type = null; answers = {}; selectedCatalogId = null; questionIndex = 0; editingFromReview = false;
+    resetProjectState();
+    resetProjectPickerUI();
     r.classList.add('hidden'); $('questions').classList.add('hidden');
     document.querySelector('.planner-shell')?.classList.remove('hidden');
     history.pushState(null,'','#plan');
