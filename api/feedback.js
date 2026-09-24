@@ -119,6 +119,21 @@ async function getAccessToken(email, privateKey) {
   return data.access_token;
 }
 
+export async function checkSheetsMetadata(token, spreadsheetId, fetcher = fetchWithTimeout) {
+  const metadataUrl =
+    'https://sheets.googleapis.com/v4/spreadsheets/' +
+    encodeURIComponent(spreadsheetId) +
+    '?fields=spreadsheetId';
+  const response = await fetcher(metadataUrl, {
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + token
+    }
+  });
+  if (!response.ok) throw new Error('Google Sheets metadata request failed.');
+  return response;
+}
+
 async function sheetsAppend(token, spreadsheetId, row) {
   const range = 'Sheet1!A:G';
   const appendUrl =
@@ -200,16 +215,7 @@ export default async function handler(request) {
           setTimeout(() => reject(new Error('health check timeout')), REQUEST_TIMEOUT_MS)
         )
       ]);
-      const metadataUrl =
-        'https://sheets.googleapis.com/v4/spreadsheets/' +
-        encodeURIComponent(spreadsheetId) +
-        '?fields=spreadsheetId';
-      await fetchWithTimeout(metadataUrl, {
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'Bearer ' + token
-        }
-      });
+      await checkSheetsMetadata(token, spreadsheetId);
       return json({ ok: true, configured: true, stage: 'ready' });
     } catch (error) {
       console.error('Feedback health check failed:', error?.message || 'Unknown error');
