@@ -205,7 +205,7 @@ const mechanicalContradiction = buildPlan('general_project', property, {
 assert.ok(mechanicalContradiction.project.contradictions.length > 0);
 assert.equal(mechanicalContradiction.project.mechanicalWork,false);
 assert.ok(!mechanicalContradiction.results.some(r=>r.id==='project.mechanical' && r.status==='required'));
-assert.ok(mechanicalContradiction.results.some(r=>r.id==='project.mechanical' && r.status==='needs_confirmation'));
+assert.ok(mechanicalContradiction.results.some(r=>r.id==='project.mechanical-uncertain' && r.status==='needs_confirmation'));
 
 const sleepingContradiction = buildPlan('general_project', property, {
   sleepingRoomAdded:'no',
