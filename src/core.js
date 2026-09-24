@@ -345,9 +345,9 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     ageBoundaryUncertain: a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) === 50,
     historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
       a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
-      (a.historicLocalLandmark == null && property?.historicStatusUnknown === true) ||
-      (a.historicPreservationRestriction == null && property?.historicStatusUnknown === true) ||
-      (a.historicNationalRegister == null && property?.historicStatusUnknown === true) ||
+      ((projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes' || a.primaryWorkArea === 'exterior') && a.historicLocalLandmark == null) ||
+      ((projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes' || a.primaryWorkArea === 'exterior') && a.historicPreservationRestriction == null) ||
+      ((projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes' || a.primaryWorkArea === 'exterior') && a.historicNationalRegister == null) ||
       ((projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes') && property?.historicStatusUnknown === true),
     historicAgeUncertain: (a.historicAgeKnown == null && (property?.yearBuilt == null || Number(property.yearBuilt) <= 0)) || a.historicAgeKnown === 'unsure',
     fireProtectionUncertain: a.fireProtectionWork === 'unsure',
