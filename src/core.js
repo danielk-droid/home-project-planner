@@ -3,6 +3,7 @@ import sources from '../data/sources.json' with { type: 'json' };
 import dependencies from '../data/dependencies.json' with { type: 'json' };
 import questionFlows from '../data/questions.json' with { type: 'json' };
 import projectCatalog from '../data/project_catalog.json' with { type: 'json' };
+import {evaluateRules as evaluateRegulatoryRules} from './regulatory.js';
 
 export const PROJECT_CATALOG = projectCatalog;
 
@@ -227,7 +228,7 @@ function parseStreetAddress(s) {
 function get(ctx,path) { return path.split('.').reduce((v,k)=>v?.[k],ctx); }
 
 export function evaluateRules(ctx) {
-  return rules.filter(r=>condition(r.when,ctx)).map(r=>({...r, sources:r.sourceIds.map(id=>sources.find(s=>s.id===id)).filter(Boolean)}));
+  return evaluateRegulatoryRules(ctx);
 }
 
 function condition(expr,ctx) {
