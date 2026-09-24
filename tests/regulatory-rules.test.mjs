@@ -73,9 +73,9 @@ assert.ok(!eeroComplete.results.some(r=>r.id==='basement.eero-uncertain'));
 const currentYear=new Date().getFullYear();
 const ageBoundary=buildPlan('general_project',{...property,yearBuilt:currentYear-50},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
 assert.ok(ageBoundary.results.some(r=>r.id==='project.age-boundary-uncertain' && r.status==='needs_confirmation'));
-const ageAbove=buildPlan('general_project',{...property,yearBuilt:currentYear-51},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes',historicAgeKnown:'no'});
+const ageAbove=buildPlan('general_project',{...property,yearBuilt:currentYear-51},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
 assert.ok(ageAbove.results.some(r=>r.id==='project.historic-age-demolition' && r.status==='required'));
-const ageBelow=buildPlan('general_project',{...property,yearBuilt:currentYear-49},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes',historicAgeKnown:'no'});
+const ageBelow=buildPlan('general_project',{...property,yearBuilt:currentYear-49},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
 assert.ok(!ageBelow.results.some(r=>r.id==='project.historic-age-demolition' && r.status==='required'));
 
 const historicAgeMissing=buildPlan('general_project',{...property,yearBuilt:null},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
