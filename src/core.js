@@ -27,6 +27,7 @@ export function answerIsUnsure(value) { return value === 'unsure'; }
 
 export function inferClarifiedAnswer(questionId, value) {
   const values = Array.isArray(value) ? value : [value];
+  if (values.includes('unsure')) return null;
   const multiBinary = new Set([
     'demolition','structuralChanges','electricalWork','plumbingWork','gasWork',
     'exteriorChange','siteWork','treeImpact','windowsOrDoors','newVentilation',
@@ -248,6 +249,9 @@ function condition(expr,ctx) {
 
 export function deriveProject(projectType, answers = {}, property = {}) {
   const a = answers;
+  const kitchenRegulatedKeys = ['structuralChanges','demolition','electricalWork','plumbingWork','gasWork','exteriorChange','siteWork','useChange','unitCountChange','layoutChange'];
+  const kitchenHasRegulatedWork = a.projectCatalogId === 'kitchen_renovation' && kitchenRegulatedKeys.some(key => a[key] === 'yes');
+  const kitchenScopeUncertain = a.projectCatalogId === 'kitchen_renovation' && kitchenRegulatedKeys.some(key => a[key] === 'unsure');
   const basementBathroom = a.bathroomAdded === 'yes' || a.bathroomIntent === 'yes';
   const basementPlumbing = a.plumbingWork === 'yes' || basementBathroom;
   const exteriorAnswer = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('yes') ? 'yes' : ([a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure') ? 'unsure' : 'no');
@@ -264,7 +268,8 @@ export function deriveProject(projectType, answers = {}, property = {}) {
       a.demolition === 'yes' ||
       a.guttingExtent === 'yes' ||
       a.layoutChange === 'yes' ||
-      a.footprintChange === 'yes',
+      a.footprintChange === 'yes' ||
+      kitchenHasRegulatedWork,
     buildingWorkUncertain: projectType === 'general_project' && !(
       projectType === 'addition' || projectType === 'deck' ||
       ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
@@ -273,11 +278,13 @@ export function deriveProject(projectType, answers = {}, property = {}) {
       a.structuralChanges === 'yes' || a.demolition === 'yes' ||
       a.guttingExtent === 'yes' || a.layoutChange === 'yes' ||
       a.footprintChange === 'yes' || a.primaryWorkArea === 'kitchen' ||
-      a.primaryWorkArea === 'systems' || a.primaryWorkArea === 'site'
+      a.primaryWorkArea === 'systems' || a.primaryWorkArea === 'site' ||
+      kitchenHasRegulatedWork
     ) && (
       a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' ||
       a.structuralChanges === 'unsure' || a.demolition === 'unsure' ||
-      a.exteriorChange === 'unsure' || a.siteWork === 'unsure'
+      a.exteriorChange === 'unsure' || a.siteWork === 'unsure' ||
+      kitchenScopeUncertain
     ),
     projectDescription: a.projectDescription || null,
     projectCatalogId: a.projectCatalogId || null,
