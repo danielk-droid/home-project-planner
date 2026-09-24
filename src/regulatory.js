@@ -88,6 +88,9 @@ export function evaluateExpressionState(expr, ctx) {
 }
 
 export function evaluateExpression(expr, ctx) {
+  // Compatibility API: this deliberately answers only the affirmative question.
+  // Consumers requiring negative vs unknown vs unavailable must use
+  // evaluateExpressionState() or evaluateRules().
   return evaluateExpressionState(expr, ctx) === 'affirmative';
 }
 
@@ -135,7 +138,9 @@ export function evaluateRules(ctx, registry = rules, sourceRegistry = sources, s
     const sourceMissing = sourceStates.some(s => s.registry === 'missing');
     const sourceUnavailable = sourceStates.some(s => s.unavailable);
     const sourceChanged = sourceStates.some(s => s.changed);
-    const state = sourceMissing || sourceUnavailable ? 'source_unavailable' : evaluateExpressionState(rule.when, ctx);
+    const contradiction = Array.isArray(ctx?.project?.contradictions) ? ctx.project.contradictions : [];
+    const affectedMechanical = rule.id === 'project.mechanical' && contradiction.some(c => c.includes('systemType'));
+    const state = sourceMissing || sourceUnavailable ? 'source_unavailable' : affectedMechanical ? 'unknown' : evaluateExpressionState(rule.when, ctx);
 
     // Only affirmative rules and materially unresolved rules are emitted.
     // Known-negative rules remain explicit in the evaluator state but are not
