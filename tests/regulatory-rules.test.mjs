@@ -255,3 +255,10 @@ for (const value of [undefined,null,'no','unsure','yes']) {
   if (value === 'no') assert.equal(p.project.trenchDewatering,false);
   if (value === 'unsure' || value == null) assert.equal(p.project.trenchDewatering,value === 'unsure' ? false : undefined);
 }
+
+const historicDirect = evaluateRules(
+  {project:{historicStatusUncertain:true}},
+  [rules.find(r=>r.id==='property.historic-status-uncertain')],
+  sources
+);
+assert.equal(historicDirect[0]?.status,'needs_confirmation');
