@@ -76,7 +76,7 @@ assert.ok(ageBoundary.results.some(r=>r.id==='project.age-boundary-uncertain' &&
 const ageAbove=buildPlan('general_project',{...property,yearBuilt:currentYear-51},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
 assert.equal(ageAbove.project.ageAtLeast50,true);
 assert.equal(ageAbove.project.demolition,true);
-assert.ok(ageAbove.results.some(r=>r.id==='project.historic-age-demolition' && r.status==='required'));
+assert.equal(ageAbove.results.find(r=>r.id==='project.historic-age-demolition')?.status,'required',JSON.stringify(ageAbove.results.map(r=>({id:r.id,status:r.status}))));
 const ageBelow=buildPlan('general_project',{...property,yearBuilt:currentYear-49},{primaryWorkArea:'exterior',exteriorChange:'yes',demolition:'yes'});
 assert.ok(!ageBelow.results.some(r=>r.id==='project.historic-age-demolition' && r.status==='required'));
 
