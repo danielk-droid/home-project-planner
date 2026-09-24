@@ -16,8 +16,8 @@ assert.ok(app.includes("unresolved:true"), 'unresolved clarification metadata mi
 assert.ok(app.includes('clarifierState:project.clarifierState'), 'saved projects must persist clarification state');
 assert.ok(app.includes('clarificationMeta:project.clarificationMeta'), 'saved projects must persist clarification metadata');
 assert.ok(app.includes('clarifierQuestionMemory:project.clarifierQuestionMemory'), 'saved projects must persist clarification memory');
-assert.ok(app.includes('storage.getItem(key)'), 'localStorage wrapper must use getItem');
-assert.ok(app.includes('storage.setItem(key, value)'), 'localStorage wrapper must use setItem');
+assert.ok(app.includes('candidate.getItem(key)'), 'localStorage wrapper must use getItem');
+assert.ok(app.includes('candidate.setItem(key, value)'), 'localStorage wrapper must use setItem');
 assert.ok(app.includes('projectId = createProjectId()'), 'new projects must receive stable save identity');
 
 console.log('app state regression tests: PASS');
