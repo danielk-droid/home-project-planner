@@ -64,7 +64,8 @@
       "versionOrEffectiveDate": "Checklist revised 2023; current checklist availability verified 2026",
       "exceptions": "new construction permit will not issue until required demolition permit is issued",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "BLD-003",
@@ -81,7 +82,8 @@
       "versionOrEffectiveDate": "10th Edition 780 CMR",
       "exceptions": "minor/nonregulated work may fall within exemptions; exact classification requires code review",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "BLD-004",
@@ -97,7 +99,9 @@
       "result": "Current 2026 ISD demolition notice; historic review separate",
       "versionOrEffectiveDate": "historic demolition review is a separate pathway",
       "exceptions": "No",
-      "boundaryConditions": "Yes"
+      "boundaryConditions": "Yes",
+      "professionalReview": "Yes",
+      "deterministicAutomation": "No"
     },
     {
       "id": "ZON-001",
@@ -114,7 +118,8 @@
       "versionOrEffectiveDate": "Zoning Ordinance last amended 2025-12-01",
       "exceptions": "existing nonconformity and recorded approvals can change result",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "ZON-002",
@@ -131,7 +136,8 @@
       "versionOrEffectiveDate": "Current FAR guidance",
       "exceptions": "existing basement/attic finish within existing envelope does not require FAR calculation; additions/new construction do",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "ZON-003",
@@ -148,7 +154,8 @@
       "versionOrEffectiveDate": "Current zoning ordinance",
       "exceptions": "district and structure-specific rules vary; no universal setback",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "ZON-004",
@@ -165,7 +172,8 @@
       "versionOrEffectiveDate": "Current ordinance",
       "exceptions": "height measurement and exceptions are structure-specific",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "ZON-005",
@@ -182,7 +190,8 @@
       "versionOrEffectiveDate": "Current ordinance",
       "exceptions": "FAR does not substitute for lot coverage/open space analysis",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "ZON-006",
@@ -199,7 +208,8 @@
       "versionOrEffectiveDate": "ADU guidance updated 2026-09-16",
       "exceptions": "one ADU per lot; size/by-right/special-permit rules differ by type and CO age",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "ZON-007",
@@ -216,7 +226,8 @@
       "versionOrEffectiveDate": "Current NewGov planning process",
       "exceptions": "cannot infer special permit solely from addition label",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "ZON-008",
@@ -233,7 +244,8 @@
       "versionOrEffectiveDate": "Current ADU ordinance",
       "exceptions": "historic carriage-house treatment can interact with ADU dimensional rules",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "TRD-001",
@@ -250,7 +262,8 @@
       "versionOrEffectiveDate": "MA Electrical Code based on NFPA 70, 2026 effective 2026-04-24",
       "exceptions": "fire alarm work can require separate Fire permit in addition to electrical",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "TRD-002",
@@ -267,7 +280,8 @@
       "versionOrEffectiveDate": "Current Newton page",
       "exceptions": "exact permit requirements depend on work",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "TRD-003",
@@ -284,7 +298,8 @@
       "versionOrEffectiveDate": "Current Newton page",
       "exceptions": "gas work may coexist with mechanical/plumbing and fossil-free restrictions",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "TRD-004",
@@ -301,7 +316,8 @@
       "versionOrEffectiveDate": "Current page",
       "exceptions": "separate energy/fossil-free rules may also apply depending on project classification",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "MEC-001",
@@ -318,7 +334,8 @@
       "versionOrEffectiveDate": "Current Newton permitting system",
       "exceptions": "Newton public material does not expose complete equipment-by-equipment matrix",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "FIR-001",
@@ -335,7 +352,8 @@
       "versionOrEffectiveDate": "Current page",
       "exceptions": "detailed 2024 Fire requirements indicate scope-dependent advance approval and ISD issuance determination",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "FIR-002",
@@ -352,7 +370,8 @@
       "versionOrEffectiveDate": "Current Newton Fire page",
       "exceptions": "Newton states separate Fire and electrical permits for residential fire alarm work",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "FIR-003",
@@ -369,7 +388,8 @@
       "versionOrEffectiveDate": "Current Fire Plan Reviews page",
       "exceptions": "requirements differ by system and occupancy",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "HIS-001",
@@ -386,7 +406,8 @@
       "versionOrEffectiveDate": "Current Newton historic guidance",
       "exceptions": "in-kind/ordinary maintenance may qualify for staff/administrative treatment",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "HIS-002",
@@ -403,7 +424,8 @@
       "versionOrEffectiveDate": "Current Newton historic guidance",
       "exceptions": "designation-specific terms may affect scope",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "HIS-003",
@@ -420,7 +442,8 @@
       "versionOrEffectiveDate": "Current Newton historic guidance",
       "exceptions": "restriction controls vary by deed/restriction",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "HIS-004",
@@ -437,7 +460,8 @@
       "versionOrEffectiveDate": "Current Newton guidance",
       "exceptions": "not every National Register property alteration is identical; application guidance governs",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "HIS-005",
@@ -454,7 +478,8 @@
       "versionOrEffectiveDate": "Current guidance; exact wording varies between pages",
       "exceptions": "partial demolition defined as removal/alteration/envelopment of 50%+ of single elevation or roof surface",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "HIS-006",
@@ -471,7 +496,8 @@
       "versionOrEffectiveDate": "Current Newton guidance",
       "exceptions": "do not equate 50+ age with local district/landmark status",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "TRE-001",
@@ -488,7 +514,8 @@
       "versionOrEffectiveDate": "Current ordinance/page; exterior construction requirement verified",
       "exceptions": "permit required even if no tree removal",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "No"
+      "deterministicAutomation": "No",
+      "professionalReview": "No"
     },
     {
       "id": "TRE-002",
@@ -505,7 +532,8 @@
       "versionOrEffectiveDate": "Current page states 6-inch DBH or greater",
       "exceptions": "documented exemptions may exist; exact tree classification should remain source-driven",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "TRE-003",
@@ -522,7 +550,8 @@
       "versionOrEffectiveDate": "Current ordinance/page",
       "exceptions": "Tree Save Area is greater of drip line or 1.5 ft per inch DBH radius",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "CON-001",
@@ -539,7 +568,8 @@
       "versionOrEffectiveDate": "Current Newton guidance",
       "exceptions": "distance alone is insufficient without correct resource classification",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "CON-002",
@@ -556,7 +586,8 @@
       "versionOrEffectiveDate": "Current Newton guidance",
       "exceptions": "resource classification must be established",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "CON-003",
@@ -573,7 +604,8 @@
       "versionOrEffectiveDate": "Current Newton guidance",
       "exceptions": "FEMA and City floodplains are distinct ordinance layers",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "STM-001",
@@ -590,7 +622,8 @@
       "versionOrEffectiveDate": "Current ordinance/rules",
       "exceptions": "exact waiver/exemption handling not exhaustively established",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "STM-002",
@@ -607,7 +640,8 @@
       "versionOrEffectiveDate": "Current ordinance",
       "exceptions": "threshold category interacts with land disturbance and project type",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "STM-003",
@@ -624,7 +658,8 @@
       "versionOrEffectiveDate": "Current ordinance",
       "exceptions": "0.5 acre = 21,780 sq ft; exact interaction with other categories requires ordinance evaluation",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "STM-004",
@@ -641,7 +676,8 @@
       "versionOrEffectiveDate": "Current ordinance",
       "exceptions": "do not trigger from decorative wall absent qualifying grade-change condition",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "STM-005",
@@ -658,7 +694,8 @@
       "versionOrEffectiveDate": "Current ordinance",
       "exceptions": "fact-specific",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "STM-006",
@@ -675,7 +712,8 @@
       "versionOrEffectiveDate": "Current Newton Engineering/Conservation framework",
       "exceptions": "do not infer a permit category without site facts",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "EER-001",
@@ -692,7 +730,8 @@
       "versionOrEffectiveDate": "2026-07-28 interpretation; current 10th Edition",
       "exceptions": "existing compliant openings/exceptions can change outcome",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "EER-002",
@@ -709,7 +748,8 @@
       "versionOrEffectiveDate": "Current 10th Edition",
       "exceptions": "do not assume basement common-area EERO substitutes for sleeping-room requirement",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "EER-003",
@@ -726,7 +766,8 @@
       "versionOrEffectiveDate": "Current 10th Edition",
       "exceptions": "published exceptions include grade-floor and double-hung conditions; replacement-window exception may apply",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "ENG-001",
@@ -743,7 +784,8 @@
       "versionOrEffectiveDate": "Current Engineering page",
       "exceptions": "private interior plumbing is not automatically Engineering public-way work",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "ENG-002",
@@ -760,7 +802,8 @@
       "versionOrEffectiveDate": "Checklist revised 2023; current copy available",
       "exceptions": "checklist wording should not be promoted to universal ordinance without current Engineering confirmation",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "INS-001",
@@ -777,7 +820,8 @@
       "versionOrEffectiveDate": "Current page",
       "exceptions": "specific inspection stages vary by project",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "No"
+      "deterministicAutomation": "No",
+      "professionalReview": "No"
     },
     {
       "id": "INS-002",
@@ -794,7 +838,8 @@
       "versionOrEffectiveDate": "Current page",
       "exceptions": "other departments may have separate final/sign-off processes",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "No"
+      "deterministicAutomation": "No",
+      "professionalReview": "No"
     },
     {
       "id": "INS-003",
@@ -811,7 +856,8 @@
       "versionOrEffectiveDate": "Current page",
       "exceptions": "not every department signoff is required for every project",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "No"
+      "deterministicAutomation": "No",
+      "professionalReview": "No"
     },
     {
       "id": "CLS-001",
@@ -828,7 +874,8 @@
       "versionOrEffectiveDate": "Current page",
       "exceptions": "check entire list; department-specific permits may be outside ISD",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "No"
+      "deterministicAutomation": "No",
+      "professionalReview": "No"
     },
     {
       "id": "CLS-002",
@@ -845,7 +892,8 @@
       "versionOrEffectiveDate": "Current page",
       "exceptions": "other departments own their own closeout",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "No"
+      "deterministicAutomation": "No",
+      "professionalReview": "No"
     },
     {
       "id": "ENE-001",
@@ -862,7 +910,8 @@
       "versionOrEffectiveDate": "Newton states Specialized Code effective 2024-01-01; MA 10th Edition now current",
       "exceptions": "code applicability can depend on project/type and transition rules",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "ENE-002",
@@ -879,7 +928,8 @@
       "versionOrEffectiveDate": "Current 2026 ordinance/page",
       "exceptions": "definition includes multiple alternative tests; exceptions and waivers exist",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "Yes"
     },
     {
       "id": "ENE-003",
@@ -896,7 +946,8 @@
       "versionOrEffectiveDate": "Newton says from 2026-01-01 major renovations/additions over 1,000 sq ft must be fully all-electric",
       "exceptions": "2025 gas-cooking exception expired 2026-01-01; ordinance exceptions remain",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "POR-001",
@@ -913,7 +964,8 @@
       "versionOrEffectiveDate": "Current portal",
       "exceptions": "some public records/search use separate portal endpoints",
       "boundaryConditions": "Yes",
-      "deterministicAutomation": "No"
+      "deterministicAutomation": "No",
+      "professionalReview": "No"
     },
     {
       "id": "POR-002",
@@ -930,7 +982,8 @@
       "versionOrEffectiveDate": "Current portal/GIS",
       "exceptions": "GIS layers have stated source dates and should not be treated as live legal determination",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     },
     {
       "id": "POR-003",
@@ -947,14 +1000,36 @@
       "versionOrEffectiveDate": "Current GIS browser; flood data source notes effective 2010",
       "exceptions": "GIS is screening evidence, not final legal determination",
       "boundaryConditions": "No",
-      "deterministicAutomation": "Yes"
+      "deterministicAutomation": "Yes",
+      "professionalReview": "No"
     }
   ],
   "summary": {
     "totalRules": 54,
     "deterministicRules": 45,
     "requiringConfirmation": 49,
-    "professionalReviewRules": 1,
-    "note": "A rule may be deterministic only after its required facts are established. This flag means the rule logic can be encoded deterministically from verified inputs, not that HPP can determine the inputs automatically."
+    "professionalReviewRules": 18,
+    "note": "A rule may be deterministic only after its required facts are established. This flag means the rule logic can be encoded deterministically from verified inputs, not that HPP can determine the inputs automatically.",
+    "highRiskRuleIds": [
+      "BLD-001",
+      "BLD-003",
+      "BLD-004",
+      "ZON-001",
+      "ZON-003",
+      "ZON-004",
+      "ZON-006",
+      "MEC-001",
+      "FIR-001",
+      "FIR-003",
+      "HIS-004",
+      "HIS-005",
+      "STM-001",
+      "ENE-002",
+      "EER-001",
+      "EER-002",
+      "EER-003",
+      "ENG-002"
+    ],
+    "highRiskNote": "Professional review is recommended before HPP presents these rules as authoritative because they involve code interpretation, discretionary zoning/historic determinations, threshold interactions, or source ambiguity."
   }
 }
