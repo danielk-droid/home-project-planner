@@ -1,5 +1,3 @@
-import rules from '../data/rules.json' with { type: 'json' };
-import sources from '../data/sources.json' with { type: 'json' };
 import dependencies from '../data/dependencies.json' with { type: 'json' };
 import questionFlows from '../data/questions.json' with { type: 'json' };
 import projectCatalog from '../data/project_catalog.json' with { type: 'json' };
@@ -225,28 +223,6 @@ function parseStreetAddress(s) {
   return m ? {number:m[1],street:m[2]} : null;
 }
 
-function get(ctx,path) { return path.split('.').reduce((v,k)=>v?.[k],ctx); }
-
-export function evaluateRules(ctx) {
-  return evaluateRegulatoryRules(ctx);
-}
-
-function condition(expr,ctx) {
-  return expr.split(/\s*\|\|\s*/).some(orTerm => orTerm.split(/\s*&&\s*/).every(term=>{
-    const m=term.match(/^([\w.]+)\s*(==|!=|<=|>=|<|>)\s*(.+)$/); if(!m) return false;
-    const actual=get(ctx,m[1]); const raw=m[3].trim(); let expected;
-    if(raw==='true') expected=true; else if(raw==='false') expected=false; else if(raw==='null') expected=null;
-    else if(/^[-+]?\d+(?:\.\d+)?$/.test(raw)) expected=Number(raw);
-    else expected=raw.replace(/^['"]|['"]$/g,'');
-    if(m[2]==='==') return actual===expected;
-    if(m[2]==='!=') return actual!==expected;
-    if(m[2]==='<') return actual < expected;
-    if(m[2]==='>') return actual > expected;
-    if(m[2]==='<=') return actual <= expected;
-    if(m[2]==='>=') return actual >= expected;
-    return false;
-  }));
-}
 
 export function deriveProject(projectType, answers = {}, property = {}) {
   const a = answers;
