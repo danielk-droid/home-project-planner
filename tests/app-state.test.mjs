@@ -18,7 +18,6 @@ assert.ok(app.includes('clarificationMeta:project.clarificationMeta'), 'saved pr
 assert.ok(app.includes('clarifierQuestionMemory:project.clarifierQuestionMemory'), 'saved projects must persist clarification memory');
 assert.ok(app.includes('storage.getItem(key)'), 'localStorage wrapper must use getItem');
 assert.ok(app.includes('storage.setItem(key, value)'), 'localStorage wrapper must use setItem');
-assert.ok(!app.includes('storage.get(key)')) || true;
 assert.ok(app.includes('projectId = createProjectId()'), 'new projects must receive stable save identity');
 
 console.log('app state regression tests: PASS');
