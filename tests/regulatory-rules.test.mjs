@@ -221,7 +221,7 @@ assert.equal(evaluateExpressionState('property.floodplain == null',{property:{fl
 assert.equal(evaluateExpressionState('property.floodplain > 0',{property:{}}),'unknown');
 
 for (const value of [undefined,null,'no','unsure','yes']) {
-  const historic = buildPlan('general_project', property, {
+  const historic = buildPlan('general_project', {...property, historicStatusUnknown:true}, {
     primaryWorkArea:'exterior',
     historicLocalLandmark:value
   });
