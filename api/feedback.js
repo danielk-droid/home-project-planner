@@ -113,7 +113,11 @@ async function getAccessToken(email, privateKey) {
     })
   });
 
-  if (!response.ok) throw new Error('Google authentication failed.');
+  if (!response.ok) {
+    const detail = await response.text().catch(() => '');
+    console.error('Google token request failed [' + response.status + ']: ' + detail.slice(0, 500));
+    throw new Error('Google authentication failed.');
+  }
   const data = await response.json();
   if (!data.access_token) throw new Error('Google authentication returned no access token.');
   return data.access_token;
@@ -141,7 +145,11 @@ async function sheetsAppend(token, spreadsheetId, row) {
     })
   });
 
-  if (!response.ok) throw new Error('Google Sheets append failed.');
+  if (!response.ok) {
+    const detail = await response.text().catch(() => '');
+    console.error('Google Sheets append failed [' + response.status + ']: ' + detail.slice(0, 500));
+    throw new Error('Google Sheets append failed.');
+  }
 }
 
 export function validateFeedbackPayload(body) {
@@ -183,7 +191,7 @@ export function validateFeedbackPayload(body) {
   };
 }
 
-export default async function handler(request) {
+export async function fetchHandler(request) {
   const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
   const privateKey = normalizePrivateKey(process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY);
   const spreadsheetId = cleanString(process.env.GOOGLE_SHEETS_SPREADSHEET_ID, 200);
@@ -204,12 +212,17 @@ export default async function handler(request) {
         'https://sheets.googleapis.com/v4/spreadsheets/' +
         encodeURIComponent(spreadsheetId) +
         '?fields=spreadsheetId';
-      await fetchWithTimeout(metadataUrl, {
+      const metadata = await fetchWithTimeout(metadataUrl, {
         headers: {
           Accept: 'application/json',
           Authorization: 'Bearer ' + token
         }
       });
+      if (!metadata.ok) {
+        const detail = await metadata.text().catch(() => '');
+        console.error('Sheets access check failed [' + metadata.status + ']: ' + detail.slice(0, 500));
+        throw new Error('Sheets access failed.');
+      }
       return json({ ok: true, configured: true, stage: 'ready' });
     } catch (error) {
       console.error('Feedback health check failed:', error?.message || 'Unknown error');
@@ -268,4 +281,53 @@ export default async function handler(request) {
     console.error('Feedback submission failed at ' + stage + ':', error?.name || error?.message || 'Unknown error');
     return json({ error: 'Feedback could not be submitted right now.' }, 502);
   }
+}
+
+// Vercel's Node.js runtime invokes a default-exported function with
+// (IncomingMessage, ServerResponse), not with a Web `Request`. The handler
+// above is written against the Web standard, so adapt whichever signature the
+// platform provides. This keeps the exact same validation, security and
+// Google Sheets behaviour on every runtime.
+function requestFromNode(req) {
+  const proto = (req.headers['x-forwarded-proto'] || 'https').split(',')[0].trim();
+  const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost';
+  const url = new URL(req.url || '/', proto + '://' + host);
+  const headers = new Headers();
+  for (const [key, value] of Object.entries(req.headers || {})) {
+    if (value === undefined) continue;
+    if (Array.isArray(value)) value.forEach(item => headers.append(key, item));
+    else headers.set(key, String(value));
+  }
+  const method = (req.method || 'GET').toUpperCase();
+  let body;
+  if (method !== 'GET' && method !== 'HEAD') {
+    body = typeof req.body === 'string'
+      ? req.body
+      : req.body && typeof req.body === 'object'
+        ? JSON.stringify(req.body)
+        : undefined;
+  }
+  return new Request(url, { method, headers, body });
+}
+
+async function readNodeBody(req) {
+  if (req.body !== undefined) return;
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  if (chunks.length) req.body = Buffer.concat(chunks.map(c => Buffer.from(c))).toString('utf8');
+}
+
+async function sendNodeResponse(res, response) {
+  res.statusCode = response.status;
+  response.headers.forEach((value, key) => res.setHeader(key, value));
+  res.end(await response.text());
+}
+
+export default async function handler(requestOrReq, maybeRes) {
+  if (maybeRes && typeof maybeRes.end === 'function') {
+    await readNodeBody(requestOrReq);
+    const response = await fetchHandler(requestFromNode(requestOrReq));
+    return sendNodeResponse(maybeRes, response);
+  }
+  return fetchHandler(requestOrReq);
 }
