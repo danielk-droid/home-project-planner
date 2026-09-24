@@ -131,7 +131,7 @@
   },
   {
     "id": "project.mechanical",
-    "when": "project.mechanicalWork == true",
+    "when": "project.mechanicalWork == true && project.mechanicalUncertain != true && project.contradictions == null",
     "status": "required",
     "title": "Mechanical permit workflow",
     "action": "Newton has a separate mechanical-permit pathway. The exact permit bundle depends on the HVAC equipment and whether electrical, gas, plumbing, duct/ventilation, or building work is also changing.",
@@ -144,14 +144,18 @@
     "authority": "official_guidance",
     "topic": "project",
     "triggerFacts": [
-      "project.mechanicalWork"
+      "project.mechanicalWork",
+      "project.mechanicalUncertain",
+      "project.contradictions"
     ],
     "requiredFacts": [
-      "project.mechanicalWork"
+      "project.mechanicalWork",
+      "project.mechanicalUncertain",
+      "project.contradictions"
     ],
     "decisionLogic": {
       "type": "expression",
-      "expression": "project.mechanicalWork == true"
+      "expression": "project.mechanicalWork == true && project.mechanicalUncertain != true && project.contradictions == null"
     },
     "possibleOutputs": [
       "required"
