@@ -125,3 +125,30 @@ const historicFalse = evaluateRules({project:{exteriorConstruction:true},propert
 assert.equal(historicFalse.length,0);
 const historicTrue = evaluateRules({project:{exteriorConstruction:true},property:{historicDistrict:true}},[rules.find(r=>r.id==='property.historic')],sources);
 assert.equal(historicTrue.length,1);
+
+const monitorUnavailable = evaluateRules(
+  {project:{electricalWork:true}},
+  [rules.find(r=>r.id==='project.electrical')],
+  sources,
+  {sources:{'newton-electrical-plumbing-gas':{health:'unreachable',checkedAt:'2026-09-23T00:00:00Z'}}}
+);
+assert.equal(monitorUnavailable[0].status,'source_unavailable');
+assert.equal(monitorUnavailable[0].sourceState.unavailable,true);
+
+const monitorChanged = evaluateRules(
+  {project:{electricalWork:true}},
+  [rules.find(r=>r.id==='project.electrical')],
+  sources,
+  {sources:{'newton-electrical-plumbing-gas':{health:'healthy',changeStatus:'changed_requires_review',checkedAt:'2026-09-23T00:00:00Z'}}}
+);
+assert.equal(monitorChanged[0].status,'needs_confirmation');
+assert.equal(monitorChanged[0].sourceState.changed,true);
+
+const missingSource = evaluateRules(
+  {project:{electricalWork:true}},
+  [{...rules.find(r=>r.id==='project.electrical'),sourceIds:['missing-source']}],
+  sources
+);
+assert.equal(missingSource[0].status,'source_unavailable');
+
+console.log('source availability boundary tests: PASS');
