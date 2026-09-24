@@ -397,11 +397,9 @@
     "authority": "official_guidance",
     "topic": "project",
     "triggerFacts": [
-      "project.newImperviousSqFt",
       "project.newImperviousSqFt"
     ],
     "requiredFacts": [
-      "project.newImperviousSqFt",
       "project.newImperviousSqFt"
     ],
     "decisionLogic": {
@@ -689,13 +687,11 @@
     "triggerFacts": [
       "project.nationalRegister",
       "project.exteriorConstruction",
-      "project.nationalRegister",
       "project.demolition"
     ],
     "requiredFacts": [
       "project.nationalRegister",
       "project.exteriorConstruction",
-      "project.nationalRegister",
       "project.demolition"
     ],
     "decisionLogic": {
