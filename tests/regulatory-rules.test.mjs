@@ -46,7 +46,7 @@ for (const floodplain of [undefined,null,false,true]) {
   const ctx={project:{siteReviewRelevant:true},property:{...baseProperty,floodplain}};
   const floodRule=rules.find(r=>r.id==='property.floodplain');
   const result=evaluateRules(ctx, [floodRule], sources);
-  assert.equal(result.some(r=>r.id==='property.floodplain' && r.status==='potentially_required'), floodplain === false || floodplain === true);
+  assert.equal(result.some(r=>r.id==='property.floodplain' && r.status==='potentially_required'), floodplain === true);
 }
 for (const historicDistrict of [undefined,null,false,true]) {
   const ctx={project:{exteriorConstruction:true},property:{...baseProperty,historicDistrict}};
@@ -110,3 +110,18 @@ assert.ok(explain.explanation.sourceIds.length>0);
 assert.equal(explain.sourceState.registry,'present');
 
 console.log('regulatory false-certainty and boundary tests: PASS ('+rules.length+' rules)');
+
+const additionMissing = buildPlan('addition',property,{newArea:undefined,stories:undefined});
+assert.equal(additionMissing.project.addedAreaOver1000,undefined);
+assert.equal(additionMissing.project.additionStories,undefined);
+assert.ok(additionMissing.results.some(r=>r.id==='project.energy-major' && r.status==='needs_confirmation'));
+assert.ok(additionMissing.results.some(r=>r.id==='addition.stories' && r.status==='needs_confirmation'));
+
+const deckMissing = buildPlan('deck',property,{deckNew:'yes',deckHeight:undefined,stairsOrGuard:'no'});
+assert.equal(deckMissing.project.deckHeightFt,undefined);
+assert.ok(deckMissing.results.some(r=>r.id==='deck.elevated' && r.status==='needs_confirmation'));
+
+const historicFalse = evaluateRules({project:{exteriorConstruction:true},property:{historicDistrict:false}},[rules.find(r=>r.id==='property.historic')],sources);
+assert.equal(historicFalse.length,0);
+const historicTrue = evaluateRules({project:{exteriorConstruction:true},property:{historicDistrict:true}},[rules.find(r=>r.id==='property.historic')],sources);
+assert.equal(historicTrue.length,1);
