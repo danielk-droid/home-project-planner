@@ -245,6 +245,7 @@ export function deriveProject(projectType, answers = {}, property = {}) {
       a.guttingExtent === 'yes' ||
       a.layoutChange === 'yes' ||
       a.footprintChange === 'yes' ||
+      a.useChange === 'yes' ||
       kitchenHasRegulatedWork,
     buildingWorkUncertain: projectType === 'general_project' && !(
       projectType === 'addition' || projectType === 'deck' ||
