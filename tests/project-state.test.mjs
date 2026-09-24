@@ -244,4 +244,66 @@ const SAME = '12 Oak Street';
   assert.deepEqual(listSavedProjects(broken), []);
 }
 
+// Legacy record with no id, and a record whose id disagrees with its key:
+// re-saving must update the same key, never create a second copy.
+{
+  const now = Date.now();
+  const legacy = { ...projectA(), updatedAt: new Date(now).toISOString() };
+  delete legacy.id;
+  const mismatched = { ...projectB(), id: 'other-id', updatedAt: new Date(now).toISOString() };
+  const backend = memoryBackend({
+    'nhpp-project:basement_finish|basement|130 Wheeler Road': JSON.stringify(legacy),
+    'nhpp-project:real-id': JSON.stringify(mismatched)
+  });
+  const store = createStorage(backend);
+  const listed = listSavedProjects(store, now);
+  assert.equal(listed.length, 2);
+  for (const saved of listed) {
+    const state = restoreProjectState(saved);
+    assert.equal(storageKeyForId(state.id), saved.storageKey);
+    saveProject(store, { ...saved, id: state.id }, now + 1000);
+  }
+  assert.equal(listSavedProjects(store, now + 2000).length, 2);
+  assert.equal(Object.keys(backend.snapshot()).length, 2);
+}
+
+// One corrupted record (bad JSON, wrong field shapes, non-object) must not stop
+// the others from loading, and wrong-shaped fields are replaced safely.
+{
+  const now = Date.now();
+  const good = saveProject(createStorage(memoryBackend()), projectA(), now);
+  const backend = memoryBackend({
+    [good.storageKey]: JSON.stringify(good),
+    'nhpp-project:bad-json': '{not json',
+    'nhpp-project:array': '[1,2,3]',
+    'nhpp-project:null': 'null',
+    'nhpp-project:no-address': JSON.stringify({ type: 'deck', property: {}, updatedAt: new Date(now).toISOString() }),
+    'nhpp-project:bad-shapes': JSON.stringify({
+      type: 'deck', property: { resolvedAddress: '22 Commonwealth Avenue' },
+      answers: 'oops', steps: 'nope', clarifierState: [1], updatedAt: new Date(now).toISOString()
+    }),
+    'unrelated-key': 'keep me'
+  });
+  const store = createStorage(backend);
+  const listed = listSavedProjects(store, now);
+  assert.deepEqual(listed.map(x => x.property.resolvedAddress).sort(), ['130 Wheeler Road', '22 Commonwealth Avenue']);
+  const shaped = loadProject(store, 'nhpp-project:bad-shapes');
+  assert.deepEqual(shaped.answers, {});
+  assert.deepEqual(shaped.steps, []);
+  assert.deepEqual(shaped.clarifierState, {});
+  assert.equal(shaped.id, 'bad-shapes');
+  assert.equal(loadProject(store, 'nhpp-project:bad-json'), null);
+  assert.equal(backend.getItem('unrelated-key'), 'keep me');
+}
+
+// Deleting one project leaves every other project intact.
+{
+  const store = createStorage(memoryBackend());
+  const a = saveProject(store, projectA());
+  const b = saveProject(store, projectB());
+  store.remove(a.storageKey);
+  assert.equal(loadProject(store, a.storageKey), null);
+  assert.equal(loadProject(store, b.storageKey).property.resolvedAddress, b.property.resolvedAddress);
+}
+
 console.log('project state isolation & persistence tests: PASS');

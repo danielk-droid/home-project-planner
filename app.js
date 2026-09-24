@@ -354,9 +354,19 @@ function resumeSavedProject(key) {
   const state = restoreProjectState(saved);
   applyProjectState(state);
   if (!activeProjectId) activeProjectId = saved.id || null;
+  let plan;
+  try {
+    plan = buildPlan(type, property, answers);
+  } catch {
+    // A damaged record must not leave half of it loaded or crash the page.
+    startNewProjectState();
+    renderSavedProjects();
+    window.alert('This saved project could not be opened. Your other saved projects are unaffected.');
+    return;
+  }
   history.pushState(null,'','#plan');
   navigate('plan');
-  renderResult(buildPlan(type, property, answers), {resume:true, saved});
+  renderResult(plan, {resume:true, saved});
 }
 
 renderSavedProjects();
@@ -739,6 +749,7 @@ $('resolve').onclick = async () => {
 
   $('resolve').disabled = true;
   $('resolve').textContent = 'Checking property…';
+  $('resolve').setAttribute('aria-busy','true');
   try {
     const resolved = await resolveProperty(address);
     const catalogId = selectedCatalogId;
@@ -758,6 +769,7 @@ $('resolve').onclick = async () => {
     error.textContent = e.message;
     error.classList.remove('hidden');
   } finally {
+    $('resolve').removeAttribute('aria-busy');
     $('resolve').disabled = false;
     $('resolve').textContent = 'Check property & continue';
   }
@@ -1508,9 +1520,15 @@ function sectionFor(title, results, statusClass) {
     const tailored = guidanceForRequirement(x);
     const url = tailored ? sourceById(tailored.sourceId) : null;
     return `<article class="result ${statusClass(x.status)}"><div class="result-main"><span class="badge">${x.status.replaceAll('_',' ')}</span><h3>${escape(x.title)}</h3><p>${escape(x.action)}</p><p class="small">${escape(x.explanation || '')}</p>
+      ${x.indeterminateFacts?.length ? '<p class="small">' + escape('Newton GIS did not return ' + x.indeterminateFacts.map(factLabel).join(', ') + ' for this property, so this item could not be ruled out. Confirm it with the City.') + '</p>' : ''}
       ${tailored && url ? '<div class="result-guidance"><span>Where to start</span><p class="small">' + escape(tailored.where) + '</p><a class="guidance-button" href="' + escape(url) + '" target="_blank" rel="noreferrer">Open the relevant City page ↗</a></div>' : ''}
     </div></article>`;
   }).join('')}</section>`;
+}
+
+function factLabel(path) {
+  const labels = {'property.yearBuilt':'the year built','property.lotSizeSqFt':'the lot size'};
+  return labels[path] || path.split('.').pop();
 }
 
 function escape(s) {
