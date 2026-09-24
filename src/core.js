@@ -249,12 +249,12 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     buildingWorkUncertain: projectType === 'general_project' && !(
       projectType === 'addition' || projectType === 'deck' ||
       ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
-      a.primaryWorkArea === 'interior' || a.primaryWorkArea === 'bath' ||
+      a.primaryWorkArea === 'bath' ||
       a.primaryWorkArea === 'addition' || a.primaryWorkArea === 'exterior' ||
-      a.primaryWorkArea === 'interior' && (a.primaryWorkAreaDetail === 'structure' || a.layoutChange === 'yes') ||
+      (a.primaryWorkArea === 'interior' && (a.layoutChange === 'yes' || ['interior-2','interior-3','interior-4','interior-5'].includes(a.projectCatalogId))) ||
       a.structuralChanges === 'yes' || a.demolition === 'yes' ||
       a.guttingExtent === 'yes' || a.layoutChange === 'yes' ||
-      a.footprintChange === 'yes' ||
+      a.footprintChange === 'yes' || a.useChange === 'yes' ||
       a.primaryWorkArea === 'systems' || a.primaryWorkArea === 'site' ||
       kitchenHasRegulatedWork
     ) && (
@@ -274,19 +274,19 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     demolitionUncertain: a.demolition === 'unsure',
     guttingMoreThanHalf: a.guttingExtent === 'yes',
     guttingUncertain: a.guttingExtent === 'unsure',
-    addedAreaOver1000: Number(a.newArea || 0) > 1000,
+    addedAreaOver1000: a.newArea == null || a.newArea === '' ? undefined : Number(a.newArea) > 1000,
     addedAreaUncertain: projectType === 'addition' && (a.newArea === undefined || a.newArea === null),
-    additionStories: Number(a.stories || 0),
+    additionStories: a.stories == null || a.stories === '' ? undefined : Number(a.stories),
     additionStoriesUncertain: projectType === 'addition' && a.stories === 'unsure',
-    footprintChange: a.footprintChange === 'yes',
+    footprintChange: a.footprintChange == null ? undefined : a.footprintChange === 'yes',
     footprintChangeUncertain: a.footprintChange === 'unsure',
-    deckNew: a.deckNew === 'yes',
+    deckNew: a.deckNew == null ? undefined : a.deckNew === 'yes',
     deckNewUncertain: a.deckNew === 'unsure',
-    deckHeightFt: Number(a.deckHeight || 0),
+    deckHeightFt: a.deckHeight == null || a.deckHeight === '' ? undefined : Number(a.deckHeight),
     deckHeightUncertain: a.deckHeight === null || a.deckHeight === 'unsure',
-    stairsOrGuard: a.stairsOrGuard === 'yes',
+    stairsOrGuard: a.stairsOrGuard == null ? undefined : a.stairsOrGuard === 'yes',
     stairsOrGuardUncertain: a.stairsOrGuard === 'unsure',
-    ceilingHeightFt: Number(a.ceilingHeight || 0),
+    ceilingHeightFt: a.ceilingHeight == null || a.ceilingHeight === '' ? undefined : Number(a.ceilingHeight),
     ceilingHeightUncertain: a.ceilingHeight === 'unsure',
     bathroomLayoutChange: a.layoutChange === 'yes',
     bathroomLayoutUncertain: a.layoutChange === 'unsure',
@@ -340,13 +340,12 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     localLandmark: a.historicLocalLandmark === 'yes',
     preservationRestriction: a.historicPreservationRestriction === 'yes',
     nationalRegister: a.historicNationalRegister === 'yes',
-    ageAtLeast50: a.historicAgeKnown === 'yes' || (a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) >= 50),
+    ageAtLeast50: a.historicAgeKnown === 'yes' || (a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) >= 50) ? true : (a.historicAgeKnown === 'no' || (a.historicAgeKnown == null && Number(property?.yearBuilt) > 0) ? false : undefined),
     ageBoundaryUncertain: a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) === 50,
     historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
       a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
       ((projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes') && property?.historicStatusUnknown === true),
-    historicAgeUncertain: (a.historicAgeKnown == null && (property?.yearBuilt == null || Number(property.yearBuilt) <= 0)) ||
-      a.historicAgeKnown === 'unsure',
+    historicAgeUncertain: (a.historicAgeKnown == null && (property?.yearBuilt == null || Number(property.yearBuilt) <= 0)) || a.historicAgeKnown === 'unsure',
     fireProtectionUncertain: a.fireProtectionWork === 'unsure',
     hotWorkUncertain: a.hotWork === 'unsure',
     advanceFireApprovalUncertain: a.fireProtectionWork === 'unsure' || a.hotWork === 'unsure',
