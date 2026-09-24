@@ -196,3 +196,62 @@ const missingBoolean = buildPlan('general_project',property,{primaryWorkArea:'sy
 for (const id of ['project.electrical','project.plumbing','project.gas']) {
   assert.ok(missingBoolean.results.some(r=>r.id===id && r.status==='needs_confirmation'),id+' missing must not become negative');
 }
+
+
+const mechanicalContradiction = buildPlan('general_project', property, {
+  primaryWorkArea:'interior',
+  systemType:'mechanical'
+});
+assert.ok(mechanicalContradiction.project.contradictions.length > 0);
+assert.equal(mechanicalContradiction.project.mechanicalWork,true);
+assert.ok(!mechanicalContradiction.results.some(r=>r.id==='project.mechanical' && r.status==='required'));
+assert.ok(mechanicalContradiction.results.some(r=>r.id==='project.mechanical' && r.status==='needs_confirmation'));
+
+const sleepingContradiction = buildPlan('general_project', property, {
+  sleepingRoomAdded:'no',
+  sleepingUse:'sleeping'
+});
+assert.ok(sleepingContradiction.project.contradictions.length > 0);
+assert.ok(!sleepingContradiction.results.some(r=>r.id==='basement.sleeping-room' && r.status==='required'));
+
+assert.equal(evaluateExpression('property.floodplain != null',{property:{}}),false);
+assert.equal(evaluateExpression('property.floodplain != null',{property:{floodplain:null}}),false);
+assert.equal(evaluateExpressionState('property.floodplain == null',{property:{}}),'affirmative');
+assert.equal(evaluateExpressionState('property.floodplain == null',{property:{floodplain:null}}),'affirmative');
+assert.equal(evaluateExpressionState('property.floodplain > 0',{property:{}}),'unknown');
+
+for (const value of [undefined,null,'no','unsure','yes']) {
+  const historic = buildPlan('general_project', property, {
+    primaryWorkArea:'exterior',
+    historicLocalLandmark:value
+  });
+  if (value === 'yes') assert.ok(historic.results.some(r=>r.id==='property.local-landmark'));
+  if (value === 'no') assert.ok(!historic.results.some(r=>r.id==='property.local-landmark'));
+  if (value === 'unsure' || value == null) assert.ok(historic.results.some(r=>r.id==='property.historic-status-uncertain'));
+}
+
+for (const value of [1000,1001]) {
+  const p=buildPlan('addition',property,{newArea:value});
+  assert.equal(p.project.addedAreaOver1000,value===1001);
+}
+for (const value of [1,2]) {
+  const p=buildPlan('addition',property,{stories:value});
+  assert.equal(p.project.additionStories,value);
+  assert.equal(p.project.additionStories > 1,value===2);
+}
+for (const value of [0,1]) {
+  const p=buildPlan('deck',property,{deckNew:'yes',deckHeight:value});
+  assert.equal(p.project.deckHeightFt,value);
+}
+for (const value of [undefined,null,'no','unsure','yes']) {
+  const p=buildPlan('general_project',property,{primaryWorkArea:'site',retainingWallNew:value});
+  if (value === 'yes') assert.ok(p.project.newRetainingWall===true);
+  if (value === 'no') assert.ok(p.project.newRetainingWall===false);
+  if (value === 'unsure' || value == null) assert.equal(p.project.newRetainingWall,value === 'unsure' ? false : undefined);
+}
+for (const value of [undefined,null,'no','unsure','yes']) {
+  const p=buildPlan('general_project',property,{primaryWorkArea:'site',trenchDewatering:value});
+  if (value === 'yes') assert.equal(p.project.trenchDewatering,true);
+  if (value === 'no') assert.equal(p.project.trenchDewatering,false);
+  if (value === 'unsure' || value == null) assert.equal(p.project.trenchDewatering,value === 'unsure' ? false : undefined);
+}
