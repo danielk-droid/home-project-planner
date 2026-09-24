@@ -540,7 +540,7 @@
   },
   {
     "id": "project.tree-save-area-uncertain",
-    "when": "project.exteriorConstruction == true && project.treeSaveAreaUncertain == true",
+    "when": "(project.exteriorConstruction == true || project.siteWork == true) && project.treeSaveAreaUncertain == true",
     "status": "needs_confirmation",
     "title": "Tree Save Area status needs confirmation",
     "action": "Confirm whether construction enters the Tree Save Area of a protected tree, including a protected tree on an adjoining property. Tree protection requirements are separate from the basic exterior-construction Tree Permit evaluation.",
@@ -553,15 +553,17 @@
     "topic": "project",
     "triggerFacts": [
       "project.exteriorConstruction",
+      "project.siteWork",
       "project.treeSaveAreaUncertain"
     ],
     "requiredFacts": [
       "project.exteriorConstruction",
+      "project.siteWork",
       "project.treeSaveAreaUncertain"
     ],
     "decisionLogic": {
       "type": "expression",
-      "expression": "project.exteriorConstruction == true && project.treeSaveAreaUncertain == true"
+      "expression": "(project.exteriorConstruction == true || project.siteWork == true) && project.treeSaveAreaUncertain == true"
     },
     "possibleOutputs": [
       "needs_confirmation"
