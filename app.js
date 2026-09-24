@@ -364,115 +364,7 @@ function resumeSavedProject(key) {
 
 renderSavedProjects();
 
-const heroGraphic = document.querySelector('.hero-graphic');
-const heroStart = $('heroStart');
-
-if (heroGraphic && heroStart && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const lessonDot = document.createElement('span');
-  lessonDot.className = 'lesson-dot';
-  lessonDot.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(lessonDot);
-
-  setTimeout(() => {
-    const dot = heroGraphic.querySelector('.site-point');
-    if (!dot) {
-      lessonDot.remove();
-      return;
-    }
-
-    const a = dot.getBoundingClientRect();
-    const b = heroStart.getBoundingClientRect();
-    const sx = a.left + a.width / 2;
-    const sy = a.top + a.height / 2;
-    const ex = b.left + b.width * .52;
-    const ey = b.top + b.height * .52;
-    const dx = ex - sx;
-    const dy = ey - sy;
-
-    lessonDot.style.left = sx + 'px';
-    lessonDot.style.top = sy + 'px';
-
-    if (typeof lessonDot.animate !== 'function') {
-      lessonDot.style.opacity = '1';
-      lessonDot.style.transform = 'translate(-50%,-50%) scale(1)';
-      setTimeout(() => lessonDot.remove(), 900);
-      return;
-    }
-
-    lessonDot.animate([
-      { transform:'translate(-50%,-50%) translate(0,0) scale(.82)', opacity:0 },
-      { transform:'translate(-50%,-50%) translate(0,-24px) scale(1)', opacity:1, offset:.12 },
-      { transform:'translate(-50%,-50%) translate(' + (dx*.20) + 'px,' + (dy*.20-16) + 'px) scale(1)', opacity:1, offset:.34 },
-      { transform:'translate(-50%,-50%) translate(' + (dx*.46) + 'px,' + (dy*.46-9) + 'px) scale(1)', opacity:1, offset:.56 },
-      { transform:'translate(-50%,-50%) translate(' + (dx*.76) + 'px,' + (dy*.76-3) + 'px) scale(1)', opacity:1, offset:.79 },
-      { transform:'translate(-50%,-50%) translate(' + dx + 'px,' + dy + 'px) scale(1)', opacity:1, offset:1 }
-    ], {
-      duration:2200,
-      easing:'cubic-bezier(.22,.72,.18,1)',
-      fill:'forwards'
-    }).finished.then(async () => {
-      // Hold the dot on the button long enough to read and physically tap it.
-      heroStart.classList.add('guided-hover');
-      await new Promise(resolve => setTimeout(resolve, 260));
-
-      spawnButtonSparks(heroStart);
-      spawnButtonEcho(heroStart);
-      heroStart.classList.add('guided-click','hero-breathe');
-      const fade = lessonDot.animate([
-        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
-        { transform:'translate(-50%,-50%) scale(.72)', opacity:.72, offset:.45 },
-        { transform:'translate(-50%,-50%) scale(.18)', opacity:0, offset:1 }
-      ], {
-        duration:560,
-        easing:'cubic-bezier(.25,.1,.25,1)',
-        fill:'forwards'
-      });
-
-      await fade.finished;
-      heroStart.classList.remove('guided-hover','guided-click');
-      lessonDot.remove();
-    }).catch(() => lessonDot.remove());
-  }, 450);
-}
-
-function spawnButtonEcho(button) {
-  const rect = button.getBoundingClientRect();
-  const echo = document.createElement('span');
-  echo.className = 'button-echo';
-  echo.style.left = rect.left + 'px';
-  echo.style.top = rect.top + 'px';
-  echo.style.width = rect.width + 'px';
-  echo.style.height = rect.height + 'px';
-  document.body.appendChild(echo);
-  setTimeout(() => echo.remove(), 850);
-}
-
-function spawnButtonSparks(button) {
-  const rect = button.getBoundingClientRect();
-  const cx = rect.left + rect.width * .52;
-  const cy = rect.top + rect.height * .52;
-  const count = 18;
-
-  for (let i = 0; i < count; i++) {
-    const spark = document.createElement('span');
-    spark.className = 'dot-spark';
-    const angle = (Math.PI * 2 * i / count) + (Math.random() - .5) * .22;
-    const distance = 30 + Math.random() * 48;
-    const size = 3 + Math.random() * 3.5;
-
-    spark.style.left = cx + 'px';
-    spark.style.top = cy + 'px';
-    spark.style.width = size + 'px';
-    spark.style.height = Math.max(3, size * .55) + 'px';
-    spark.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
-    spark.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
-    spark.style.setProperty('--rot', (angle * 180 / Math.PI) + 'deg');
-    spark.style.setProperty('--delay', (Math.random() * .08) + 's');
-    document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 1050);
-  }
-}
-
+// Keep the primary CTA visually stable; guidance comes from clear copy and hierarchy.
 function openMobileMenu() {
   const menu = $('mobileMenu');
   if (!menu) return;
@@ -1330,7 +1222,7 @@ function renderResult(plan, options = {}) {
 
     <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="downloadProject" class="secondary">Download project backup</button><button id="restart">Start another project</button></div>
     <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Planner checklist complete.</strong><span>This does not mean the project is approved or that every construction requirement has been satisfied. Confirm the applicable requirements and approvals before work begins.</span></div>
-    <div id="confetti" class="confetti" aria-hidden="true"></div>`;
+`;
 
 
   const checklistView = $('checklistView');
@@ -1433,6 +1325,7 @@ function checklistSection(plan) {
   </section>`;
 }
 
+let checklistWasComplete = false;
 function updateCompletion(plan) {  const boxes = [...document.querySelectorAll('[data-step]')];
   const done = boxes.filter(x => x.checked).length;
   const count = $('checkCount');
@@ -1440,31 +1333,10 @@ function updateCompletion(plan) {  const boxes = [...document.querySelectorAll('
   const complete = done === boxes.length && boxes.length > 0;
   if (complete) {
     $('completionToast')?.classList.remove('hidden');
-    if (!checklistWasComplete) launchConfetti();
   } else {
     $('completionToast')?.classList.add('hidden');
   }
   checklistWasComplete = complete;
-}
-
-let confettiRunning = false;
-let checklistWasComplete = false;
-function launchConfetti() {
-  if (confettiRunning) return;
-  confettiRunning = true;
-  const root = $('confetti');
-  if (!root) { confettiRunning = false; return; }
-  root.innerHTML = '';
-  for (let i=0;i<80;i++) {
-    const piece = document.createElement('i');
-    piece.style.setProperty('--x', (Math.random()*100) + '%');
-    piece.style.setProperty('--y', (Math.random()*22) + '%');
-    piece.style.setProperty('--delay', (Math.random()*.55) + 's');
-    piece.style.setProperty('--rot', (Math.random()*360) + 'deg');
-    piece.style.setProperty('--drift', ((Math.random()-.5)*220) + 'px');
-    root.appendChild(piece);
-  }
-  setTimeout(() => { root.innerHTML=''; confettiRunning=false; }, 3000);
 }
 
 function preparationItems(plan) {

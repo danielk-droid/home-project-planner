@@ -69,7 +69,6 @@ assert.ok(indexHtml.includes('<a href="#how" data-page-link="how">Evidence-backe
 assert.ok(/const pageIds = \['home','about','how','mission','feedback','privacy','terms','plan'\]/.test(appJs),'page routing list is incomplete');
 assert.ok(appJs.includes('function cleanupHiddenAnswers()'),'Continue path is missing answer-cleanup handler');
 assert.ok(appJs.includes("const error = $('error');") && appJs.includes("Please enter your Newton property address before continuing."),'address validation is missing');
-assert.ok(appJs.includes("hero-breathe"),'persistent hero breathing state is missing');
 assert.match(stylesCss,/\.page\.legal-page\{display:none/,'legal pages must be hidden unless routed');
 assert.match(stylesCss,/\.page\.legal-page\.page-active\{display:grid/,'active legal page must be routable');
 
