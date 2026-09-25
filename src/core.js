@@ -221,25 +221,110 @@ function parseStreetAddress(s) {
 
 function get(ctx,path) { return path.split('.').reduce((v,k)=>v?.[k],ctx); }
 
-export function evaluateRules(ctx) {
-  return rules.filter(r=>condition(r.when,ctx)).map(r=>({...r, sources:r.sourceIds.map(id=>sources.find(s=>s.id===id)).filter(Boolean)}));
+const TERM_PATTERN = /^([\w.]+)\s*(==|!=|<=|>=|<|>)\s*(.+)$/;
+const RELATIONAL = new Set(['<','>','<=','>=']);
+
+function parseLiteral(raw) {
+  if (raw === 'true') return true;
+  if (raw === 'false') return false;
+  if (raw === 'null') return null;
+  if (/^[-+]?\d+(?:\.\d+)?$/.test(raw)) return Number(raw);
+  return raw.replace(/^['"]|['"]$/g, '');
 }
 
-function condition(expr,ctx) {
-  return expr.split(/\s*\|\|\s*/).some(orTerm => orTerm.split(/\s*&&\s*/).every(term=>{
-    const m=term.match(/^([\w.]+)\s*(==|!=|<=|>=|<|>)\s*(.+)$/); if(!m) return false;
-    const actual=get(ctx,m[1]); const raw=m[3].trim(); let expected;
-    if(raw==='true') expected=true; else if(raw==='false') expected=false; else if(raw==='null') expected=null;
-    else if(/^[-+]?\d+(?:\.\d+)?$/.test(raw)) expected=Number(raw);
-    else expected=raw.replace(/^['"]|['"]$/g,'');
-    if(m[2]==='==') return actual===expected;
-    if(m[2]==='!=') return actual!==expected;
-    if(m[2]==='<') return actual < expected;
-    if(m[2]==='>') return actual > expected;
-    if(m[2]==='<=') return actual <= expected;
-    if(m[2]==='>=') return actual >= expected;
-    return false;
+function parseCondition(expr) {
+  if (typeof expr !== 'string' || !expr.trim()) return null;
+  const orTerms = expr.split(/\s*\|\|\s*/).map(orTerm => orTerm.split(/\s*&&\s*/).map(term => {
+    const m = term.trim().match(TERM_PATTERN);
+    return m ? {path: m[1], op: m[2], expected: parseLiteral(m[3].trim())} : null;
   }));
+  return orTerms.every(terms => terms.every(Boolean)) ? orTerms : null;
+}
+
+// Structural check of the rule set. Returns a list of problems; an empty list
+// means every rule can be evaluated and every cited source exists.
+export function validateRules(ruleList = rules, sourceList = sources) {
+  const problems = [];
+  const sourceIds = new Set(sourceList.map(s => s.id));
+  const seen = new Set();
+  const statuses = new Set(['required','potentially_required','needs_confirmation']);
+  for (const rule of ruleList) {
+    const id = rule?.id || '(missing id)';
+    if (!rule?.id) problems.push(`${id}: missing id`);
+    else if (seen.has(rule.id)) problems.push(`${id}: duplicate id`);
+    seen.add(rule?.id);
+    if (!parseCondition(rule?.when)) problems.push(`${id}: condition cannot be parsed`);
+    if (!statuses.has(rule?.status)) problems.push(`${id}: unknown status ${rule?.status}`);
+    if (!Array.isArray(rule?.sourceIds) || !rule.sourceIds.length) problems.push(`${id}: no sources`);
+    else for (const s of rule.sourceIds) if (!sourceIds.has(s)) problems.push(`${id}: unknown source ${s}`);
+  }
+  return problems;
+}
+
+// Evaluates one parsed term. A relational comparison against a missing fact
+// (null/undefined/non-numeric) cannot be decided; it is reported as
+// indeterminate instead of being coerced (JavaScript treats null as 0).
+function evaluateTerm(term, ctx) {
+  const actual = get(ctx, term.path);
+  if (term.op === '==') return {match: actual === term.expected};
+  if (term.op === '!=') return {match: actual !== term.expected};
+  if (RELATIONAL.has(term.op)) {
+    const n = typeof actual === 'number' ? actual
+      : (typeof actual === 'string' && /^\s*[-+]?\d+(?:\.\d+)?\s*$/.test(actual) ? Number(actual) : NaN);
+    if (Number.isNaN(n)) return {match: true, indeterminate: term.path};
+    return compare(n, term.op, term.expected);
+  }
+  return {match: false};
+}
+
+function compare(actual, op, expected) {
+  if (op === '<') return {match: actual < expected};
+  if (op === '>') return {match: actual > expected};
+  if (op === '<=') return {match: actual <= expected};
+  return {match: actual >= expected};
+}
+
+// Returns {match, indeterminateFacts}. An indeterminate term keeps the rule in
+// the plan (the conservative outcome the planner already produced) but the
+// missing fact is recorded so the result is never presented as confirmed.
+function evaluateCondition(parsed, ctx) {
+  const indeterminate = new Set();
+  for (const terms of parsed) {
+    const local = [];
+    let ok = true;
+    for (const term of terms) {
+      const r = evaluateTerm(term, ctx);
+      if (!r.match) { ok = false; break; }
+      if (r.indeterminate) local.push(r.indeterminate);
+    }
+    if (ok) {
+      if (!local.length) return {match: true, indeterminateFacts: []};
+      local.forEach(x => indeterminate.add(x));
+    }
+  }
+  return {match: indeterminate.size > 0, indeterminateFacts: [...indeterminate]};
+}
+
+export function evaluateRules(ctx, ruleList = rules) {
+  const out = [];
+  for (const r of ruleList) {
+    const parsed = parseCondition(r?.when);
+    if (!parsed) continue; // reported through evaluationIssues / validateRules
+    const {match, indeterminateFacts} = evaluateCondition(parsed, ctx);
+    if (!match) continue;
+    const ids = Array.isArray(r.sourceIds) ? r.sourceIds : [];
+    const resolved = ids.map(id => sources.find(s => s.id === id)).filter(Boolean);
+    const result = {...r, sources: resolved};
+    if (indeterminateFacts.length) result.indeterminateFacts = indeterminateFacts;
+    const missing = ids.filter(id => !sources.some(s => s.id === id));
+    if (missing.length) result.missingSourceIds = missing;
+    out.push(result);
+  }
+  return out;
+}
+
+export function evaluationIssues(ruleList = rules) {
+  return ruleList.filter(r => !parseCondition(r?.when)).map(r => ({ruleId: r?.id || null, problem: 'condition cannot be parsed'}));
 }
 
 export function deriveProject(projectType, answers = {}) {
@@ -315,7 +400,8 @@ export function buildPlan(projectType, property, answers) {
   const confirm = results.filter(r => r.status === 'needs_confirmation');
   const steps = dependencies.map(d => ({...d, status:'not_started'}));
   const unknowns = Object.entries(answers || {}).filter(([, value]) => value === 'unsure').map(([key]) => key);
-  return {project, results, required, conditional, confirm, steps, context:ctx, unknowns};
+  const indeterminate = results.filter(r => r.indeterminateFacts?.length).map(r => ({ruleId: r.id, facts: r.indeterminateFacts}));
+  return {project, results, required, conditional, confirm, steps, context:ctx, unknowns, indeterminate, evaluationIssues: evaluationIssues()};
 }
 
 export function sourcesFor(result) { return result.sources || []; }

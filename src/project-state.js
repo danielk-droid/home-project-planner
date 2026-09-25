@@ -65,8 +65,38 @@ function parse(value) {
   try { return JSON.parse(value); } catch { return null; }
 }
 
+function isPlainObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
 function validSaved(saved) {
-  return Boolean(saved?.type && saved?.property?.resolvedAddress);
+  return Boolean(
+    isPlainObject(saved) &&
+    typeof saved.type === 'string' && saved.type &&
+    isPlainObject(saved.property) &&
+    typeof saved.property.resolvedAddress === 'string' && saved.property.resolvedAddress
+  );
+}
+
+function idFromKey(key) {
+  return typeof key === 'string' && key.startsWith(STORAGE_PREFIX) ? key.slice(STORAGE_PREFIX.length) || null : null;
+}
+
+// Older or hand-edited records may lack an id, carry an id that does not match
+// their storage key, or hold fields of the wrong shape. The storage key is the
+// authority for identity so re-saving always updates the same record, and
+// malformed optional fields are replaced with safe empty values.
+function normalizeSaved(saved, key) {
+  if (!validSaved(saved)) return null;
+  const keyId = idFromKey(key);
+  if (keyId) saved.id = keyId;
+  if (!isPlainObject(saved.answers)) saved.answers = {};
+  if (!Array.isArray(saved.steps)) saved.steps = [];
+  saved.steps = saved.steps.filter(isPlainObject);
+  for (const field of ['clarifierState', 'clarificationMeta', 'clarifierQuestionMemory']) {
+    if (!isPlainObject(saved[field])) saved[field] = {};
+  }
+  return saved;
 }
 
 export function allSavedKeys(store) {
@@ -82,8 +112,8 @@ export function listSavedProjects(store, now = Date.now()) {
   const items = [];
   if (!store.available) return items;
   for (const key of allSavedKeys(store)) {
-    const saved = parse(store.get(key));
-    if (!validSaved(saved)) continue;
+    const saved = normalizeSaved(parse(store.get(key)), key);
+    if (!saved) continue;
     const lastUpdated = Date.parse(saved.updatedAt || '') || 0;
     const expiresAt = Date.parse(saved.expiresAt || '') || (lastUpdated + PROJECT_RETENTION_MS);
     if (!lastUpdated || expiresAt <= now) {
@@ -98,8 +128,7 @@ export function listSavedProjects(store, now = Date.now()) {
 }
 
 export function loadProject(store, key) {
-  const saved = parse(store.get(key));
-  return validSaved(saved) ? saved : null;
+  return normalizeSaved(parse(store.get(key)), key);
 }
 
 export function removeProject(store, key) {
@@ -117,7 +146,7 @@ export function saveProject(store, project, now = Date.now()) {
     id,
     type: project.type,
     property: project.property,
-    answers: project.answers ? JSON.parse(JSON.stringify(project.answers)) : {},
+    answers: isPlainObject(project.answers) ? JSON.parse(JSON.stringify(project.answers)) : {},
     selectedCatalogId: project.selectedCatalogId || project.answers?.projectCatalogId || null,
     projectCatalogLabel: project.projectCatalogLabel || project.answers?.projectCatalogLabel || null,
     clarifierState: project.clarifierState ? JSON.parse(JSON.stringify(project.clarifierState)) : {},
@@ -125,7 +154,7 @@ export function saveProject(store, project, now = Date.now()) {
     clarifierQuestionMemory: project.clarifierQuestionMemory
       ? JSON.parse(JSON.stringify(project.clarifierQuestionMemory))
       : {},
-    steps: (project.steps || []).map(step => ({ ...step })),
+    steps: (Array.isArray(project.steps) ? project.steps : []).filter(isPlainObject).map(step => ({ ...step })),
     planGenerated: project.planGenerated !== false,
     updatedAt: new Date(now).toISOString(),
     expiresAt: new Date(now + PROJECT_RETENTION_MS).toISOString()
@@ -142,7 +171,7 @@ export function saveProject(store, project, now = Date.now()) {
 export function restoreProjectState(saved) {
   const state = createEmptyProjectState();
   if (!validSaved(saved)) return state;
-  const clone = JSON.parse(JSON.stringify(saved));
+  const clone = normalizeSaved(JSON.parse(JSON.stringify(saved)), saved.storageKey);
   state.id = clone.id || null;
   state.type = clone.type;
   state.property = clone.property;
