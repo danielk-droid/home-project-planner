@@ -128,7 +128,7 @@
   },
   {
     "id": "project.stormwater-land-disturbance",
-    "when": "project.landDisturbanceSqFt > 5000",
+    "when": "project.landDisturbanceSqFtKnown == true && project.landDisturbanceSqFt > 5000",
     "status": "required",
     "title": "Stormwater Management Permit — land disturbance",
     "action": "Newton's Stormwater Management Ordinance requires a stormwater management and erosion control permit for qualifying projects that disturb more than 5,000 square feet of land, subject to the ordinance's exceptions and waivers.",
@@ -139,7 +139,7 @@
   },
   {
     "id": "project.stormwater-minor-impervious",
-    "when": "project.newImperviousSqFt >= 401 && project.newImperviousSqFt <= 1000",
+    "when": "project.newImperviousSqFtKnown == true && project.newImperviousSqFt >= 401 && project.newImperviousSqFt <= 1000",
     "status": "required",
     "title": "Minor Stormwater Management Permit",
     "action": "The stated project scope creates 401–1,000 square feet of new impervious area, which is within Newton's verified Minor Stormwater category, subject to applicable exceptions or waivers.",
@@ -150,7 +150,7 @@
   },
   {
     "id": "project.stormwater-major-impervious",
-    "when": "project.newImperviousSqFt > 1000",
+    "when": "project.newImperviousSqFtKnown == true && project.newImperviousSqFt > 1000",
     "status": "required",
     "title": "Major Stormwater Management Permit",
     "action": "The stated new impervious area exceeds the verified 401–1,000 square foot Minor Stormwater range. Confirm the applicable Major Stormwater pathway and any ordinance exceptions or waivers.",

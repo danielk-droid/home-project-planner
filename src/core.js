@@ -432,6 +432,10 @@ export function deriveProject(projectType, answers = {}, property = {}) {
       a.windowsOrDoors === 'yes' || a.newWindow === 'yes',
     landDisturbanceSqFt: a.landDisturbanceSqFt == null || a.landDisturbanceSqFt === '' ? null : Number(a.landDisturbanceSqFt),
     newImperviousSqFt: a.newImperviousSqFt == null || a.newImperviousSqFt === '' ? null : Number(a.newImperviousSqFt),
+    // Stormwater thresholds only apply to a measured value; a missing
+    // measurement is handled by the stormwater-uncertain rule instead.
+    landDisturbanceSqFtKnown: Number.isFinite(a.landDisturbanceSqFt == null || a.landDisturbanceSqFt === '' ? NaN : Number(a.landDisturbanceSqFt)),
+    newImperviousSqFtKnown: Number.isFinite(a.newImperviousSqFt == null || a.newImperviousSqFt === '' ? NaN : Number(a.newImperviousSqFt)),
     newRetainingWall: a.retainingWallNew === 'yes',
     trenchDewatering: a.trenchDewatering === 'yes',
     stormwaterFactsUncertain: (projectType === 'addition' || projectType === 'deck' || a.siteWork === 'yes' || a.exteriorChange === 'yes') &&
