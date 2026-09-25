@@ -249,6 +249,43 @@
     "reviewRequired": true
   },
   {
+    "id": "property.historic-age",
+    "when": "project.ageOver50 == true && project.exteriorConstruction == true",
+    "status": "potentially_required",
+    "title": "Historic review based on building age",
+    "action": "The property record indicates a building more than 50 years old. Exterior alterations, including additions, to a building of this age fall within Newton's age-based Historic Review pathway; confirm applicability with Newton Historic Preservation before relying on the standard building workflow. Building age alone does not mean a Newton Historical Commission hearing or approval is required.",
+    "sourceIds": [
+      "newton-historic",
+      "newton-historic-applications",
+      "newton-parcels"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.historic-age-boundary-exterior",
+    "when": "project.ageOver50Boundary == true && project.exteriorConstruction == true",
+    "status": "needs_confirmation",
+    "title": "Building age at the 50-year boundary needs confirmation",
+    "action": "The property record gives a year built that places the building at the 50-year boundary, and year-only data cannot establish whether it is more than 50 years old. Confirm the building's age through Newton property records or Newton Historic Preservation before determining whether age-based Historic Review applies to the exterior work.",
+    "sourceIds": [
+      "newton-historic",
+      "newton-parcels"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "property.historic-age-unknown",
+    "when": "project.ageUnknown == true && project.exteriorConstruction == true || project.ageUnknown == true && project.demolition == true",
+    "status": "needs_confirmation",
+    "title": "Building age needs confirmation",
+    "action": "Year-built information was not returned by the property record, so the building-age condition could not be established from that record. Confirm the property's age and historic status through Newton property records or Newton Historic Preservation before relying on the standard building workflow.",
+    "sourceIds": [
+      "newton-historic",
+      "newton-parcels"
+    ],
+    "reviewRequired": true
+  },
+  {
     "id": "property.historic-age-demolition",
     "when": "project.ageAtLeast50 == true && project.demolition == true",
     "status": "required",

@@ -446,8 +446,7 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     localLandmark: a.historicLocalLandmark === 'yes',
     preservationRestriction: a.historicPreservationRestriction === 'yes',
     nationalRegister: a.historicNationalRegister === 'yes',
-    ageAtLeast50: a.historicAgeKnown === 'yes' || (a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) >= 50),
-    ageBoundaryUncertain: a.historicAgeKnown == null && Number(property?.yearBuilt) > 0 && new Date().getFullYear() - Number(property.yearBuilt) === 50,
+    ...historicAgeFacts(property, a),
     historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
       a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
       (projectType !== 'general_project' && (projectType === 'addition' || projectType === 'deck') && property?.historicStatusUnknown === true),
@@ -456,6 +455,33 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     eeroFactsUncertain: projectType === 'basement_finish' &&
       (a.egressMeasurements !== 'yes' || a.egressClearWidth == null || a.egressClearHeight == null || a.egressSillHeight == null),
     generalScopeUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' || a.primaryWorkAreaDetail2 === 'unsure',
+  };
+}
+
+// Building-age facts for the historic pathways. Newton's property record gives a
+// year only, so on a given date the building's exact age is either
+// (currentYear - yearBuilt - 1) or (currentYear - yearBuilt). A threshold is
+// treated as met only when both possible ages meet it; when they straddle it
+// the result is a boundary case that needs confirmation.
+//   general exterior Historic Review: age > 50
+//   historic demolition review:        age >= 50
+export function historicAgeFacts(property, answers = {}, asOf = new Date()) {
+  const raw = property?.yearBuilt;
+  const year = typeof raw === 'number' ? raw
+    : (typeof raw === 'string' && /^\s*\d{4}\s*$/.test(raw) ? Number(raw) : NaN);
+  const asOfYear = asOf.getFullYear();
+  const yearKnown = Number.isInteger(year) && year > 0 && year <= asOfYear;
+  const known = answers?.historicAgeKnown;
+  const answered = known === 'yes' || known === 'no';
+  const minAge = yearKnown ? asOfYear - year - 1 : null;
+  const maxAge = yearKnown ? asOfYear - year : null;
+  const byRecord = yearKnown && known == null;
+  return {
+    ageOver50: yearKnown && minAge > 50,
+    ageOver50Boundary: yearKnown && minAge <= 50 && maxAge > 50,
+    ageAtLeast50: known === 'yes' || (byRecord && minAge >= 50),
+    ageBoundaryUncertain: byRecord && minAge < 50 && maxAge >= 50,
+    ageUnknown: !yearKnown && !answered,
   };
 }
 
