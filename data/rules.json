@@ -25,7 +25,7 @@
   },
   {
     "id": "property.floodplain",
-    "when": "project.siteReviewRelevant == true && property.floodplain != null",
+    "when": "project.siteReviewRelevant == true && property.floodplain == true",
     "status": "potentially_required",
     "title": "Floodplain review",
     "action": "Verify whether the proposed exterior/site work is within the applicable floodplain jurisdiction and what review it triggers.",
@@ -205,7 +205,7 @@
   },
   {
     "id": "property.historic",
-    "when": "property.historicDistrict != null && project.exteriorConstruction == true",
+    "when": "property.historicExteriorReview == true && project.exteriorConstruction == true",
     "status": "required",
     "title": "Historic District Commission review",
     "action": "Exterior changes to a property in a Newton local historic district require the applicable Historic District review track.",

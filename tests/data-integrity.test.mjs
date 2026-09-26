@@ -73,6 +73,8 @@ assert.ok(appJs.includes("const error = $('error');") && appJs.includes("Please 
 assert.ok(appJs.includes("hero-breathe"),'persistent hero breathing state is missing');
 assert.match(stylesCss,/\.page\.legal-page\{display:none/,'legal pages must be hidden unless routed');
 assert.match(stylesCss,/\.page\.legal-page\.page-active\{display:grid/,'active legal page must be routable');
+assert.doesNotMatch(appJs,/Which part of this work is involved\?/,'generic uncertainty clarifier must not return');
+assert.ok(appJs.includes('feasibilitySummary(plan)'),'feasibility summary must render before plan views');
 
 const catalogCount=catalog.categories.reduce((n,c)=>n+c.items.length,0);
 assert.equal(catalogCount,65,'permit-audited project catalog should contain the 65 retained detailed options');

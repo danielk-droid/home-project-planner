@@ -966,6 +966,7 @@ footer{
 .inline-question.clarifier-question{margin-top:20px;padding:24px 0 8px 22px;border-left:2px solid #cbd2c3;position:relative;animation:clarifierIn .24s cubic-bezier(.22,.61,.36,1) both}
 .clarifier-connector{position:absolute;left:-2px;top:0;width:18px;height:22px;border-left:2px solid #cbd2c3;border-bottom:2px solid #cbd2c3;border-bottom-left-radius:8px}
 .inline-question h1{margin-bottom:14px}
+.question-context{max-width:780px;margin:0 0 18px;padding:13px 15px;border-left:3px solid var(--olive);background:var(--olive-soft);color:var(--ink);font-size:12px;line-height:1.6}
 .question-why{margin:10px 0 0;max-width:760px;font-size:11px;line-height:1.55;color:var(--muted)}
 .question-why b{color:var(--ink);font-weight:800}
 @keyframes clarifierIn{from{opacity:0;transform:translateY(-6px);max-height:0}to{opacity:1;transform:none;max-height:800px}}
@@ -1316,6 +1317,18 @@ footer{
 .feedback-card-copy b{font-size:12px;line-height:1.25}
 .feedback-card-copy small{font-size:10px;line-height:1.35;color:var(--muted);font-weight:500}
 .feedback-choice-card:focus-within{outline:2px solid var(--olive-dark);outline-offset:3px}
+.feedback-choice-card:has(input:disabled){cursor:not-allowed;opacity:.58;background:#ecebe5}
+.feedback-choice-card:has(input:disabled):hover{transform:none;border-color:#c9cbc1;box-shadow:none}
+
+/* Feasibility appears before either permit/workflow view and summarizes only
+   conclusions already produced by the deterministic rules. */
+.feasibility-summary{border-top:4px solid var(--olive-dark)}
+.feasibility-summary h2{font-size:clamp(28px,3.6vw,42px);line-height:1.05;letter-spacing:-.04em;margin:8px 0 14px;max-width:850px}
+.feasibility-summary p{max-width:850px;margin:8px 0;font-size:14px}
+.feasibility-summary .guidance-button{margin-top:13px}
+.feasibility-constraint{border-top-color:var(--danger);background:#fbf5f2}
+.feasibility-review,.feasibility-unknown{border-top-color:var(--warning);background:#faf7ee}
+.feasibility-screened{border-top-color:var(--olive);background:#f7f9f3}
 .feedback-field-main textarea,.feedback-field-email input{width:100%;border:1px solid #c3c6bc;background:var(--surface);padding:16px;font-size:14px;line-height:1.6}
 .feedback-field-main textarea{min-height:170px;resize:vertical}
 .feedback-field-main textarea:focus,.feedback-field-email input:focus{border-color:var(--olive);box-shadow:0 0 0 4px rgba(86,99,70,.11);background:#fff}
