@@ -30,30 +30,37 @@ assert.doesNotThrow(() => evaluateRules(ctxFor(null, null)));
 const unknownSource = evaluateRules({ project: { deckNew: true } }, [bad[2]]);
 assert.deepEqual(unknownSource[0].missingSourceIds, ['not-a-source']);
 
-// A missing numeric fact is uncertain, not a confident answer either way.
+// A missing year built is uncertain, not a confident answer either way. The
+// general age-based rule now evaluates explicit age facts, so a missing year
+// surfaces as its own needs_confirmation item instead of an indeterminate match.
 const ageRule = rules.find(r => r.id === 'property.historic-age');
+const unknownAgeRule = rules.find(r => r.id === 'property.historic-age-unknown');
 assert.ok(ageRule, 'historic-age rule exists');
-const withYear = y => evaluateRules(ctxFor({ yearBuilt: y }, { exteriorConstruction: true }), [ageRule]);
-assert.equal(withYear(1920).length, 1);
-assert.equal(withYear(1920)[0].indeterminateFacts, undefined);
-assert.equal(actionForResult(withYear(1920)[0]), ageRule.action, 'older property keeps the existing explanation');
-assert.equal(withYear('1920').length, 1, 'numeric strings are compared as numbers');
-assert.equal(withYear(2005).length, 0);
-assert.equal(withYear('2005').length, 0);
+assert.ok(unknownAgeRule, 'historic-age-unknown rule exists');
+const thisYear = new Date().getFullYear();
+const agePlan = y => buildPlan('addition', { resolvedAddress: '1 Test St', zoningDistrict: 'SR2', yearBuilt: y }, {});
+const ageResult = (y, id = 'property.historic-age') => agePlan(y).results.find(r => r.id === id);
+assert.ok(ageResult(1920));
+assert.equal(ageResult(1920).indeterminateFacts, undefined);
+assert.equal(actionForResult(ageResult(1920)), ageRule.action, 'older property keeps the rule explanation');
+assert.ok(ageResult('1920'), 'numeric strings are read as years');
+assert.equal(ageResult(2005), undefined);
+assert.equal(ageResult('2005'), undefined);
 for (const missing of [null, undefined, 'unknown', NaN]) {
-  const r = withYear(missing);
-  assert.equal(r.length, 1, `missing year (${missing}) keeps the review item`);
-  assert.deepEqual(r[0].indeterminateFacts, ['property.yearBuilt']);
-  const action = actionForResult(r[0]);
-  assert.equal(action, HISTORIC_AGE_UNKNOWN_ACTION);
+  assert.equal(ageResult(missing), undefined, `missing year (${missing}) never asserts the building is over 50`);
+  const r = ageResult(missing, 'property.historic-age-unknown');
+  assert.ok(r, `missing year (${missing}) keeps a building-age review item`);
+  assert.equal(r.status, 'needs_confirmation');
+  const action = actionForResult(r);
   assert.match(action, /year-built information was not returned/i);
   assert.match(action, /building-age condition could not be established/i);
-  assert.doesNotMatch(action, /indicates a building older than 50 years/i);
+  assert.doesNotMatch(action, /indicates a building (older|more) than 50 years/i);
 }
+// The presentation fallback from PR #11 still guards any indeterminate result.
+assert.equal(actionForResult({ id: 'property.historic-age', action: ageRule.action, indeterminateFacts: ['property.yearBuilt'] }), HISTORIC_AGE_UNKNOWN_ACTION);
 // The other half of the condition is still enforced.
-const newerBuilding = withYear(2005);
-assert.equal(newerBuilding.length, 0, 'a building under 50 years old keeps the existing no-result behavior');
-assert.equal(evaluateRules(ctxFor({ yearBuilt: null }, { exteriorConstruction: false }), [ageRule]).length, 0);
+assert.equal(ageResult(thisYear - 10), undefined, 'a building under 50 years old keeps the existing no-result behavior');
+assert.equal(evaluateRules({ property: {}, project: { ageUnknown: true, exteriorConstruction: false, demolition: false } }, [unknownAgeRule]).length, 0);
 
 // Every result in a real plan carries at least one resolved authoritative source,
 // and uncertainty is surfaced on the plan.
@@ -64,7 +71,7 @@ for (const r of plan.results) {
   assert.ok(r.sources.length > 0, `${r.id} has a source`);
   assert.equal(r.missingSourceIds, undefined, `${r.id} sources all resolve`);
 }
-assert.ok(plan.indeterminate.some(x => x.ruleId === 'property.historic-age'));
+assert.equal(plan.results.find(r => r.id === 'property.historic-age-unknown')?.status, 'needs_confirmation');
 assert.deepEqual(plan.evaluationIssues, []);
 
 console.log(`decision system tests: PASS (${rules.length} rules validated)`);

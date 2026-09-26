@@ -147,6 +147,124 @@
         ]
       },
       {
+        "id": "egressClearWidth",
+        "text": "What is the clear opening width?",
+        "kind": "number",
+        "unit": "inches",
+        "min": 0,
+        "showWhenAny": [
+          [
+            "egressMeasurements",
+            "yes"
+          ],
+          [
+            "egressKnown",
+            "yes"
+          ]
+        ]
+      },
+      {
+        "id": "egressClearHeight",
+        "text": "What is the clear opening height?",
+        "kind": "number",
+        "unit": "inches",
+        "min": 0,
+        "showWhenAny": [
+          [
+            "egressMeasurements",
+            "yes"
+          ],
+          [
+            "egressKnown",
+            "yes"
+          ]
+        ]
+      },
+      {
+        "id": "egressSillHeight",
+        "text": "What is the sill height above the floor?",
+        "kind": "number",
+        "unit": "inches",
+        "min": 0,
+        "showWhenAny": [
+          [
+            "egressMeasurements",
+            "yes"
+          ],
+          [
+            "egressKnown",
+            "yes"
+          ]
+        ]
+      },
+      {
+        "id": "egressWellWidth",
+        "text": "If there is a window well, what is its approximate width?",
+        "kind": "number",
+        "unit": "inches",
+        "min": 0,
+        "showWhenAny": [
+          [
+            "egressMeasurements",
+            "yes"
+          ],
+          [
+            "egressKnown",
+            "yes"
+          ]
+        ],
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "egressWellDepth",
+        "text": "If there is a window well, what is its approximate clear depth?",
+        "kind": "number",
+        "unit": "inches",
+        "min": 0,
+        "showWhenAny": [
+          [
+            "egressMeasurements",
+            "yes"
+          ],
+          [
+            "egressKnown",
+            "yes"
+          ]
+        ],
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "egressException",
+        "text": "Is there an existing bulkhead, qualifying door, sprinkler condition, or other code exception you believe applies?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "egressMeasurements",
+            "yes"
+          ],
+          [
+            "egressKnown",
+            "yes"
+          ]
+        ]
+      },
+      {
         "id": "bathroomAdded",
         "text": "Will you add a bathroom?",
         "kind": "choice",
@@ -1028,6 +1146,89 @@
             "I'm not sure"
           ]
         ]
+      },
+      {
+        "id": "zoningLotEra",
+        "text": "Was the lot created before December 7, 1953? (Newton uses different setback, coverage and floor-area limits for older lots.)",
+        "kind": "choice",
+        "options": [
+          [
+            "before_1953",
+            "Before 12/7/1953"
+          ],
+          [
+            "on_or_after_1953",
+            "On or after 12/7/1953"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "zoningSideSetbackFt",
+        "text": "After the project, what will be the smallest distance from the house to a side lot line?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningRearSetbackFt",
+        "text": "After the project, what will be the smallest distance from the house to the rear lot line?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningRoofType",
+        "text": "What type of roof will the house have at its highest point?",
+        "kind": "choice",
+        "options": [
+          [
+            "sloped",
+            "Sloped roof"
+          ],
+          [
+            "flat",
+            "Flat roof"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "zoningHeightFt",
+        "text": "After the project, how tall will the house be, measured from average grade to the highest point of the roof?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningTotalFloorAreaSqFt",
+        "text": "After the project, what will the total gross floor area of all buildings on the lot be (as Newton measures it)?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningTotalCoverageSqFt",
+        "text": "After the project, how much of the lot will be covered by buildings and roofed structures?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
       }
     ]
   },
@@ -1102,6 +1303,678 @@
           [
             "site",
             "Change the property or site"
+          ]
+        ]
+      },
+      {
+        "id": "systemType",
+        "text": "Which home system is the main part of this project?",
+        "kind": "choice",
+        "options": [
+          [
+            "electrical",
+            "Electrical work"
+          ],
+          [
+            "plumbing",
+            "Plumbing work"
+          ],
+          [
+            "gas",
+            "Gas work"
+          ],
+          [
+            "mechanical",
+            "HVAC / mechanical work"
+          ],
+          [
+            "mixed",
+            "More than one system"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "primaryWorkArea",
+            "systems"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalEquipmentType",
+        "text": "What HVAC/mechanical equipment is involved?",
+        "kind": "choice",
+        "options": [
+          [
+            "furnace",
+            "Furnace"
+          ],
+          [
+            "boiler",
+            "Boiler"
+          ],
+          [
+            "heat_pump",
+            "Heat pump"
+          ],
+          [
+            "central_ac",
+            "Central air conditioning"
+          ],
+          [
+            "mini_split",
+            "Mini-split / ductless system"
+          ],
+          [
+            "ventilation",
+            "Ventilation / exhaust equipment"
+          ],
+          [
+            "other",
+            "Other mechanical equipment"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalInstallation",
+        "text": "Is the mechanical equipment new, a replacement, or being relocated/altered?",
+        "kind": "choice",
+        "options": [
+          [
+            "new",
+            "New installation"
+          ],
+          [
+            "replacement",
+            "Replacement"
+          ],
+          [
+            "alteration",
+            "Relocation or alteration"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalFuel",
+        "text": "What is the equipment's fuel or energy source?",
+        "kind": "choice",
+        "options": [
+          [
+            "electric",
+            "Electric"
+          ],
+          [
+            "gas",
+            "Natural gas / other gas"
+          ],
+          [
+            "oil",
+            "Oil"
+          ],
+          [
+            "other",
+            "Other source"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalDuctwork",
+        "text": "Will ductwork, ventilation, or combustion/exhaust venting change?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalElectrical",
+        "text": "Will electrical circuits, service, or equipment change as part of the HVAC work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalGas",
+        "text": "Will gas piping or gas equipment change as part of the HVAC work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalPlumbing",
+        "text": "Will plumbing or hydronic/water connections change as part of the HVAC work?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "mechanicalExterior",
+        "text": "Will exterior equipment, penetrations, or outdoor structures change?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "systemType",
+            "mechanical"
+          ]
+        ]
+      },
+      {
+        "id": "useChange",
+        "text": "Will the project change the use of a room, building, unit, or property?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "unitCountChange",
+        "text": "Will the number of dwelling units change?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "historicLocalLandmark",
+        "text": "Is the property a designated Newton Local Landmark?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "exteriorChange",
+            "yes"
+          ],
+          [
+            "exteriorChange",
+            "unsure"
+          ],
+          [
+            "demolition",
+            "yes"
+          ],
+          [
+            "demolition",
+            "unsure"
+          ]
+        ]
+      },
+      {
+        "id": "historicPreservationRestriction",
+        "text": "Is the property subject to a Preservation Restriction?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "exteriorChange",
+            "yes"
+          ],
+          [
+            "exteriorChange",
+            "unsure"
+          ],
+          [
+            "demolition",
+            "yes"
+          ],
+          [
+            "demolition",
+            "unsure"
+          ]
+        ]
+      },
+      {
+        "id": "historicNationalRegister",
+        "text": "Is the property listed on the National Register of Historic Places?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "exteriorChange",
+            "yes"
+          ],
+          [
+            "exteriorChange",
+            "unsure"
+          ],
+          [
+            "demolition",
+            "yes"
+          ],
+          [
+            "demolition",
+            "unsure"
+          ]
+        ]
+      },
+      {
+        "id": "historicAgeKnown",
+        "text": "Do you know whether the building or structure is at least 50 years old?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes, it is 50+ years old"
+          ],
+          [
+            "no",
+            "No, it is under 50 years old"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "demolition",
+            "yes"
+          ],
+          [
+            "demolition",
+            "unsure"
+          ],
+          [
+            "exteriorChange",
+            "yes"
+          ],
+          [
+            "exteriorChange",
+            "unsure"
+          ]
+        ]
+      },
+      {
+        "id": "fireProtectionWork",
+        "text": "Will you add or alter fire-protection, alarm, sprinkler, or other fire-safety systems?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "hotWork",
+        "text": "Will the project involve hot work or another scope that may require advance Fire approval?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "landDisturbanceKnown",
+        "text": "Will the project disturb land outside the existing building footprint?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "siteWork",
+            "yes"
+          ],
+          [
+            "siteWork",
+            "unsure"
+          ],
+          [
+            "exteriorChange",
+            "yes"
+          ],
+          [
+            "exteriorChange",
+            "unsure"
+          ]
+        ]
+      },
+      {
+        "id": "landDisturbanceSqFt",
+        "text": "Approximately how many square feet of land will be disturbed?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0,
+        "showWhen": [
+          [
+            "landDisturbanceKnown",
+            "yes"
+          ]
+        ],
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "newImperviousSqFt",
+        "text": "Approximately how many square feet of new impervious area will be created?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0,
+        "showWhen": [
+          [
+            "landDisturbanceKnown",
+            "yes"
+          ]
+        ],
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "retainingWallNew",
+        "text": "Will a new retaining wall be required because of a grade change?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "landDisturbanceKnown",
+            "yes"
+          ]
+        ]
+      },
+      {
+        "id": "trenchDewatering",
+        "text": "Will trench excavation require dewatering?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "landDisturbanceKnown",
+            "yes"
+          ]
+        ]
+      },
+      {
+        "id": "drainageChange",
+        "text": "Will drainage patterns or stormwater management change?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhen": [
+          [
+            "landDisturbanceKnown",
+            "yes"
+          ]
+        ]
+      },
+      {
+        "id": "treeSaveAreaKnown",
+        "text": "Do you know whether work will enter a protected tree's Tree Save Area, including an adjoining-property tree?",
+        "kind": "choice",
+        "options": [
+          [
+            "yes",
+            "Yes"
+          ],
+          [
+            "no",
+            "No"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "exteriorChange",
+            "yes"
+          ],
+          [
+            "exteriorChange",
+            "unsure"
+          ],
+          [
+            "siteWork",
+            "yes"
+          ],
+          [
+            "siteWork",
+            "unsure"
           ]
         ]
       },

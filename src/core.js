@@ -3,6 +3,7 @@ import sources from '../data/sources.json' with { type: 'json' };
 import dependencies from '../data/dependencies.json' with { type: 'json' };
 import questionFlows from '../data/questions.json' with { type: 'json' };
 import projectCatalog from '../data/project_catalog.json' with { type: 'json' };
+import { zoningFacts } from './zoning.js';
 
 export const PROJECT_CATALOG = projectCatalog;
 
@@ -198,6 +199,10 @@ export async function resolveProperty(addressInput) {
     stream: streamAttrs.Name || null,
     conservationPotential: conservationSignals,
     historicExteriorReview: Boolean(historic.features?.length),
+    localLandmark: null,
+    preservationRestriction: null,
+    nationalRegister: null,
+    historicStatusUnknown: true,
     openPermitsUnknown: true,
     sources: ['newton-addresses','newton-parcels','newton-zoning','newton-historic-districts','newton-floodplain','newton-wetlands','newton-streams'],
     evidence: [
@@ -327,14 +332,39 @@ export function evaluationIssues(ruleList = rules) {
   return ruleList.filter(r => !parseCondition(r?.when)).map(r => ({ruleId: r?.id || null, problem: 'condition cannot be parsed'}));
 }
 
-export function deriveProject(projectType, answers = {}) {
+export function deriveProject(projectType, answers = {}, property = {}) {
   const a = answers;
   const basementBathroom = a.bathroomAdded === 'yes' || a.bathroomIntent === 'yes';
   const basementPlumbing = a.plumbingWork === 'yes' || basementBathroom;
   const exteriorAnswer = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors].includes('yes') ? 'yes' : ([a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure') ? 'unsure' : 'no');
   const exteriorUncertain = [a.exteriorExpansion, a.newWindow, a.windowsOrDoors, a.siteWork].includes('unsure');
   return {
-    buildingWork: true,
+    buildingWork: projectType === 'addition' || projectType === 'deck' ||
+      ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
+      projectType === 'basement_finish' ||
+      a.primaryWorkArea === 'interior' ||
+      a.primaryWorkArea === 'bath' ||
+      a.primaryWorkArea === 'addition' ||
+      a.primaryWorkArea === 'exterior' ||
+      a.structuralChanges === 'yes' ||
+      a.demolition === 'yes' ||
+      a.guttingExtent === 'yes' ||
+      a.layoutChange === 'yes' ||
+      a.footprintChange === 'yes',
+    buildingWorkUncertain: projectType === 'general_project' && !(
+      projectType === 'addition' || projectType === 'deck' ||
+      ['garage','adu','exterior','roofing'].includes(a.projectCatalogId) ||
+      a.primaryWorkArea === 'interior' || a.primaryWorkArea === 'bath' ||
+      a.primaryWorkArea === 'addition' || a.primaryWorkArea === 'exterior' ||
+      a.structuralChanges === 'yes' || a.demolition === 'yes' ||
+      a.guttingExtent === 'yes' || a.layoutChange === 'yes' ||
+      a.footprintChange === 'yes' || a.primaryWorkArea === 'kitchen' ||
+      a.primaryWorkArea === 'systems' || a.primaryWorkArea === 'site'
+    ) && (
+      a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' ||
+      a.structuralChanges === 'unsure' || a.demolition === 'unsure' ||
+      a.exteriorChange === 'unsure' || a.siteWork === 'unsure'
+    ),
     projectDescription: a.projectDescription || null,
     projectCatalogId: a.projectCatalogId || null,
     projectCatalogLabel: a.projectCatalogLabel || null,
@@ -387,12 +417,80 @@ export function deriveProject(projectType, answers = {}) {
     treeImpactUncertain: a.treeImpact === 'unsure',
     exteriorChange: a.exteriorChange === 'yes' || a.exteriorChangeDetail === 'structure' || a.exteriorChangeDetail === 'opening' || a.exteriorChangeDetail === 'surface',
     exteriorChangeUncertain: a.exteriorChange === 'unsure' || a.exteriorChangeDetail === 'unsure',
-    generalScopeUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' || a.primaryWorkAreaDetail2 === 'unsure'
+    mechanicalWork: a.systemType === 'mechanical' || ['systems-3','systems-4','systems-5','systems-6'].includes(a.projectCatalogId),
+    mechanicalUncertain: a.systemType === 'unsure' || (a.primaryWorkArea === 'systems' && !a.systemType && !['systems-0','systems-1','systems-2','systems-7','systems-8'].includes(a.projectCatalogId || '')),
+    mechanicalExterior: a.mechanicalExterior === 'yes',
+    zoningRelevant: projectType === 'addition' || projectType === 'deck' ||
+      ['garage','adu','exterior','roofing','site'].includes(a.projectCatalogId) ||
+      ['addition','exterior','site'].includes(a.primaryWorkArea) ||
+      a.footprintChange === 'yes' || a.useChange === 'yes' || a.unitCountChange === 'yes' ||
+      a.mechanicalExterior === 'yes',
+    zoningUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' ||
+      a.exteriorChange === 'unsure' || a.siteWork === 'unsure' ||
+      a.footprintChange === 'unsure' || a.useChange === 'unsure' || a.unitCountChange === 'unsure',
+    siteReviewRelevant: projectType === 'addition' || projectType === 'deck' ||
+      a.exteriorChange === 'yes' || a.siteWork === 'yes' || a.mechanicalExterior === 'yes' ||
+      a.windowsOrDoors === 'yes' || a.newWindow === 'yes',
+    landDisturbanceSqFt: a.landDisturbanceSqFt == null || a.landDisturbanceSqFt === '' ? null : Number(a.landDisturbanceSqFt),
+    newImperviousSqFt: a.newImperviousSqFt == null || a.newImperviousSqFt === '' ? null : Number(a.newImperviousSqFt),
+    // Stormwater thresholds only apply to a measured value; a missing
+    // measurement is handled by the stormwater-uncertain rule instead.
+    landDisturbanceSqFtKnown: Number.isFinite(a.landDisturbanceSqFt == null || a.landDisturbanceSqFt === '' ? NaN : Number(a.landDisturbanceSqFt)),
+    newImperviousSqFtKnown: Number.isFinite(a.newImperviousSqFt == null || a.newImperviousSqFt === '' ? NaN : Number(a.newImperviousSqFt)),
+    newRetainingWall: a.retainingWallNew === 'yes',
+    trenchDewatering: a.trenchDewatering === 'yes',
+    stormwaterFactsUncertain: (projectType === 'addition' || projectType === 'deck' || a.siteWork === 'yes' || a.exteriorChange === 'yes') &&
+      a.landDisturbanceKnown !== 'no' && a.landDisturbanceSqFt == null && a.newImperviousSqFt == null &&
+      a.retainingWallNew !== 'no' && a.trenchDewatering !== 'no',
+    treeSaveAreaUncertain: (projectType === 'addition' || projectType === 'deck' || a.exteriorChange === 'yes' || a.siteWork === 'yes') &&
+      a.treeSaveAreaKnown !== 'no',
+    localLandmark: a.historicLocalLandmark === 'yes',
+    preservationRestriction: a.historicPreservationRestriction === 'yes',
+    nationalRegister: a.historicNationalRegister === 'yes',
+    ...historicAgeFacts(property, a),
+    // Zoning dimensional screen (SR1-SR3, single-family detached). Applies to
+    // work that adds floor area or changes the footprint.
+    ...zoningFacts(property, a, projectType === 'addition' || a.exteriorExpansion === 'yes' || a.footprintChange === 'yes'),
+    historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
+      a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
+      (projectType !== 'general_project' && (projectType === 'addition' || projectType === 'deck') && property?.historicStatusUnknown === true),
+    advanceFireApprovalPotential: projectType === 'addition' || a.demolition === 'yes' || a.fireProtectionWork === 'yes' || a.hotWork === 'yes',
+    basementPresent: projectType === 'basement_finish',
+    eeroFactsUncertain: projectType === 'basement_finish' &&
+      (a.egressMeasurements !== 'yes' || a.egressClearWidth == null || a.egressClearHeight == null || a.egressSillHeight == null),
+    generalScopeUncertain: a.primaryWorkArea === 'unsure' || a.primaryWorkAreaDetail === 'unsure' || a.primaryWorkAreaDetail2 === 'unsure',
+  };
+}
+
+// Building-age facts for the historic pathways. Newton's property record gives a
+// year only, so on a given date the building's exact age is either
+// (currentYear - yearBuilt - 1) or (currentYear - yearBuilt). A threshold is
+// treated as met only when both possible ages meet it; when they straddle it
+// the result is a boundary case that needs confirmation.
+//   general exterior Historic Review: age > 50
+//   historic demolition review:        age >= 50
+export function historicAgeFacts(property, answers = {}, asOf = new Date()) {
+  const raw = property?.yearBuilt;
+  const year = typeof raw === 'number' ? raw
+    : (typeof raw === 'string' && /^\s*\d{4}\s*$/.test(raw) ? Number(raw) : NaN);
+  const asOfYear = asOf.getFullYear();
+  const yearKnown = Number.isInteger(year) && year > 0 && year <= asOfYear;
+  const known = answers?.historicAgeKnown;
+  const answered = known === 'yes' || known === 'no';
+  const minAge = yearKnown ? asOfYear - year - 1 : null;
+  const maxAge = yearKnown ? asOfYear - year : null;
+  const byRecord = yearKnown && known == null;
+  return {
+    ageOver50: yearKnown && minAge > 50,
+    ageOver50Boundary: yearKnown && minAge <= 50 && maxAge > 50,
+    ageAtLeast50: known === 'yes' || (byRecord && minAge >= 50),
+    ageBoundaryUncertain: byRecord && minAge < 50 && maxAge >= 50,
+    ageUnknown: !yearKnown && !answered,
   };
 }
 
 export function buildPlan(projectType, property, answers) {
-  const project = deriveProject(projectType, answers);
+  const project = deriveProject(projectType, answers, property);
   const ctx = {property, project, answers};
   const results = evaluateRules(ctx);
   const required = results.filter(r => r.status === 'required');

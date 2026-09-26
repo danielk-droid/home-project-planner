@@ -196,5 +196,68 @@
     "authority": "official_data",
     "lastVerified": "2026-09-19",
     "sourceType": "official_gis"
+  },
+  {
+    "id": "newton-mechanical",
+    "title": "Inspectional Services / Mechanical Permits",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/inspectional-services",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-stormwater",
+    "title": "Engineering / Stormwater Management",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/public-works/engineering",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-historic-applications",
+    "title": "Historic Preservation — Submit an Application",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/submit-an-application",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-zoning-applications",
+    "title": "Planning Applications, Forms and Brochures",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-isd",
+    "title": "Inspectional Services Department",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/government/inspectional-services",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-newgov-portal",
+    "title": "Newton NewGov Permitting Portal",
+    "publisher": "City of Newton",
+    "url": "https://newtonma.viewpointcloud.com/",
+    "authority": "official_guidance",
+    "lastVerified": "2026-09-22",
+    "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-zoning-ordinance",
+    "title": "Newton Zoning Ordinance, Chapter 30 (Secs. 1.5, 3.1.3, 3.1.9)",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/home/showpublisheddocument/29823/638717834291930000",
+    "authority": "official_law",
+    "lastVerified": "2026-09-26",
+    "sourceType": "official_ordinance"
   }
 ]
