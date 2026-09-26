@@ -49,6 +49,11 @@ function agree(outcomes) {
   return outcomes.every(o => o === outcomes[0]) ? outcomes[0] : 'unknown';
 }
 
+function garageExemptionMayApply(yearBuilt) {
+  const y = toMeasurement(yearBuilt);
+  return y == null || !Number.isInteger(y) || y <= 1922;
+}
+
 const atLeast = (value, min) => (value + EPS >= min ? 'within' : 'exceeds');
 const atMost = (value, max) => (value <= max + EPS ? 'within' : 'exceeds');
 
@@ -92,7 +97,18 @@ export function zoningScreen(property = {}, answers = {}, applies = true) {
     ? {status: 'unknown'}
     : (() => {
       const pct = coverage / lotArea * 100;
-      return {status: agree(possibleEras.map(e => atMost(pct, spec.lotCoveragePct[e]))), percent: Math.round(pct * 100) / 100,
+      let status = agree(possibleEras.map(e => atMost(pct, spec.lotCoveragePct[e])));
+      // Sec. 1.5.2.D.2: lot coverage limits do not apply to a private garage
+      // accessory to a single- or two-family residence that existed on
+      // 12/27/1922. When a garage project's house could predate that date
+      // (year built 1922 or earlier, or not returned), an over-limit result
+      // is not established.
+      const garageExemptionPossible = answers.projectCatalogId === 'garage' && garageExemptionMayApply(property?.yearBuilt);
+      if (status === 'exceeds' && garageExemptionPossible) {
+        status = 'unknown';
+        missing.push('whether the Sec. 1.5.2.D.2 garage exemption applies (house existing on 12/27/1922)');
+      }
+      return {status, percent: Math.round(pct * 100) / 100, garageExemptionPossible,
         limits: Object.fromEntries(possibleEras.map(e => [e, spec.lotCoveragePct[e]]))};
     })();
 

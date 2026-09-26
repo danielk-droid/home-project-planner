@@ -97,3 +97,63 @@ const ambiguousText = JSON.stringify(over.results.filter(r => r.id.startsWith('z
 assert.doesNotMatch(ambiguousText, /\b(approved|is legal|definitely)\b/i);
 
 console.log('zoning feasibility screen tests: PASS');
+
+// --- Official-table regression: every value checked against Newton Zoning
+// Ordinance Chapter 30, "Last Amended 12-01-25" (Secs. 3.1.3, 3.1.9). ---
+{
+  const OFFICIAL = {
+    SR1: {post: {side: 20, rear: 25, cov: 15}, pre: {side: 12.5, rear: 25, cov: 20}},
+    SR2: {post: {side: 15, rear: 15, cov: 20}, pre: {side: 7.5, rear: 15, cov: 30}},
+    SR3: {post: {side: 10, rear: 15, cov: 30}, pre: {side: 7.5, rear: 15, cov: 30}}
+  };
+  for (const [d, eras] of Object.entries(OFFICIAL)) {
+    const P = {zoningDistrict: d, lotSizeSqFt: 10000};
+    for (const [era, v] of [['on_or_after_1953', eras.post], ['before_1953', eras.pre]]) {
+      const a = o => full({zoningLotEra: era, zoningSideSetbackFt: 50, zoningRearSetbackFt: 50, ...o});
+      assert.equal(st(P, a({zoningSideSetbackFt: v.side}), 'setbacks'), 'within', `${d} ${era} side at min`);
+      assert.equal(st(P, a({zoningSideSetbackFt: v.side - 0.1}), 'setbacks'), 'exceeds', `${d} ${era} side below`);
+      assert.equal(st(P, a({zoningRearSetbackFt: v.rear}), 'setbacks'), 'within', `${d} ${era} rear at min`);
+      assert.equal(st(P, a({zoningRearSetbackFt: v.rear - 0.1}), 'setbacks'), 'exceeds', `${d} ${era} rear below`);
+      assert.equal(st(P, a({zoningTotalCoverageSqFt: v.cov * 100}), 'lotCoverage'), 'within', `${d} ${era} coverage at max`);
+      assert.equal(st(P, a({zoningTotalCoverageSqFt: v.cov * 100 + 1}), 'lotCoverage'), 'exceeds', `${d} ${era} coverage above`);
+    }
+    for (const [roof, max] of [['sloped', 36], ['flat', 30]]) {
+      assert.equal(st(P, full({zoningRoofType: roof, zoningHeightFt: max}), 'height'), 'within', `${d} ${roof} at max`);
+      assert.equal(st(P, full({zoningRoofType: roof, zoningHeightFt: max + 0.1}), 'height'), 'exceeds', `${d} ${roof} above`);
+    }
+  }
+  // Sec. 3.1.9 FAR table endpoints and equations.
+  const FAR = [
+    ['SR1', 4999, 0.46], ['SR1', 5000, 0.46], ['SR1', 6999, 0.460 - 0.000015 * 1999], ['SR1', 7000, 0.43],
+    ['SR1', 9999, 0.43 - 0.000033 * 2999], ['SR1', 10000, 0.33], ['SR1', 14999, 0.33 - 0.000004 * 4999],
+    ['SR1', 15000, 0.31], ['SR1', 19999, 0.31 - 0.000006 * 4999], ['SR1', 20000, 0.28],
+    ['SR1', 24999, 0.28 - 0.000004 * 4999], ['SR1', 25000, 0.26], ['SR1', 80000, 0.26],
+    ['SR2', 4999, 0.46], ['SR2', 6000, 0.46 - 0.000015 * 1000], ['SR2', 7000, 0.43], ['SR2', 8500, 0.43 - 0.000017 * 1500],
+    ['SR2', 10000, 0.38], ['SR2', 12000, 0.38 - 0.00001 * 2000], ['SR2', 15000, 0.33], ['SR2', 40000, 0.33],
+    ['SR3', 4999, 0.48], ['SR3', 6999, 0.48], ['SR3', 7000, 0.48], ['SR3', 9000, 0.48 - 0.000023 * 2000],
+    ['SR3', 10000, 0.41], ['SR3', 12500, 0.41 - 0.000006 * 2500], ['SR3', 15000, 0.38], ['SR3', 19999, 0.38],
+    ['SR3', 20000, 0.38], ['SR3', 22000, 0.38 - 0.000004 * 2000], ['SR3', 25000, 0.36]
+  ];
+  for (const [d, lot, expected] of FAR) assert.ok(Math.abs(maxFar(d, lot) - expected) < 1e-6, `${d} ${lot} FAR ${maxFar(d, lot)} vs ${expected}`);
+  // Pre-1953 +0.02 (Sec. 3.1.9.A.1) is conditional -> unknown inside the band, exceeds above it.
+  const pre = o => full({zoningLotEra: 'before_1953', ...o});
+  assert.equal(st(SR2, pre({zoningTotalFloorAreaSqFt: 3800}), 'far'), 'within');
+  assert.equal(st(SR2, pre({zoningTotalFloorAreaSqFt: 3900}), 'far'), 'unknown');
+  assert.equal(st(SR2, pre({zoningTotalFloorAreaSqFt: 4000}), 'far'), 'unknown', 'exactly base+0.02 is not a definite exceedance');
+  assert.equal(st(SR2, pre({zoningTotalFloorAreaSqFt: 4001}), 'far'), 'exceeds');
+  assert.equal(st(SR2, full({zoningTotalFloorAreaSqFt: 3801}), 'far'), 'exceeds', 'post-1953 has no bonus');
+}
+
+// --- Sec. 1.5.2.D.2 garage exemption from lot coverage (house existing 12/27/1922) ---
+{
+  const over = full({zoningTotalCoverageSqFt: 2500, projectCatalogId: 'garage'});
+  assert.equal(st({...SR2, yearBuilt: 1910}, over, 'lotCoverage'), 'unknown', 'pre-1922 house garage: exemption may apply');
+  assert.equal(st({...SR2, yearBuilt: 1922}, over, 'lotCoverage'), 'unknown', '1922 house may have existed on 12/27/1922');
+  assert.equal(st({...SR2}, over, 'lotCoverage'), 'unknown', 'missing year built never assumed post-1922');
+  assert.equal(st({...SR2, yearBuilt: 'n/a'}, over, 'lotCoverage'), 'unknown');
+  assert.equal(st({...SR2, yearBuilt: 1923}, over, 'lotCoverage'), 'exceeds', 'post-1922 house: no exemption');
+  assert.equal(st({...SR2, yearBuilt: 1910}, full({zoningTotalCoverageSqFt: 2500}), 'lotCoverage'), 'exceeds', 'non-garage project unaffected');
+  assert.equal(st({...SR2, yearBuilt: 1910}, full({zoningTotalCoverageSqFt: 1500, projectCatalogId: 'garage'}), 'lotCoverage'), 'within');
+  assert.ok(zoningScreen({...SR2, yearBuilt: 1910}, over).missing.some(m => m.includes('1.5.2.D.2')));
+}
+console.log('zoning official-table regression ok');
