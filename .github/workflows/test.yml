@@ -15,7 +15,5 @@ jobs:
       - run: node --check app.js
       - run: node --check scripts/monitor-sources.mjs
       - run: node --check scripts/validate-monitor-output.mjs
-      - run: node tests/core.test.mjs
-      - run: node tests/reliability.test.mjs
-      - run: node tests/data-integrity.test.mjs
-      - run: node tests/source-monitor.test.mjs
+      - run: node --check api/feedback.js
+      - run: npm test
