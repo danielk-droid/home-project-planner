@@ -65,6 +65,7 @@ export function zoningScreen(property = {}, answers = {}, applies = true) {
   if (!spec) return {...base, districtStatus: district ? 'unsupported' : 'unknown'};
   base.supportedDistrict = true;
   base.districtStatus = 'supported';
+  base.sourceId = table.source.id;
 
   const lotEra = ['before_1953', 'on_or_after_1953'].includes(answers.zoningLotEra) ? answers.zoningLotEra : null;
   const possibleEras = eras(lotEra);
@@ -76,17 +77,24 @@ export function zoningScreen(property = {}, answers = {}, applies = true) {
   const gfa = toMeasurement(answers.zoningTotalFloorAreaSqFt);
   const coverage = toMeasurement(answers.zoningTotalCoverageSqFt);
   const missing = [];
+  base.lotEra = lotEra;
+  base.lotArea = lotArea;
+  base.roofType = roof;
   if (!lotEra) missing.push('lot creation date (before or after 12/7/1953)');
 
   // Setbacks: side and rear only.
   const setbackParts = [];
+  const parts = {};
   for (const [key, value] of [['side', side], ['rear', rear]]) {
-    if (value == null) { missing.push(key + ' setback'); setbackParts.push('unknown'); continue; }
-    setbackParts.push(agree(possibleEras.map(e => atLeast(value, spec.setbacks[e][key]))));
+    const partLimits = Object.fromEntries(possibleEras.map(e => [e, spec.setbacks[e][key]]));
+    if (value == null) { missing.push(key + ' setback'); setbackParts.push('unknown'); parts[key] = {status:'unknown', value:null, limits:partLimits}; continue; }
+    const partStatus = agree(possibleEras.map(e => atLeast(value, spec.setbacks[e][key])));
+    setbackParts.push(partStatus);
+    parts[key] = {status:partStatus, value, limits:partLimits};
   }
   base.checks.setbacks = {
     status: setbackParts.includes('exceeds') ? 'exceeds' : agree(setbackParts),
-    side, rear,
+    side, rear, parts,
     limits: Object.fromEntries(possibleEras.map(e => [e, spec.setbacks[e]]))
   };
 
@@ -125,7 +133,7 @@ export function zoningScreen(property = {}, answers = {}, applies = true) {
   // so a ratio inside that allowance band stays unknown.
   if (gfa == null) missing.push('total gross floor area');
   const limit = maxFar(district, lotArea);
-  if (gfa == null || limit == null) base.checks.far = {status: 'unknown', maxFar: limit};
+  if (gfa == null || limit == null) base.checks.far = {status: 'unknown', maxFar: limit, ratio: null};
   else {
     const ratio = gfa / lotArea;
     const outcomes = possibleEras.map(e => {
@@ -134,7 +142,8 @@ export function zoningScreen(property = {}, answers = {}, applies = true) {
       if (ratio > limit + table.pre1953FarBonus + EPS) return 'exceeds';
       return 'unknown';
     });
-    base.checks.far = {status: agree(outcomes), ratio: Math.round(ratio * 10000) / 10000, maxFar: limit};
+    base.checks.far = {status: agree(outcomes), ratio: Math.round(ratio * 10000) / 10000, maxFar: limit,
+      pre1953AllowancePossible: possibleEras.includes('before_1953'), pre1953Bonus: table.pre1953FarBonus};
   }
   base.missing = [...new Set(missing)];
   return base;
