@@ -31,3 +31,12 @@ answers + Newton GIS property -> deriveProject (normalized facts)
 npm test                              # full suite
 node tests/source-monitor.test.mjs    # source monitor (run separately in CI)
 ```
+
+## Zoning dimensional screen (Sec. 3.1.3 / 3.1.9)
+
+- `src/zoning.js` + `data/zoning_dimensional.json` screen side/rear setbacks, lot coverage, height and FAR for single-family detached houses in SR1/SR2/SR3 only. Front setbacks are not screened (Sec. 1.5.3 averaging).
+- Results feed `deriveProject()` as flat facts; the rules in `rules.json` (`zoning.*`) are the only place results are produced — there is no second engine.
+- Each check is `within` / `exceeds` / `unknown` / `not_applicable`. Missing or malformed numbers are `unknown`, never zero. When lot creation date or roof type is unknown, every possible limit is evaluated and only an outcome shared by all of them is reported. The pre-1953 +0.02 FAR allowance depends on post-1953 setback compliance (including front), so ratios inside that band stay `unknown`.
+- Boundaries: minimum setbacks comply at exactly the minimum; maximum coverage/height/FAR comply at exactly the maximum.
+- `within` produces no card (the existing zoning review cards remain); `exceeds` is `potentially_required`; `unknown` / unsupported / unknown district is `needs_confirmation`.
+- Values were transcribed from the codified text dated 02-15-24; the current official edition (Last Amended 12-01-25) could not be downloaded from the build environment and must be re-checked by a person (`humanVerificationRequired: true`).

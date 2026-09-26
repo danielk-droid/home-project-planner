@@ -1,6 +1,6 @@
 {
   "type": "module",
   "scripts": {
-    "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs && node tests/feedback.test.mjs && node tests/project-state.test.mjs && node tests/stormwater-integration.test.mjs && node tests/historic-age.test.mjs && node tests/decision-system.test.mjs && node tests/source-monitor.test.mjs"
+    "test": "node tests/core.test.mjs && node tests/data-integrity.test.mjs && node tests/reliability.test.mjs && node tests/feedback.test.mjs && node tests/project-state.test.mjs && node tests/stormwater-integration.test.mjs && node tests/historic-age.test.mjs && node tests/decision-system.test.mjs && node tests/source-monitor.test.mjs && node tests/zoning-feasibility.test.mjs"
   }
 }

@@ -1146,6 +1146,89 @@
             "I'm not sure"
           ]
         ]
+      },
+      {
+        "id": "zoningLotEra",
+        "text": "Was the lot created before December 7, 1953? (Newton uses different setback, coverage and floor-area limits for older lots.)",
+        "kind": "choice",
+        "options": [
+          [
+            "before_1953",
+            "Before 12/7/1953"
+          ],
+          [
+            "on_or_after_1953",
+            "On or after 12/7/1953"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "zoningSideSetbackFt",
+        "text": "After the project, what will be the smallest distance from the house to a side lot line?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningRearSetbackFt",
+        "text": "After the project, what will be the smallest distance from the house to the rear lot line?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningRoofType",
+        "text": "What type of roof will the house have at its highest point?",
+        "kind": "choice",
+        "options": [
+          [
+            "sloped",
+            "Sloped roof"
+          ],
+          [
+            "flat",
+            "Flat roof"
+          ],
+          [
+            "unsure",
+            "I'm not sure"
+          ]
+        ]
+      },
+      {
+        "id": "zoningHeightFt",
+        "text": "After the project, how tall will the house be, measured from average grade to the highest point of the roof?",
+        "kind": "number",
+        "unit": "feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningTotalFloorAreaSqFt",
+        "text": "After the project, what will the total gross floor area of all buildings on the lot be (as Newton measures it)?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
+      },
+      {
+        "id": "zoningTotalCoverageSqFt",
+        "text": "After the project, how much of the lot will be covered by buildings and roofed structures?",
+        "kind": "number",
+        "unit": "square feet",
+        "min": 0,
+        "optional": true,
+        "skipLabel": "Skip"
       }
     ]
   },

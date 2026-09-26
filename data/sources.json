@@ -250,5 +250,14 @@
     "authority": "official_guidance",
     "lastVerified": "2026-09-22",
     "sourceType": "official_guidance"
+  },
+  {
+    "id": "newton-zoning-ordinance",
+    "title": "Newton Zoning Ordinance, Chapter 30 (Secs. 1.5, 3.1.3, 3.1.9)",
+    "publisher": "City of Newton",
+    "url": "https://www.newtonma.gov/home/showpublisheddocument/29823/638717834291930000",
+    "authority": "official_law",
+    "lastVerified": "2026-09-26",
+    "sourceType": "official_ordinance"
   }
 ]

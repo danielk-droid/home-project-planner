@@ -950,5 +950,103 @@
       "Current property survey",
       "Measured/proposed setbacks"
     ]
+  },
+  {
+    "id": "zoning.setback-exceeds",
+    "when": "project.zoningSetbackExceeds == true",
+    "status": "potentially_required",
+    "title": "Proposed side or rear setback appears smaller than the zoning minimum",
+    "action": "The side or rear distance you entered is less than the minimum principal-building setback in Newton Zoning Ordinance Sec. 3.1.3 for this district. Zoning relief may be needed. This is a screening result from the measurements you entered, not a zoning determination. Existing nonconformities (Sec. 7.8), exceptions, and special permits can change the outcome; confirm with Newton Inspectional Services or a zoning professional using a current survey and plans.",
+    "sourceIds": [
+      "newton-zoning-ordinance",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Current certified plot plan or survey",
+      "Proposed setback dimensions"
+    ]
+  },
+  {
+    "id": "zoning.lot-coverage-exceeds",
+    "when": "project.zoningCoverageExceeds == true",
+    "status": "potentially_required",
+    "title": "Proposed lot coverage appears above the zoning maximum",
+    "action": "The building coverage you entered, divided by the lot area, is above the maximum lot coverage in Newton Zoning Ordinance Sec. 3.1.3 for this district (coverage counts buildings, accessory buildings and roofed structures per Sec. 1.5.2). Zoning relief may be needed. This is a screening result from the measurements you entered, not a zoning determination. Existing nonconformities (Sec. 7.8), exceptions, and special permits can change the outcome; confirm with Newton Inspectional Services or a zoning professional using a current survey and plans.",
+    "sourceIds": [
+      "newton-zoning-ordinance",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Existing and proposed lot coverage calculation"
+    ]
+  },
+  {
+    "id": "zoning.height-exceeds",
+    "when": "project.zoningHeightExceeds == true",
+    "status": "potentially_required",
+    "title": "Proposed building height appears above the zoning maximum",
+    "action": "The height you entered is above the principal-building height limit in Newton Zoning Ordinance Sec. 3.1.3 (36 ft sloped roof, 30 ft flat roof, measured from the average grade plane per Sec. 1.5.4). Zoning relief may be needed. This is a screening result from the measurements you entered, not a zoning determination. Existing nonconformities (Sec. 7.8), exceptions, and special permits can change the outcome; confirm with Newton Inspectional Services or a zoning professional using a current survey and plans.",
+    "sourceIds": [
+      "newton-zoning-ordinance",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Elevations with average grade plane and ridge height"
+    ]
+  },
+  {
+    "id": "zoning.far-exceeds",
+    "when": "project.zoningFarExceeds == true",
+    "status": "potentially_required",
+    "title": "Proposed floor area ratio appears above the zoning maximum",
+    "action": "The total gross floor area you entered, divided by the lot area, is above the maximum FAR in Newton Zoning Ordinance Sec. 3.1.9 for this district and lot size. An increased FAR is possible only by special permit. This is a screening result from the measurements you entered, not a zoning determination. Existing nonconformities (Sec. 7.8), exceptions, and special permits can change the outcome; confirm with Newton Inspectional Services or a zoning professional using a current survey and plans.",
+    "sourceIds": [
+      "newton-zoning-ordinance",
+      "newton-far",
+      "newton-planning"
+    ],
+    "reviewRequired": true,
+    "preparation": [
+      "Existing and proposed gross floor area per Sec. 1.5.5"
+    ]
+  },
+  {
+    "id": "zoning.screen-incomplete",
+    "when": "project.zoningScreenIncomplete == true",
+    "status": "needs_confirmation",
+    "title": "Zoning dimensional check could not be completed",
+    "action": "HPP could not compare every setback, lot coverage, height, and floor-area measurement against Newton's published limits because some facts are missing or the result depends on facts HPP does not have (for example, whether the lot was created before December 7, 1953). Missing values were not assumed. A survey and zoning review are needed to confirm these dimensions.",
+    "sourceIds": [
+      "newton-zoning-ordinance",
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "zoning.district-unsupported",
+    "when": "project.zoningDistrictUnsupported == true",
+    "status": "needs_confirmation",
+    "title": "Zoning dimensional check not available for this district",
+    "action": "HPP's dimensional check currently covers only single-family houses in the SR1, SR2 and SR3 districts. The dimensional rules for this property's district were not checked; confirm them with Newton Planning or Inspectional Services.",
+    "sourceIds": [
+      "newton-zoning-ordinance",
+      "newton-planning"
+    ],
+    "reviewRequired": true
+  },
+  {
+    "id": "zoning.district-unknown",
+    "when": "project.zoningDistrictUnknown == true",
+    "status": "needs_confirmation",
+    "title": "Zoning district not established",
+    "action": "Newton GIS did not return a zoning district for this property, so no dimensional limits were checked. Confirm the district on Newton's official zoning map before relying on any size or setback assumption.",
+    "sourceIds": [
+      "newton-zoning",
+      "newton-planning"
+    ],
+    "reviewRequired": true
   }
 ]

@@ -3,6 +3,7 @@ import sources from '../data/sources.json' with { type: 'json' };
 import dependencies from '../data/dependencies.json' with { type: 'json' };
 import questionFlows from '../data/questions.json' with { type: 'json' };
 import projectCatalog from '../data/project_catalog.json' with { type: 'json' };
+import { zoningFacts } from './zoning.js';
 
 export const PROJECT_CATALOG = projectCatalog;
 
@@ -447,6 +448,9 @@ export function deriveProject(projectType, answers = {}, property = {}) {
     preservationRestriction: a.historicPreservationRestriction === 'yes',
     nationalRegister: a.historicNationalRegister === 'yes',
     ...historicAgeFacts(property, a),
+    // Zoning dimensional screen (SR1-SR3, single-family detached). Applies to
+    // work that adds floor area or changes the footprint.
+    ...zoningFacts(property, a, projectType === 'addition' || a.exteriorExpansion === 'yes' || a.footprintChange === 'yes'),
     historicStatusUncertain: a.historicLocalLandmark === 'unsure' || a.historicPreservationRestriction === 'unsure' ||
       a.historicNationalRegister === 'unsure' || a.historicAgeKnown === 'unsure' ||
       (projectType !== 'general_project' && (projectType === 'addition' || projectType === 'deck') && property?.historicStatusUnknown === true),

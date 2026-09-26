@@ -44,7 +44,8 @@ const knownProjectFields = new Set([
   'ceilingHeightFt','ceilingHeightUncertain','bathroomLayoutChange','bathroomLayoutUncertain',
   'siteWork','siteWorkUncertain','electricalWork','electricalUncertain','plumbingWork','plumbingUncertain','gasWork','gasUncertain',
   'structuralChanges','structuralUncertain','exteriorConstruction','exteriorUncertain','expansion','sleepingRoomAdded','sleepingRoomUncertain',
-  'bathroomAdded','bathroomUncertain','ventilationWork','ventilationUncertain','windowWork','windowUncertain','treeImpact','treeImpactUncertain','treeSaveAreaUncertain','mechanicalWork','mechanicalUncertain','mechanicalExterior','zoningRelevant','zoningUncertain','siteReviewRelevant','landDisturbanceSqFt','landDisturbanceSqFtKnown','newImperviousSqFt','newImperviousSqFtKnown','newRetainingWall','trenchDewatering','drainageChange','stormwaterFactsUncertain','localLandmark','preservationRestriction','nationalRegister','ageAtLeast50','ageBoundaryUncertain','ageOver50','ageOver50Boundary','ageUnknown','historicStatusUncertain','useChange','useChangeUncertain','unitCountChange','unitCountChangeUncertain','fireProtectionWork','hotWork','advanceFireApprovalPotential','basementPresent','eeroFactsUncertain'
+  'bathroomAdded','bathroomUncertain','ventilationWork','ventilationUncertain','windowWork','windowUncertain','treeImpact','treeImpactUncertain','treeSaveAreaUncertain','mechanicalWork','mechanicalUncertain','mechanicalExterior','zoningRelevant','zoningUncertain','siteReviewRelevant','landDisturbanceSqFt','landDisturbanceSqFtKnown','newImperviousSqFt','newImperviousSqFtKnown','newRetainingWall','trenchDewatering','drainageChange','stormwaterFactsUncertain','localLandmark','preservationRestriction','nationalRegister','ageAtLeast50','ageBoundaryUncertain','ageOver50','ageOver50Boundary','ageUnknown','historicStatusUncertain','useChange','useChangeUncertain','unitCountChange','unitCountChangeUncertain','fireProtectionWork','hotWork','advanceFireApprovalPotential','basementPresent','eeroFactsUncertain',
+  'zoningSetbackExceeds','zoningCoverageExceeds','zoningHeightExceeds','zoningFarExceeds','zoningScreenIncomplete','zoningDistrictUnsupported','zoningDistrictUnknown'
 ]);
 for(const r of rules){
   for(const token of r.when.match(/[\\w]+\\.[\\w]+/g)||[]){
@@ -81,3 +82,13 @@ assert.ok(catalog.categories.every(c=>c.label&&Array.isArray(c.items)&&c.items.l
 const removedNonPermitExamples = new Set(['Replace kitchen cabinets','Replace kitchen countertops','Build a patio','Build or replace a fence','Build a shed','Repair a roof','Install a walkway','Landscape a large area','Something else not listed here']);
 for(const cat of catalog.categories) for(const item of cat.items) assert.ok(!removedNonPermitExamples.has(item),'non-permit catalog item remains: '+item);
 console.log('project catalog integrity: PASS ('+catalogCount+' detailed options)');
+
+// Privacy disclosures must match the Feedback implementation (optional email,
+// free text, stored in a private Google Sheet via the HPP feedback endpoint).
+const privacySection = indexHtml.slice(indexHtml.indexOf('<section id="privacy"'), indexHtml.indexOf('<section id="terms"'));
+assert.ok(indexHtml.includes('id="feedbackEmail"'), 'feedback email field expected');
+assert.match(privacySection, /Feedback form/, 'privacy must describe the Feedback form');
+assert.match(privacySection, /private Google Sheet/, 'privacy must disclose where feedback is stored');
+assert.match(privacySection, /email address if you choose/, 'privacy must disclose the optional email');
+assert.doesNotMatch(privacySection, /No account, name, email address/, 'privacy must not claim no email is requested');
+console.log('privacy/feedback consistency: PASS');
