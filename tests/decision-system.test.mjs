@@ -74,4 +74,21 @@ for (const r of plan.results) {
 assert.equal(plan.results.find(r => r.id === 'property.historic-age-unknown')?.status, 'needs_confirmation');
 assert.deepEqual(plan.evaluationIssues, []);
 
+// Explicit negative GIS facts are negative; only positive facts trigger these
+// property pathways. Missing GIS facts remain covered by their uncertainty
+// rules and must never become false-positive requirements.
+const negativePropertyPlan = buildPlan('addition', {
+  resolvedAddress: '1 Test St', zoningDistrict: 'SR2', lotSizeSqFt: 10000,
+  yearBuilt: 2005, floodplain: false, historicDistrict: null,
+  historicExteriorReview: false, historicStatusUnknown: false,
+  conservationPotential: false, openPermitsUnknown: false
+}, {
+  newArea: 400, stories: 1, zoningLotEra: 'on_or_after_1953',
+  zoningSideSetbackFt: 15, zoningRearSetbackFt: 15,
+  zoningRoofType: 'sloped', zoningHeightFt: 36,
+  zoningTotalFloorAreaSqFt: 3800, zoningTotalCoverageSqFt: 2000
+});
+assert.equal(negativePropertyPlan.results.find(r => r.id === 'property.floodplain'), undefined);
+assert.equal(negativePropertyPlan.results.find(r => r.id === 'property.historic'), undefined);
+
 console.log(`decision system tests: PASS (${rules.length} rules validated)`);

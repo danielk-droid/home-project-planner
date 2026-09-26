@@ -40,4 +40,10 @@ node tests/source-monitor.test.mjs    # source monitor (run separately in CI)
 - Each check is `within` / `exceeds` / `unknown` / `not_applicable`. Missing or malformed numbers are `unknown`, never zero. When lot creation date or roof type is unknown, every possible limit is evaluated and only an outcome shared by all of them is reported. The pre-1953 +0.02 FAR allowance depends on post-1953 setback compliance (including front), so ratios inside that band stay `unknown`.
 - Boundaries: minimum setbacks comply at exactly the minimum; maximum coverage/height/FAR comply at exactly the maximum.
 - `within` produces no card (the existing zoning review cards remain); `exceeds` is `potentially_required`; `unknown` / unsupported / unknown district is `needs_confirmation`.
-- Values were transcribed from the codified text dated 02-15-24; the current official edition (Last Amended 12-01-25) could not be downloaded from the build environment and must be re-checked by a person (`humanVerificationRequired: true`).
+- Values were verified against the City-published Chapter 30 edition labeled “Last Amended 12-01-25”; exact section provenance and the scoped C-67 review are recorded in `data/zoning_dimensional.json` (`humanVerificationRequired: false`). This does not eliminate project-specific City review or any documented omitted determination.
+
+## Question uncertainty and feasibility summary
+
+- `src/question-guidance.js` permits a follow-up only when its choices can resolve the original scope fact. Lot-creation era and roof type therefore remain explicitly uncertain instead of receiving an unrelated yes/no prompt.
+- A building year is evidence about the structure, not the legal lot-creation date. The UI explains that distinction and does not infer one from the other.
+- `src/feasibility.js` summarizes the existing deterministic rule results before the checklist/workflow choice. It never supplies a separate approval decision: exceeded limits, historic review, unsupported districts, and missing facts remain referrals to the relevant Newton office.

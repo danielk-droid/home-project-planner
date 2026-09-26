@@ -10,6 +10,8 @@ import {
   newProjectId
 } from './src/project-state.js';
 import {actionForResult} from './src/result-presentation.js';
+import {clarifierForQuestion, questionContext} from './src/question-guidance.js';
+import {feasibilitySummary} from './src/feasibility.js';
 
 const $ = id => document.getElementById(id);
 let property = null;
@@ -836,107 +838,7 @@ function questionWhy(q) {
   if (q.kind === 'number') return 'This helps determine which thresholds, dimensions, or review steps may apply.';
   return 'This answer can change which requirements and follow-up questions apply to the project.';
 }
-function clarifierFor(q) {
-  const specific = {
-    structuralChanges: {
-      text:'Which structural parts will actually change?',
-      kind:'multi',
-      options:[['walls','Walls or partitions'],['framing','Framing, beams, columns, or joists'],['foundation','Foundation or below-grade structure'],['none','None of these']]
-    },
-    electricalWork: {
-      text:'Which electrical work is part of the project?',
-      kind:'multi',
-      options:[['circuits','Wiring or circuits'],['service','Electrical service or panel'],['fixtures','Fixtures, outlets, or lighting'],['equipment','Electrical equipment'],['none','None of these']]
-    },
-    plumbingWork: {
-      text:'Which plumbing work is part of the project?',
-      kind:'multi',
-      options:[['fixtures','Fixtures or appliances'],['pipes','Supply, drain, or vent lines'],['layout','Moving plumbing locations'],['equipment','Plumbing equipment'],['none','None of these']]
-    },
-    gasWork: {
-      text:'Which gas work is part of the project?',
-      kind:'multi',
-      options:[['equipment','Gas equipment or appliance'],['piping','Gas piping'],['new','New gas service or equipment'],['none','None of these']]
-    },
-    exteriorChange: {
-      text:'Which exterior work is part of the project?',
-      kind:'multi',
-      options:[['openings','Windows, doors, or another opening'],['structure','Deck, porch, addition, or structure'],['envelope','Roof, siding, or exterior finish'],['site','Ground, trees, drainage, or paving'],['none','None of these']]
-    },
-    siteWork: {
-      text:'Which site work is part of the project?',
-      kind:'multi',
-      options:[['grading','Grading or excavation'],['drainage','Drainage or stormwater'],['trees','Trees or landscaping'],['paving','Driveway, parking, or paving'],['none','None of these']]
-    },
-    treeImpact: {
-      text:'Which tree-related condition is part of the project?',
-      kind:'multi',
-      options:[['nearby','Construction near trees'],['removal','Tree removal'],['protection','Tree protection or root-area work'],['planting','Tree planting as part of construction'],['none','None of these']]
-    },
-    windowsOrDoors: {
-      text:'Which exterior opening work is part of the project?',
-      kind:'multi',
-      options:[['window','Windows'],['door','Exterior doors'],['both','Both windows and doors'],['none','None of these']]
-    },
-    newVentilation: {
-      text:'Which ventilation work is part of the project?',
-      kind:'multi',
-      options:[['bath','Bathroom exhaust'],['whole','Whole-home or room ventilation'],['ducts','New or altered ductwork'],['equipment','Ventilation equipment'],['none','None of these']]
-    },
-    layoutChange: {
-      text:'Which bathroom layout change is part of the project?',
-      kind:'multi',
-      options:[['walls','Removing or adding walls'],['fixtures','Moving fixtures'],['room','Changing the room layout'],['none','None of these']]
-    },
-    stairsOrGuard: {
-      text:'Which deck safety elements are part of the project?',
-      kind:'multi',
-      options:[['stairs','New stairs'],['guards','Guards or railings'],['both','Both stairs and guards'],['none','None of these']]
-    },
-    footprintChange: {
-      text:'Which footprint change is part of the project?',
-      kind:'multi',
-      options:[['increase','Increasing the footprint'],['decrease','Decreasing the footprint'],['reconfigure','Otherwise changing the footprint'],['none','None of these']]
-    },
-    demolition: {
-      text:'What might be removed?',
-      kind:'multi',
-      options:[['interior','Interior walls or finishes'],['exterior','Exterior elements'],['structure','Structural parts'],['none','None of these']]
-    },
-    deckNew: {
-      text:'Which describes the deck work?',
-      kind:'choice',
-      options:[['new_deck','A new deck'],['replacement','Replacing an existing deck']]
-    },
-    guttingExtent: {
-      text:'How much of the existing dwelling will be gutted?',
-      kind:'choice',
-      options:[['more_than_half','More than half'],['not_more_than_half','Half or less']]
-    },
-    condo: {
-      text:'Which best describes the ownership?',
-      kind:'choice',
-      options:[['shared','Condominium or other shared ownership'],['not_shared','Not shared ownership']]
-    },
-    condoApproval: {
-      text:'Does the association require project approval?',
-      kind:'choice',
-      options:[['yes','Yes'],['no','No']]
-    }
-  };
-  const entry = specific[q.id] || {
-    text:'Which part of this work is involved?',
-    kind:'choice',
-    options:[['yes','Yes, this work is part of the project'],['no','No, this work is not part of the project']]
-  };
-  return {
-    id:'__clarifier_' + q.id,
-    text:entry.text,
-    kind:entry.kind,
-    options:entry.options,
-    why:'This narrows the uncertainty without requiring technical terminology.'
-  };
-}
+const clarifierFor = clarifierForQuestion;
 
 function applyClarificationInference(q, value) {
   if (!q?.parentId) return false;
@@ -958,9 +860,11 @@ function questionCluster(all, index) {
   if (rememberedMeta) {
     const source = PROJECTS[type]?.questions?.find(q => q.id === (rememberedMeta.questionId || clarifierQuestionMemory[root.id]));
     const remembered = source ? {...source} : clarifierFor(root);
-    remembered.parentId = root.id;
-    clarifierQuestionMemory[root.id] = remembered.id;
-    cluster.push(remembered);
+    if (remembered) {
+      remembered.parentId = root.id;
+      clarifierQuestionMemory[root.id] = remembered.id;
+      cluster.push(remembered);
+    }
     return cluster;
   }
 
@@ -977,9 +881,11 @@ function questionCluster(all, index) {
   // does not already define a direct follow-up. Never create a second layer.
   if (cluster.length === 1 && root.kind === 'choice' && answers[root.id] === 'unsure') {
     const synthetic = clarifierFor(root);
-    synthetic.parentId = root.id;
-    clarifierQuestionMemory[root.id] = synthetic.id;
-    cluster.push(synthetic);
+    if (synthetic) {
+      synthetic.parentId = root.id;
+      clarifierQuestionMemory[root.id] = synthetic.id;
+      cluster.push(synthetic);
+    }
   }
   return cluster;
 }
@@ -1004,6 +910,7 @@ function renderQuestionCard({animate=false} = {}) {
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
       '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
       '<h1>' + escape(q.text) + '</h1>' +
+      (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
       inferenceNotice +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
@@ -1276,7 +1183,8 @@ const sourceById = id => ({
   'newton-historic':'https://www.newtonma.gov/government/planning/historic-preservation',
   'newton-inspections':'https://www.newtonma.gov/government/inspectional-services',
   'newton-final-checklist':'https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376',
-  'newton-closeout':'https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits'
+  'newton-closeout':'https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits',
+  'newton-isd':'https://www.newtonma.gov/government/inspectional-services'
 }[id]);
 
 function guidanceForRequirement(x) {
@@ -1319,11 +1227,21 @@ function renderResult(plan, options = {}) {
   renderSavedProjects();
 
   const statusClass = s => s === 'required' ? 'required' : s === 'potentially_required' ? 'conditional' : 'confirm';
+  const feasibility = feasibilitySummary(plan);
+  const feasibilityUrl = sourceById(feasibility.sourceId);
 
   r.innerHTML = `
     <section class="plan-hero">
       <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(plan.project.projectCatalogLabel || PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>${plan.project.projectDescription ? '<p class="plan-note">Project note: ' + escape(plan.project.projectDescription) + '</p>' : ''}</div>
       <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
+    </section>
+
+    <section class="panel feasibility-summary feasibility-${escape(feasibility.level)}" aria-labelledby="feasibility-title">
+      <div class="eyebrow">${escape(feasibility.label)}</div>
+      <h2 id="feasibility-title">${escape(feasibility.title)}</h2>
+      <p>${escape(feasibility.description)}</p>
+      <p><strong>Where to confirm:</strong> ${escape(feasibility.contact)}</p>
+      ${feasibilityUrl ? '<a class="guidance-button" href="' + escape(feasibilityUrl) + '" target="_blank" rel="noreferrer">Open official City guidance ↗</a>' : ''}
     </section>
 
     <section class="plan-choice panel">
