@@ -16,4 +16,5 @@ jobs:
       - run: node --check scripts/monitor-sources.mjs
       - run: node --check scripts/validate-monitor-output.mjs
       - run: node --check api/feedback.js
+      - run: node --check src/governance.js
       - run: npm test

@@ -1,0 +1,662 @@
+{
+ "schemaVersion": 1,
+ "generatedFrom": "data/rules.json",
+ "note": "Human-governed metadata only. Derived fields (required facts, provenance, source tiers) are computed by src/governance.js so they cannot drift from the rules.",
+ "rules": [
+  {
+   "ruleId": "property.zoning",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.zoning-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.zoning-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "property.floodplain",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [],
+   "knownGap": "GIS layer is the only input; a failed lookup aborts the whole property lookup, but there is no user-facing unknown-floodplain pathway if the layer is not consulted. See REV-005."
+  },
+  {
+   "ruleId": "project.building-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.mechanical",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.mechanical-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.mechanical-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.fire",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.fire-advance",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "basement.eero",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "basement.eero-uncertain"
+   ]
+  },
+  {
+   "ruleId": "basement.eero-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "basement.egress",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.stormwater-land-disturbance",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.stormwater-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.stormwater-minor-impervious",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.stormwater-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.stormwater-major-impervious",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.stormwater-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.stormwater-retaining-wall",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.stormwater-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.stormwater-dewatering",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.stormwater-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.stormwater-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.tree-save-area-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "property.historic",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.historic-status-uncertain",
+    "property.historic-age-boundary-exterior",
+    "property.historic-age-unknown"
+   ]
+  },
+  {
+   "ruleId": "property.local-landmark",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.historic-status-uncertain"
+   ]
+  },
+  {
+   "ruleId": "property.preservation-restriction",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.historic-status-uncertain"
+   ]
+  },
+  {
+   "ruleId": "property.national-register",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.historic-status-uncertain"
+   ]
+  },
+  {
+   "ruleId": "property.historic-age",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "property.historic-age-boundary-exterior",
+    "property.historic-age-unknown"
+   ]
+  },
+  {
+   "ruleId": "property.historic-age-boundary-exterior",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "property.historic-age-unknown",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "property.historic-age-demolition",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.age-boundary-uncertain",
+    "property.historic-age-unknown"
+   ]
+  },
+  {
+   "ruleId": "project.historic-status-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.age-boundary-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.building",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.building-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.electrical",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.electrical-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.electrical-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.plumbing",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.plumbing-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.plumbing-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.gas",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.gas-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.gas-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.structural",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.structural-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.structural-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.tree",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.tree-save-area-uncertain",
+    "project.tree-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.tree-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.conservation",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [],
+   "knownGap": "Depends on mapped GIS signals only; unmapped resource areas cannot be detected. Disclosed limitation. See REV-005."
+  },
+  {
+   "ruleId": "project.far",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.exterior-uncertain",
+    "zoning.screen-incomplete"
+   ]
+  },
+  {
+   "ruleId": "project.exterior-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.ventilation",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.ventilation-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.ventilation-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.window",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.window-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.window-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "basement.sleeping-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "basement.bathroom-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "workflow.inspections",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "workflow.open-permits",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.energy",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.engineering",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.water-sewer",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.water-sewer-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.water-sewer-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.condo",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.condo-approval-uncertain",
+    "project.condo-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.demolition",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.demolition-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.final-docs",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.newgov",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.site-work-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.condo-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.demolition-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.energy-major",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "project.condo-approval",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "project.condo-approval-uncertain"
+   ]
+  },
+  {
+   "ruleId": "project.condo-approval-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "basement.ceiling-height",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "bathroom.layout",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "bathroom.layout-uncertain"
+   ]
+  },
+  {
+   "ruleId": "bathroom.layout-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "deck.elevated",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "deck.stairs-guards",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "deck.stairs-guards-uncertain"
+   ]
+  },
+  {
+   "ruleId": "deck.stairs-guards-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "addition.stories",
+   "riskClass": "moderate",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "addition.footprint",
+   "riskClass": "high",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "addition.footprint-uncertain"
+   ]
+  },
+  {
+   "ruleId": "addition.footprint-uncertain",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "addition.setback",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "addition.footprint-uncertain",
+    "zoning.screen-incomplete"
+   ]
+  },
+  {
+   "ruleId": "zoning.setback-exceeds",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "zoning.district-unknown",
+    "zoning.district-unsupported",
+    "zoning.screen-incomplete"
+   ]
+  },
+  {
+   "ruleId": "zoning.lot-coverage-exceeds",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "zoning.district-unknown",
+    "zoning.district-unsupported",
+    "zoning.screen-incomplete"
+   ]
+  },
+  {
+   "ruleId": "zoning.height-exceeds",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "zoning.district-unknown",
+    "zoning.district-unsupported",
+    "zoning.screen-incomplete"
+   ]
+  },
+  {
+   "ruleId": "zoning.far-exceeds",
+   "riskClass": "critical",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "legacy_unreviewed",
+   "uncertaintyCompanions": [
+    "zoning.district-unknown",
+    "zoning.district-unsupported",
+    "zoning.screen-incomplete"
+   ]
+  },
+  {
+   "ruleId": "zoning.screen-incomplete",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "zoning.district-unsupported",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  },
+  {
+   "ruleId": "zoning.district-unknown",
+   "riskClass": "abstention",
+   "interpretationStatus": "implemented_pre_governance",
+   "humanReview": "not_required_abstention",
+   "uncertaintyCompanions": []
+  }
+ ]
+}

@@ -1,0 +1,15 @@
+{
+ "schemaVersion": 1,
+ "incidents": [
+  {
+   "id": "INC-2026-09-27-01",
+   "severity": "critical",
+   "type": "unsafe_confidence_false_negative",
+   "summary": "Live GIS stored the floodplain layer NAME (string) in property.floodplain, but rule property.floodplain compares to boolean true, so a mapped floodplain never produced the floodplain pathway for real addresses.",
+   "detectedBy": "governance fact-contract audit",
+   "fix": "property.floodplain is now Boolean(layer features); name kept in property.floodplainName; evidence label no longer says 'None returned' when a feature has no name (same fix for historic district label).",
+   "regression": "tests/governance.test.mjs",
+   "status": "fixed_pending_merge"
+  }
+ ]
+}

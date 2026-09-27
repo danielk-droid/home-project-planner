@@ -194,7 +194,11 @@ export async function resolveProperty(addressInput) {
     lotSizeSqFt: p.Lot_Size ?? null,
     yearBuilt: p.Year_Built ?? null,
     historicDistrict: historicAttrs.Name || null,
-    floodplain: floodAttrs.Name || null,
+    // Rule contract: property.floodplain is a boolean (mapped / not mapped).
+    // The layer name is kept separately; a name string must never be the fact
+    // the floodplain rule compares against (incident INC-2026-09-27-01).
+    floodplain: Boolean(flood.features?.length),
+    floodplainName: floodAttrs.Name || null,
     wetland: wetlandAttrs.Name || null,
     stream: streamAttrs.Name || null,
     conservationPotential: conservationSignals,
@@ -211,8 +215,8 @@ export async function resolveProperty(addressInput) {
       {label:'Zoning',value:zoningAttrs.Zoning || p.Zoning || 'Not resolved',source:'newton-zoning'},
       {label:'Year built',value:p.Year_Built ?? 'Not returned',source:'newton-parcels'},
       {label:'Lot size',value:p.Lot_Size == null ? 'Not returned' : Number(p.Lot_Size).toLocaleString() + ' sq ft',source:'newton-parcels'},
-      {label:'Historic district',value:historicAttrs.Name || 'None returned by layer',source:'newton-historic-districts'},
-      {label:'Floodplain',value:floodAttrs.Name || 'None returned by layer',source:'newton-floodplain'},
+      {label:'Historic district',value:historic.features?.length ? (historicAttrs.Name || 'Mapped (name not returned)') : 'None returned by layer',source:'newton-historic-districts'},
+      {label:'Floodplain',value:flood.features?.length ? (floodAttrs.Name || 'Mapped (name not returned)') : 'None returned by layer',source:'newton-floodplain'},
       {label:'Wetlands',value:wetlandAttrs.Name || 'None returned by layer',source:'newton-wetlands'},
       {label:'Stream',value:streamAttrs.Name || 'None returned by layer',source:'newton-streams'},
       {label:'Conservation signal',value:conservationSignals ? 'Potential conservation review area' : 'No mapped signal returned',source:'newton-conservation'}
