@@ -2,8 +2,8 @@
 // and the property lookup must never turn broken GIS data into a negative fact.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { registryProblems, gapProblem, fallbackProblem, ruleGovernance, VERSION_STATUSES } from '../src/governance.js';
-import { resolveProperty, buildPlan } from '../src/core.js';
+import { registryProblems, gapProblem, fallbackProblem, fallbackExecutes, ruleGovernance, VERSION_STATUSES } from '../src/governance.js';
+import { resolveProperty, buildPlan, evaluateRules } from '../src/core.js';
 
 const baseRules = [
   {id: 'x.rule', status: 'required', when: 'project.buildingWork == true', sourceIds: ['newton-isd']},
@@ -13,7 +13,7 @@ const baseRules = [
 const reg = meta => ({rules: [{ruleId: 'x.rule', interpretationStatus: 't', humanReview: 't', uncertaintyCompanions: [], ...meta},
   {ruleId: 'x.fallback', riskClass: 'abstention', uncertaintyCompanions: []}, {ruleId: 'x.fake', riskClass: 'abstention', uncertaintyCompanions: []}]});
 const check = meta => registryProblems({rules: baseRules, ruleRegistry: reg(meta), reviewIds: ['REV-005']}).filter(p => p.startsWith('x.rule'));
-const goodGap = 'Depends on mapped GIS signals only; unmapped areas cannot be detected by HPP. See REV-005.';
+const goodGap = {reviewId: 'REV-005', code: 'GIS_SIGNAL_ONLY_NO_UNKNOWN_PATHWAY'};
 
 // 1-2: HIGH/CRITICAL with no fallback and no gap fail.
 assert.ok(check({riskClass: 'high'}).some(p => /no valid uncertainty fallback/.test(p)));
@@ -24,9 +24,26 @@ assert.deepEqual(check({riskClass: 'critical', uncertaintyCompanions: ['x.fallba
 // 4: documented genuine gap passes.
 assert.deepEqual(check({riskClass: 'high', knownGap: goodGap}), []);
 // 6: empty / placeholder / untracked gaps fail.
-for (const g of ['', '   ', 'TBD', 'Review later — we will look at this after launch. REV-005', 'A long explanation that references nothing tracked anywhere at all.', 'A long explanation of the gap with an unknown tracker id REV-999.'])
+for (const g of ['', 'TBD', 'Long prose gap explanation referencing REV-005 in text form only.', {}, [], {reviewId: 'REV-005'}, {reviewId: 'REV-005', code: 'TBD'}, {reviewId: 'REV-005', code: 'REVIEW_LATER_SOON'}, {reviewId: 'REV-999', code: 'GIS_SIGNAL_ONLY_NO_UNKNOWN_PATHWAY'}, {reviewId: 'REV-005', code: 'GIS_SIGNAL_ONLY_NO_UNKNOWN_PATHWAY', rationale: 'private prose'}])
   assert.ok(check({riskClass: 'high', knownGap: g}).length, `gap must fail: ${JSON.stringify(g)}`);
 assert.equal(gapProblem(goodGap, ['REV-005']), null);
+// A decided/closed review item cannot excuse a missing fallback.
+assert.match(gapProblem(goodGap, []), /unknown or closed/);
+// Fallbacks are checked behaviorally through the real evaluator.
+assert.equal(fallbackExecutes(baseRules[1], evaluateRules), true);
+assert.equal(fallbackExecutes({id: 'x.contra', status: 'needs_confirmation', when: 'project.buildingWorkUncertain == true && project.buildingWorkUncertain == false', sourceIds: ['newton-isd']}, evaluateRules), false);
+assert.equal(fallbackExecutes({id: 'x.wrong', status: 'required', when: 'project.buildingWorkUncertain == true', sourceIds: ['newton-isd']}, evaluateRules), false);
+// Sources: conflict/unavailable on a confident rule, future-effective, superseded all fail.
+const srcReg = extra => ({sources: [{sourceId: 'newton-isd', tier: 1, versionStatus: 'DATE_VERIFIED_ONLY', lastVerified: '2026-01-01', ...extra}]});
+const srcCheck = extra => registryProblems({rules: baseRules, ruleRegistry: reg({riskClass: 'moderate'}), sourceRegistry: srcReg(extra), reviewIds: ['REV-005'], today: '2026-09-27'});
+assert.deepEqual(srcCheck({}), []);
+assert.ok(srcCheck({versionStatus: 'SOURCE_CONFLICT'}).some(p => /SOURCE_CONFLICT/.test(p)));
+assert.ok(srcCheck({versionStatus: 'SOURCE_UNAVAILABLE'}).some(p => /SOURCE_UNAVAILABLE/.test(p)));
+assert.ok(srcCheck({versionStatus: 'VERSIONED', versionLabel: 'X', retrievalStatus: 'text_verified', effectiveFrom: '2027-01-01'}).some(p => /not yet in effect/.test(p)));
+assert.ok(srcCheck({supersededBy: 'newer'}).some(p => /superseded/.test(p)));
+assert.ok(srcCheck({tier: 4}).some(p => /tier 4/.test(p)), 'low-authority source cannot support a rule');
+assert.ok(registryProblems({rules: [{...baseRules[0], sourceIds: ['nope']}], ruleRegistry: reg({riskClass: 'moderate'}), sourceRegistry: srcReg({}), reviewIds: []}).some(p => /missing from source registry/.test(p)));
+assert.ok(registryProblems({rules: [...baseRules, {id: 'x.unreg', status: 'required', when: 'project.buildingWork == true', sourceIds: ['newton-isd']}], ruleRegistry: reg({riskClass: 'moderate'}), sourceRegistry: srcReg({}), reviewIds: []}).some(p => /x.unreg: missing from governance/.test(p)));
 // 7: a fallback that cannot fire on uncertainty fails, and cannot rescue the rule.
 assert.match(fallbackProblem('x.rule', 'x.fake', baseRules), /uncertainty signal/);
 assert.ok(check({riskClass: 'critical', uncertaintyCompanions: ['x.fake']}).some(p => /no valid uncertainty fallback/.test(p)));
@@ -80,6 +97,23 @@ for (const bad of [{}, {features: null}, {error: {message: 'x'}}]) {
   mockGis({...empty, 41: bad});
   await assert.rejects(resolveProperty('1 Synthetic St'), 'malformed flood layer must fail, not read as no floodplain');
 }
+// GIS unavailable (network error / HTTP failure) also fails, never "not mapped".
+globalThis.fetch = async () => { throw new Error('offline'); };
+await assert.rejects(resolveProperty('1 Synthetic St'));
+globalThis.fetch = async () => ({ok: false, status: 503, json: async () => ({})});
+await assert.rejects(resolveProperty('1 Synthetic St'));
+// Historic district: named, no feature, malformed.
+mockGis({...empty, 39: {features: [{attributes: {Name: 'Example District'}}]}});
+prop = await resolveProperty('1 Synthetic St');
+assert.equal(prop.historicDistrict, 'Example District');
+assert.equal(prop.historicExteriorReview, true);
+mockGis(empty);
+prop = await resolveProperty('1 Synthetic St');
+assert.equal(prop.historicExteriorReview, false);
+assert.equal(prop.evidence.find(e => e.label === 'Historic district').value, 'None returned by layer');
+for (const bad of [{}, {features: 'x'}]) { mockGis({...empty, 39: bad}); await assert.rejects(resolveProperty('1 Synthetic St')); }
+mockGis(empty);
+prop = await resolveProperty('1 Synthetic St');
 // A string floodplain value (the old bug shape) never triggers the rule silently as true.
 assert.ok(!buildPlan('addition', {...prop, floodplain: 'Flood Zone'}, {siteWork: 'yes'}).results.some(r => r.id === 'property.floodplain'));
 

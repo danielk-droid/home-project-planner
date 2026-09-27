@@ -26,8 +26,8 @@ assert.equal(src.sources.find(s => s.sourceId === 'newton-zoning-ordinance').ver
 // Review content moved to the private repository (format checked there);
 // the public index holds identifiers only.
 const index = JSON.parse(fs.readFileSync(new URL('../data/governance/review_index.json', import.meta.url)));
-for (const id of index.ids) assert.match(id, /^REV-\d{3}$/);
-assert.equal(Object.keys(index).sort().join(','), 'ids,note', 'public index must not carry review content');
+for (const it of index.items) { assert.match(it.id, /^REV-\d{3}$/); assert.deepEqual(Object.keys(it).sort(), ['id', 'status']); assert.ok(['open', 'decided', 'closed'].includes(it.status)); }
+assert.equal(Object.keys(index).sort().join(','), 'items,note,openCriticalIncidents', 'public index must not carry review content');
 assert.ok(!fs.existsSync(new URL('../data/governance/review_queue.json', import.meta.url)), 'review queue must not be public');
 
 // Traceability of every result in a representative plan.

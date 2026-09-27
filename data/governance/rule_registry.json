@@ -25,7 +25,10 @@
       "interpretationStatus": "implemented_pre_governance",
       "humanReview": "legacy_unreviewed",
       "uncertaintyCompanions": [],
-      "knownGap": "GIS layer is the only input; a failed lookup aborts the whole property lookup, but there is no user-facing unknown-floodplain pathway if the layer is not consulted. See REV-005."
+      "knownGap": {
+        "reviewId": "REV-005",
+        "code": "GIS_SIGNAL_ONLY_NO_UNKNOWN_PATHWAY"
+      }
     },
     {
       "ruleId": "project.building-uncertain",
@@ -330,7 +333,10 @@
       "interpretationStatus": "implemented_pre_governance",
       "humanReview": "legacy_unreviewed",
       "uncertaintyCompanions": [],
-      "knownGap": "Depends on mapped GIS signals only; unmapped resource areas cannot be detected. Disclosed limitation. See REV-005."
+      "knownGap": {
+        "reviewId": "REV-005",
+        "code": "UNMAPPED_RESOURCE_AREAS_UNDETECTABLE"
+      }
     },
     {
       "ruleId": "project.far",

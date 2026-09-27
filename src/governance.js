@@ -71,15 +71,40 @@ export function ruleGovernance(ruleId) {
 // Structural audit of the rule/source registries. Empty list = pass.
 // A knownGap only excuses a missing fallback when it is a real explanation tied
 // to a tracked review item — not an empty string or a "review later" note.
-const PLACEHOLDER = /\b(tbd|todo|fixme|placeholder|review later|later|n\/a|none|pending)\b/i;
-export function gapProblem(gap, reviewIds = reviewIndex.ids) {
-  if (typeof gap !== 'string' || gap.trim().length < 40) return 'knownGap is empty or too short to explain the gap';
-  const refs = gap.match(/REV-\d{3}/g) || [];
-  if (!refs.length) return 'knownGap does not reference a tracked review item';
-  const missing = refs.filter(id => !reviewIds.includes(id));
-  if (missing.length) return `knownGap references unknown review item ${missing.join(',')}`;
-  if (PLACEHOLDER.test(gap.replace(/REV-\d{3}/g, ''))) return 'knownGap is a placeholder, not an explanation';
+// Public form: {reviewId, code}. The prose rationale is private; the gate
+// checks the machine-readable state: a specific gap code tied to an OPEN
+// tracked review item (a decided/closed item cannot excuse a missing fallback).
+export const REVIEW_IDS = reviewIndex.items.map(i => i.id);
+const OPEN_REVIEW_IDS = reviewIndex.items.filter(i => i.status === 'open').map(i => i.id);
+const PLACEHOLDER = /^(TBD|TODO|FIXME|PLACEHOLDER|REVIEW_LATER|LATER|NA|NONE|PENDING|GAP|UNKNOWN)$/;
+export function gapProblem(gap, reviewIds = OPEN_REVIEW_IDS) {
+  if (!gap || typeof gap !== 'object' || Array.isArray(gap)) return 'knownGap must be {reviewId, code}';
+  if (Object.keys(gap).sort().join(',') !== 'code,reviewId') return 'knownGap has unexpected fields (prose belongs in the private repo)';
+  if (!/^REV-\d{3}$/.test(gap.reviewId || '')) return 'knownGap does not reference a tracked review item';
+  if (!reviewIds.includes(gap.reviewId)) return `knownGap references unknown or closed review item ${gap.reviewId}`;
+  if (typeof gap.code !== 'string' || !/^[A-Z][A-Z0-9_]{11,}$/.test(gap.code) || PLACEHOLDER.test(gap.code) || /TBD|TODO|LATER|PLACEHOLDER/.test(gap.code)) return 'knownGap code is a placeholder, not a specific gap';
   return null;
+}
+
+// Behavioral check: run the companion through the real rule evaluator with
+// only its uncertainty signals set, and confirm it produces a
+// needs_confirmation result. Metadata alone never satisfies the invariant.
+export function fallbackExecutes(companion, evaluate) {
+  const clauses = companion.when.split('||').map(c => c.split('&&').map(t => t.trim()));
+  for (const terms of clauses) {
+    if (!terms.some(t => UNCERTAINTY_SIGNAL.test(t.split(/\s/)[0]) && /==\s*true$/.test(t))) continue;
+    const ctx = {};
+    for (const t of terms) {
+      const m = t.match(/^([\w.]+)\s*==\s*(true|false)$/);
+      if (!m) break;
+      const keys = m[1].split('.'); let o = ctx;
+      keys.slice(0, -1).forEach(k => { o = o[k] ??= {}; });
+      o[keys.at(-1)] = m[2] === 'true';
+    }
+    const out = evaluate(ctx, [companion]);
+    if (out.some(r => r.id === companion.id && r.status === 'needs_confirmation')) return true;
+  }
+  return false;
 }
 
 // A fallback is only real if it is an abstention rule that fires on an explicit
@@ -101,7 +126,7 @@ export function registryProblems(opts = {}) {
   const rules_ = opts.rules || rules;
   const reg = opts.ruleRegistry ? new Map(opts.ruleRegistry.rules.map(r => [r.ruleId, r])) : registryById;
   const srcList = opts.sourceRegistry ? opts.sourceRegistry.sources : sourceRegistry.sources;
-  const reviewIds = opts.reviewIds || reviewIndex.ids;
+  const reviewIds = opts.reviewIds || OPEN_REVIEW_IDS;
   const problems = [];
   const ruleIds = new Set(rules_.map(r => r.id));
   for (const s of srcList) {
@@ -110,6 +135,8 @@ export function registryProblems(opts = {}) {
     if (s.versionStatus !== 'VERSIONED' && s.retrievalStatus === 'text_verified') problems.push(`source ${s.sourceId}: text-verified edition should be VERSIONED`);
     if (s.effectiveFrom && s.versionStatus !== 'VERSIONED') problems.push(`source ${s.sourceId}: effective date claimed without a verified version`);
     if (!s.lastVerified) problems.push(`source ${s.sourceId}: no verification date`);
+    if (s.effectiveFrom && s.effectiveFrom > (opts.today || new Date().toISOString().slice(0, 10))) problems.push(`source ${s.sourceId}: not yet in effect but registered as current`);
+    if (s.supersededBy) problems.push(`source ${s.sourceId}: superseded by ${s.supersededBy} but still registered as current`);
   }
   for (const r of rules_) {
     const meta = reg.get(r.id);
@@ -129,7 +156,9 @@ export function registryProblems(opts = {}) {
     }
     for (const f of requiredFacts(r)) if (factProvenance(f) === 'unknown') problems.push(`${r.id}: fact ${f} has unknown provenance`);
     for (const id of r.sourceIds || []) {
-      const t = sourceTier(id);
+      const st = srcList.find(x => x.sourceId === id)?.versionStatus;
+      if (r.status !== 'needs_confirmation' && ['SOURCE_CONFLICT', 'SOURCE_UNAVAILABLE'].includes(st)) problems.push(`${r.id}: confident rule rests on source ${id} with status ${st}`);
+      const t = opts.sourceRegistry ? srcList.find(x => x.sourceId === id)?.tier ?? null : sourceTier(id);
       if (t == null) problems.push(`${r.id}: source ${id} missing from source registry`);
       else if (t >= 4) problems.push(`${r.id}: source ${id} is tier ${t}; tier 4-5 sources cannot support a production rule`);
     }
