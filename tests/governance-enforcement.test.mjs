@@ -2,7 +2,7 @@
 // and the property lookup must never turn broken GIS data into a negative fact.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { registryProblems, gapProblem, fallbackProblem, fallbackExecutes, ruleGovernance, VERSION_STATUSES } from '../src/governance.js';
+import { reviewIndexProblems, publicReleaseBlockers, registryProblems, gapProblem, fallbackProblem, fallbackExecutes, ruleGovernance, VERSION_STATUSES } from '../src/governance.js';
 import { resolveProperty, buildPlan, evaluateRules } from '../src/core.js';
 
 const baseRules = [
@@ -53,6 +53,26 @@ assert.match(fallbackProblem('x.rule', 'x.missing', baseRules), /does not exist/
 assert.deepEqual(check({riskClass: 'moderate'}), []);
 // The real registry satisfies the invariant.
 assert.deepEqual(registryProblems(), []);
+
+// Owner decisions: REV-002 and REV-006 stay open and block public launch.
+const idx = JSON.parse(fs.readFileSync(new URL('../data/governance/review_index.json', import.meta.url)));
+const realReg = JSON.parse(fs.readFileSync(new URL('../data/governance/rule_registry.json', import.meta.url)));
+assert.deepEqual(reviewIndexProblems(idx, realReg), []);
+assert.deepEqual(publicReleaseBlockers(idx), ['REV-002', 'REV-006']);
+for (const id of ['REV-002', 'REV-006']) assert.equal(idx.items.find(i => i.id === id).status, 'open');
+assert.ok(!realReg.rules.some(r => r.humanReview === 'professionally_reviewed'), 'no rule may claim professional review yet');
+const withItem = (id, patch) => ({...idx, items: idx.items.map(i => i.id === id ? {...i, ...patch} : i)});
+// A critical rule cannot be marked professionally reviewed while REV-002 is open.
+const fakePro = {rules: realReg.rules.map(r => r.ruleId === 'property.zoning' ? {...r, humanReview: 'professionally_reviewed'} : r)};
+assert.ok(reviewIndexProblems(idx, fakePro).some(p => /claims professional review/.test(p)));
+// Closing or owner-deciding a release blocker is rejected; so are bad statuses and missing blockers.
+assert.ok(reviewIndexProblems(withItem('REV-002', {status: 'closed'}), realReg).length);
+assert.ok(reviewIndexProblems(withItem('REV-006', {status: 'owner_decided'}), realReg).length);
+assert.ok(reviewIndexProblems(withItem('REV-006', {status: 'professionally_reviewed'}), realReg).length);
+assert.ok(reviewIndexProblems(withItem('REV-003', {status: 'done'}), realReg).length);
+assert.ok(reviewIndexProblems(withItem('REV-003', {releaseBlocking: 'yes'}), realReg).length);
+assert.ok(reviewIndexProblems({...idx, items: idx.items.filter(i => i.id !== 'REV-006')}, realReg).length);
+assert.ok(reviewIndexProblems(idx, {rules: [{ruleId: 'x', riskClass: 'critical', humanReview: 'not_required_abstention'}]}).length);
 
 // Source versioning: honest states only.
 const src = JSON.parse(fs.readFileSync(new URL('../data/governance/source_registry.json', import.meta.url)));

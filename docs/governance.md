@@ -31,3 +31,7 @@ Legacy rules are marked `legacy_unreviewed` pending professional review (REV-002
 - Leak scan: the gate fails if any served file contains private review markers. `data/governance/review_index.json` carries only IDs, status and `openCriticalIncidents` (gate fails if non-empty).
 
 Limitations: risk class affects fallback requirements, release enforcement and test coverage only — not change approval, incident severity or professional-review scheduling. Public CI cannot read the private repo, so it cannot confirm each public review ID exists there; the owner-side check `node scripts/verify-private-review.mjs <path-to-private-clone>` does that.
+
+## Review states and launch blockers
+
+`review_index.json` states: `open`, `owner_decided`, `professionally_reviewed`, `closed`. REV-002 (professional review of critical rules) and REV-006 (one live Newton lookup + one live Feedback submission) are `open` and `releaseBlocking`; the gate rejects closing or owner-deciding them, rejects any rule marked `professionally_reviewed` while REV-002 is not professionally reviewed, and prints them as public-launch blockers on every run. Automated tests are never professional or real-world validation. REV-003/004/005/007/008 are `owner_decided` (keep front-setback referral, keep facade-width limitation, keep GIS-only flood/wetland approach, accept historical public copies, keep minimal public metadata).

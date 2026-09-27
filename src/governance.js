@@ -75,7 +75,33 @@ export function ruleGovernance(ruleId) {
 // checks the machine-readable state: a specific gap code tied to an OPEN
 // tracked review item (a decided/closed item cannot excuse a missing fallback).
 export const REVIEW_IDS = reviewIndex.items.map(i => i.id);
-const OPEN_REVIEW_IDS = reviewIndex.items.filter(i => i.status === 'open').map(i => i.id);
+export const REVIEW_STATUSES = ['open', 'owner_decided', 'professionally_reviewed', 'closed'];
+// A gap may cite an item that is still open or that the owner decided to keep
+// as a disclosed limitation; a closed item cannot excuse a missing fallback.
+const OPEN_REVIEW_IDS = reviewIndex.items.filter(i => ['open', 'owner_decided'].includes(i.status)).map(i => i.id);
+export const HUMAN_REVIEW_STATES = ['legacy_unreviewed', 'not_required_abstention', 'professionally_reviewed'];
+// Owner decision REV-002: critical rules need real professional review before
+// public launch. Automation can never set professionally_reviewed on its own.
+export function reviewIndexProblems(index = reviewIndex, registry = ruleRegistry) {
+  const problems = [];
+  const byId = new Map(index.items.map(i => [i.id, i]));
+  for (const it of index.items) {
+    if (!/^REV-\d{3}$/.test(it.id)) problems.push(`review ${it.id}: malformed id`);
+    if (!REVIEW_STATUSES.includes(it.status)) problems.push(`review ${it.id}: invalid status ${it.status}`);
+    if (typeof it.releaseBlocking !== 'boolean') problems.push(`review ${it.id}: releaseBlocking must be boolean`);
+    if (it.releaseBlocking && ['closed', 'owner_decided'].includes(it.status)) problems.push(`review ${it.id}: release-blocking item cannot be ${it.status}`);
+  }
+  for (const req of ['REV-002', 'REV-006']) if (!byId.has(req)) problems.push(`review ${req}: required owner blocker missing`);
+  if (byId.get('REV-006')?.status === 'professionally_reviewed') problems.push('review REV-006: live validation is not a professional review');
+  const proDone = byId.get('REV-002')?.status === 'professionally_reviewed';
+  for (const r of registry.rules) {
+    if (!HUMAN_REVIEW_STATES.includes(r.humanReview)) problems.push(`${r.ruleId}: invalid humanReview ${r.humanReview}`);
+    if (r.humanReview === 'professionally_reviewed' && !proDone) problems.push(`${r.ruleId}: claims professional review while REV-002 is not professionally reviewed`);
+    if (r.riskClass !== 'abstention' && r.humanReview === 'not_required_abstention') problems.push(`${r.ruleId}: confident rule marked as not needing review`);
+  }
+  return problems;
+}
+export function publicReleaseBlockers(index = reviewIndex) { return index.items.filter(i => i.releaseBlocking && i.status !== 'closed' && i.status !== 'professionally_reviewed').map(i => i.id); }
 const PLACEHOLDER = /^(TBD|TODO|FIXME|PLACEHOLDER|REVIEW_LATER|LATER|NA|NONE|PENDING|GAP|UNKNOWN)$/;
 export function gapProblem(gap, reviewIds = OPEN_REVIEW_IDS) {
   if (!gap || typeof gap !== 'object' || Array.isArray(gap)) return 'knownGap must be {reviewId, code}';
