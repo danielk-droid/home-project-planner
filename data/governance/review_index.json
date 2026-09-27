@@ -1,0 +1,52 @@
+{
+  "note": "Identifiers and machine-readable state only. Review content, gap rationale, incident details and decision history live in the private repository danielk-droid/hpp-governance-private.",
+  "items": [
+    {
+      "id": "REV-001",
+      "status": "owner_decided",
+      "releaseBlocking": false
+    },
+    {
+      "id": "REV-002",
+      "status": "open",
+      "releaseBlocking": true
+    },
+    {
+      "id": "REV-003",
+      "status": "owner_decided",
+      "releaseBlocking": false
+    },
+    {
+      "id": "REV-004",
+      "status": "owner_decided",
+      "releaseBlocking": false
+    },
+    {
+      "id": "REV-005",
+      "status": "owner_decided",
+      "releaseBlocking": false
+    },
+    {
+      "id": "REV-006",
+      "status": "open",
+      "releaseBlocking": true
+    },
+    {
+      "id": "REV-007",
+      "status": "owner_decided",
+      "releaseBlocking": false
+    },
+    {
+      "id": "REV-008",
+      "status": "owner_decided",
+      "releaseBlocking": false
+    }
+  ],
+  "openCriticalIncidents": [],
+  "statuses": {
+    "open": "Unresolved; needs the owner, a professional or a live test",
+    "owner_decided": "Owner made the decision; any remaining limitation stays disclosed",
+    "professionally_reviewed": "A qualified professional actually reviewed it (never set by automation)",
+    "closed": "Nothing remains"
+  }
+}

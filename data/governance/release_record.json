@@ -1,0 +1,9 @@
+{
+ "schemaVersion": 1,
+ "knownGoodRelease": {
+  "commit": "c2f564b",
+  "description": "main before governance initiative"
+ },
+ "rollback": "Revert the governance PR merge commit; no data migration involved (localStorage format unchanged).",
+ "releaseGate": "node scripts/release-gate.mjs (runs in npm test and CI)"
+}
