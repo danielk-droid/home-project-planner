@@ -23,11 +23,12 @@ const src = JSON.parse(fs.readFileSync(new URL('../data/governance/source_regist
 assert.equal(src.sources.find(s => s.sourceId === 'newton-zoning-ordinance').versionLabel, 'Last Amended 12-01-25');
 
 // Review queue items are well-formed.
-const queue = JSON.parse(fs.readFileSync(new URL('../data/governance/review_queue.json', import.meta.url)));
-for (const item of queue.items) {
-  for (const k of ['id', 'title', 'risk', 'question', 'currentBehavior', 'evidence', 'options', 'recommendation', 'status']) assert.ok(item[k] !== undefined, `${item.id} has ${k}`);
-  assert.ok(['open', 'decided', 'closed'].includes(item.status));
-}
+// Review content moved to the private repository (format checked there);
+// the public index holds identifiers only.
+const index = JSON.parse(fs.readFileSync(new URL('../data/governance/review_index.json', import.meta.url)));
+for (const id of index.ids) assert.match(id, /^REV-\d{3}$/);
+assert.equal(Object.keys(index).sort().join(','), 'ids,note', 'public index must not carry review content');
+assert.ok(!fs.existsSync(new URL('../data/governance/review_queue.json', import.meta.url)), 'review queue must not be public');
 
 // Traceability of every result in a representative plan.
 const property = {resolvedAddress: 'SYNTHETIC TEST ONLY', zoningDistrict: 'SR2', lotSizeSqFt: 10000, yearBuilt: 1930, historicDistrict: null, historicExteriorReview: false, historicStatusUnknown: false, floodplain: true, conservationPotential: true, openPermitsUnknown: true};

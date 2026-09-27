@@ -13,8 +13,13 @@ import rules from '../data/rules.json' with { type: 'json' };
 import sources from '../data/sources.json' with { type: 'json' };
 import ruleRegistry from '../data/governance/rule_registry.json' with { type: 'json' };
 import sourceRegistry from '../data/governance/source_registry.json' with { type: 'json' };
+import reviewIndex from '../data/governance/review_index.json' with { type: 'json' };
 
 export const RISK_CLASSES = ['critical', 'high', 'moderate', 'abstention'];
+export const HIGH_RISK = new Set(['critical', 'high']);
+// Honest source-version states. Only VERSIONED means a specific edition's text
+// was verified; DATE_VERIFIED_ONLY is weaker evidence and is reported as such.
+export const VERSION_STATUSES = ['VERSIONED', 'DATE_VERIFIED_ONLY', 'EFFECTIVE_DATE_UNKNOWN', 'SOURCE_UNAVAILABLE', 'SOURCE_CONFLICT'];
 export const RESULT_STATES = ['required', 'potentially_required', 'needs_confirmation'];
 const CONFIDENT = new Set(['required', 'potentially_required']);
 
@@ -57,26 +62,71 @@ export function ruleGovernance(ruleId) {
     uncertaintyCompanions: meta.uncertaintyCompanions,
     knownGap: meta.knownGap || null,
     requiredFacts: requiredFacts(rule).map(path => ({path, provenance: factProvenance(path)})),
-    sources: (rule.sourceIds || []).map(id => ({id, tier: sourceTier(id), versionLabel: sourceMeta.get(id)?.versionLabel ?? null, lastVerified: sourceMeta.get(id)?.lastVerified ?? null})),
+    sources: (rule.sourceIds || []).map(id => ({id, tier: sourceTier(id), versionStatus: sourceMeta.get(id)?.versionStatus ?? null, versionLabel: sourceMeta.get(id)?.versionLabel ?? null, lastVerified: sourceMeta.get(id)?.lastVerified ?? null})),
+    evidenceVersioned: (rule.sourceIds || []).some(id => sourceMeta.get(id)?.versionStatus === 'VERSIONED'),
     bestTier: tiers.every(t => t != null) ? Math.min(...tiers) : null
   };
 }
 
 // Structural audit of the rule/source registries. Empty list = pass.
-export function registryProblems() {
+// A knownGap only excuses a missing fallback when it is a real explanation tied
+// to a tracked review item — not an empty string or a "review later" note.
+const PLACEHOLDER = /\b(tbd|todo|fixme|placeholder|review later|later|n\/a|none|pending)\b/i;
+export function gapProblem(gap, reviewIds = reviewIndex.ids) {
+  if (typeof gap !== 'string' || gap.trim().length < 40) return 'knownGap is empty or too short to explain the gap';
+  const refs = gap.match(/REV-\d{3}/g) || [];
+  if (!refs.length) return 'knownGap does not reference a tracked review item';
+  const missing = refs.filter(id => !reviewIds.includes(id));
+  if (missing.length) return `knownGap references unknown review item ${missing.join(',')}`;
+  if (PLACEHOLDER.test(gap.replace(/REV-\d{3}/g, ''))) return 'knownGap is a placeholder, not an explanation';
+  return null;
+}
+
+// A fallback is only real if it is an abstention rule that fires on an explicit
+// uncertainty signal. A needs_confirmation rule keyed only on settled facts
+// would never catch the unknown case, so it cannot satisfy the invariant.
+const UNCERTAINTY_SIGNAL = /(Uncertain|Unknown|Incomplete|Boundary|Unsupported)\b/;
+export function fallbackProblem(ruleId, companionId, ruleList = rules) {
+  if (companionId === ruleId) return `companion ${companionId} is the rule itself`;
+  const c = ruleList.find(x => x.id === companionId);
+  if (!c) return `companion ${companionId} does not exist`;
+  if (c.status !== 'needs_confirmation') return `companion ${companionId} is not a needs_confirmation rule`;
+  const clauses = typeof c.when === 'string' ? c.when.split('||') : [];
+  const signals = clauses.some(cl => /==\s*true/.test(cl) && cl.split('&&').some(t => UNCERTAINTY_SIGNAL.test(t.trim().split(/\s/)[0]) && /==\s*true/.test(t)));
+  if (!signals) return `companion ${companionId} does not fire on an uncertainty signal, so it cannot prevent confident output`;
+  return null;
+}
+
+export function registryProblems(opts = {}) {
+  const rules_ = opts.rules || rules;
+  const reg = opts.ruleRegistry ? new Map(opts.ruleRegistry.rules.map(r => [r.ruleId, r])) : registryById;
+  const srcList = opts.sourceRegistry ? opts.sourceRegistry.sources : sourceRegistry.sources;
+  const reviewIds = opts.reviewIds || reviewIndex.ids;
   const problems = [];
-  const ruleIds = new Set(rules.map(r => r.id));
-  for (const r of rules) {
-    const meta = registryById.get(r.id);
+  const ruleIds = new Set(rules_.map(r => r.id));
+  for (const s of srcList) {
+    if (!VERSION_STATUSES.includes(s.versionStatus)) problems.push(`source ${s.sourceId}: invalid versionStatus ${s.versionStatus}`);
+    if (s.versionStatus === 'VERSIONED' && !(s.versionLabel && s.retrievalStatus === 'text_verified')) problems.push(`source ${s.sourceId}: VERSIONED requires a verified edition label and text verification`);
+    if (s.versionStatus !== 'VERSIONED' && s.retrievalStatus === 'text_verified') problems.push(`source ${s.sourceId}: text-verified edition should be VERSIONED`);
+    if (s.effectiveFrom && s.versionStatus !== 'VERSIONED') problems.push(`source ${s.sourceId}: effective date claimed without a verified version`);
+    if (!s.lastVerified) problems.push(`source ${s.sourceId}: no verification date`);
+  }
+  for (const r of rules_) {
+    const meta = reg.get(r.id);
     if (!meta) { problems.push(`${r.id}: missing from governance rule registry`); continue; }
     if (!RISK_CLASSES.includes(meta.riskClass)) problems.push(`${r.id}: unknown risk class ${meta.riskClass}`);
     if (r.status === 'needs_confirmation' && meta.riskClass !== 'abstention') problems.push(`${r.id}: abstention rule mis-classified`);
     if (r.status !== 'needs_confirmation' && meta.riskClass === 'abstention') problems.push(`${r.id}: confident rule classified as abstention`);
-    for (const c of meta.uncertaintyCompanions || []) {
-      if (!ruleIds.has(c)) problems.push(`${r.id}: companion ${c} does not exist`);
-      else if (rules.find(x => x.id === c).status !== 'needs_confirmation') problems.push(`${r.id}: companion ${c} is not a needs_confirmation rule`);
+    const companions = meta.uncertaintyCompanions || [];
+    const badFallbacks = companions.map(c => fallbackProblem(r.id, c, rules_)).filter(Boolean);
+    for (const b of badFallbacks) problems.push(`${r.id}: ${b}`);
+    if (HIGH_RISK.has(meta.riskClass)) {
+      const validFallback = companions.length > badFallbacks.length;
+      if (!validFallback) {
+        if (meta.knownGap === undefined || meta.knownGap === null) problems.push(`${r.id}: ${meta.riskClass} rule has no valid uncertainty fallback and no documented gap`);
+        else { const g = gapProblem(meta.knownGap, reviewIds); if (g) problems.push(`${r.id}: ${meta.riskClass} rule ${g}`); }
+      }
     }
-    if (meta.riskClass === 'critical' && !(meta.uncertaintyCompanions || []).length && !meta.knownGap) problems.push(`${r.id}: critical rule has no uncertainty pathway and no documented gap`);
     for (const f of requiredFacts(r)) if (factProvenance(f) === 'unknown') problems.push(`${r.id}: fact ${f} has unknown provenance`);
     for (const id of r.sourceIds || []) {
       const t = sourceTier(id);
@@ -86,9 +136,10 @@ export function registryProblems() {
     const tiers = (r.sourceIds || []).map(sourceTier).filter(t => t != null);
     if (tiers.length && Math.min(...tiers) > 1) problems.push(`${r.id}: no official (tier 0-1) source`);
   }
-  for (const id of registryById.keys()) if (!ruleIds.has(id)) problems.push(`${id}: registry entry has no rule`);
-  for (const s of sources) if (!sourceMeta.has(s.id)) problems.push(`${s.id}: source missing from source registry`);
-  for (const id of sourceMeta.keys()) if (!sources.some(s => s.id === id)) problems.push(`${id}: source registry entry has no source`);
+  for (const id of reg.keys()) if (!ruleIds.has(id)) problems.push(`${id}: registry entry has no rule`);
+  const srcIds = new Set(srcList.map(s => s.sourceId));
+  if (!opts.sourceRegistry) for (const s of sources) if (!srcIds.has(s.id)) problems.push(`${s.id}: source missing from source registry`);
+  if (!opts.sourceRegistry) for (const id of srcIds) if (!sources.some(s => s.id === id)) problems.push(`${id}: source registry entry has no source`);
   return problems;
 }
 

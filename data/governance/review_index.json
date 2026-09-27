@@ -1,0 +1,13 @@
+{
+  "note": "Identifiers only. Review content lives in the private repository danielk-droid/hpp-governance-private; the public repo and app never hold review items, incidents or decision history.",
+  "ids": [
+    "REV-001",
+    "REV-002",
+    "REV-003",
+    "REV-004",
+    "REV-005",
+    "REV-006",
+    "REV-007",
+    "REV-008"
+  ]
+}

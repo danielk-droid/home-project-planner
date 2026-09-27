@@ -170,14 +170,16 @@ export async function resolveProperty(addressInput) {
     returnGeometry: false,
     resultRecordCount: 10
   };
+  // Overlay layers decide negative facts (no floodplain, no historic district).
+  // A response without a features array is malformed, not "nothing mapped";
+  // fail the lookup rather than turn it into a false negative.
+  const overlay = async layer => {
+    const data = await query(layer, gisPointParams);
+    if (!Array.isArray(data.features)) throw new Error('Newton GIS returned an incomplete map-layer response. Try again later.');
+    return data;
+  };
   const [zoning, historic, flood, wetlands, wetlandRestrictions, wetlandBuffers, streams] = await Promise.all([
-    query(24, gisPointParams),
-    query(39, gisPointParams),
-    query(41, gisPointParams),
-    query(27, gisPointParams),
-    query(26, gisPointParams),
-    query(29, gisPointParams),
-    query(16, gisPointParams)
+    overlay(24), overlay(39), overlay(41), overlay(27), overlay(26), overlay(29), overlay(16)
   ]);
 
   const zoningAttrs = zoning.features?.[0]?.attributes || {};
@@ -196,7 +198,7 @@ export async function resolveProperty(addressInput) {
     historicDistrict: historicAttrs.Name || null,
     // Rule contract: property.floodplain is a boolean (mapped / not mapped).
     // The layer name is kept separately; a name string must never be the fact
-    // the floodplain rule compares against (incident INC-2026-09-27-01).
+    // the floodplain rule compares against (incident INC-2026-09-27-01, private log).
     floodplain: Boolean(flood.features?.length),
     floodplainName: floodAttrs.Name || null,
     wetland: wetlandAttrs.Name || null,
