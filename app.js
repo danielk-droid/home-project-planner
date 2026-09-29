@@ -537,7 +537,7 @@ function selectProject(projectType, catalogId = null) {
     if (item) answers = {projectCatalogId:item.id, projectCatalogLabel:item.label};
   }
   document.querySelectorAll('[data-picker-project]').forEach(x => {
-    x.classList.toggle('selected', Boolean(catalogId) && x.dataset.catalogId === catalogId);
+    x.classList.toggle('selected', x.dataset.pickerProject === projectType && (!catalogId || x.dataset.catalogId === catalogId));
   });
   document.querySelector('[data-picker-catalog]')?.classList.remove('selected');
   $('projectCatalog')?.classList.add('hidden');
@@ -547,7 +547,7 @@ function selectProject(projectType, catalogId = null) {
 document.querySelectorAll('[data-project-start]').forEach(card => {
   card.addEventListener('click', () => {
     startNewProjectState();
-    selectProject(card.dataset.projectStart, card.dataset.projectCatalog || null);
+    selectProject(card.dataset.projectStart, card.dataset.projectCatalog || card.dataset.projectStart);
     history.pushState(null,'','#plan');
     navigate('plan');
     window.scrollTo({top:0,behavior:'smooth'});
@@ -894,6 +894,22 @@ function clarificationSelectionLabel(q, value) {
   const values = Array.isArray(value) ? value : [value];
   return values.map(v => q.options?.find(([optionValue]) => optionValue === v)?.[1] || v).join(', ');
 }
+function nextQuestionIndex(all, currentIndex) {
+  const cluster = questionCluster(all, currentIndex);
+  const inlineConsumed = cluster.slice(1).filter(q => all.some(x => x.id === q.id)).length;
+  return currentIndex + 1 + inlineConsumed;
+}
+function previousQuestionIndex(all, currentIndex) {
+  let cursor = 0;
+  let previous = 0;
+  while (cursor < currentIndex && cursor < all.length) {
+    previous = cursor;
+    const next = nextQuestionIndex(all, cursor);
+    if (next >= currentIndex) return previous;
+    cursor = next;
+  }
+  return previous;
+}
 function renderQuestionCard({animate=false} = {}) {
   const all = getQuestions(type, answers);
   const card = $('questionCard');
@@ -914,7 +930,7 @@ function renderQuestionCard({animate=false} = {}) {
       (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
       inferenceNotice +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
-      '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
+      '<details class="question-why"><summary>Why am I being asked this?</summary><p>' + escape(questionWhy(q)) + '</p></details>' +
       '</div>';
   }).join('');
 
@@ -995,7 +1011,10 @@ function renderQuestionCard({animate=false} = {}) {
   });
 
   $('backQuestion').onclick = () => {
-    if (questionIndex > 0) { questionIndex--; renderQuestionCard(); }
+    if (questionIndex > 0) {
+      questionIndex = previousQuestionIndex(getQuestions(type, answers), questionIndex);
+      renderQuestionCard();
+    }
   };
 
   $('returnToReview')?.addEventListener('click', () => {
@@ -1116,7 +1135,7 @@ function renderReview(all) {
     renderQuestionCard();
     window.scrollTo({top:0,behavior:'smooth'});
   });
-  $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };
+  $('backQuestion').onclick = () => { questionIndex = previousQuestionIndex(all, all.length); renderQuestionCard(); };
   $('generatePlan').onclick = () => {
     editingFromReview = false;
     renderResult(buildPlan(type, property, answers));
@@ -1238,32 +1257,42 @@ function renderResult(plan, options = {}) {
       <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
     </section>
 
-    <section class="panel feasibility-summary feasibility-${escape(report.overall === 'conflict' ? 'constraint' : report.overall === 'compatible' ? 'screened' : 'unknown')}" aria-labelledby="feasibility-title">
+    ${report.overall === 'not_triggered' ? '' : `<section class="panel feasibility-summary feasibility-${escape(report.overall === 'conflict' ? 'constraint' : report.overall === 'compatible' ? 'screened' : 'unknown')}" aria-labelledby="feasibility-title">
       <div class="eyebrow">PRELIMINARY PROJECT FEASIBILITY</div>
       <h2 id="feasibility-title">${escape(report.overallTitle)}</h2>
       <p>${escape(report.headline)}</p>
       ${report.snapshot.lotArea != null || report.snapshot.zoning ? '<p class="feasibility-snapshot"><strong>Zoning:</strong> ' + escape(report.snapshot.zoning || 'Not established') + (report.snapshot.lotArea != null ? ' · <strong>Lot area:</strong> ' + escape(report.snapshot.lotArea.toLocaleString('en-US')) + ' sq ft' : '') + '</p>' : ''}
+      <div class="report-tier report-tier-1"><div class="tier-label">01 · What matters most</div>
+      <h3>Potential issues</h3>
+      ${report.keyIssues.conflicts.length ? '<ul>' + report.keyIssues.conflicts.map(c => '<li>' + escape(c) + '</li>').join('') + '</ul>' : '<p>' + (report.dimensions.length ? 'None identified among the evaluated dimensional rules.' : 'No dimensional rules could be evaluated.') + '</p>'}
+      </div>
+      <div class="report-tier report-tier-2"><div class="tier-label">02 · What to do next</div>
+      ${report.informationNeeded.length ? '<h3>Information still needed</h3><ol>' + report.informationNeeded.map(t => '<li>' + escape(t) + '</li>').join('') + '</ol>' : ''}
+      <p><strong>Where to confirm:</strong> ${escape(feasibility.contact)}</p>
+      ${feasibilityUrl ? '<a class="guidance-button" href="' + escape(feasibilityUrl) + '" target="_blank" rel="noreferrer">Open official City guidance ↗</a>' : ''}
+      </div>
+      ${(report.confirmations.length || report.askNewton.length) ? '<details class="report-tier report-disclosure" open><summary><span class="tier-label">03 · Needs confirmation</span></summary>' : ''}
+      ${report.confirmations.length ? '<h3>City confirmation needed</h3>' + report.confirmations.map(c => '<div class="feasibility-confirm"><strong>' + escape(c.issue) + '</strong><p>' + escape(c.reason) + '</p><p class="muted">Who to ask: ' + escape(c.contact) + (c.sourceUrl ? ' · <a href="' + escape(c.sourceUrl) + '" target="_blank" rel="noreferrer">Official page ↗</a>' : '') + '</p></div>').join('') : ''}
+      ${report.askNewton.length ? '<h3>What to ask Newton</h3><ol>' + report.askNewton.map(q => '<li>' + escape(q) + '</li>').join('') + '</ol>' : ''}
+      ${(report.confirmations.length || report.askNewton.length) ? '</details>' : ''}
+      <details class="report-tier report-disclosure"><summary><span class="tier-label">04 · Why HPP reached this</span></summary>
       ${report.dimensions.length ? `<h3>Dimensional analysis</h3>
       <div class="feasibility-table-wrap"><table class="feasibility-table">
         <thead><tr><th scope="col">Measure</th><th scope="col">Proposed</th><th scope="col">Applicable limit</th><th scope="col">Result</th></tr></thead>
         <tbody>${report.dimensions.map(d => `<tr class="feas-${escape(d.status)}"><th scope="row">${escape(d.label)}</th><td>${escape(d.displayValue ?? 'Not provided')}</td><td>${escape(d.limitDisplay ?? 'Not established')}</td><td><strong>${escape(d.status === FEAS.WITHIN ? '✓ Within' : d.status === FEAS.CONFLICT ? '⚠ Potential conflict' : '? Needs confirmation')}</strong><br><span class="muted">${escape(d.explanation)}</span></td></tr>`).join('')}</tbody>
       </table></div>` : ''}
-      <h3>Potential issues</h3>
-      ${report.keyIssues.conflicts.length ? '<ul>' + report.keyIssues.conflicts.map(c => '<li>' + escape(c) + '</li>').join('') + '</ul>' : '<p>' + (report.dimensions.length ? 'None identified among the evaluated dimensional rules.' : 'No dimensional rules could be evaluated.') + '</p>'}
       ${(report.considerations.historic.length || report.considerations.stormwater.length || report.considerations.permits.length) ? '<h3>Other regulatory considerations</h3><ul>' + [
         ...report.considerations.historic.map(h => 'Historic: ' + h.title + (h.status === 'potentially_required' ? ' (may apply)' : '')),
         ...report.considerations.historicUnresolved.map(h => 'Historic: ' + h.title),
         ...report.considerations.stormwater.map(h => 'Stormwater: ' + h.title),
         ...report.considerations.permits.map(h => 'Permit pathway: ' + h.title)
       ].map(t => '<li>' + escape(t) + '</li>').join('') + '</ul>' : ''}
-      ${report.informationNeeded.length ? '<h3>Information still needed</h3><ol>' + report.informationNeeded.map(t => '<li>' + escape(t) + '</li>').join('') + '</ol>' : ''}
-      ${report.confirmations.length ? '<h3>City confirmation needed</h3>' + report.confirmations.map(c => '<div class="feasibility-confirm"><strong>' + escape(c.issue) + '</strong><p>' + escape(c.reason) + '</p><p class="muted">Who to ask: ' + escape(c.contact) + (c.sourceUrl ? ' · <a href="' + escape(c.sourceUrl) + '" target="_blank" rel="noreferrer">Official page ↗</a>' : '') + '</p></div>').join('') : ''}
-      ${report.askNewton.length ? '<h3>What to ask Newton</h3><ol>' + report.askNewton.map(q => '<li>' + escape(q) + '</li>').join('') + '</ol>' : ''}
+      </details>
+      <details class="report-tier report-disclosure"><summary><span class="tier-label">05 · Details, scope &amp; limitations</span></summary>
       ${report.notScreened.length ? '<h3>Not evaluated by HPP</h3><ul>' + report.notScreened.map(t => '<li>' + escape(t) + '</li>').join('') + '</ul>' : ''}
-      <p><strong>Where to confirm:</strong> ${escape(feasibility.contact)}</p>
-      ${feasibilityUrl ? '<a class="guidance-button" href="' + escape(feasibilityUrl) + '" target="_blank" rel="noreferrer">Open official City guidance ↗</a>' : ''}
       <p class="muted feasibility-limitations"><strong>Important limitations:</strong> ${escape(report.limitations)}</p>
-    </section>
+      </details>
+    </section>`}
 
     <section class="plan-choice panel">
       <div class="section-heading">

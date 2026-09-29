@@ -4,11 +4,17 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Home Project Planner helps homeowners in Newton, Massachusetts work through property context, project questions, local requirements, and next steps using identified public sources.">
 <meta name="theme-color" content="#303b29">
-<meta property="og:title" content="Home Project Planner · Newton">
+<link rel="canonical" href="https://home-project-planner-mvp.vercel.app/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Home Project Planner | Newton, Massachusetts">
+<meta name="twitter:description" content="Plan a Newton home project with property context, project-specific questions, sourced considerations, and next steps. Independent from the City of Newton.">
+<meta property="og:url" content="https://home-project-planner-mvp.vercel.app/">
+<meta property="og:title" content="Home Project Planner | Newton, Massachusetts">
 <meta property="og:description" content="A property-first planning tool for residential projects in Newton, Massachusetts.">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<title>Home Project Planner · Newton</title><link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Home Project Planner","description":"An independent planning tool for residential projects in Newton, Massachusetts. It connects property context and project questions to sourced considerations and next steps; it does not issue permits or City approvals.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","isAccessibleForFree":true,"url":"https://home-project-planner-mvp.vercel.app/"}</script>
+<title>Home Project Planner | Newton, Massachusetts</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="experiment.css"><script src="ui-theme.js"></script>
 </head>
 <body>
 <header class="site-header">
@@ -26,6 +32,7 @@
       <a href="#mission" data-page-link="mission">Mission</a>
       <a href="#feedback" data-page-link="feedback">Feedback</a>
     </nav>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch appearance"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16Z" fill="currentColor"/></svg></button>
     <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
   </div>
 </header>
@@ -46,9 +53,9 @@
     <section class="home-hero">
       <div class="hero-copy">
         <div class="eyebrow">HOME PROJECT PLANNER / NEWTON</div>
-        <h1>Know what your home project requires before you begin.</h1>
-        <p class="hero-lede">Tell us what you want to change. We connect your project to the relevant property information, local requirements, reviews, documents, and next steps.</p>
-        <div class="hero-actions"><a id="heroStart" class="primary-link" href="#plan" data-page-link="plan">Start planning <span>→</span></a><span class="hero-note">Built from verified public sources</span></div>
+        <h1>Plan your Newton home project with clearer next steps.</h1>
+        <p class="hero-lede">For Newton, Massachusetts homeowners: connect your project to property information, relevant zoning and permit considerations, historic and site review, and next steps. This independent planner is not a City approval.</p>
+        <div class="hero-actions"><a id="heroStart" class="primary-link" href="#plan" data-page-link="plan">Start a Project <span>→</span></a><span class="hero-note">Built from verified public sources</span></div>
       </div>
       <div class="hero-graphic" aria-label="Illustration of a planned property">
         <div class="graphic-label label-a">PARCEL / 47</div><div class="graphic-label label-b">ZONING / SR2</div><div class="graphic-label label-c">SITE / NEWTON</div>
@@ -77,6 +84,18 @@
         <button class="project-image-card compact-project-card" type="button" data-project-start="general_project" data-project-catalog="roofing"><div class="project-art roof-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M50 174h320M72 174V104l138-65 138 65v70M50 104h320M210 39v65M160 81h100"/><path d="M110 174v-43h55v43M255 174v-43h55v43"/></svg></div><span>ROOF</span><h3>Repair or replace a roof</h3></button>
         <button class="project-image-card compact-project-card" type="button" data-project-start="general_project" data-project-catalog="site"><div class="project-art site-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M45 174h330M70 174l45-72 58 42 55-64 82 94M92 174l25-45M300 174l-30-42M337 174l-34-66"/><circle cx="288" cy="62" r="18"/><path d="M288 44v36M270 62h36"/></svg></div><span>SITE</span><h3>Change the yard, grading, drainage, driveway, or trees</h3></button>
       </div>
+    </section>
+    <section class="home-planning-guide" aria-labelledby="planning-guide-title">
+      <div class="eyebrow">NEWTON HOME PROJECT PLANNING</div>
+      <h2 id="planning-guide-title">What should you check before starting?</h2>
+      <p>Start with the property, then describe the work. HPP helps Newton homeowners plan additions, decks, basement and bathroom work, and other residential projects. The questions change with the project, and the result separates evaluated information from matters that still need confirmation.</p>
+      <div class="planning-guide-grid">
+        <article><h3>Property and zoning</h3><p>Check the address and mapped parcel first. Zoning and setbacks may matter for work that changes a building or site. HPP reports supported dimensions only when the needed facts are available; front setback requires City confirmation rather than an estimated answer.</p><a href="https://www.newtonma.gov/government/information-technology/gis" target="_blank" rel="noopener noreferrer">City of Newton GIS ↗</a></article>
+        <article><h3>Permits and review</h3><p>A deck, addition, renovation, or accessory dwelling project can involve different review paths. HPP asks about the actual work and points to relevant steps; it does not issue permits or decide what the City will approve.</p><a href="https://www.newtonma.gov/government/planning" target="_blank" rel="noopener noreferrer">City Planning &amp; Development ↗</a></article>
+        <article><h3>Historic and site conditions</h3><p>Historic context, drainage, wetlands, and floodplain information can change what to investigate. If a mapped layer is unavailable or a required fact is uncertain, HPP flags the need to confirm it rather than treating missing data as an absence of restrictions.</p><a href="https://www.newtonma.gov/government/planning/historic-preservation" target="_blank" rel="noopener noreferrer">City Historic Preservation ↗</a></article>
+      </div>
+      <p class="home-guides-link"><strong>Planning guides:</strong> <a href="/guides/do-i-need-a-permit-for-an-addition/">Permits for additions</a> · <a href="/guides/do-i-need-a-permit-for-a-deck/">Permits for decks</a> · <a href="/guides/how-much-can-i-build-on-my-lot/">Setbacks, coverage and FAR</a> · <a href="/guides/building-permit-vs-zoning-approval/">Building permit vs. zoning</a> · <a href="/guides/historic-home-renovation/">Historic review</a> · <a href="/guides/stormwater-and-flood-zone-home-projects/">Stormwater and flood zones</a> · <a href="/guides/questions-before-starting-a-home-project/">What to ask before you start</a> · <a href="/guides/">All guides</a></p>
+      <p>HPP is independent from the City of Newton. Its preliminary project path is a planning aid, not a permit, zoning determination, or substitute for official guidance or qualified professional advice. <a href="#plan" data-page-link="plan">Start a Newton home project →</a></p>
     </section>
     <section class="home-process">
       <div class="process-intro">
@@ -342,6 +361,6 @@
   </section>
 
 </main>
-<footer><div class="footer-brand">Home Project Planner</div><div class="footer-meta"><span>Newton, Massachusetts</span><span><a href="#how" data-page-link="how">Evidence-backed planning</a></span><span><a href="#privacy" data-page-link="privacy">Privacy</a></span><span><a href="#terms" data-page-link="terms">Terms</a></span><span>Independent from the City of Newton</span><span class="footer-legal">Informational planning tool. Not a permitting authority, approval system, legal advice, or substitute for qualified professionals. Property data: City of Newton GIS. ArcGIS/Esri services are used under applicable Esri terms.</span></div></footer>
+<footer><div class="footer-brand">Home Project Planner</div><div class="footer-meta"><span>Newton, Massachusetts</span><span><a href="#how" data-page-link="how">Evidence-backed planning</a></span><span><a href="/guides/">Planning guides</a></span><span><a href="#privacy" data-page-link="privacy">Privacy</a></span><span><a href="#terms" data-page-link="terms">Terms</a></span><span>Independent from the City of Newton</span><span class="footer-legal">Informational planning tool. Not a permitting authority, approval system, legal advice, or substitute for qualified professionals. Property data: City of Newton GIS. ArcGIS/Esri services are used under applicable Esri terms.</span></div></footer>
 <script type="module" src="app.js"></script>
 </body></html>
