@@ -894,6 +894,22 @@ function clarificationSelectionLabel(q, value) {
   const values = Array.isArray(value) ? value : [value];
   return values.map(v => q.options?.find(([optionValue]) => optionValue === v)?.[1] || v).join(', ');
 }
+function nextQuestionIndex(all, currentIndex) {
+  const cluster = questionCluster(all, currentIndex);
+  const inlineConsumed = cluster.slice(1).filter(q => all.some(x => x.id === q.id)).length;
+  return currentIndex + 1 + inlineConsumed;
+}
+function previousQuestionIndex(all, currentIndex) {
+  let cursor = 0;
+  let previous = 0;
+  while (cursor < currentIndex && cursor < all.length) {
+    previous = cursor;
+    const next = nextQuestionIndex(all, cursor);
+    if (next >= currentIndex) return previous;
+    cursor = next;
+  }
+  return previous;
+}
 function renderQuestionCard({animate=false} = {}) {
   const all = getQuestions(type, answers);
   const card = $('questionCard');
@@ -995,7 +1011,10 @@ function renderQuestionCard({animate=false} = {}) {
   });
 
   $('backQuestion').onclick = () => {
-    if (questionIndex > 0) { questionIndex--; renderQuestionCard(); }
+    if (questionIndex > 0) {
+      questionIndex = previousQuestionIndex(getQuestions(type, answers), questionIndex);
+      renderQuestionCard();
+    }
   };
 
   $('returnToReview')?.addEventListener('click', () => {
@@ -1116,7 +1135,7 @@ function renderReview(all) {
     renderQuestionCard();
     window.scrollTo({top:0,behavior:'smooth'});
   });
-  $('backQuestion').onclick = () => { questionIndex = Math.max(0, all.length - 1); renderQuestionCard(); };
+  $('backQuestion').onclick = () => { questionIndex = previousQuestionIndex(all, all.length); renderQuestionCard(); };
   $('generatePlan').onclick = () => {
     editingFromReview = false;
     renderResult(buildPlan(type, property, answers));

@@ -103,7 +103,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--olive);box-shadow:0 0
 .choice.selected:active{transform:scale(.99)}
 .choice *{color:inherit}
 details.question-why{margin-top:22px;border-top:1px solid var(--line);padding-top:14px;font-size:14px;color:var(--muted)}
-details.question-why summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;color:var(--olive);font-weight:550}
+details.question-why summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;color:var(--olive-dark);font-weight:600}
 details.question-why summary::-webkit-details-marker{display:none}
 details.question-why summary:before{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(-45deg);transition:transform .3s var(--ease)}
 details.question-why[open] summary:before{transform:rotate(45deg)}
@@ -182,3 +182,29 @@ footer a,.footer-brand{color:var(--ink)!important}
 .hero-graphic .street{stroke:var(--line)!important}.hero-graphic .street-small{stroke:var(--strong)!important}
 .hero-graphic .dimension{stroke:var(--olive)!important}
 .menu-toggle{border:1px solid var(--glass-line)!important;box-shadow:none!important;text-transform:none!important;letter-spacing:0!important}
+
+/* Stabilization: keep every nested status surface legible in both themes. */
+.error{background:#fff0ee;border-color:#c77870;color:#7d261e}
+.review-list .review-needs-clarification{background:#fff3f1}
+.review-flag{background:#ffebe8;border-color:#bd746c;color:#762820}
+.required .badge{background:#e5f2e9;border-color:#71977d;color:#17472f}
+.conditional .badge{background:#fbf0d5;border-color:#a88945;color:#62450e}
+.confirm .badge{background:#fae7e4;border-color:#bb746c;color:#742b24}
+.feedback-choice-card:has(input:disabled){background:var(--bg-2)}
+html.theme-dark .feasibility-constraint{background:#2d1e1c}
+html.theme-dark .feasibility-review,html.theme-dark .feasibility-unknown{background:#2a2518}
+html.theme-dark .feasibility-screened{background:#17251d}
+html.theme-dark .error{background:#462522;border-color:#ad655e;color:#ffd7d1}
+html.theme-dark .review-list .review-needs-clarification{background:#352220}
+html.theme-dark .review-flag{background:#462724;border-color:#b96f67;color:#ffd6d0}
+html.theme-dark .required .badge{background:#1d422d;border-color:#70a180;color:#e2f6e7}
+html.theme-dark .conditional .badge{background:#45391e;border-color:#ad914f;color:#ffe5a6}
+html.theme-dark .confirm .badge{background:#472725;border-color:#b8736c;color:#ffd7d1}
+html.theme-dark .feedback-field-main textarea:focus,html.theme-dark .feedback-field-email input:focus{background:var(--surface)}
+html.theme-dark .feedback-choice-card:hover{background:var(--bg-2)}
+html.theme-dark .step-item.collapsed .stepcheck b{color:var(--muted)}
+html.theme-dark .choice.inferred-choice{background:var(--bg-2)!important;color:var(--muted)!important;border-color:var(--strong)!important}
+html.theme-dark .clarifier-inference{background:#17251d;color:#c4c9c5;border-color:var(--strong)}
+html.theme-dark .clarifier-inference strong{color:var(--ink)}
+html.theme-dark .feedback-submit-icon{border-color:rgba(255,255,255,.52)}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.site-header,.mobile-menu,.result-actions,.completion-toast{background:var(--surface)!important}}
