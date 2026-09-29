@@ -4,8 +4,8 @@ import {getQuestions} from '../src/core.js';
 
 const app = readFileSync(new URL('../app.js', import.meta.url), 'utf8');
 assert.match(app, /function previousQuestionIndex\(all, currentIndex\)/);
-assert.match(app, /questionIndex = previousQuestionIndex\(getQuestions\(type, answers\), questionIndex\)/);
-assert.match(app, /questionIndex = previousQuestionIndex\(all, all.length\)/);
+assert.match(app, /questionIndex = backIndex\(getQuestions\(type, answers\), questionIndex\)/);
+assert.match(app, /questionIndex = backIndex\(all, all.length\)/);
 assert.doesNotMatch(app, /if \(questionIndex > 0\) \{ questionIndex--; renderQuestionCard\(\); \}/);
 
 function inlineClarifierFor(parent, q) {

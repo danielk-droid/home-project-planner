@@ -10,7 +10,8 @@ import {
   newProjectId
 } from './src/project-state.js';
 import {actionForResult} from './src/result-presentation.js';
-import {clarifierForQuestion, questionContext} from './src/question-guidance.js';
+import {clarifierForQuestion, questionContext, unsureGuidance} from './src/question-guidance.js';
+import * as flow from './src/question-flow.js';
 import {feasibilitySummary} from './src/feasibility.js';
 import {feasibilityReport, STATUS as FEAS} from './src/feasibility-report.js';
 
@@ -19,6 +20,10 @@ let property = null;
 let type = null;
 let answers = {};
 let questionIndex = 0;
+let activeQuestionId = null;
+// Ordered ids of question steps the user completed, so Back retraces the
+// actual path even when a later answer inserted an earlier conditional question.
+let visitHistory = [];
 let editingFromReview = false;
 let selectedCatalogId = null;
 let clarifierState = {};
@@ -41,6 +46,7 @@ function applyProjectState(state) {
   clarificationMeta = state.clarificationMeta;
   clarifierQuestionMemory = state.clarifierQuestionMemory;
   questionIndex = state.questionIndex;
+  visitHistory = [];
   editingFromReview = state.editingFromReview;
   checklistWasComplete = false;
 }
@@ -822,11 +828,6 @@ function propertyEvidenceBlock(property) {
   '</section>';
 }
 
-function inlineClarifierFor(parent, q) {
-  const direct = (q.showWhen || []).some(([key,value]) => key === parent.id && value === 'unsure');
-  const any = (q.showWhenAny || []).some(([key,value]) => key === parent.id && value === 'unsure');
-  return direct || any;
-}
 function questionWhy(q) {
   if (q.why) return q.why;
   const t = String(q.text || '').toLowerCase();
@@ -854,70 +855,36 @@ function applyClarificationInference(q, value) {
   };
   return true;
 }
+function flowContext() {
+  return {answers, clarificationMeta, clarifierState, flowQuestions: PROJECTS[type]?.questions || []};
+}
 function questionCluster(all, index) {
-  const root = all[index];
-  const cluster = [root];
-  const rememberedMeta = Object.values(clarificationMeta).find(meta => meta.parentId === root.id);
-  if (rememberedMeta) {
-    const source = PROJECTS[type]?.questions?.find(q => q.id === (rememberedMeta.questionId || clarifierQuestionMemory[root.id]));
-    const remembered = source ? {...source} : clarifierFor(root);
-    if (remembered) {
-      remembered.parentId = root.id;
-      clarifierQuestionMemory[root.id] = remembered.id;
-      cluster.push(remembered);
-    }
-    return cluster;
-  }
-
-  let parent = root;
-  for (let j=index+1; j<all.length; j++) {
-    const candidate = all[j];
-    if (!inlineClarifierFor(parent, candidate)) break;
-    clarifierQuestionMemory[root.id] = candidate.id;
-    cluster.push({...candidate, parentId:parent.id});
-    parent = candidate;
-  }
-
-  // A top-level "I'm not sure" gets one inline clarification when the data
-  // does not already define a direct follow-up. Never create a second layer.
-  if (cluster.length === 1 && root.kind === 'choice' && answers[root.id] === 'unsure') {
-    const synthetic = clarifierFor(root);
-    if (synthetic) {
-      synthetic.parentId = root.id;
-      clarifierQuestionMemory[root.id] = synthetic.id;
-      cluster.push(synthetic);
-    }
-  }
+  const cluster = flow.questionCluster(all, index, flowContext());
+  if (cluster[1]) clarifierQuestionMemory[cluster[0].id] = cluster[1].id;
   return cluster;
 }
+function clusterValue(q) { return flow.clusterValue(q, flowContext()); }
 function clarificationSelectionLabel(q, value) {
   const values = Array.isArray(value) ? value : [value];
   return values.map(v => q.options?.find(([optionValue]) => optionValue === v)?.[1] || v).join(', ');
 }
-function nextQuestionIndex(all, currentIndex) {
-  const cluster = questionCluster(all, currentIndex);
-  const inlineConsumed = cluster.slice(1).filter(q => all.some(x => x.id === q.id)).length;
-  return currentIndex + 1 + inlineConsumed;
+function nextQuestionIndex(all, currentIndex) { return flow.nextQuestionIndex(all, currentIndex, flowContext()); }
+function previousQuestionIndex(all, currentIndex) { return flow.previousQuestionIndex(all, currentIndex, flowContext()); }
+function backIndex(all, currentIndex) {
+  const r = flow.backFromHistory(all, visitHistory, all[currentIndex]?.id);
+  visitHistory = r.history;
+  return r.index >= 0 ? r.index : previousQuestionIndex(all, currentIndex);
 }
-function previousQuestionIndex(all, currentIndex) {
-  let cursor = 0;
-  let previous = 0;
-  while (cursor < currentIndex && cursor < all.length) {
-    previous = cursor;
-    const next = nextQuestionIndex(all, cursor);
-    if (next >= currentIndex) return previous;
-    cursor = next;
-  }
-  return previous;
-}
-function renderQuestionCard({animate=false} = {}) {
+function renderQuestionCard({animate=false, keepActive=false} = {}) {
   const all = getQuestions(type, answers);
   const card = $('questionCard');
+  if (keepActive) questionIndex = flow.indexOfActive(all, activeQuestionId, questionIndex);
+  activeQuestionId = all[questionIndex]?.id || null;
   if (questionIndex >= all.length) { renderReview(all); return; }
   const cluster = questionCluster(all, questionIndex);
   const progress = Math.round((questionIndex / all.length) * 100);
   const controls = cluster.map((q,i) => {
-    const current = (q.parentId || q.id.startsWith('__clarifier_')) ? clarifierState[q.id] : answers[q.id];
+    const current = clusterValue(q);
     const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
     const meta = q.parentId ? clarificationMeta[q.id] : null;
     const inferenceNotice = i > 0 && meta
@@ -929,16 +896,17 @@ function renderQuestionCard({animate=false} = {}) {
       '<h1>' + escape(q.text) + '</h1>' +
       (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
       inferenceNotice +
+      (!i && answers[q.id] === 'unsure' ? '<div class="question-context unsure-guidance" role="note" aria-live="polite"><strong>Not sure? Here is what this means.</strong> ' + escape(unsureGuidance(q)) + (cluster.length > 1 ? ' The clarifying question below may resolve it.' : ' You can keep “I\'m not sure” and continue — HPP will list this under what still needs to be confirmed, or choose an answer now if you know it.') + '</div>' : '') +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<details class="question-why"><summary>Why am I being asked this?</summary><p>' + escape(questionWhy(q)) + '</p></details>' +
       '</div>';
   }).join('');
 
   const clusterComplete = cluster.every(q => {
-    const current = (q.parentId || q.id.startsWith('__clarifier_')) ? clarifierState[q.id] : answers[q.id];
+    const current = clusterValue(q);
     return questionValueComplete(q, current);
   });
-  const reachesEnd = questionIndex + cluster.length >= all.length;
+  const reachesEnd = nextQuestionIndex(all, questionIndex) >= all.length;
   const actionLabel = reachesEnd && clusterComplete ? 'Review my answers' : 'Continue';
 
   card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card' + (animate ? ' question-transition' : '') + '"><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint"></div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
@@ -953,7 +921,7 @@ function renderQuestionCard({animate=false} = {}) {
       if (!meta) return;
       answers[meta.parentId] = 'unsure';
       delete clarificationMeta[clarifierId];
-      renderQuestionCard({animate:false});
+      renderQuestionCard({animate:false, keepActive:true});
     };
   });
 
@@ -973,17 +941,19 @@ function renderQuestionCard({animate=false} = {}) {
             x.checked = normalized.includes(x.value);
           });
         }
-        clarifierState[q.id] = normalized;
+        if (flow.isSyntheticClarifier(q)) clarifierState[q.id] = normalized;
+        else { answers[q.id] = normalized; if (q.parentId) clarifierState[q.id] = normalized; }
         const inferred = q.parentId ? applyClarificationInference(q, normalized) : false;
         card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => x.closest('.choice')?.classList.toggle('selected', x.checked));
-        if (inferred) renderQuestionCard({animate:false});
+        if (inferred) renderQuestionCard({animate:false, keepActive:true});
         return;
       }
 
       if (q.parentId) {
         clarifierState[q.id] = input.value;
+        if (!flow.isSyntheticClarifier(q)) answers[q.id] = input.value;
         const inferred = applyClarificationInference(q,input.value);
-        if (inferred) renderQuestionCard({animate:false});
+        if (inferred) renderQuestionCard({animate:false, keepActive:true});
         else {
           input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
           input.closest('.choice')?.classList.add('selected');
@@ -999,7 +969,7 @@ function renderQuestionCard({animate=false} = {}) {
       input.closest('.choice')?.classList.add('selected');
 
       if (input.value === 'unsure' || wasUnsure) {
-        renderQuestionCard({animate:false});
+        renderQuestionCard({animate:false, keepActive:true});
       }
     });
   });
@@ -1012,7 +982,7 @@ function renderQuestionCard({animate=false} = {}) {
 
   $('backQuestion').onclick = () => {
     if (questionIndex > 0) {
-      questionIndex = previousQuestionIndex(getQuestions(type, answers), questionIndex);
+      questionIndex = backIndex(getQuestions(type, answers), questionIndex);
       renderQuestionCard();
     }
   };
@@ -1026,9 +996,12 @@ function renderQuestionCard({animate=false} = {}) {
 
   $('skipQuestion')?.addEventListener('click', () => {
     const last=cluster[cluster.length-1];
-    answers[last.id]=null;
+    const rootId=cluster[0].id;
+    if (visitHistory[visitHistory.length-1] !== rootId) visitHistory.push(rootId);
+    if (flow.isSyntheticClarifier(last)) clarifierState[last.id]=null; else answers[last.id]=null;
     cleanupHiddenAnswers();
-    questionIndex += cluster.length;
+    void rootId;
+    questionIndex = flow.nextUnansweredIndex(getQuestions(type, answers), flowContext());
     renderQuestionCard();
   });
 
@@ -1040,10 +1013,10 @@ function renderQuestionCard({animate=false} = {}) {
     }
 
     const rootId = cluster[0].id;
+    if (visitHistory[visitHistory.length-1] !== rootId) visitHistory.push(rootId);
     const updated = getQuestions(type, answers);
-    const rootIndex = updated.findIndex(q => q.id === rootId);
-    const inlineConsumed = cluster.slice(1).filter(q => updated.some(x => x.id === q.id)).length;
-    questionIndex = rootIndex >= 0 ? rootIndex + 1 + inlineConsumed : questionIndex + 1;
+    void rootId;
+    questionIndex = flow.nextUnansweredIndex(updated, flowContext());
     renderQuestionCard({animate:true});
   };
 }
@@ -1064,12 +1037,13 @@ function saveClusterValues(cluster) {
   for (const q of cluster) {
     const value = readQuestionValue(q);
     if (!questionValueComplete(q, value)) return false;
-    if (q.parentId || q.id.startsWith('__clarifier_')) {
+    if (flow.isSyntheticClarifier(q)) {
       clarifierState[q.id] = value;
-      applyClarificationInference(q, value);
     } else {
       answers[q.id] = value;
+      if (q.parentId) clarifierState[q.id] = value;
     }
+    if (q.parentId) applyClarificationInference(q, value);
   }
   cleanupHiddenAnswers();
   return true;
@@ -1107,7 +1081,7 @@ function renderReview(all) {
   const card = $('questionCard');
   const unanswered = all.filter(q => answers[q.id] === undefined && !q.optional);
   if (unanswered.length) {
-    questionIndex = all.indexOf(unanswered[0]);
+    questionIndex = flow.clusterRootIndex(all, all.indexOf(unanswered[0]), flowContext());
     renderQuestionCard();
     return;
   }
@@ -1130,12 +1104,12 @@ function renderReview(all) {
     '<div class="question-actions"><button type="button" id="backQuestion" class="secondary">Back</button><button type="button" id="generatePlan">Generate project plan</button></div>';
 
   document.querySelectorAll('[data-edit-question]').forEach(btn => btn.onclick = () => {
-    questionIndex = Number(btn.dataset.editQuestion);
+    questionIndex = flow.clusterRootIndex(all, Number(btn.dataset.editQuestion), flowContext());
     editingFromReview = true;
     renderQuestionCard();
     window.scrollTo({top:0,behavior:'smooth'});
   });
-  $('backQuestion').onclick = () => { questionIndex = previousQuestionIndex(all, all.length); renderQuestionCard(); };
+  $('backQuestion').onclick = () => { questionIndex = backIndex(all, all.length); renderQuestionCard(); };
   $('generatePlan').onclick = () => {
     editingFromReview = false;
     renderResult(buildPlan(type, property, answers));
@@ -1393,7 +1367,7 @@ function renderResult(plan, options = {}) {
     editingFromReview = false;
     r.classList.add('hidden');
     $('questions').classList.remove('hidden');
-    questionIndex = 0;
+    questionIndex = 0; visitHistory = [];
     renderQuestions();
   };
   $('restart').onclick = () => {
