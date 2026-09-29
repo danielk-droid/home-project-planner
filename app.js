@@ -537,7 +537,7 @@ function selectProject(projectType, catalogId = null) {
     if (item) answers = {projectCatalogId:item.id, projectCatalogLabel:item.label};
   }
   document.querySelectorAll('[data-picker-project]').forEach(x => {
-    x.classList.toggle('selected', Boolean(catalogId) && x.dataset.catalogId === catalogId);
+    x.classList.toggle('selected', x.dataset.pickerProject === projectType && (!catalogId || x.dataset.catalogId === catalogId));
   });
   document.querySelector('[data-picker-catalog]')?.classList.remove('selected');
   $('projectCatalog')?.classList.add('hidden');
@@ -547,7 +547,7 @@ function selectProject(projectType, catalogId = null) {
 document.querySelectorAll('[data-project-start]').forEach(card => {
   card.addEventListener('click', () => {
     startNewProjectState();
-    selectProject(card.dataset.projectStart, card.dataset.projectCatalog || null);
+    selectProject(card.dataset.projectStart, card.dataset.projectCatalog || card.dataset.projectStart);
     history.pushState(null,'','#plan');
     navigate('plan');
     window.scrollTo({top:0,behavior:'smooth'});
@@ -1257,7 +1257,7 @@ function renderResult(plan, options = {}) {
       <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
     </section>
 
-    <section class="panel feasibility-summary feasibility-${escape(report.overall === 'conflict' ? 'constraint' : report.overall === 'compatible' ? 'screened' : 'unknown')}" aria-labelledby="feasibility-title">
+    ${report.overall === 'not_triggered' ? '' : `<section class="panel feasibility-summary feasibility-${escape(report.overall === 'conflict' ? 'constraint' : report.overall === 'compatible' ? 'screened' : 'unknown')}" aria-labelledby="feasibility-title">
       <div class="eyebrow">PRELIMINARY PROJECT FEASIBILITY</div>
       <h2 id="feasibility-title">${escape(report.overallTitle)}</h2>
       <p>${escape(report.headline)}</p>
@@ -1292,7 +1292,7 @@ function renderResult(plan, options = {}) {
       ${report.notScreened.length ? '<h3>Not evaluated by HPP</h3><ul>' + report.notScreened.map(t => '<li>' + escape(t) + '</li>').join('') + '</ul>' : ''}
       <p class="muted feasibility-limitations"><strong>Important limitations:</strong> ${escape(report.limitations)}</p>
       </details>
-    </section>
+    </section>`}
 
     <section class="plan-choice panel">
       <div class="section-heading">
