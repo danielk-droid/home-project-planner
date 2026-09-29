@@ -107,11 +107,14 @@ assert.equal(inferClarifiedAnswer('sleepingRoomAdded','other'),'no');
 assert.equal(inferClarifiedAnswer('bathroomAdded','yes'),'yes');
 assert.equal(inferClarifiedAnswer('bathroomAdded','no'),'no');
 assert.equal(inferClarifiedAnswer('exteriorChange','structure'),'yes');
-assert.equal(inferClarifiedAnswer('deckNew','replacement'),'no');
-assert.equal(inferClarifiedAnswer('condo','shared'),'yes');
-assert.equal(inferClarifiedAnswer('condo','not_shared'),'no');
-assert.equal(inferClarifiedAnswer('guttingExtent','more_than_half'),'yes');
-assert.equal(inferClarifiedAnswer('guttingExtent','not_more_than_half'),'no');
+// Restating follow-ups were removed: these stay unsure (NEEDS_CONFIRMATION).
+assert.equal(inferClarifiedAnswer('deckNew','replacement'),null);
+assert.equal(inferClarifiedAnswer('condo','shared'),null);
+assert.equal(inferClarifiedAnswer('guttingExtent','more_than_half'),null);
+assert.equal(inferClarifiedAnswer('electricalWork',['unsure']),null);
+assert.equal(inferClarifiedAnswer('sleepingRoomAdded','unsure'),null);
+assert.equal(inferClarifiedAnswer('exteriorChange','site'),null);
+assert.equal(inferClarifiedAnswer('exteriorChange',['none']),'no');
 console.log('core adaptive regression tests: PASS');
 
 const general = getQuestions('general_project', {});

@@ -54,24 +54,15 @@ const CLARIFIERS = {
   demolition: {
     text:'What might be removed?', kind:'multi',
     options:[['interior','Interior walls or finishes'],['exterior','Exterior elements'],['structure','Structural parts'],['none','None of these']]
-  },
-  deckNew: {
-    text:'Which describes the deck work?', kind:'choice',
-    options:[['new_deck','A new deck'],['replacement','Replacing an existing deck']]
-  },
-  guttingExtent: {
-    text:'How much of the existing dwelling will be gutted?', kind:'choice',
-    options:[['more_than_half','More than half'],['not_more_than_half','Half or less']]
-  },
-  condo: {
-    text:'Which best describes the ownership?', kind:'choice',
-    options:[['shared','Condominium or other shared ownership'],['not_shared','Not shared ownership']]
-  },
-  condoApproval: {
-    text:'Does the association require project approval?', kind:'choice',
-    options:[['yes','Yes'],['no','No']]
   }
 };
+
+// Every follow-up keeps an honest way out: "I still don't know" leaves the
+// original answer as "unsure" (NEEDS_CONFIRMATION) instead of forcing a guess.
+export const STILL_UNSURE = ['unsure', "I still don't know"];
+export function withStillUnsure(options = []) {
+  return options.some(([value]) => value === 'unsure') ? options : [...options, STILL_UNSURE];
+}
 
 export function clarifierForQuestion(question) {
   const entry = CLARIFIERS[question?.id];
@@ -80,7 +71,7 @@ export function clarifierForQuestion(question) {
     id:'__clarifier_' + question.id,
     text:entry.text,
     kind:entry.kind,
-    options:entry.options,
+    options:withStillUnsure(entry.options),
     why:'This narrows the uncertainty using concrete parts of the proposed work.'
   };
 }

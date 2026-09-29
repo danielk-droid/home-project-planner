@@ -845,7 +845,11 @@ const clarifierFor = clarifierForQuestion;
 function applyClarificationInference(q, value) {
   if (!q?.parentId) return false;
   const inferred = inferClarifiedAnswer(q.parentId, value);
-  if (!inferred) return false;
+  if (!inferred) {
+    // Unresolved follow-up: the original answer stays "unsure", never a guess.
+    if (clarificationMeta[q.id]) { delete clarificationMeta[q.id]; answers[q.parentId] = 'unsure'; }
+    return false;
+  }
   answers[q.parentId] = inferred;
   clarificationMeta[q.id] = {
     parentId:q.parentId,
@@ -882,7 +886,9 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
   activeQuestionId = all[questionIndex]?.id || null;
   if (questionIndex >= all.length) { renderReview(all); return; }
   const cluster = questionCluster(all, questionIndex);
-  const progress = Math.round((questionIndex / all.length) * 100);
+  const stepProgress = flow.progressFor(all, questionIndex, flowContext(), visitHistory);
+  const progress = stepProgress.percent;
+  const progressLabel = 'Question ' + stepProgress.position + (stepProgress.atLeast ? ' of at least ' : ' of ') + stepProgress.total;
   const controls = cluster.map((q,i) => {
     const current = clusterValue(q);
     const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
@@ -896,7 +902,7 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
       '<h1>' + escape(q.text) + '</h1>' +
       (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
       inferenceNotice +
-      (!i && answers[q.id] === 'unsure' ? '<div class="question-context unsure-guidance" role="note" aria-live="polite"><strong>Not sure? Here is what this means.</strong> ' + escape(unsureGuidance(q)) + (cluster.length > 1 ? ' The clarifying question below may resolve it.' : ' You can keep “I\'m not sure” and continue — HPP will list this under what still needs to be confirmed, or choose an answer now if you know it.') + '</div>' : '') +
+      (!i && answers[q.id] === 'unsure' ? '<div class="question-context unsure-guidance" role="note" aria-live="polite"><strong>Not sure? Here is what this means.</strong> ' + escape(unsureGuidance(q)) + (cluster.length > 1 ? ' Answer the clarifying question below if you can — HPP will use it to settle this question. If you still don\'t know, choose “I still don\'t know” and HPP will list it under what still needs to be confirmed.' : ' You can keep “I\'m not sure” and continue — HPP will list this under what still needs to be confirmed, or choose an answer now if you know it.') + '</div>' : '') +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<details class="question-why"><summary>Why am I being asked this?</summary><p>' + escape(questionWhy(q)) + '</p></details>' +
       '</div>';
@@ -909,7 +915,7 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
   const reachesEnd = nextQuestionIndex(all, questionIndex) >= all.length;
   const actionLabel = reachesEnd && clusterComplete ? 'Review my answers' : 'Continue';
 
-  card.innerHTML = '<div class="question-progress"><span>Question ' + (questionIndex+1) + ' of ' + all.length + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card' + (animate ? ' question-transition' : '') + '"><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint"></div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
+  card.innerHTML = '<div class="question-progress"><span>' + progressLabel + '</span><span>' + progress + '%</span></div><div class="progress"><div style="width:' + progress + '%"></div></div><div class="question-card' + (animate ? ' question-transition' : '') + '"><div class="question-stack">' + controls + '</div><div id="questionHint" class="small hint"></div><div class="question-actions"><button type="button" id="backQuestion" class="secondary" ' + (questionIndex===0?'disabled':'') + '>Back</button>' +
     (editingFromReview ? '<button type="button" id="returnToReview" class="secondary">Return to review</button>' : '') +
     (cluster[cluster.length-1]?.optional ? '<button type="button" id="skipQuestion" class="secondary">' + escape(cluster[cluster.length-1].skipLabel || 'Skip') + '</button>' : '') +
     '<button type="button" id="nextQuestion">' + actionLabel + '</button></div></div>';
@@ -933,10 +939,11 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
       if (q.kind === 'multi') {
         const values = [...card.querySelectorAll('input[name="' + input.name + '"]:checked')].map(x => x.value);
         let normalized = values;
-        if (normalized.includes('none') && normalized.length > 1) {
-          normalized = input.value === 'none' && input.checked
-            ? ['none']
-            : normalized.filter(v => v !== 'none');
+        const exclusive = ['none', 'unsure'];
+        if (normalized.length > 1 && normalized.some(v => exclusive.includes(v))) {
+          normalized = exclusive.includes(input.value) && input.checked
+            ? [input.value]
+            : normalized.filter(v => !exclusive.includes(v));
           card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => {
             x.checked = normalized.includes(x.value);
           });

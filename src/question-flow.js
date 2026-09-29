@@ -11,7 +11,7 @@
 // exactly [[parent, 'unsure']] and it has no showWhenAny. Questions that are
 // merely gated by several answers (for example historic or plumbing questions
 // shown for "yes" OR "unsure") are ordinary questions with their own step.
-import {clarifierForQuestion} from './question-guidance.js';
+import {clarifierForQuestion, withStillUnsure} from './question-guidance.js';
 
 export function isSyntheticClarifier(q) {
   return typeof q?.id === 'string' && q.id.startsWith('__clarifier_');
@@ -37,12 +37,12 @@ export function questionCluster(all, index, {answers = {}, clarificationMeta = {
   if (resolved) {
     const source = flowQuestions.find(q => q.id === resolved.questionId);
     const remembered = source ? {...source} : clarifierForQuestion(root);
-    if (remembered) cluster.push({...remembered, parentId: root.id});
+    if (remembered) cluster.push({...remembered, options: withStillUnsure(remembered.options), parentId: root.id});
     return cluster;
   }
   const next = all[index + 1];
   if (next && isInlineClarifier(root, next)) {
-    cluster.push({...next, parentId: root.id});
+    cluster.push({...next, options: withStillUnsure(next.options), parentId: root.id});
     return cluster;
   }
   if (root.kind === 'choice' && answers[root.id] === 'unsure') {
@@ -123,4 +123,45 @@ export function backFromHistory(all, history, currentId) {
     if (i >= 0) return {index: i, history: h};
   }
   return {index: -1, history: h};
+}
+
+// Ordered cluster roots (one per step the user sees) for the current answers.
+export function stepRoots(all, ctx) {
+  const roots = [];
+  let cursor = 0;
+  while (cursor < all.length) {
+    roots.push(all[cursor].id);
+    cursor = nextQuestionIndex(all, cursor, ctx);
+  }
+  return roots;
+}
+
+// Could an unanswered question still add conditional questions to this path?
+export function pathMayGrow(all, ctx) {
+  const answers = ctx?.answers || {};
+  const shown = new Set(all.map(q => q.id));
+  return (ctx?.flowQuestions || []).some(q => !shown.has(q.id) &&
+    [...(q.showWhen || []), ...(q.showWhenAny || [])].some(([key]) => shown.has(key) && answers[key] === undefined));
+}
+
+// Honest progress for the active step, based on the path actually walked:
+//   position – steps already completed on this path (visit history) + 1
+//   total    – steps in the path for the current answers (never below position)
+//   atLeast  – true when unanswered questions could still add steps
+//   percent  – completed steps / total
+// It never counts a step the user has not reached.
+export function progressFor(all, index, ctx, history = []) {
+  const roots = stepRoots(all, ctx);
+  const answers = ctx?.answers || {};
+  const currentId = all[index]?.id;
+  const walked = [];
+  for (const id of history) if (roots.includes(id) && !walked.includes(id)) walked.push(id);
+  const at = walked.indexOf(currentId);
+  let position;
+  if (at >= 0) position = at + 1;
+  else if (!walked.length && currentId && answers[currentId] !== undefined) position = roots.indexOf(currentId) + 1;
+  else position = walked.filter(id => id !== currentId).length + 1;
+  const total = Math.max(position, roots.length);
+  const completed = Math.min(position - 1, total);
+  return {position, total, atLeast: pathMayGrow(all, ctx), percent: total ? Math.round(completed / total * 100) : 0};
 }

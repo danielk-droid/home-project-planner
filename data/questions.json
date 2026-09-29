@@ -327,16 +327,6 @@
         "id": "plumbingWork",
         "text": "Will you add, move, or alter plumbing?",
         "kind": "choice",
-        "showWhen": [
-          [
-            "bathroomAdded",
-            "no"
-          ],
-          [
-            "bathroomAdded",
-            "unsure"
-          ]
-        ],
         "options": [
           [
             "yes",
@@ -349,6 +339,16 @@
           [
             "unsure",
             "I'm not sure"
+          ]
+        ],
+        "showWhenAny": [
+          [
+            "bathroomAdded",
+            "no"
+          ],
+          [
+            "bathroomAdded",
+            "unsure"
           ]
         ]
       },
