@@ -18,4 +18,5 @@ jobs:
       - run: node --check api/feedback.js
       - run: node --check src/governance.js
       - run: node --check scripts/verify-private-review.mjs
+      - run: node --check scripts/build-review-packet.mjs
       - run: npm test
