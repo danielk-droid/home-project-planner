@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /data/
-Disallow: /src/
 Disallow: /docs/
 Disallow: /tests/
 Disallow: /scripts/
+
+Sitemap: https://home-project-planner-mvp.vercel.app/sitemap.xml
