@@ -26,6 +26,7 @@
       <a href="#mission" data-page-link="mission">Mission</a>
       <a href="#feedback" data-page-link="feedback">Feedback</a>
     </nav>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false"><span aria-hidden="true">◐</span></button>
     <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
   </div>
 </header>
@@ -45,23 +46,14 @@
   <section id="home" class="page page-active">
     <section class="home-hero">
       <div class="hero-copy">
-        <div class="eyebrow">HOME PROJECT PLANNER / NEWTON</div>
-        <h1>Know what your home project requires before you begin.</h1>
-        <p class="hero-lede">Tell us what you want to change. We connect your project to the relevant property information, local requirements, reviews, documents, and next steps.</p>
-        <div class="hero-actions"><a id="heroStart" class="primary-link" href="#plan" data-page-link="plan">Start planning <span>→</span></a><span class="hero-note">Built from verified public sources</span></div>
+        <div class="eyebrow">HOME PROJECT PLANNER &nbsp; / &nbsp; NEWTON, MASSACHUSETTS</div>
+        <h1>A clearer path for your home project.</h1>
+        <p class="hero-lede">Start with your property. Understand what your project may involve, what needs a closer look, and what to do next.</p>
+        <div class="hero-actions"><a id="heroStart" class="primary-link" href="#plan" data-page-link="plan">Start a project <span>→</span></a><span class="hero-note">Independent planning, grounded in public sources.</span></div>
       </div>
-      <div class="hero-graphic" aria-label="Illustration of a planned property">
-        <div class="graphic-label label-a">PARCEL / 47</div><div class="graphic-label label-b">ZONING / SR2</div><div class="graphic-label label-c">SITE / NEWTON</div>
-        <svg viewBox="0 0 520 420" role="img" aria-hidden="true">
-          <path class="parcel" d="M48 42 414 28l60 111-38 235-340-18L25 163Z"/>
-          <path class="street" d="M0 352 520 352"/><path class="street-small" d="M48 302 457 321"/>
-          <path class="house" d="m152 245 105-87 106 87v105H152Z"/><path class="house-line" d="M201 350V253h112v97M226 350v-53h62v53M178 245h158"/>
-          <path class="dimension" d="M152 376h211M152 368v16M363 368v16"/><path class="dimension" d="M126 245v105M118 245h16M118 350h16"/>
-          <circle id="heroDot" class="site-point" cx="257" cy="202" r="7"/>
-        </svg>
-        <div class="graphic-caption"><span>PROPERTY CONTEXT</span><strong>Address → parcel → rules → plan</strong></div>
-      </div>
+      <div class="hero-photo-credit">Illustrative home photograph · not your property</div>
     </section>
+    <div class="home-trustline" aria-label="Planner principles"><span><b>01</b> Start with the property</span><span><b>02</b> Follow the work</span><span><b>03</b> See what needs confirmation</span></div>
     <section id="resume" class="resume-section hidden"></section>
     <section class="project-gallery">
       <div class="gallery-intro"><div class="eyebrow">COMMON PROJECTS</div><h2>Plan the work before the work begins.</h2><p>Different projects trigger different questions. The planner starts with the property, then follows the work itself.</p></div>
@@ -114,7 +106,7 @@
     <div class="planner-shell">
       <div id="planIntro" class="planner-heading"><div><div class="eyebrow">01 / START HERE</div><h2>Plan your project</h2></div><span class="planner-meta">Newton property data · project-specific questions</span></div>
       <section id="start" class="panel">
-        <div class="start-intro"><div><h3>First, identify the property.</h3><p class="muted">We use the official Newton address database to establish the property context before asking about your project.</p></div></div>
+        <div class="start-intro"><div><div class="eyebrow">PROPERTY → PROJECT → QUESTIONS → PLAN</div><h3>First, identify the property.</h3><p class="muted">We use the official Newton address database to establish the property context before asking about your project.</p></div></div>
         <label for="address">Newton property address<div class="address-wrap"><input id="address" maxlength="200" autocomplete="off" placeholder="Start typing a Newton address, e.g. 130 Wheeler Road" aria-autocomplete="list" aria-expanded="false" aria-controls="addressSuggestions"><div id="addressSuggestions" class="suggestions hidden" role="listbox"></div></div></label>
         <div id="error" class="error hidden" role="alert"></div>
         <div id="projectSummary" class="project-summary" aria-live="polite"><span>Planning:</span><strong id="projectSummaryLabel">Not selected yet</strong></div>
@@ -343,5 +335,6 @@
 
 </main>
 <footer><div class="footer-brand">Home Project Planner</div><div class="footer-meta"><span>Newton, Massachusetts</span><span><a href="#how" data-page-link="how">Evidence-backed planning</a></span><span><a href="#privacy" data-page-link="privacy">Privacy</a></span><span><a href="#terms" data-page-link="terms">Terms</a></span><span>Independent from the City of Newton</span><span class="footer-legal">Informational planning tool. Not a permitting authority, approval system, legal advice, or substitute for qualified professionals. Property data: City of Newton GIS. ArcGIS/Esri services are used under applicable Esri terms.</span></div></footer>
+<script src="ui-theme.js" defer></script>
 <script type="module" src="app.js"></script>
 </body></html>
