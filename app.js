@@ -914,7 +914,7 @@ function renderQuestionCard({animate=false} = {}) {
       (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
       inferenceNotice +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
-      '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
+      '<details class="question-why"><summary>Why we ask</summary><p>' + escape(questionWhy(q)) + '</p></details>' +
       '</div>';
   }).join('');
 
@@ -1248,6 +1248,7 @@ function renderResult(plan, options = {}) {
         <thead><tr><th scope="col">Measure</th><th scope="col">Proposed</th><th scope="col">Applicable limit</th><th scope="col">Result</th></tr></thead>
         <tbody>${report.dimensions.map(d => `<tr class="feas-${escape(d.status)}"><th scope="row">${escape(d.label)}</th><td>${escape(d.displayValue ?? 'Not provided')}</td><td>${escape(d.limitDisplay ?? 'Not established')}</td><td><strong>${escape(d.status === FEAS.WITHIN ? '✓ Within' : d.status === FEAS.CONFLICT ? '⚠ Potential conflict' : '? Needs confirmation')}</strong><br><span class="muted">${escape(d.explanation)}</span></td></tr>`).join('')}</tbody>
       </table></div>` : ''}
+      <div class="report-detail-heading">Further analysis</div>
       <h3>Potential issues</h3>
       ${report.keyIssues.conflicts.length ? '<ul>' + report.keyIssues.conflicts.map(c => '<li>' + escape(c) + '</li>').join('') + '</ul>' : '<p>' + (report.dimensions.length ? 'None identified among the evaluated dimensional rules.' : 'No dimensional rules could be evaluated.') + '</p>'}
       ${(report.considerations.historic.length || report.considerations.stormwater.length || report.considerations.permits.length) ? '<h3>Other regulatory considerations</h3><ul>' + [
