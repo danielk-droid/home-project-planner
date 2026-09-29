@@ -914,7 +914,7 @@ function renderQuestionCard({animate=false} = {}) {
       (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
       inferenceNotice +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
-      '<p class="question-why"><b>Why we ask:</b> ' + escape(questionWhy(q)) + '</p>' +
+      '<details class="question-why"><summary>Why am I being asked this?</summary><p>' + escape(questionWhy(q)) + '</p></details>' +
       '</div>';
   }).join('');
 
@@ -1243,26 +1243,36 @@ function renderResult(plan, options = {}) {
       <h2 id="feasibility-title">${escape(report.overallTitle)}</h2>
       <p>${escape(report.headline)}</p>
       ${report.snapshot.lotArea != null || report.snapshot.zoning ? '<p class="feasibility-snapshot"><strong>Zoning:</strong> ' + escape(report.snapshot.zoning || 'Not established') + (report.snapshot.lotArea != null ? ' · <strong>Lot area:</strong> ' + escape(report.snapshot.lotArea.toLocaleString('en-US')) + ' sq ft' : '') + '</p>' : ''}
+      <div class="report-tier report-tier-1"><div class="tier-label">01 · What matters most</div>
+      <h3>Potential issues</h3>
+      ${report.keyIssues.conflicts.length ? '<ul>' + report.keyIssues.conflicts.map(c => '<li>' + escape(c) + '</li>').join('') + '</ul>' : '<p>' + (report.dimensions.length ? 'None identified among the evaluated dimensional rules.' : 'No dimensional rules could be evaluated.') + '</p>'}
+      </div>
+      <div class="report-tier report-tier-2"><div class="tier-label">02 · What to do next</div>
+      ${report.informationNeeded.length ? '<h3>Information still needed</h3><ol>' + report.informationNeeded.map(t => '<li>' + escape(t) + '</li>').join('') + '</ol>' : ''}
+      <p><strong>Where to confirm:</strong> ${escape(feasibility.contact)}</p>
+      ${feasibilityUrl ? '<a class="guidance-button" href="' + escape(feasibilityUrl) + '" target="_blank" rel="noreferrer">Open official City guidance ↗</a>' : ''}
+      </div>
+      ${(report.confirmations.length || report.askNewton.length) ? '<details class="report-tier report-disclosure" open><summary><span class="tier-label">03 · Needs confirmation</span></summary>' : ''}
+      ${report.confirmations.length ? '<h3>City confirmation needed</h3>' + report.confirmations.map(c => '<div class="feasibility-confirm"><strong>' + escape(c.issue) + '</strong><p>' + escape(c.reason) + '</p><p class="muted">Who to ask: ' + escape(c.contact) + (c.sourceUrl ? ' · <a href="' + escape(c.sourceUrl) + '" target="_blank" rel="noreferrer">Official page ↗</a>' : '') + '</p></div>').join('') : ''}
+      ${report.askNewton.length ? '<h3>What to ask Newton</h3><ol>' + report.askNewton.map(q => '<li>' + escape(q) + '</li>').join('') + '</ol>' : ''}
+      ${(report.confirmations.length || report.askNewton.length) ? '</details>' : ''}
+      <details class="report-tier report-disclosure"><summary><span class="tier-label">04 · Why HPP reached this</span></summary>
       ${report.dimensions.length ? `<h3>Dimensional analysis</h3>
       <div class="feasibility-table-wrap"><table class="feasibility-table">
         <thead><tr><th scope="col">Measure</th><th scope="col">Proposed</th><th scope="col">Applicable limit</th><th scope="col">Result</th></tr></thead>
         <tbody>${report.dimensions.map(d => `<tr class="feas-${escape(d.status)}"><th scope="row">${escape(d.label)}</th><td>${escape(d.displayValue ?? 'Not provided')}</td><td>${escape(d.limitDisplay ?? 'Not established')}</td><td><strong>${escape(d.status === FEAS.WITHIN ? '✓ Within' : d.status === FEAS.CONFLICT ? '⚠ Potential conflict' : '? Needs confirmation')}</strong><br><span class="muted">${escape(d.explanation)}</span></td></tr>`).join('')}</tbody>
       </table></div>` : ''}
-      <h3>Potential issues</h3>
-      ${report.keyIssues.conflicts.length ? '<ul>' + report.keyIssues.conflicts.map(c => '<li>' + escape(c) + '</li>').join('') + '</ul>' : '<p>' + (report.dimensions.length ? 'None identified among the evaluated dimensional rules.' : 'No dimensional rules could be evaluated.') + '</p>'}
       ${(report.considerations.historic.length || report.considerations.stormwater.length || report.considerations.permits.length) ? '<h3>Other regulatory considerations</h3><ul>' + [
         ...report.considerations.historic.map(h => 'Historic: ' + h.title + (h.status === 'potentially_required' ? ' (may apply)' : '')),
         ...report.considerations.historicUnresolved.map(h => 'Historic: ' + h.title),
         ...report.considerations.stormwater.map(h => 'Stormwater: ' + h.title),
         ...report.considerations.permits.map(h => 'Permit pathway: ' + h.title)
       ].map(t => '<li>' + escape(t) + '</li>').join('') + '</ul>' : ''}
-      ${report.informationNeeded.length ? '<h3>Information still needed</h3><ol>' + report.informationNeeded.map(t => '<li>' + escape(t) + '</li>').join('') + '</ol>' : ''}
-      ${report.confirmations.length ? '<h3>City confirmation needed</h3>' + report.confirmations.map(c => '<div class="feasibility-confirm"><strong>' + escape(c.issue) + '</strong><p>' + escape(c.reason) + '</p><p class="muted">Who to ask: ' + escape(c.contact) + (c.sourceUrl ? ' · <a href="' + escape(c.sourceUrl) + '" target="_blank" rel="noreferrer">Official page ↗</a>' : '') + '</p></div>').join('') : ''}
-      ${report.askNewton.length ? '<h3>What to ask Newton</h3><ol>' + report.askNewton.map(q => '<li>' + escape(q) + '</li>').join('') + '</ol>' : ''}
+      </details>
+      <details class="report-tier report-disclosure"><summary><span class="tier-label">05 · Details, scope &amp; limitations</span></summary>
       ${report.notScreened.length ? '<h3>Not evaluated by HPP</h3><ul>' + report.notScreened.map(t => '<li>' + escape(t) + '</li>').join('') + '</ul>' : ''}
-      <p><strong>Where to confirm:</strong> ${escape(feasibility.contact)}</p>
-      ${feasibilityUrl ? '<a class="guidance-button" href="' + escape(feasibilityUrl) + '" target="_blank" rel="noreferrer">Open official City guidance ↗</a>' : ''}
       <p class="muted feasibility-limitations"><strong>Important limitations:</strong> ${escape(report.limitations)}</p>
+      </details>
     </section>
 
     <section class="plan-choice panel">
