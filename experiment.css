@@ -230,10 +230,20 @@ html.theme-dark input:-webkit-autofill{ -webkit-text-fill-color:var(--ink);box-s
 .home-control-panel .control-copy .eyebrow,.home-control-panel .control-copy .text-link{color:var(--olive-dark)}
 .home-control-panel .control-copy .text-link{border-color:var(--olive-dark)}
 .home-control-panel{background:var(--bg-2);border:1px solid var(--line)}
-@media(max-width:760px){.review-list div{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 24px 64px}}
+.home-planning-guide{padding:80px 34px;border-top:1px solid var(--line);max-width:1200px;margin:auto}
+.home-planning-guide h2{font-size:clamp(32px,4vw,52px);line-height:1.12;max-width:800px;margin:10px 0 20px}
+.home-planning-guide>p{max-width:850px;color:var(--muted);line-height:1.7}
+.planning-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:34px 0}
+.planning-guide-grid article{border-top:1px solid var(--strong);padding-top:20px}
+.planning-guide-grid h3{font-size:19px;margin:0 0 12px}
+.planning-guide-grid p{font-size:14px;line-height:1.7;color:var(--muted)}
+.home-planning-guide a{color:var(--olive-dark);font-weight:600;text-underline-offset:4px}
+@media(max-width:760px){.planning-guide-grid{grid-template-columns:1fr;gap:18px}.home-planning-guide{padding:70px 20px}.review-list div{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 24px 64px}}
 @media(max-width:500px){.review-list div{grid-template-columns:minmax(0,1fr) 24px 64px}.review-list b{grid-column:1;text-align:left}.review-flag{grid-column:2;grid-row:1/3}.review-edit{grid-column:3;grid-row:1/3}}
 
 .project-picker .picker-different,.project-picker .picker-different:hover:not(:disabled){background:var(--bg-2);color:var(--ink);border-color:var(--strong)}
 .project-picker .picker-different b,.project-picker .picker-different small{color:var(--ink)}
 .project-picker .picker-different:hover small{color:var(--muted)}
 
+html.theme-dark .home-planning-guide{color:var(--ink)}
+html.theme-dark .home-planning-guide h2,html.theme-dark .home-planning-guide h3{color:var(--ink)}

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /data/
+Disallow: /src/
+Disallow: /docs/
+Disallow: /tests/
+Disallow: /scripts/
