@@ -145,6 +145,11 @@ details.question-why p{margin:10px 0 0;max-width:640px;animation:hppRise .35s va
 .step-item{border-color:var(--line)}
 .result-actions{position:sticky;bottom:16px;z-index:20;width:max-content;max-width:calc(100% - 32px);margin:28px auto;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:8px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-line);box-shadow:var(--shadow-2);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
 .result-actions button{padding:9px 16px;font-size:13px;margin:0}
+.result-actions-toggle{flex:0 0 auto;width:32px;height:32px;padding:0!important;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--ink)!important}
+.result-actions-toggle svg{transition:transform .2s ease}
+.result-actions.minimized{padding:5px}
+.result-actions.minimized button:not(.result-actions-toggle){display:none}
+.result-actions.minimized .result-actions-toggle svg{transform:rotate(180deg)}
 .completion-toast{background:var(--glass);color:var(--ink);border:1px solid var(--glass-line);border-radius:var(--r);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
 
 /* Info pages, feedback, footer */
@@ -169,7 +174,7 @@ footer a,.footer-brand{color:var(--ink)!important}
   .project-gallery,.home-process,.home-how-tech,.home-control-panel{padding-top:72px}
   .panel{border-radius:18px}
   .result-actions{border-radius:22px;bottom:10px}
-  .result-actions button{flex:1 1 auto}
+  .result-actions button:not(.result-actions-toggle){flex:1 1 auto}
   .report-tier-1{padding:18px}
 }
 @media (prefers-reduced-motion:reduce){

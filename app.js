@@ -1334,7 +1334,7 @@ function renderResult(plan, options = {}) {
       <div class="view-switch-bottom"><span>Ready to work through the steps?</span><button type="button" class="secondary" id="toChecklist">Open checklist →</button></div>
     </div>
 
-    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="downloadProject" class="secondary">Download project backup</button><button id="restart">Start another project</button></div>
+    <div class="result-actions"><button id="editProject" class="secondary">Edit project answers</button><button id="printPlan" class="secondary">Print / save plan</button><button id="downloadProject" class="secondary">Download project backup</button><button id="restart">Start another project</button><button id="resultActionsToggle" class="result-actions-toggle secondary" type="button" aria-expanded="true" aria-label="Minimize plan actions"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 5l4.5 4.5L11.5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
     <div id="completionToast" class="completion-toast hidden" role="status" aria-live="polite"><button id="dismissCompletion" class="toast-close" type="button" aria-label="Dismiss">×</button><strong>Planner checklist complete.</strong><span>This does not mean the project is approved or that every construction requirement has been satisfied. Confirm the applicable requirements and approvals before work begins.</span></div>
     <div id="confetti" class="confetti" aria-hidden="true"></div>`;
 
@@ -1382,6 +1382,13 @@ function renderResult(plan, options = {}) {
   $('dismissCompletion').onclick = () => $('completionToast')?.classList.add('hidden');
   $('printPlan').onclick = () => window.print();
   $('downloadProject').onclick = () => downloadProjectFile(savedKey);
+  const actionsBar = document.querySelector('.result-actions');
+  const actionsToggle = $('resultActionsToggle');
+  actionsToggle.onclick = () => {
+    const minimized = actionsBar.classList.toggle('minimized');
+    actionsToggle.setAttribute('aria-expanded', String(!minimized));
+    actionsToggle.setAttribute('aria-label', minimized ? 'Show plan actions' : 'Minimize plan actions');
+  };
   $('editProject').onclick = () => {
     editingFromReview = false;
     r.classList.add('hidden');
