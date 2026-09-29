@@ -31,4 +31,5 @@
 html.theme-dark .guide a:not(.primary-link){color:var(--olive)}
 html.theme-dark .guide-list a{color:var(--ink)}
 @media(max-width:620px){.guide{padding:36px 20px 64px;font-size:16px}.guide-lede{font-size:18px}.guide-nav a:not(.guide-nav-cta){display:none}.guide-nav .guide-nav-cta{font-size:13px;padding:8px 12px}.brand-copy span{display:none}}
+@media(max-width:440px){.guide-page .brand-copy{display:none}.guide-nav{margin-right:6px}}
 @media(prefers-reduced-motion:reduce){.guide-list a{transition:none}.guide-list a:hover{transform:none}}
