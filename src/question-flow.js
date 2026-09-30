@@ -165,3 +165,32 @@ export function progressFor(all, index, ctx, history = []) {
   const completed = Math.min(position - 1, total);
   return {position, total, atLeast: pathMayGrow(all, ctx), percent: total ? Math.round(completed / total * 100) : 0};
 }
+
+// "I still don't know" (and "None of these") are mutually exclusive with
+// concrete choices in multi-select follow-ups. Returns the normalized
+// selection after the user toggles `clicked`.
+export const EXCLUSIVE_MULTI_VALUES = ['none', 'unsure'];
+export function exclusiveMultiSelection(values = [], clicked, checked) {
+  const set = [...new Set(values)];
+  if (set.length <= 1 || !set.some(v => EXCLUSIVE_MULTI_VALUES.includes(v))) return set;
+  if (checked && EXCLUSIVE_MULTI_VALUES.includes(clicked)) return [clicked];
+  const concrete = set.filter(v => !EXCLUSIVE_MULTI_VALUES.includes(v));
+  return concrete.length ? concrete : [clicked].filter(Boolean);
+}
+// A selection that mixes an exclusive option with anything else is ambiguous
+// and cannot be submitted.
+export function isAmbiguousMultiSelection(values) {
+  return Array.isArray(values) && values.length > 1 && values.some(v => EXCLUSIVE_MULTI_VALUES.includes(v));
+}
+
+// What the original question becomes after its follow-up is answered:
+//   inferred yes/no      -> that answer
+//   "I still don't know" -> 'unsure' (always; never a stale yes/no)
+//   other unresolved     -> 'unsure' only if it had previously been inferred
+//   otherwise            -> undefined (leave unchanged)
+export function parentAnswerAfterClarifier(inferred, value, wasInferred) {
+  if (inferred) return inferred;
+  const values = Array.isArray(value) ? value : [value];
+  if (values.includes('unsure') || wasInferred) return 'unsure';
+  return undefined;
+}

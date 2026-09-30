@@ -846,8 +846,10 @@ function applyClarificationInference(q, value) {
   if (!q?.parentId) return false;
   const inferred = inferClarifiedAnswer(q.parentId, value);
   if (!inferred) {
-    // Unresolved follow-up: the original answer stays "unsure", never a guess.
-    if (clarificationMeta[q.id]) { delete clarificationMeta[q.id]; answers[q.parentId] = 'unsure'; }
+    // Unresolved follow-up: the original answer returns to "unsure", never a guess.
+    const parentAnswer = flow.parentAnswerAfterClarifier(null, value, !!clarificationMeta[q.id]);
+    delete clarificationMeta[q.id];
+    if (parentAnswer) answers[q.parentId] = parentAnswer;
     return false;
   }
   answers[q.parentId] = inferred;
@@ -938,29 +940,26 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
 
       if (q.kind === 'multi') {
         const values = [...card.querySelectorAll('input[name="' + input.name + '"]:checked')].map(x => x.value);
-        let normalized = values;
-        const exclusive = ['none', 'unsure'];
-        if (normalized.length > 1 && normalized.some(v => exclusive.includes(v))) {
-          normalized = exclusive.includes(input.value) && input.checked
-            ? [input.value]
-            : normalized.filter(v => !exclusive.includes(v));
-          card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => {
-            x.checked = normalized.includes(x.value);
-          });
-        }
+        const normalized = flow.exclusiveMultiSelection(values, input.value, input.checked);
+        card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => {
+          x.checked = normalized.includes(x.value);
+        });
         if (flow.isSyntheticClarifier(q)) clarifierState[q.id] = normalized;
         else { answers[q.id] = normalized; if (q.parentId) clarifierState[q.id] = normalized; }
+        const parentBefore = q.parentId ? answers[q.parentId] : undefined;
         const inferred = q.parentId ? applyClarificationInference(q, normalized) : false;
         card.querySelectorAll('input[name="' + input.name + '"]').forEach(x => x.closest('.choice')?.classList.toggle('selected', x.checked));
-        if (inferred) renderQuestionCard({animate:false, keepActive:true});
+        // Re-render whenever the original answer changed so its control never shows a stale Yes/No.
+        if (inferred || (q.parentId && answers[q.parentId] !== parentBefore)) renderQuestionCard({animate:false, keepActive:true});
         return;
       }
 
       if (q.parentId) {
         clarifierState[q.id] = input.value;
         if (!flow.isSyntheticClarifier(q)) answers[q.id] = input.value;
+        const parentBefore = answers[q.parentId];
         const inferred = applyClarificationInference(q,input.value);
-        if (inferred) renderQuestionCard({animate:false, keepActive:true});
+        if (inferred || answers[q.parentId] !== parentBefore) renderQuestionCard({animate:false, keepActive:true});
         else {
           input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
           input.closest('.choice')?.classList.add('selected');
@@ -1036,7 +1035,7 @@ function cleanupHiddenAnswers() {
 }
 
 function questionValueComplete(q, value) {
-  if (q.kind === 'multi') return Array.isArray(value) && value.length > 0;
+  if (q.kind === 'multi') return Array.isArray(value) && value.length > 0 && !flow.isAmbiguousMultiSelection(value);
   return value !== undefined;
 }
 
