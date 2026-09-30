@@ -261,3 +261,10 @@ html.theme-dark .how-tech-graphic strong{border-color:var(--strong);color:var(--
 html.theme-dark .how-tech-graphic em{background:var(--olive-soft);color:var(--ink)}
 html.theme-dark .how-tech-graphic .how-flow b{color:var(--muted)}
 html.theme-dark .how-tech-graphic .how-flow-line{border-left-color:var(--strong)}
+
+/* Dark mode: Mission page — dark backgrounds, light text. Light mode unchanged. */
+html.theme-dark .mission-body{background:var(--bg-2);color:var(--ink)}
+html.theme-dark .mission-body p{color:var(--muted)}
+html.theme-dark .mission-principles{background:var(--bg-2);color:var(--ink)}
+html.theme-dark .mission-principles div{border-color:var(--line)}
+html.theme-dark .mission-main-card .eyebrow{color:var(--olive)}
