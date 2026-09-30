@@ -252,3 +252,12 @@ html.theme-dark input:-webkit-autofill{ -webkit-text-fill-color:var(--ink);box-s
 
 html.theme-dark .home-planning-guide{color:var(--ink)}
 html.theme-dark .home-planning-guide h2,html.theme-dark .home-planning-guide h3{color:var(--ink)}
+
+/* Dark mode: "How the planner thinks" — dark background, light text. Light mode unchanged. */
+html.theme-dark .home-how-tech{background:var(--bg-2)}
+html.theme-dark .home-how-tech h2{color:var(--ink)}
+html.theme-dark .how-tech-graphic{background:var(--surface);border-color:var(--line);color:var(--ink)}
+html.theme-dark .how-tech-graphic strong{border-color:var(--strong);color:var(--ink)}
+html.theme-dark .how-tech-graphic em{background:var(--olive-soft);color:var(--ink)}
+html.theme-dark .how-tech-graphic .how-flow b{color:var(--muted)}
+html.theme-dark .how-tech-graphic .how-flow-line{border-left-color:var(--strong)}
