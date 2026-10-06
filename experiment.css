@@ -254,8 +254,10 @@ html.theme-dark .home-planning-guide{color:var(--ink)}
 html.theme-dark .home-planning-guide h2,html.theme-dark .home-planning-guide h3{color:var(--ink)}
 
 /* Dark mode: "How the planner thinks" — dark background, light text. Light mode unchanged. */
-html.theme-dark .home-how-tech{background:var(--bg-2)}
-html.theme-dark .home-how-tech h2{color:var(--ink)}
+html.theme-dark .home-how-tech{background:var(--bg-2);color:var(--ink)}
+html.theme-dark .home-how-tech h2,html.theme-dark .home-how-tech p,html.theme-dark .how-tech-points b,html.theme-dark .how-tech-points small{color:var(--ink)}
+html.theme-dark .home-how-tech .eyebrow,html.theme-dark .home-how-tech .text-link,html.theme-dark .how-tech-points article>span{color:var(--ink)}
+html.theme-dark .home-how-tech .text-link{border-color:var(--ink)}
 html.theme-dark .how-tech-graphic{background:var(--surface);border-color:var(--line);color:var(--ink)}
 html.theme-dark .how-tech-graphic strong{border-color:var(--strong);color:var(--ink)}
 html.theme-dark .how-tech-graphic em{background:var(--olive-soft);color:var(--ink)}
