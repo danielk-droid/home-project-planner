@@ -28,9 +28,17 @@ export function answerIsUnsure(value) { return value === 'unsure'; }
 
 export function inferClarifiedAnswer(questionId, value) {
   const values = Array.isArray(value) ? value : [value];
+  // "I still don't know" never resolves the original question.
+  if (!values.length || values.includes('unsure')) return null;
+  // Exterior change asks about the building's outside. Site-only work (ground,
+  // trees, drainage, paving) does not answer that, so it stays unresolved.
+  if (questionId === 'exteriorChange') {
+    if (values.includes('none')) return 'no';
+    return values.some(v => ['opening','openings','structure','surface','envelope'].includes(v)) ? 'yes' : null;
+  }
   const multiBinary = new Set([
     'demolition','structuralChanges','electricalWork','plumbingWork','gasWork',
-    'exteriorChange','siteWork','treeImpact','windowsOrDoors','newVentilation',
+    'siteWork','treeImpact','windowsOrDoors','newVentilation',
     'layoutChange','stairsOrGuard','footprintChange'
   ]);
   if (multiBinary.has(questionId)) {
@@ -41,11 +49,6 @@ export function inferClarifiedAnswer(questionId, value) {
   const map = {
     sleepingRoomAdded: {sleeping:'yes',other:'no'},
     bathroomAdded: {yes:'yes',no:'no'},
-    exteriorChange: {opening:'yes',structure:'yes',surface:'yes',site:'yes'},
-    deckNew: {new_deck:'yes',replacement:'no'},
-    condo: {shared:'yes',not_shared:'no'},
-    condoApproval: {yes:'yes',no:'no'},
-    guttingExtent: {more_than_half:'yes',not_more_than_half:'no'},
     egressKnown: {measurements_available:'yes',measurements_unavailable:'no'}
   };
   return map[questionId]?.[values[0]] || null;

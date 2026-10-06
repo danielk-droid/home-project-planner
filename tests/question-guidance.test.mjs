@@ -20,6 +20,10 @@ for (const flow of questionFlows) {
     const clarifier = clarifierForQuestion(question);
     assert.ok(clarifier, `${flow.id}.${question.id} must have its declared clarifier`);
     for (const [value] of clarifier.options) {
+      if (value === 'unsure' || (question.id === 'exteriorChange' && value === 'site')) {
+        assert.equal(inferClarifiedAnswer(question.id, clarifier.kind === 'multi' ? [value] : value), null, `${question.id}:${value} must keep the original answer unsure`);
+        continue;
+      }
       assert.ok(inferClarifiedAnswer(question.id, clarifier.kind === 'multi' ? [value] : value), `${question.id}:${value} must infer the original answer`);
     }
   }
