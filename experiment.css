@@ -23,6 +23,7 @@ a{color:var(--olive)}
 .site-header:after{display:none}
 .site-header-inner{min-height:56px;padding:8px 28px;gap:20px}
 .brand-mark{width:32px;height:32px;border:0;background:var(--ink);border-radius:9px}
+.brand:hover .brand-mark{background:var(--ink)}
 .brand-mark svg{width:20px;height:20px}.brand-mark svg path{stroke:var(--paper)}
 .brand-copy strong{color:var(--ink);font-size:14px;letter-spacing:-.01em}.brand-copy span{color:var(--muted);font-size:11px;letter-spacing:0;text-transform:none}
 .main-nav a{color:var(--muted);text-transform:none;letter-spacing:-.005em;font-size:13px;font-weight:500;padding:0 12px}
