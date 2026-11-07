@@ -1,24 +1,15 @@
 {
   "version": 2,
-  "generatedAt": "2026-11-06T14:19:37.831Z",
+  "generatedAt": "2026-11-07T13:06:42.706Z",
   "sources": {
     "newton-gis": {
       "hash": "5cb529d446cd2ab34cf32cb15d8fec9943d1ff2f9a56c87c739fc91c033456b7",
-      "checkedAt": "2026-11-06T14:19:26.432Z",
+      "checkedAt": "2026-11-07T13:06:36.108Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 166985,
       "normalizedBytes": 11046,
       "finalUrl": "https://www.newtonma.gov/government/information-technology/gis",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:49.455Z",
-          "hash": "d53d6864feb4d34772a7286e1f87f4920c638be34a21639831e2a2acf3abb91f",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 167816,
-          "normalizedBytes": 11018,
-          "finalUrl": "https://www.newtonma.gov/government/information-technology/gis"
-        },
         {
           "checkedAt": "2026-10-19T13:22:07.788Z",
           "hash": "d53d6864feb4d34772a7286e1f87f4920c638be34a21639831e2a2acf3abb91f",
@@ -189,26 +180,26 @@
           "bytes": 166985,
           "normalizedBytes": 11046,
           "finalUrl": "https://www.newtonma.gov/government/information-technology/gis"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.108Z",
+          "hash": "5cb529d446cd2ab34cf32cb15d8fec9943d1ff2f9a56c87c739fc91c033456b7",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 166985,
+          "normalizedBytes": 11046,
+          "finalUrl": "https://www.newtonma.gov/government/information-technology/gis"
         }
       ]
     },
     "newton-addresses": {
       "hash": "c014a76685a232a273ee78984aa92f309a696a68b139eb82fa0fe82b1d622d45",
-      "checkedAt": "2026-11-06T14:19:26.616Z",
+      "checkedAt": "2026-11-07T13:06:36.269Z",
       "contentType": "text/plain; charset=UTF-8",
       "bytes": 11422,
       "normalizedBytes": 8518,
       "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12?f=pjson",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:49.624Z",
-          "hash": "c014a76685a232a273ee78984aa92f309a696a68b139eb82fa0fe82b1d622d45",
-          "status": "unchanged",
-          "contentType": "text/plain; charset=UTF-8",
-          "bytes": 11422,
-          "normalizedBytes": 8518,
-          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12?f=pjson"
-        },
         {
           "checkedAt": "2026-10-19T13:22:07.903Z",
           "hash": "c014a76685a232a273ee78984aa92f309a696a68b139eb82fa0fe82b1d622d45",
@@ -379,26 +370,26 @@
           "bytes": 11422,
           "normalizedBytes": 8518,
           "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12?f=pjson"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.269Z",
+          "hash": "c014a76685a232a273ee78984aa92f309a696a68b139eb82fa0fe82b1d622d45",
+          "status": "unchanged",
+          "contentType": "text/plain; charset=UTF-8",
+          "bytes": 11422,
+          "normalizedBytes": 8518,
+          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/12?f=pjson"
         }
       ]
     },
     "newton-parcels": {
       "hash": "db88eec0570cd9711af7152de6ea3a0fa987f597bb512cb813ae422851173ab5",
-      "checkedAt": "2026-11-06T14:19:26.655Z",
+      "checkedAt": "2026-11-07T13:06:36.293Z",
       "contentType": "text/plain; charset=UTF-8",
       "bytes": 8832,
       "normalizedBytes": 7088,
       "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/47?f=pjson",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:49.663Z",
-          "hash": "db88eec0570cd9711af7152de6ea3a0fa987f597bb512cb813ae422851173ab5",
-          "status": "unchanged",
-          "contentType": "text/plain; charset=UTF-8",
-          "bytes": 8832,
-          "normalizedBytes": 7088,
-          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/47?f=pjson"
-        },
         {
           "checkedAt": "2026-10-19T13:22:07.931Z",
           "hash": "db88eec0570cd9711af7152de6ea3a0fa987f597bb512cb813ae422851173ab5",
@@ -569,26 +560,26 @@
           "bytes": 8832,
           "normalizedBytes": 7088,
           "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/47?f=pjson"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.293Z",
+          "hash": "db88eec0570cd9711af7152de6ea3a0fa987f597bb512cb813ae422851173ab5",
+          "status": "unchanged",
+          "contentType": "text/plain; charset=UTF-8",
+          "bytes": 8832,
+          "normalizedBytes": 7088,
+          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/47?f=pjson"
         }
       ]
     },
     "newton-zoning": {
       "hash": "d6c53573d6d7a37762da23306949e3f104232485bf61f7ff3ad2125ddb6e6ecd",
-      "checkedAt": "2026-11-06T14:19:26.694Z",
+      "checkedAt": "2026-11-07T13:06:36.316Z",
       "contentType": "text/plain; charset=UTF-8",
       "bytes": 5331,
       "normalizedBytes": 4389,
       "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/24?f=pjson",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:49.702Z",
-          "hash": "d6c53573d6d7a37762da23306949e3f104232485bf61f7ff3ad2125ddb6e6ecd",
-          "status": "unchanged",
-          "contentType": "text/plain; charset=UTF-8",
-          "bytes": 5331,
-          "normalizedBytes": 4389,
-          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/24?f=pjson"
-        },
         {
           "checkedAt": "2026-10-19T13:22:07.958Z",
           "hash": "d6c53573d6d7a37762da23306949e3f104232485bf61f7ff3ad2125ddb6e6ecd",
@@ -759,26 +750,26 @@
           "bytes": 5331,
           "normalizedBytes": 4389,
           "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/24?f=pjson"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.316Z",
+          "hash": "d6c53573d6d7a37762da23306949e3f104232485bf61f7ff3ad2125ddb6e6ecd",
+          "status": "unchanged",
+          "contentType": "text/plain; charset=UTF-8",
+          "bytes": 5331,
+          "normalizedBytes": 4389,
+          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/24?f=pjson"
         }
       ]
     },
     "newton-historic-districts": {
       "hash": "21eb672a08ed00f15bbd363ecc3b263ca21e830037ab086df2504a7c5d0e3bfe",
-      "checkedAt": "2026-11-06T14:19:26.732Z",
+      "checkedAt": "2026-11-07T13:06:36.338Z",
       "contentType": "text/plain; charset=UTF-8",
       "bytes": 5203,
       "normalizedBytes": 4292,
       "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/39?f=pjson",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:49.742Z",
-          "hash": "21eb672a08ed00f15bbd363ecc3b263ca21e830037ab086df2504a7c5d0e3bfe",
-          "status": "unchanged",
-          "contentType": "text/plain; charset=UTF-8",
-          "bytes": 5203,
-          "normalizedBytes": 4292,
-          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/39?f=pjson"
-        },
         {
           "checkedAt": "2026-10-19T13:22:07.984Z",
           "hash": "21eb672a08ed00f15bbd363ecc3b263ca21e830037ab086df2504a7c5d0e3bfe",
@@ -949,26 +940,26 @@
           "bytes": 5203,
           "normalizedBytes": 4292,
           "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/39?f=pjson"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.338Z",
+          "hash": "21eb672a08ed00f15bbd363ecc3b263ca21e830037ab086df2504a7c5d0e3bfe",
+          "status": "unchanged",
+          "contentType": "text/plain; charset=UTF-8",
+          "bytes": 5203,
+          "normalizedBytes": 4292,
+          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/39?f=pjson"
         }
       ]
     },
     "newton-floodplain": {
       "hash": "d6decb01fcf7e366915cbb181a439367c32e0e95800baa435782591148a14252",
-      "checkedAt": "2026-11-06T14:19:26.770Z",
+      "checkedAt": "2026-11-07T13:06:36.360Z",
       "contentType": "text/plain; charset=UTF-8",
       "bytes": 6052,
       "normalizedBytes": 5025,
       "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/41?f=pjson",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:49.781Z",
-          "hash": "d6decb01fcf7e366915cbb181a439367c32e0e95800baa435782591148a14252",
-          "status": "unchanged",
-          "contentType": "text/plain; charset=UTF-8",
-          "bytes": 6052,
-          "normalizedBytes": 5025,
-          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/41?f=pjson"
-        },
         {
           "checkedAt": "2026-10-19T13:22:08.010Z",
           "hash": "d6decb01fcf7e366915cbb181a439367c32e0e95800baa435782591148a14252",
@@ -1139,26 +1130,26 @@
           "bytes": 6052,
           "normalizedBytes": 5025,
           "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/41?f=pjson"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.360Z",
+          "hash": "d6decb01fcf7e366915cbb181a439367c32e0e95800baa435782591148a14252",
+          "status": "unchanged",
+          "contentType": "text/plain; charset=UTF-8",
+          "bytes": 6052,
+          "normalizedBytes": 5025,
+          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/41?f=pjson"
         }
       ]
     },
     "newton-planning": {
       "hash": "67461229ed2c08df170e00fda40ac43545597cdaf3e946441c9f225b7371f88c",
-      "checkedAt": "2026-11-06T14:19:26.840Z",
+      "checkedAt": "2026-11-07T13:06:36.422Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 230571,
       "normalizedBytes": 17591,
       "finalUrl": "https://www.newtonma.gov/government/planning",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:49.858Z",
-          "hash": "190c8d8198c676c5d7a7e99df7c1b6ff1669bd39b3f4c334830290c8e2b70db9",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 231760,
-          "normalizedBytes": 17633,
-          "finalUrl": "https://www.newtonma.gov/government/planning"
-        },
         {
           "checkedAt": "2026-10-19T13:22:08.844Z",
           "hash": "190c8d8198c676c5d7a7e99df7c1b6ff1669bd39b3f4c334830290c8e2b70db9",
@@ -1329,6 +1320,15 @@
           "bytes": 230571,
           "normalizedBytes": 17591,
           "finalUrl": "https://www.newtonma.gov/government/planning"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.422Z",
+          "hash": "67461229ed2c08df170e00fda40ac43545597cdaf3e946441c9f225b7371f88c",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 230571,
+          "normalizedBytes": 17591,
+          "finalUrl": "https://www.newtonma.gov/government/planning"
         }
       ]
     },
@@ -1340,15 +1340,6 @@
       "normalizedBytes": 13762,
       "finalUrl": "https://www.newtonma.gov/government/inspectional-services/plumbing-gas-and-electrical",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:50.272Z",
-          "hash": "e61fa808821a7d472be6478f9e5293ad982675a89eb12d20822bd8676b0b90ef",
-          "status": "source_unavailable",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 134324,
-          "normalizedBytes": 8816,
-          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/plumbing-gas-and-electrical"
-        },
         {
           "checkedAt": "2026-10-19T13:22:09.270Z",
           "hash": "e61fa808821a7d472be6478f9e5293ad982675a89eb12d20822bd8676b0b90ef",
@@ -1519,26 +1510,26 @@
           "bytes": 133453,
           "normalizedBytes": 8844,
           "finalUrl": "https://www.newtonma.gov/government/inspectional-services/plumbing-gas-and-electrical"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:36.950Z",
+          "hash": "accef0eb6de41a50aa07175d582e2319089985254dae8b2fe75bdd4c274c5507",
+          "status": "source_unavailable",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 133453,
+          "normalizedBytes": 8844,
+          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/plumbing-gas-and-electrical"
         }
       ]
     },
     "newton-fire": {
       "hash": "63b2e49253a562071527db8cd61085d62e2124f8d90cacc4a393f5c6ab6326d9",
-      "checkedAt": "2026-11-06T14:19:28.178Z",
+      "checkedAt": "2026-11-07T13:06:37.556Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 169911,
       "normalizedBytes": 14386,
       "finalUrl": "https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:50.740Z",
-          "hash": "13cb2f9f594f2612af520dca2aba999686e568b8c4419267406441ba4cda2165",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 168965,
-          "normalizedBytes": 14143,
-          "finalUrl": "https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews"
-        },
         {
           "checkedAt": "2026-10-19T13:22:09.773Z",
           "hash": "13cb2f9f594f2612af520dca2aba999686e568b8c4419267406441ba4cda2165",
@@ -1709,26 +1700,26 @@
           "bytes": 169911,
           "normalizedBytes": 14386,
           "finalUrl": "https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:37.556Z",
+          "hash": "63b2e49253a562071527db8cd61085d62e2124f8d90cacc4a393f5c6ab6326d9",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 169911,
+          "normalizedBytes": 14386,
+          "finalUrl": "https://www.newtonma.gov/government/fire/fire-prevention/plan-reviews"
         }
       ]
     },
     "newton-tree": {
       "hash": "f16f55bc5a60fad055b837221390986672604bdad90c1787bfeacdad12b995d2",
-      "checkedAt": "2026-11-06T14:19:28.749Z",
+      "checkedAt": "2026-11-07T13:06:38.024Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 185215,
       "normalizedBytes": 18304,
       "finalUrl": "https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:50.817Z",
-          "hash": "808f93943c9530305d248f50500835be10f73189d464a13d0cd63b4144615930",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 197229,
-          "normalizedBytes": 19107,
-          "finalUrl": "https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance"
-        },
         {
           "checkedAt": "2026-10-19T13:22:10.308Z",
           "hash": "808f93943c9530305d248f50500835be10f73189d464a13d0cd63b4144615930",
@@ -1899,26 +1890,26 @@
           "bytes": 185215,
           "normalizedBytes": 18304,
           "finalUrl": "https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:38.024Z",
+          "hash": "f16f55bc5a60fad055b837221390986672604bdad90c1787bfeacdad12b995d2",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 185215,
+          "normalizedBytes": 18304,
+          "finalUrl": "https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance"
         }
       ]
     },
     "newton-conservation": {
       "hash": "2872b9cabc1299ce9267bdaa89abe64e5ee37c1a1068a6710d78623a79216f31",
-      "checkedAt": "2026-11-06T14:19:29.419Z",
+      "checkedAt": "2026-11-07T13:06:38.666Z",
       "contentType": "text/html; charset=utf-8",
-      "bytes": 279392,
+      "bytes": 279373,
       "normalizedBytes": 22110,
       "finalUrl": "https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:51.432Z",
-          "hash": "f04fdb7beb59e0551ccb618109ceed91011c500614fb5b65ff6ef32f0113e455",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 259550,
-          "normalizedBytes": 18253,
-          "finalUrl": "https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev"
-        },
         {
           "checkedAt": "2026-10-19T13:22:10.878Z",
           "hash": "f04fdb7beb59e0551ccb618109ceed91011c500614fb5b65ff6ef32f0113e455",
@@ -2089,26 +2080,26 @@
           "bytes": 279392,
           "normalizedBytes": 22110,
           "finalUrl": "https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:38.666Z",
+          "hash": "2872b9cabc1299ce9267bdaa89abe64e5ee37c1a1068a6710d78623a79216f31",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 279373,
+          "normalizedBytes": 22110,
+          "finalUrl": "https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev"
         }
       ]
     },
     "newton-historic": {
       "hash": "228ac5118236c5a8a1ae0eb8f975aaf8d0eb4838386b348206ce463c681442d7",
-      "checkedAt": "2026-11-06T14:19:30.128Z",
+      "checkedAt": "2026-11-07T13:06:38.823Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 265244,
       "normalizedBytes": 21033,
       "finalUrl": "https://www.newtonma.gov/government/planning/historic-preservation",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:51.468Z",
-          "hash": "ead658a36ab8e0ff9a852cb8da77b7ae668037e03c9fa893e647d4a8fafb06f9",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 266433,
-          "normalizedBytes": 21075,
-          "finalUrl": "https://www.newtonma.gov/government/planning/historic-preservation"
-        },
         {
           "checkedAt": "2026-10-19T13:22:11.475Z",
           "hash": "ead658a36ab8e0ff9a852cb8da77b7ae668037e03c9fa893e647d4a8fafb06f9",
@@ -2279,26 +2270,26 @@
           "bytes": 265244,
           "normalizedBytes": 21033,
           "finalUrl": "https://www.newtonma.gov/government/planning/historic-preservation"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:38.823Z",
+          "hash": "228ac5118236c5a8a1ae0eb8f975aaf8d0eb4838386b348206ce463c681442d7",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 265244,
+          "normalizedBytes": 21033,
+          "finalUrl": "https://www.newtonma.gov/government/planning/historic-preservation"
         }
       ]
     },
     "newton-far": {
       "hash": "02949bcbdb84b4013a648dd91da5b8d17053724556ec26dd03764e81a4158127",
-      "checkedAt": "2026-11-06T14:19:30.288Z",
+      "checkedAt": "2026-11-07T13:06:38.872Z",
       "contentType": "text/html; charset=UTF-8",
       "bytes": 5572,
       "normalizedBytes": 1757,
       "finalUrl": "https://apps2.newtonma.gov/apps/far/",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:51.735Z",
-          "hash": "02949bcbdb84b4013a648dd91da5b8d17053724556ec26dd03764e81a4158127",
-          "status": "unchanged",
-          "contentType": "text/html; charset=UTF-8",
-          "bytes": 5572,
-          "normalizedBytes": 1757,
-          "finalUrl": "https://apps2.newtonma.gov/apps/far/"
-        },
         {
           "checkedAt": "2026-10-19T13:22:11.543Z",
           "hash": "02949bcbdb84b4013a648dd91da5b8d17053724556ec26dd03764e81a4158127",
@@ -2469,26 +2460,26 @@
           "bytes": 5572,
           "normalizedBytes": 1757,
           "finalUrl": "https://apps2.newtonma.gov/apps/far/"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:38.872Z",
+          "hash": "02949bcbdb84b4013a648dd91da5b8d17053724556ec26dd03764e81a4158127",
+          "status": "unchanged",
+          "contentType": "text/html; charset=UTF-8",
+          "bytes": 5572,
+          "normalizedBytes": 1757,
+          "finalUrl": "https://apps2.newtonma.gov/apps/far/"
         }
       ]
     },
     "newton-inspections": {
       "hash": "95210520c84326dc5e0326195166da60e9212b4e2c421581ddf7fcc9c2eea795",
-      "checkedAt": "2026-11-06T14:19:31.175Z",
+      "checkedAt": "2026-11-07T13:06:38.909Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 173490,
       "normalizedBytes": 12426,
       "finalUrl": "https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:52.311Z",
-          "hash": "f991099ac4f3cda7ca4d5076aeca10e1c280dfcab42aadfccef842768d830e61",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 174336,
-          "normalizedBytes": 12386,
-          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376"
-        },
         {
           "checkedAt": "2026-10-19T13:22:12.037Z",
           "hash": "f991099ac4f3cda7ca4d5076aeca10e1c280dfcab42aadfccef842768d830e61",
@@ -2659,26 +2650,26 @@
           "bytes": 173490,
           "normalizedBytes": 12426,
           "finalUrl": "https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:38.909Z",
+          "hash": "95210520c84326dc5e0326195166da60e9212b4e2c421581ddf7fcc9c2eea795",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 173490,
+          "normalizedBytes": 12426,
+          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376"
         }
       ]
     },
     "newton-closeout": {
       "hash": "7730cc58f7ea440873d53d9a4222705e2909a66a40d5a2d86dab58dff8f3b54d",
-      "checkedAt": "2026-11-06T14:19:32.217Z",
+      "checkedAt": "2026-11-07T13:06:39.354Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 163238,
       "normalizedBytes": 12281,
       "finalUrl": "https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:52.745Z",
-          "hash": "536206752a3f22ae3589afba68f25a95b7843d5aed310b9df226737eac52881c",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 164084,
-          "normalizedBytes": 12241,
-          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits"
-        },
         {
           "checkedAt": "2026-10-19T13:22:12.522Z",
           "hash": "536206752a3f22ae3589afba68f25a95b7843d5aed310b9df226737eac52881c",
@@ -2849,26 +2840,26 @@
           "bytes": 163238,
           "normalizedBytes": 12281,
           "finalUrl": "https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:39.354Z",
+          "hash": "7730cc58f7ea440873d53d9a4222705e2909a66a40d5a2d86dab58dff8f3b54d",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 163238,
+          "normalizedBytes": 12281,
+          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits"
         }
       ]
     },
     "ma-building-code": {
       "hash": "22ef334a2b34ebaaebb69d568ced11442549cbe8c088ed8f1d3302be443aad19",
-      "checkedAt": "2026-11-06T14:19:32.501Z",
+      "checkedAt": "2026-11-07T13:06:39.482Z",
       "contentType": "text/html; charset=UTF-8",
-      "bytes": 190923,
+      "bytes": 190971,
       "normalizedBytes": 7481,
       "finalUrl": "https://www.mass.gov/massachusetts-state-building-code-780-cmr",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:53.127Z",
-          "hash": "22ef334a2b34ebaaebb69d568ced11442549cbe8c088ed8f1d3302be443aad19",
-          "status": "unchanged",
-          "contentType": "text/html; charset=UTF-8",
-          "bytes": 190923,
-          "normalizedBytes": 7481,
-          "finalUrl": "https://www.mass.gov/massachusetts-state-building-code-780-cmr"
-        },
         {
           "checkedAt": "2026-10-19T13:22:12.751Z",
           "hash": "22ef334a2b34ebaaebb69d568ced11442549cbe8c088ed8f1d3302be443aad19",
@@ -3039,26 +3030,26 @@
           "bytes": 190923,
           "normalizedBytes": 7481,
           "finalUrl": "https://www.mass.gov/massachusetts-state-building-code-780-cmr"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:39.482Z",
+          "hash": "22ef334a2b34ebaaebb69d568ced11442549cbe8c088ed8f1d3302be443aad19",
+          "status": "unchanged",
+          "contentType": "text/html; charset=UTF-8",
+          "bytes": 190971,
+          "normalizedBytes": 7481,
+          "finalUrl": "https://www.mass.gov/massachusetts-state-building-code-780-cmr"
         }
       ]
     },
     "newton-building-checklist": {
       "hash": "50a19bbb859e69416b15a8fbe05e14aeff04bfddcdd4580fc942562f2c76458e",
-      "checkedAt": "2026-11-06T14:19:32.855Z",
+      "checkedAt": "2026-11-07T13:06:39.679Z",
       "contentType": "application/pdf",
       "bytes": 173340,
       "normalizedBytes": 173340,
       "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:53.390Z",
-          "hash": "50a19bbb859e69416b15a8fbe05e14aeff04bfddcdd4580fc942562f2c76458e",
-          "status": "extraction_failure",
-          "contentType": "application/pdf",
-          "bytes": 173340,
-          "normalizedBytes": 173340,
-          "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564"
-        },
         {
           "checkedAt": "2026-10-19T13:22:12.953Z",
           "hash": "50a19bbb859e69416b15a8fbe05e14aeff04bfddcdd4580fc942562f2c76458e",
@@ -3229,26 +3220,26 @@
           "bytes": 173340,
           "normalizedBytes": 173340,
           "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:39.679Z",
+          "hash": "50a19bbb859e69416b15a8fbe05e14aeff04bfddcdd4580fc942562f2c76458e",
+          "status": "extraction_failure",
+          "contentType": "application/pdf",
+          "bytes": 173340,
+          "normalizedBytes": 173340,
+          "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564"
         }
       ]
     },
     "newton-energy-code": {
       "hash": "0716400c95199104de4e6f100996a349481ef3091b6942be5e551ce98a0a5a6d",
-      "checkedAt": "2026-11-06T14:19:33.466Z",
+      "checkedAt": "2026-11-07T13:06:40.278Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 163889,
       "normalizedBytes": 12223,
       "finalUrl": "https://www.newtonma.gov/government/inspectional-services/energy-code",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:53.473Z",
-          "hash": "a1811da9355747af758c03e7a809c3aa3c009fe9213f15d4b92535e80d92300f",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 165216,
-          "normalizedBytes": 12183,
-          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/energy-code"
-        },
         {
           "checkedAt": "2026-10-19T13:22:13.474Z",
           "hash": "a1811da9355747af758c03e7a809c3aa3c009fe9213f15d4b92535e80d92300f",
@@ -3419,26 +3410,26 @@
           "bytes": 163889,
           "normalizedBytes": 12223,
           "finalUrl": "https://www.newtonma.gov/government/inspectional-services/energy-code"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:40.278Z",
+          "hash": "0716400c95199104de4e6f100996a349481ef3091b6942be5e551ce98a0a5a6d",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 163889,
+          "normalizedBytes": 12223,
+          "finalUrl": "https://www.newtonma.gov/government/inspectional-services/energy-code"
         }
       ]
     },
     "newton-newgov": {
       "hash": "4fa619123e1c72f2601b592b9d540a1541d67bc69da4fd6be6afe62935f7a976",
-      "checkedAt": "2026-11-06T14:19:34.294Z",
+      "checkedAt": "2026-11-07T13:06:40.822Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 199428,
       "normalizedBytes": 14095,
       "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:54.014Z",
-          "hash": "09c62732af60a303dcbd58714f660f9570286c9e96d44aa72ed8fdba66f3252a",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 200617,
-          "normalizedBytes": 14137,
-          "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures"
-        },
         {
           "checkedAt": "2026-10-19T13:22:13.925Z",
           "hash": "09c62732af60a303dcbd58714f660f9570286c9e96d44aa72ed8fdba66f3252a",
@@ -3609,26 +3600,26 @@
           "bytes": 199428,
           "normalizedBytes": 14095,
           "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:40.822Z",
+          "hash": "4fa619123e1c72f2601b592b9d540a1541d67bc69da4fd6be6afe62935f7a976",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 199428,
+          "normalizedBytes": 14095,
+          "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures"
         }
       ]
     },
     "newton-final-checklist": {
       "hash": "7bcc5203d5d9d6cca936e1e5b1732330bf80cda080e8b9076650d8c6f15b140f",
-      "checkedAt": "2026-11-06T14:19:34.569Z",
+      "checkedAt": "2026-11-07T13:06:41.072Z",
       "contentType": "application/pdf",
       "bytes": 219992,
       "normalizedBytes": 219992,
       "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29413/639029479026700000",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:54.280Z",
-          "hash": "7bcc5203d5d9d6cca936e1e5b1732330bf80cda080e8b9076650d8c6f15b140f",
-          "status": "extraction_failure",
-          "contentType": "application/pdf",
-          "bytes": 219992,
-          "normalizedBytes": 219992,
-          "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29413/639029479026700000"
-        },
         {
           "checkedAt": "2026-10-19T13:22:14.121Z",
           "hash": "7bcc5203d5d9d6cca936e1e5b1732330bf80cda080e8b9076650d8c6f15b140f",
@@ -3799,26 +3790,26 @@
           "bytes": 219992,
           "normalizedBytes": 219992,
           "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29413/639029479026700000"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:41.072Z",
+          "hash": "7bcc5203d5d9d6cca936e1e5b1732330bf80cda080e8b9076650d8c6f15b140f",
+          "status": "extraction_failure",
+          "contentType": "application/pdf",
+          "bytes": 219992,
+          "normalizedBytes": 219992,
+          "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29413/639029479026700000"
         }
       ]
     },
     "newton-wetlands": {
       "hash": "7a47c762183210f305c8c3514eb6a19e8a240bdfcdb151a2de549d7e11a9ea29",
-      "checkedAt": "2026-11-06T14:19:34.747Z",
+      "checkedAt": "2026-11-07T13:06:41.168Z",
       "contentType": "text/plain; charset=UTF-8",
       "bytes": 5622,
       "normalizedBytes": 4745,
       "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/27?f=pjson",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:54.452Z",
-          "hash": "7a47c762183210f305c8c3514eb6a19e8a240bdfcdb151a2de549d7e11a9ea29",
-          "status": "unchanged",
-          "contentType": "text/plain; charset=UTF-8",
-          "bytes": 5622,
-          "normalizedBytes": 4745,
-          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/27?f=pjson"
-        },
         {
           "checkedAt": "2026-10-19T13:22:14.221Z",
           "hash": "7a47c762183210f305c8c3514eb6a19e8a240bdfcdb151a2de549d7e11a9ea29",
@@ -3989,26 +3980,26 @@
           "bytes": 5622,
           "normalizedBytes": 4745,
           "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/27?f=pjson"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:41.168Z",
+          "hash": "7a47c762183210f305c8c3514eb6a19e8a240bdfcdb151a2de549d7e11a9ea29",
+          "status": "unchanged",
+          "contentType": "text/plain; charset=UTF-8",
+          "bytes": 5622,
+          "normalizedBytes": 4745,
+          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/27?f=pjson"
         }
       ]
     },
     "newton-streams": {
       "hash": "56955a68ca905fbec9a18bb1c5037723786614970fb6fe415e02fc070f370527",
-      "checkedAt": "2026-11-06T14:19:34.787Z",
+      "checkedAt": "2026-11-07T13:06:41.189Z",
       "contentType": "text/plain; charset=UTF-8",
       "bytes": 5479,
       "normalizedBytes": 4634,
       "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/16?f=pjson",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:54.492Z",
-          "hash": "56955a68ca905fbec9a18bb1c5037723786614970fb6fe415e02fc070f370527",
-          "status": "unchanged",
-          "contentType": "text/plain; charset=UTF-8",
-          "bytes": 5479,
-          "normalizedBytes": 4634,
-          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/16?f=pjson"
-        },
         {
           "checkedAt": "2026-10-19T13:22:14.245Z",
           "hash": "56955a68ca905fbec9a18bb1c5037723786614970fb6fe415e02fc070f370527",
@@ -4179,26 +4170,26 @@
           "bytes": 5479,
           "normalizedBytes": 4634,
           "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/16?f=pjson"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:41.189Z",
+          "hash": "56955a68ca905fbec9a18bb1c5037723786614970fb6fe415e02fc070f370527",
+          "status": "unchanged",
+          "contentType": "text/plain; charset=UTF-8",
+          "bytes": 5479,
+          "normalizedBytes": 4634,
+          "finalUrl": "https://gisweb.newtonma.gov/server/rest/services/Data/MapServer/16?f=pjson"
         }
       ]
     },
     "newton-mechanical": {
       "hash": "9dcfee7e48abdaac9dfff78c7f44c554651cfc40c545695324955e48804a0e56",
-      "checkedAt": "2026-11-06T14:19:35.064Z",
+      "checkedAt": "2026-11-07T13:06:41.273Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 174336,
       "normalizedBytes": 11371,
       "finalUrl": "https://www.newtonma.gov/government/inspectional-services",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:55.017Z",
-          "hash": "31a47ca8f65b870182c3ab35e442c80cc29ab9b607444a04bcc43b857ba1224c",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 165533,
-          "normalizedBytes": 11951,
-          "finalUrl": "https://www.newtonma.gov/government/inspectional-services"
-        },
         {
           "checkedAt": "2026-10-19T13:22:14.311Z",
           "hash": "31a47ca8f65b870182c3ab35e442c80cc29ab9b607444a04bcc43b857ba1224c",
@@ -4369,26 +4360,26 @@
           "bytes": 174336,
           "normalizedBytes": 11371,
           "finalUrl": "https://www.newtonma.gov/government/inspectional-services"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:41.273Z",
+          "hash": "9dcfee7e48abdaac9dfff78c7f44c554651cfc40c545695324955e48804a0e56",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 174336,
+          "normalizedBytes": 11371,
+          "finalUrl": "https://www.newtonma.gov/government/inspectional-services"
         }
       ]
     },
     "newton-stormwater": {
       "hash": "027a6c3883735d36bce9c3247da6ce10e459ea1e18f21636cf16b4a027123289",
-      "checkedAt": "2026-11-06T14:19:35.454Z",
+      "checkedAt": "2026-11-07T13:06:41.367Z",
       "contentType": "text/html; charset=utf-8",
-      "bytes": 192751,
+      "bytes": 193231,
       "normalizedBytes": 18686,
       "finalUrl": "https://www.newtonma.gov/government/public-works/engineering",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:55.704Z",
-          "hash": "c3df4c118daac12e707e76b809469a1e075e0826c50bed6d16c5af7bf7ec2eee",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 193622,
-          "normalizedBytes": 18658,
-          "finalUrl": "https://www.newtonma.gov/government/public-works/engineering"
-        },
         {
           "checkedAt": "2026-10-19T13:22:14.390Z",
           "hash": "c3df4c118daac12e707e76b809469a1e075e0826c50bed6d16c5af7bf7ec2eee",
@@ -4559,26 +4550,26 @@
           "bytes": 192751,
           "normalizedBytes": 18686,
           "finalUrl": "https://www.newtonma.gov/government/public-works/engineering"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:41.367Z",
+          "hash": "027a6c3883735d36bce9c3247da6ce10e459ea1e18f21636cf16b4a027123289",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 193231,
+          "normalizedBytes": 18686,
+          "finalUrl": "https://www.newtonma.gov/government/public-works/engineering"
         }
       ]
     },
     "newton-historic-applications": {
       "hash": "ccd211968743ebe1875a352099b9a079d235cb41e4daeae46154a51786555298",
-      "checkedAt": "2026-11-06T14:19:36.421Z",
+      "checkedAt": "2026-11-07T13:06:42.008Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 304719,
       "normalizedBytes": 33171,
       "finalUrl": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/submit-an-application",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:55.765Z",
-          "hash": "c45b31bbfd1556bf7bcc8cbad626334219dc065ff9fa087495aaaa3aa4051e79",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 306388,
-          "normalizedBytes": 33213,
-          "finalUrl": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/submit-an-application"
-        },
         {
           "checkedAt": "2026-10-19T13:22:15.490Z",
           "hash": "c45b31bbfd1556bf7bcc8cbad626334219dc065ff9fa087495aaaa3aa4051e79",
@@ -4749,26 +4740,26 @@
           "bytes": 304719,
           "normalizedBytes": 33171,
           "finalUrl": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/submit-an-application"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:42.008Z",
+          "hash": "ccd211968743ebe1875a352099b9a079d235cb41e4daeae46154a51786555298",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 304719,
+          "normalizedBytes": 33171,
+          "finalUrl": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/submit-an-application"
         }
       ]
     },
     "newton-zoning-applications": {
       "hash": "4fa619123e1c72f2601b592b9d540a1541d67bc69da4fd6be6afe62935f7a976",
-      "checkedAt": "2026-11-06T14:19:36.624Z",
+      "checkedAt": "2026-11-07T13:06:42.076Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 199428,
       "normalizedBytes": 14095,
       "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:55.799Z",
-          "hash": "09c62732af60a303dcbd58714f660f9570286c9e96d44aa72ed8fdba66f3252a",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 200617,
-          "normalizedBytes": 14137,
-          "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures"
-        },
         {
           "checkedAt": "2026-10-19T13:22:15.653Z",
           "hash": "09c62732af60a303dcbd58714f660f9570286c9e96d44aa72ed8fdba66f3252a",
@@ -4939,26 +4930,26 @@
           "bytes": 199428,
           "normalizedBytes": 14095,
           "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:42.076Z",
+          "hash": "4fa619123e1c72f2601b592b9d540a1541d67bc69da4fd6be6afe62935f7a976",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 199428,
+          "normalizedBytes": 14095,
+          "finalUrl": "https://www.newtonma.gov/government/planning/resources/applications-forms-and-brochures"
         }
       ]
     },
     "newton-isd": {
       "hash": "9dcfee7e48abdaac9dfff78c7f44c554651cfc40c545695324955e48804a0e56",
-      "checkedAt": "2026-11-06T14:19:36.899Z",
+      "checkedAt": "2026-11-07T13:06:42.105Z",
       "contentType": "text/html; charset=utf-8",
       "bytes": 174336,
       "normalizedBytes": 11371,
       "finalUrl": "https://www.newtonma.gov/government/inspectional-services",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:55.830Z",
-          "hash": "31a47ca8f65b870182c3ab35e442c80cc29ab9b607444a04bcc43b857ba1224c",
-          "status": "unchanged",
-          "contentType": "text/html; charset=utf-8",
-          "bytes": 165532,
-          "normalizedBytes": 11951,
-          "finalUrl": "https://www.newtonma.gov/government/inspectional-services"
-        },
         {
           "checkedAt": "2026-10-19T13:22:15.792Z",
           "hash": "31a47ca8f65b870182c3ab35e442c80cc29ab9b607444a04bcc43b857ba1224c",
@@ -5129,26 +5120,26 @@
           "bytes": 174336,
           "normalizedBytes": 11371,
           "finalUrl": "https://www.newtonma.gov/government/inspectional-services"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:42.105Z",
+          "hash": "9dcfee7e48abdaac9dfff78c7f44c554651cfc40c545695324955e48804a0e56",
+          "status": "unchanged",
+          "contentType": "text/html; charset=utf-8",
+          "bytes": 174336,
+          "normalizedBytes": 11371,
+          "finalUrl": "https://www.newtonma.gov/government/inspectional-services"
         }
       ]
     },
     "newton-newgov-portal": {
       "hash": "6028d2eea5aa12b6bdd1aea0e33585cc604a68fee21ce1a620b180f7894fa589",
-      "checkedAt": "2026-11-06T14:19:37.108Z",
+      "checkedAt": "2026-11-07T13:06:42.202Z",
       "contentType": "text/html",
-      "bytes": 12788,
+      "bytes": 12792,
       "normalizedBytes": 7,
       "finalUrl": "https://newtonma.portal.opengov.com/",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:56.050Z",
-          "hash": "6028d2eea5aa12b6bdd1aea0e33585cc604a68fee21ce1a620b180f7894fa589",
-          "status": "unchanged",
-          "contentType": "text/html",
-          "bytes": 12668,
-          "normalizedBytes": 7,
-          "finalUrl": "https://newtonma.portal.opengov.com/"
-        },
         {
           "checkedAt": "2026-10-19T13:22:15.943Z",
           "hash": "6028d2eea5aa12b6bdd1aea0e33585cc604a68fee21ce1a620b180f7894fa589",
@@ -5319,26 +5310,26 @@
           "bytes": 12788,
           "normalizedBytes": 7,
           "finalUrl": "https://newtonma.portal.opengov.com/"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:42.202Z",
+          "hash": "6028d2eea5aa12b6bdd1aea0e33585cc604a68fee21ce1a620b180f7894fa589",
+          "status": "unchanged",
+          "contentType": "text/html",
+          "bytes": 12792,
+          "normalizedBytes": 7,
+          "finalUrl": "https://newtonma.portal.opengov.com/"
         }
       ]
     },
     "newton-zoning-ordinance": {
       "hash": "4c9af90ae10d1f6089218cc57073eea7b83772eb63848221e739b346a34ac73f",
-      "checkedAt": "2026-11-06T14:19:37.830Z",
+      "checkedAt": "2026-11-07T13:06:42.705Z",
       "contentType": "application/pdf",
       "bytes": 5934345,
       "normalizedBytes": 5934345,
       "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29823/638717834291930000",
       "history": [
-        {
-          "checkedAt": "2026-10-18T11:10:56.766Z",
-          "hash": "4c9af90ae10d1f6089218cc57073eea7b83772eb63848221e739b346a34ac73f",
-          "status": "extraction_failure",
-          "contentType": "application/pdf",
-          "bytes": 5934345,
-          "normalizedBytes": 5934345,
-          "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29823/638717834291930000"
-        },
         {
           "checkedAt": "2026-10-19T13:22:16.630Z",
           "hash": "4c9af90ae10d1f6089218cc57073eea7b83772eb63848221e739b346a34ac73f",
@@ -5503,6 +5494,15 @@
         },
         {
           "checkedAt": "2026-11-06T14:19:37.830Z",
+          "hash": "4c9af90ae10d1f6089218cc57073eea7b83772eb63848221e739b346a34ac73f",
+          "status": "extraction_failure",
+          "contentType": "application/pdf",
+          "bytes": 5934345,
+          "normalizedBytes": 5934345,
+          "finalUrl": "https://www.newtonma.gov/home/showpublisheddocument/29823/638717834291930000"
+        },
+        {
+          "checkedAt": "2026-11-07T13:06:42.705Z",
           "hash": "4c9af90ae10d1f6089218cc57073eea7b83772eb63848221e739b346a34ac73f",
           "status": "extraction_failure",
           "contentType": "application/pdf",
