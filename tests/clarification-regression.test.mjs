@@ -1,103 +1,86 @@
-// Regression: answer → "not sure" → concrete follow-up → Back → change follow-up
-// → "I still don't know" → original returns to "not sure" → continue, no repeats.
+// Regression: answer → "I'm not sure" → exactly one follow-up → answer it →
+// original records Yes/No, follow-up disappears → Back → change → continue, no repeats.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {getQuestions, inferClarifiedAnswer, deriveProject} from '../src/core.js';
+import {getQuestions, deriveProject} from '../src/core.js';
 import * as flow from '../src/question-flow.js';
 
 const flows = JSON.parse(readFileSync(new URL('../data/questions.json', import.meta.url), 'utf8'));
 const TYPE = 'deck';
 const flowQuestions = flows.find(f => f.id === TYPE).questions;
 
-// Mirrors app.js state: answers, clarifierState, clarificationMeta, visitHistory.
 const s = {answers: {}, clarifierState: {}, meta: {}, index: 0, history: [], shown: []};
 const ctx = () => ({answers: s.answers, clarifierState: s.clarifierState, clarificationMeta: s.meta, flowQuestions});
 const all = () => getQuestions(TYPE, s.answers);
 const cluster = () => flow.questionCluster(all(), s.index, ctx());
-// Mirrors applyClarificationInference in app.js.
-function applyInference(q, value) {
-  if (q.followUpGroup) { flow.applyFollowUps(q.parentId, {answers: s.answers, clarifierState: s.clarifierState, clarificationMeta: s.meta}); return; }
-  const inferred = inferClarifiedAnswer(q.parentId, value);
-  const parent = flow.parentAnswerAfterClarifier(inferred, value, !!s.meta[q.id]);
-  if (inferred) s.meta[q.id] = {parentId: q.parentId, inferredAnswer: inferred, value, questionId: q.id};
-  else delete s.meta[q.id];
-  if (parent) s.answers[q.parentId] = parent;
+// Mirrors the app: answering a follow-up records the parent immediately.
+function answerFollowUp(q, value) {
+  s.clarifierState[q.id] = value;
+  flow.applyFollowUps(q.parentId, {answers: s.answers, clarifierState: s.clarifierState, clarificationMeta: s.meta});
 }
-// Mirrors the change handler for a follow-up control.
-function changeFollowUp(q, value) {
-  if (flow.isSyntheticClarifier(q)) s.clarifierState[q.id] = value;
-  else { s.answers[q.id] = value; s.clarifierState[q.id] = value; }
-  applyInference(q, value);
-}
-// Mirrors saveClusterValues + Continue: reads the rendered controls (parent from answers).
-function submit() {
-  const c = cluster();
-  for (const q of c) if (q.kind === 'multi') assert.ok(!flow.isAmbiguousMultiSelection(flow.clusterValue(q, ctx())), 'no ambiguous submit');
-  s.history.push(c[0].id);
-  s.shown.push(c[0].id);
-  for (const q of c.slice(1)) applyInference(q, flow.clusterValue(q, ctx()));
-  s.index = flow.nextUnansweredIndex(all(), ctx());
-}
+// Mirrors clicking an option on the original question.
 function answerRoot(value) {
   const [root] = cluster();
   s.answers[root.id] = value;
+  flow.clearFollowUps(root.id, {clarifierState: s.clarifierState, clarificationMeta: s.meta});
   s.index = flow.indexOfActive(all(), root.id, s.index);
   return root;
 }
+function submit() {
+  const c = cluster();
+  assert.ok(c.every(q => flow.clusterValue(q, ctx()) !== undefined), 'cluster complete');
+  s.history.push(c[0].id);
+  s.shown.push(c[0].id);
+  s.index = flow.nextUnansweredIndex(all(), ctx());
+}
 const firstChoice = q => q.kind === 'choice' ? q.options.find(([v]) => v !== 'unsure')[0] : q.kind === 'multi' ? [q.options[0][0]] : q.kind === 'number' ? (q.min ?? 1) : 'x';
 
-// 1. User answers a question.
+// 1. Normal answer: recorded, no follow-up.
 const first = answerRoot(firstChoice(cluster()[0]));
+assert.equal(cluster().length, 1);
 submit();
-assert.equal(s.answers[first.id] !== undefined, true);
+assert.notEqual(s.answers[first.id], undefined);
 
-// Advance (answering concretely) until the electrical question.
 for (let g = 0; cluster()[0].id !== 'electricalWork'; g++) {
   assert.ok(g < 50 && s.index < all().length, 'electricalWork reachable');
   answerRoot(firstChoice(cluster()[0])); submit();
 }
 const beforeUnsure = {...s.answers};
 
-// 2–3. "I'm not sure" → a follow-up clarification appears.
+// 2–3. "I'm not sure" → exactly one follow-up, no "I'm not sure" in it.
 answerRoot('unsure');
 let c = cluster();
-assert.equal(c[0].id, 'electricalWork');
-assert.ok(c.length > 1, 'clarification appears');
-const follow = c.slice(1);
-assert.ok(follow.length >= 3, 'several tailored follow-ups appear');
-assert.ok(follow.every(q => q.followUpGroup === 'electricalWork'), 'follow-ups are about electrical work');
-assert.equal(new Set(follow.map(q => q.text)).size, follow.length, 'each follow-up is a different question');
+assert.equal(c.length, 2, 'exactly one follow-up');
+assert.equal(c[1].followUpGroup, 'electricalWork');
+assert.ok(!c[1].options.some(([v]) => v === 'unsure'));
 
-// 4–5. A concrete "yes" follow-up selects Yes for the original question.
-changeFollowUp(follow[0], 'yes');
-assert.equal(s.answers.electricalWork, 'yes', 'Yes selected for you');
-changeFollowUp(follow[1], 'no'); changeFollowUp(follow[2], 'no');
+// 4–5. Answer it → Yes recorded, follow-up gone.
+answerFollowUp(c[1], 'yes');
 assert.equal(s.answers.electricalWork, 'yes');
+assert.equal(cluster().length, 1, 'follow-up disappears');
+assert.equal(s.meta.__followups_electricalWork.inferredAnswer, 'yes');
 submit();
-const afterElectrical = s.index;
-assert.notEqual(all()[afterElectrical]?.id, 'electricalWork');
+assert.notEqual(all()[s.index]?.id, 'electricalWork');
 
-// 6. Back → same question, follow-up answers intact.
+// 6. Back → original shows its recorded answer, no follow-up.
 const back = flow.backFromHistory(all(), s.history, all()[s.index]?.id);
 s.history = back.history; s.index = back.index;
+assert.equal(cluster()[0].id, 'electricalWork');
+assert.equal(cluster().length, 1);
+assert.equal(s.answers.electricalWork, 'yes');
+
+// "I'm not sure" again → a fresh follow-up (no stale answer) → No recorded.
+answerRoot('unsure');
 c = cluster();
-assert.equal(c[0].id, 'electricalWork');
-assert.equal(flow.clusterValue(c[1], ctx()), 'yes', 'Back preserves follow-up answer');
-
-// 7. All "no" → No is selected for you.
-changeFollowUp(c[1], 'no');
-assert.equal(s.answers.electricalWork, 'no', 'No selected for you');
-
-// 8–9. "I don't know" on any follow-up → original returns to genuinely unresolved.
-changeFollowUp(c[2], 'unsure');
-assert.equal(s.answers.electricalWork, 'unsure');
-assert.equal(Object.values(s.meta).some(m => m.parentId === 'electricalWork'), false);
-assert.deepEqual(flow.exclusiveMultiSelection(['unsure', 'a'], 'a', true), ['a'], 'multi-select exclusivity still holds');
-
-// 10–12. Continue: no repeat, no reintroduced answered question.
+assert.equal(c.length, 2);
+assert.equal(flow.clusterValue(c[1], ctx()), undefined, 'no stale follow-up answer');
+answerFollowUp(c[1], 'no');
+assert.equal(s.answers.electricalWork, 'no');
+assert.equal(cluster().length, 1);
 submit();
-assert.equal(s.answers.electricalWork, 'unsure', 'stays unsure after Continue');
 for (const [k, v] of Object.entries(beforeUnsure)) if (k !== 'electricalWork') assert.deepEqual(s.answers[k], v, `${k} not overwritten`);
+
+// Continue: no repeats.
 const answeredBefore = new Set(s.shown);
 const tail = [];
 for (let g = 0; s.index < all().length; g++) {
@@ -108,17 +91,12 @@ for (let g = 0; s.index < all().length; g++) {
   answerRoot(firstChoice(cluster()[0])); submit();
 }
 assert.equal(new Set(tail).size, tail.length, 'no duplicates after continuing');
-const walked = s.shown.filter((id, i) => s.shown.indexOf(id) !== i);
-assert.deepEqual(walked, ['electricalWork'], 'only the deliberate Back revisit repeats');
 
-// 13. Rules receive "not sure" → needs confirmation, not Yes/No.
+// Rules receive the recorded answer.
 const d = deriveProject(TYPE, s.answers);
-assert.equal(d.electricalUncertain, true);
-assert.equal(d.electricalWork, false);
+assert.equal(d.electricalUncertain, false);
 
-// App wires the helpers.
 const app = readFileSync(new URL('../app.js', import.meta.url), 'utf8');
-assert.ok(app.includes('flow.exclusiveMultiSelection('));
-assert.ok(app.includes('flow.isAmbiguousMultiSelection('));
-assert.ok(app.includes('flow.parentAnswerAfterClarifier('));
+assert.ok(app.includes('flow.applyFollowUps('));
+assert.ok(app.includes('flow.clearFollowUps('));
 console.log('clarification regression tests passed');

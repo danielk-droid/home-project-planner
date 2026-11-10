@@ -34,10 +34,16 @@ export function questionCluster(all, index, {answers = {}, clarificationMeta = {
   const root = all[index];
   if (!root) return [];
   const cluster = [root];
-  // Tailored follow-ups: shown while the answer is "unsure" or was selected by them.
+  // Tailored follow-up: exactly one, shown only while the answer is "unsure".
+  // Once answered, the original question shows its recorded answer alone.
   const followUps = followUpsFor(root);
-  if (followUps.length && (answers[root.id] === 'unsure' || clarificationMeta[followUpGroupKey(root.id)])) {
-    return [...cluster, ...followUps];
+  if (followUps.length) {
+    if (answers[root.id] !== 'unsure') return cluster;
+    const withFollowUp = [...cluster, ...followUps];
+    // A data-defined inline clarifier for this parent is replaced, not added.
+    const next = all[index + 1];
+    if (next && isInlineClarifier(root, next)) withFollowUp.replaces = 1;
+    return withFollowUp;
   }
   const resolved = Object.values(clarificationMeta).find(meta => meta.parentId === root.id);
   if (resolved) {
@@ -60,7 +66,7 @@ export function questionCluster(all, index, {answers = {}, clarificationMeta = {
 
 // Number of slots in `all` a cluster occupies (synthetic/hidden members occupy none).
 export function clusterSpan(all, cluster) {
-  return 1 + cluster.slice(1).filter(q => all.some(x => x.id === q.id)).length;
+  return 1 + (cluster.replaces || 0) + cluster.slice(1).filter(q => all.some(x => x.id === q.id)).length;
 }
 
 export function nextQuestionIndex(all, index, ctx) {

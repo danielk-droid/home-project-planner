@@ -905,21 +905,21 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
     const current = clusterValue(q);
     const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
     const meta = q.parentId && !q.followUpGroup ? clarificationMeta[q.id] : null;
-    const groupMeta = i === 0 && cluster[1]?.followUpGroup ? clarificationMeta['__followups_' + q.id] : null;
+    const groupMeta = i === 0 ? clarificationMeta['__followups_' + q.id] : null;
     const groupNotice = groupMeta
-      ? '<div class="clarifier-inference followup-selected" role="status"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We selected “' + escape(optionLabel(q, groupMeta.inferredAnswer)) + '” for you</strong> based on your answers below. You can still change it.</div></div>'
+      ? '<div class="clarifier-inference followup-selected" role="status"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We selected “' + escape(optionLabel(q, groupMeta.inferredAnswer)) + '” for you</strong> based on your answer to the follow-up. You can still change it.</div></div>'
       : '';
     const inferenceNotice = i > 0 && meta
       ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(meta.inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> You chose “' + escape(clarificationSelectionLabel(q, meta.value)) + '”, so we used that to resolve the original answer.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
       : '';
     return '<div class="inline-question ' + (i ? 'clarifier-question ' : '') + (meta ? 'clarifier-inferred' : '') + '">' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
-      '<div class="eyebrow">' + (i ? (q.followUpGroup ? 'FOLLOW-UP ' + i + ' OF ' + (cluster.length - 1) : 'CLARIFYING QUESTION') : 'PROJECT SCOPE') + '</div>' +
+      '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
       '<h1>' + escape(q.text) + '</h1>' +
       (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
       inferenceNotice + groupNotice +
       (q.note ? '<div class="question-context" role="note">' + escape(q.note) + '</div>' : '') +
-      (!i && answers[q.id] === 'unsure' ? '<div class="question-context unsure-guidance" role="note" aria-live="polite"><strong>Not sure? Here is what this means.</strong> ' + escape(unsureGuidance(q)) + (cluster[1]?.followUpGroup ? ' Answer the short questions below and HPP will choose this answer for you. If you don\'t know, pick “I don\'t know” — HPP will keep this as not sure and list it under what still needs to be confirmed.' : cluster.length > 1 ? ' Answer the clarifying question below if you can — HPP will use it to settle this question. If you still don\'t know, choose “I still don\'t know” and HPP will list it under what still needs to be confirmed.' : ' You can keep “I\'m not sure” and continue — HPP will list this under what still needs to be confirmed, or choose an answer now if you know it.') + '</div>' : '') +
+      (!i && answers[q.id] === 'unsure' ? '<div class="question-context unsure-guidance" role="note" aria-live="polite"><strong>Not sure? Here is what this means.</strong> ' + escape(unsureGuidance(q)) + (cluster[1]?.followUpGroup ? ' Answer the short question below and HPP will choose this answer for you.' : cluster.length > 1 ? ' Answer the clarifying question below if you can — HPP will use it to settle this question. If you still don\'t know, choose “I still don\'t know” and HPP will list it under what still needs to be confirmed.' : ' You can keep “I\'m not sure” and continue — HPP will list this under what still needs to be confirmed, or choose an answer now if you know it.') + '</div>' : '') +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<details class="question-why"><summary>Why am I being asked this?</summary><p>' + escape(questionWhy(q)) + '</p></details>' +
       '</div>';

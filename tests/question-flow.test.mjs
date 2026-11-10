@@ -92,7 +92,8 @@ for (const f of flows) {
   const idx = all.findIndex(q => q.id === 'exteriorChange');
   const cluster = flow.questionCluster(all, idx, {answers: {exteriorChange: 'unsure'}, flowQuestions: flowQuestions('general_project')});
   assert.ok(!cluster.some(q => q.id.startsWith('historic')), 'historic questions must not be inline clarifiers');
-  assert.equal(cluster[1]?.id, 'exteriorChangeDetail');
+  assert.equal(cluster[1]?.id, '__clarifier_exteriorChange__followup');
+  assert.equal(cluster.length, 2, 'exactly one follow-up');
   assert.ok(flow.isInlineClarifier({id: 'bathroomAdded'}, flowQuestions('basement_finish').find(q => q.id === 'bathroomIntent')));
   assert.ok(!flow.isInlineClarifier({id: 'bathroomAdded'}, flowQuestions('basement_finish').find(q => q.id === 'plumbingWork')));
   void s;
@@ -107,14 +108,16 @@ for (const f of flows) {
   s.answers.sleepingRoomAdded = 'unsure';
   const cluster = s.cluster();
   assert.equal(cluster[0].id, 'sleepingRoomAdded');
-  assert.equal(cluster[1].id, 'sleepingUse');
+  assert.equal(cluster[1].id, '__clarifier_sleepingRoomAdded__followup');
+  assert.equal(cluster.length, 2);
   s.submit(['unsure', 'sleeping'], cluster);
   assert.equal(s.answers.sleepingRoomAdded, 'yes', 'clarification resolves the same question');
   assert.notEqual(s.all()[s.index]?.id, 'sleepingUse', 'clarifier is not re-asked as its own step');
   assert.ok(s.index > after, 'flow moves forward, index not reset');
   s.back();
   assert.equal(s.all()[s.index].id, 'sleepingRoomAdded', 'Back returns to resolved question');
-  assert.equal(s.cluster()[1]?.id, 'sleepingUse', 'resolved clarification shown with its parent');
+  assert.equal(s.cluster().length, 1, 'answered follow-up is hidden; parent shows its recorded answer');
+  assert.equal(s.answers.sleepingRoomAdded, 'yes');
 }
 
 // 4. Synthetic clarifier (no data follow-up) occupies no slot: skip/next don't jump over a question.
@@ -126,8 +129,8 @@ for (const f of flows) {
   s.index = i;
   s.answers.structuralChanges = 'unsure';
   const cluster = s.cluster();
-  assert.equal(cluster[1].id, '__clarifier_structuralChanges__bearing');
-  assert.ok(cluster.length >= 3, 'several tailored follow-ups');
+  assert.equal(cluster[1].id, '__clarifier_structuralChanges__followup');
+  assert.equal(cluster.length, 2, 'exactly one follow-up');
   assert.equal(flow.nextQuestionIndex(s.all(), i, s.ctx()), i + 1, 'synthetic clarifier must not skip the next question');
 }
 

@@ -103,9 +103,9 @@ for (const f of flows) {
   const s = session('addition');
   for (let i = 0; i < 7; i++) step(s, 'no');
   assert.equal(s.progress().position, 8);
-  step(s, 'unsure', 'unsure'); // siteWork unsure -> follow-up -> still don't know
+  step(s, 'unsure', 'unsure'); // siteWork unsure -> one follow-up -> answer recorded
   assert.equal(s.progress().position, 9, 'after Q8 the next question is 9');
-  assert.equal(s.answers.siteWork, 'unsure');
+  assert.ok(['yes', 'no'].includes(s.answers.siteWork), 'follow-up records Yes or No');
   s.back();
   assert.equal(s.progress().position, 8, 'Back shows 8 again');
 }
@@ -139,27 +139,16 @@ for (const f of flows) {
     const other = {...s.answers};
     const follow = cluster[1];
     assert.ok(follow, `${q.id} opens a follow-up`);
-    if (REAL_FOLLOW_UPS[q.id]) {
-      assert.equal(follow.id, REAL_FOLLOW_UPS[q.id]);
-      assert.ok(follow.options.some(([v]) => v === 'unsure'), `${q.id} follow-up offers "I still don't know"`);
-      const keep = session(f.id); Object.assign(keep.answers, s.answers); keep.index = s.index;
-      keep.submit(['unsure', follow.kind === 'multi' ? ['unsure'] : 'unsure'], keep.cluster());
-      assert.equal(keep.answers[q.id], 'unsure', `${q.id}: still-unsure follow-up keeps parent unsure`);
-    } else {
-      // Tailored follow-ups: several, all for this question.
-      const fus = cluster.slice(1);
-      assert.ok(fus.length >= 2, `${q.id} has at least 2 tailored follow-ups`);
-      assert.ok(fus.every(x => x.followUpGroup === q.id), `${q.id} follow-ups belong to it`);
-      // All "I don't know" keeps the parent unsure.
-      const keep = session(f.id); Object.assign(keep.answers, s.answers); keep.index = s.index;
-      keep.submit(['unsure', ...fus.map(() => 'unsure')], keep.cluster());
-      assert.equal(keep.answers[q.id], 'unsure', `${q.id}: "I don't know" keeps parent unsure`);
-      // Answering the first option everywhere selects a real answer and touches nothing else.
+    assert.equal(cluster.length, 2, `${q.id} opens exactly one follow-up`);
+    assert.equal(follow.followUpGroup, q.id, `${q.id} follow-up belongs to it`);
+    assert.ok(!follow.options.some(([v]) => v === 'unsure'), `${q.id} follow-up has no "I'm not sure"`);
+    void REAL_FOLLOW_UPS; void NON_RESOLVING;
+    const parentValues = q.options.map(([v]) => v).filter(v => v !== 'unsure');
+    for (const [opt] of follow.options) {
       const t = session(f.id); Object.assign(t.answers, s.answers); t.index = s.index;
       const c = t.cluster();
-      t.submit(['unsure', ...c.slice(1).map(x => x.options[0][0])], c);
-      const parentValues = q.options.map(([v]) => v).filter(v => v !== 'unsure');
-      assert.ok(parentValues.includes(t.answers[q.id]) || t.answers[q.id] === 'unsure', `${q.id} resolves only to its own options`);
+      t.submit(['unsure', opt], c);
+      assert.ok(parentValues.includes(t.answers[q.id]), `${q.id}: "${opt}" records a definite answer`);
       for (const [k, val] of Object.entries(other)) if (k !== q.id && t.answers[k] !== undefined) assert.deepEqual(t.answers[k], val, `${q.id} overwrote ${k}`);
     }
     void answers;
