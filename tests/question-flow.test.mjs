@@ -27,7 +27,8 @@ function session(type) {
       const v = values[i];
       if (flow.isSyntheticClarifier(q)) s.clarifierState[q.id] = v;
       else { s.answers[q.id] = v; if (q.parentId) s.clarifierState[q.id] = v; }
-      if (q.parentId) {
+      if (q.followUpGroup) flow.applyFollowUps(q.parentId, {answers: s.answers, clarifierState: s.clarifierState, clarificationMeta: s.clarificationMeta});
+      else if (q.parentId) {
         const inferred = inferClarifiedAnswer(q.parentId, v);
         if (inferred) {
           s.answers[q.parentId] = inferred;
@@ -125,7 +126,8 @@ for (const f of flows) {
   s.index = i;
   s.answers.structuralChanges = 'unsure';
   const cluster = s.cluster();
-  assert.equal(cluster[1].id, '__clarifier_structuralChanges');
+  assert.equal(cluster[1].id, '__clarifier_structuralChanges__bearing');
+  assert.ok(cluster.length >= 3, 'several tailored follow-ups');
   assert.equal(flow.nextQuestionIndex(s.all(), i, s.ctx()), i + 1, 'synthetic clarifier must not skip the next question');
 }
 

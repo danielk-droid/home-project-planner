@@ -12,6 +12,7 @@
 // merely gated by several answers (for example historic or plumbing questions
 // shown for "yes" OR "unsure") are ordinary questions with their own step.
 import {clarifierForQuestion, withStillUnsure} from './question-guidance.js';
+import {followUpsFor, resolveFollowUps, followUpGroupKey, isFollowUpOf} from './unsure-followups.js';
 
 export function isSyntheticClarifier(q) {
   return typeof q?.id === 'string' && q.id.startsWith('__clarifier_');
@@ -33,6 +34,11 @@ export function questionCluster(all, index, {answers = {}, clarificationMeta = {
   const root = all[index];
   if (!root) return [];
   const cluster = [root];
+  // Tailored follow-ups: shown while the answer is "unsure" or was selected by them.
+  const followUps = followUpsFor(root);
+  if (followUps.length && (answers[root.id] === 'unsure' || clarificationMeta[followUpGroupKey(root.id)])) {
+    return [...cluster, ...followUps];
+  }
   const resolved = Object.values(clarificationMeta).find(meta => meta.parentId === root.id);
   if (resolved) {
     const source = flowQuestions.find(q => q.id === resolved.questionId);
@@ -193,4 +199,28 @@ export function parentAnswerAfterClarifier(inferred, value, wasInferred) {
   const values = Array.isArray(value) ? value : [value];
   if (values.includes('unsure') || wasInferred) return 'unsure';
   return undefined;
+}
+
+// Apply tailored follow-up answers to the original question (shared by the
+// browser UI and tests). Mutates state.answers / state.clarificationMeta.
+// Returns the parent's answer after the update.
+export function applyFollowUps(parentId, {answers, clarifierState = {}, clarificationMeta = {}}) {
+  const values = {};
+  for (const [k, v] of Object.entries(clarifierState)) if (isFollowUpOf(parentId, k)) values[k] = v;
+  const resolved = resolveFollowUps(parentId, values);
+  const key = followUpGroupKey(parentId);
+  if (resolved) {
+    answers[parentId] = resolved;
+    clarificationMeta[key] = {parentId, inferredAnswer: resolved, group: true};
+  } else {
+    answers[parentId] = 'unsure';
+    delete clarificationMeta[key];
+  }
+  return answers[parentId];
+}
+
+// Clear every follow-up answer for a parent (when the parent is answered directly).
+export function clearFollowUps(parentId, {clarifierState = {}, clarificationMeta = {}}) {
+  for (const k of Object.keys(clarifierState)) if (k === '__clarifier_' + parentId || isFollowUpOf(parentId, k)) delete clarifierState[k];
+  for (const k of Object.keys(clarificationMeta)) if (clarificationMeta[k]?.parentId === parentId) delete clarificationMeta[k];
 }

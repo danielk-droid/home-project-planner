@@ -16,6 +16,7 @@ const all = () => getQuestions(TYPE, s.answers);
 const cluster = () => flow.questionCluster(all(), s.index, ctx());
 // Mirrors applyClarificationInference in app.js.
 function applyInference(q, value) {
+  if (q.followUpGroup) { flow.applyFollowUps(q.parentId, {answers: s.answers, clarifierState: s.clarifierState, clarificationMeta: s.meta}); return; }
   const inferred = inferClarifiedAnswer(q.parentId, value);
   const parent = flow.parentAnswerAfterClarifier(inferred, value, !!s.meta[q.id]);
   if (inferred) s.meta[q.id] = {parentId: q.parentId, inferredAnswer: inferred, value, questionId: q.id};
@@ -62,37 +63,36 @@ answerRoot('unsure');
 let c = cluster();
 assert.equal(c[0].id, 'electricalWork');
 assert.ok(c.length > 1, 'clarification appears');
-const follow = c[1];
-assert.equal(follow.kind, 'multi');
+const follow = c.slice(1);
+assert.ok(follow.length >= 3, 'several tailored follow-ups appear');
+assert.ok(follow.every(q => q.followUpGroup === 'electricalWork'), 'follow-ups are about electrical work');
+assert.equal(new Set(follow.map(q => q.text)).size, follow.length, 'each follow-up is a different question');
 
-// 4–5. Concrete follow-up → original becomes Yes.
-const concrete = follow.options.find(([v]) => !['unsure', 'none'].includes(v))[0];
-changeFollowUp(follow, [concrete]);
+// 4–5. A concrete "yes" follow-up selects Yes for the original question.
+changeFollowUp(follow[0], 'yes');
+assert.equal(s.answers.electricalWork, 'yes', 'Yes selected for you');
+changeFollowUp(follow[1], 'no'); changeFollowUp(follow[2], 'no');
 assert.equal(s.answers.electricalWork, 'yes');
 submit();
 const afterElectrical = s.index;
 assert.notEqual(all()[afterElectrical]?.id, 'electricalWork');
 
-// 6. Back → same question, previous answers intact.
+// 6. Back → same question, follow-up answers intact.
 const back = flow.backFromHistory(all(), s.history, all()[s.index]?.id);
 s.history = back.history; s.index = back.index;
 c = cluster();
 assert.equal(c[0].id, 'electricalWork');
-assert.deepEqual(flow.clusterValue(c[1], ctx()), [concrete], 'Back preserves follow-up answer');
+assert.equal(flow.clusterValue(c[1], ctx()), 'yes', 'Back preserves follow-up answer');
 
-// 7–8. Change follow-up, then "I still don't know" – mutually exclusive.
-const other = follow.options.filter(([v]) => !['unsure', 'none'].includes(v)).map(([v]) => v)[1] || concrete;
-let sel = flow.exclusiveMultiSelection([concrete, other], other, true);
-changeFollowUp(c[1], sel);
-sel = flow.exclusiveMultiSelection([...sel, 'unsure'], 'unsure', true);
-assert.deepEqual(sel, ['unsure'], '"I still don\'t know" clears concrete picks');
-assert.deepEqual(flow.exclusiveMultiSelection(['unsure', concrete], concrete, true), [concrete], 'concrete clears "I still don\'t know"');
-assert.ok(flow.isAmbiguousMultiSelection([concrete, 'unsure']));
-changeFollowUp(c[1], sel);
+// 7. All "no" → No is selected for you.
+changeFollowUp(c[1], 'no');
+assert.equal(s.answers.electricalWork, 'no', 'No selected for you');
 
-// 9. Original returns to genuinely unresolved.
+// 8–9. "I don't know" on any follow-up → original returns to genuinely unresolved.
+changeFollowUp(c[2], 'unsure');
 assert.equal(s.answers.electricalWork, 'unsure');
 assert.equal(Object.values(s.meta).some(m => m.parentId === 'electricalWork'), false);
+assert.deepEqual(flow.exclusiveMultiSelection(['unsure', 'a'], 'a', true), ['a'], 'multi-select exclusivity still holds');
 
 // 10–12. Continue: no repeat, no reintroduced answered question.
 submit();

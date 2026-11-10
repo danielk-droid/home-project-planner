@@ -844,6 +844,11 @@ const clarifierFor = clarifierForQuestion;
 
 function applyClarificationInference(q, value) {
   if (!q?.parentId) return false;
+  if (q.followUpGroup) {
+    const before = answers[q.parentId];
+    flow.applyFollowUps(q.parentId, {answers, clarifierState, clarificationMeta});
+    return answers[q.parentId] !== before;
+  }
   const inferred = inferClarifiedAnswer(q.parentId, value);
   if (!inferred) {
     // Unresolved follow-up: the original answer returns to "unsure", never a guess.
@@ -870,6 +875,11 @@ function questionCluster(all, index) {
   return cluster;
 }
 function clusterValue(q) { return flow.clusterValue(q, flowContext()); }
+function optionLabel(q, value) {
+  if (value === 'yes') return 'Yes';
+  if (value === 'no') return 'No';
+  return q.options?.find(([v]) => v === value)?.[1] || String(value);
+}
 function clarificationSelectionLabel(q, value) {
   const values = Array.isArray(value) ? value : [value];
   return values.map(v => q.options?.find(([optionValue]) => optionValue === v)?.[1] || v).join(', ');
@@ -894,17 +904,22 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
   const controls = cluster.map((q,i) => {
     const current = clusterValue(q);
     const inference = i === 0 ? Object.values(clarificationMeta).find(meta => meta.parentId === q.id) : null;
-    const meta = q.parentId ? clarificationMeta[q.id] : null;
+    const meta = q.parentId && !q.followUpGroup ? clarificationMeta[q.id] : null;
+    const groupMeta = i === 0 && cluster[1]?.followUpGroup ? clarificationMeta['__followups_' + q.id] : null;
+    const groupNotice = groupMeta
+      ? '<div class="clarifier-inference followup-selected" role="status"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We selected “' + escape(optionLabel(q, groupMeta.inferredAnswer)) + '” for you</strong> based on your answers below. You can still change it.</div></div>'
+      : '';
     const inferenceNotice = i > 0 && meta
       ? '<div class="clarifier-inference" role="note"><span class="clarifier-inference-icon" aria-hidden="true">✓</span><div><strong>We recorded ' + escape(meta.inferredAnswer === 'yes' ? 'Yes' : 'No') + '.</strong> You chose “' + escape(clarificationSelectionLabel(q, meta.value)) + '”, so we used that to resolve the original answer.</div><button type="button" class="clarifier-change" data-change-clarifier="' + escape(q.id) + '">Change answer</button></div>'
       : '';
     return '<div class="inline-question ' + (i ? 'clarifier-question ' : '') + (meta ? 'clarifier-inferred' : '') + '">' +
       (i ? '<div class="clarifier-connector" aria-hidden="true"></div>' : '') +
-      '<div class="eyebrow">' + (i ? 'CLARIFYING QUESTION' : 'PROJECT SCOPE') + '</div>' +
+      '<div class="eyebrow">' + (i ? (q.followUpGroup ? 'FOLLOW-UP ' + i + ' OF ' + (cluster.length - 1) : 'CLARIFYING QUESTION') : 'PROJECT SCOPE') + '</div>' +
       '<h1>' + escape(q.text) + '</h1>' +
       (!i && questionContext(q, property) ? '<div class="question-context" role="note">' + escape(questionContext(q, property)) + '</div>' : '') +
-      inferenceNotice +
-      (!i && answers[q.id] === 'unsure' ? '<div class="question-context unsure-guidance" role="note" aria-live="polite"><strong>Not sure? Here is what this means.</strong> ' + escape(unsureGuidance(q)) + (cluster.length > 1 ? ' Answer the clarifying question below if you can — HPP will use it to settle this question. If you still don\'t know, choose “I still don\'t know” and HPP will list it under what still needs to be confirmed.' : ' You can keep “I\'m not sure” and continue — HPP will list this under what still needs to be confirmed, or choose an answer now if you know it.') + '</div>' : '') +
+      inferenceNotice + groupNotice +
+      (q.note ? '<div class="question-context" role="note">' + escape(q.note) + '</div>' : '') +
+      (!i && answers[q.id] === 'unsure' ? '<div class="question-context unsure-guidance" role="note" aria-live="polite"><strong>Not sure? Here is what this means.</strong> ' + escape(unsureGuidance(q)) + (cluster[1]?.followUpGroup ? ' Answer the short questions below and HPP will choose this answer for you. If you don\'t know, pick “I don\'t know” — HPP will keep this as not sure and list it under what still needs to be confirmed.' : cluster.length > 1 ? ' Answer the clarifying question below if you can — HPP will use it to settle this question. If you still don\'t know, choose “I still don\'t know” and HPP will list it under what still needs to be confirmed.' : ' You can keep “I\'m not sure” and continue — HPP will list this under what still needs to be confirmed, or choose an answer now if you know it.') + '</div>' : '') +
       (q.kind === 'choice' || q.kind === 'multi' ? choiceControl(q,current,q.id,inference?.inferredAnswer || null,Boolean(meta)) : q.kind === 'text' ? textControl(q,current,q.id) : numberControl(q,current,q.id)) +
       '<details class="question-why"><summary>Why am I being asked this?</summary><p>' + escape(questionWhy(q)) + '</p></details>' +
       '</div>';
@@ -969,12 +984,11 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
 
       const wasUnsure = answers[q.id] === 'unsure';
       answers[q.id] = input.value;
-      Object.keys(clarifierState).filter(k => k.startsWith('__clarifier_' + q.id)).forEach(k => delete clarifierState[k]);
-      Object.keys(clarificationMeta).filter(k => clarificationMeta[k].parentId === q.id).forEach(k => delete clarificationMeta[k]);
+      flow.clearFollowUps(q.id, {clarifierState, clarificationMeta});
       input.closest('.choice-list')?.querySelectorAll('.choice').forEach(el => el.classList.remove('selected'));
       input.closest('.choice')?.classList.add('selected');
 
-      if (input.value === 'unsure' || wasUnsure) {
+      if (input.value === 'unsure' || wasUnsure || cluster.length > 1) {
         renderQuestionCard({animate:false, keepActive:true});
       }
     });
@@ -994,10 +1008,18 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
   };
 
   $('returnToReview')?.addEventListener('click', () => {
-    saveClusterValues(cluster);
-    editingFromReview=false;
-    questionIndex=0;
+    if (!saveClusterValues(cluster)) {
+      $('questionHint').textContent='Finish the questions shown above first, then return to review.';
+      $('questionHint').classList.add('validation');
+      return;
+    }
+    const rootId = cluster[0].id;
+    if (visitHistory[visitHistory.length-1] !== rootId) visitHistory.push(rootId);
+    // Stay in review-edit mode: if this edit made a new question apply, it is
+    // asked first and the "Return to review" button stays available.
+    questionIndex = getQuestions(type, answers).length;
     renderReview(getQuestions(type,answers));
+    window.scrollTo({top:0,behavior:'smooth'});
   });
 
   $('skipQuestion')?.addEventListener('click', () => {
@@ -1063,7 +1085,7 @@ function choiceControl(q,current,name,inferredAnswer = null,lockInferred = false
     q.options.map(([value,label]) => {
       const selected = values.includes(value);
       const inferred = inferredAnswer && selected;
-      return '<label class="choice ' + (selected ? 'selected ' : '') + (inferred ? 'inferred-choice' : '') + '"><input data-question-id="' + escape(name) + '" type="' + inputType + '" name="' + escape(groupName) + '" value="' + escape(value) + '" ' + (selected ? 'checked ' : '') + (lockInferred ? 'disabled ' : '') + '><span>' + escape(label) + '</span>' + (inferred ? '<small class="inferred-badge">Inferred</small>' : '') + '</label>';
+      return '<label class="choice ' + (selected ? 'selected ' : '') + (inferred ? 'inferred-choice' : '') + '"><input data-question-id="' + escape(name) + '" type="' + inputType + '" name="' + escape(groupName) + '" value="' + escape(value) + '" ' + (selected ? 'checked ' : '') + (lockInferred ? 'disabled ' : '') + '><span>' + escape(label) + '</span>' + (inferred ? '<small class="inferred-badge">Selected for you</small>' : '') + '</label>';
     }).join('') +
     '</div>';
 }
@@ -1092,6 +1114,7 @@ function renderReview(all) {
     return;
   }
   const unsure = all.filter(q => answers[q.id] === 'unsure');
+  editingFromReview = false;
   card.innerHTML = '<div class="eyebrow">READY TO PLAN</div>' +
     '<h1>Review your project</h1>' +
     '<p class="muted">Everything below is editable. Select <b>Edit</b> beside any answer to jump directly to that question.</p>' +

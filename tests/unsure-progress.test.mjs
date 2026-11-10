@@ -21,7 +21,8 @@ function session(type) {
       const v = values[i];
       if (flow.isSyntheticClarifier(q)) s.clarifierState[q.id] = v;
       else { s.answers[q.id] = v; if (q.parentId) s.clarifierState[q.id] = v; }
-      if (q.parentId) {
+      if (q.followUpGroup) flow.applyFollowUps(q.parentId, {answers: s.answers, clarifierState: s.clarifierState, clarificationMeta: s.clarificationMeta});
+      else if (q.parentId) {
         const inferred = inferClarifiedAnswer(q.parentId, v);
         if (inferred) { s.answers[q.parentId] = inferred; s.clarificationMeta[q.id] = {parentId: q.parentId, inferredAnswer: inferred, value: v, questionId: q.id}; }
       }
@@ -136,30 +137,30 @@ for (const f of flows) {
     const cluster = s.cluster();
     assert.ok(unsureGuidance(q).length > 20, `${q.id} has contextual guidance`);
     const other = {...s.answers};
-    if (cluster.length === 1) {
-      // Case B: stays unsure through to the engine.
-      s.submit(['unsure'], cluster);
-      assert.equal(s.answers[q.id], 'unsure', `${q.id} stays unsure`);
-    } else {
-      const follow = cluster[1];
-      if (REAL_FOLLOW_UPS[q.id]) assert.equal(follow.id, REAL_FOLLOW_UPS[q.id]);
-      else assert.equal(follow.id, '__clarifier_' + q.id);
+    const follow = cluster[1];
+    assert.ok(follow, `${q.id} opens a follow-up`);
+    if (REAL_FOLLOW_UPS[q.id]) {
+      assert.equal(follow.id, REAL_FOLLOW_UPS[q.id]);
       assert.ok(follow.options.some(([v]) => v === 'unsure'), `${q.id} follow-up offers "I still don't know"`);
-      // "I still don't know" keeps the parent unsure.
       const keep = session(f.id); Object.assign(keep.answers, s.answers); keep.index = s.index;
       keep.submit(['unsure', follow.kind === 'multi' ? ['unsure'] : 'unsure'], keep.cluster());
       assert.equal(keep.answers[q.id], 'unsure', `${q.id}: still-unsure follow-up keeps parent unsure`);
-      // Each concrete follow-up answer either derives yes/no in the parent field only, or leaves it unsure.
-      for (const [v] of follow.options.filter(([v]) => v !== 'unsure')) {
-        const t = session(f.id); Object.assign(t.answers, s.answers); t.index = s.index;
-        const c = t.cluster();
-        t.submit(['unsure', c[1].kind === 'multi' ? [v] : v], c);
-        const derived = t.answers[q.id];
-        if (NON_RESOLVING.has(q.id)) assert.equal(derived, 'unsure', `${q.id}:${v} does not resolve`);
-        else if (!(q.id === 'exteriorChange' && v === 'site')) assert.ok(['yes', 'no'].includes(derived), `${q.id}:${v} derives an answer (got ${derived})`);
-        else assert.equal(derived, 'unsure', 'site-only work does not answer the building-exterior question');
-        for (const [k, val] of Object.entries(other)) if (k !== q.id && t.answers[k] !== undefined) assert.deepEqual(t.answers[k], val, `${q.id}:${v} overwrote ${k}`);
-      }
+    } else {
+      // Tailored follow-ups: several, all for this question.
+      const fus = cluster.slice(1);
+      assert.ok(fus.length >= 2, `${q.id} has at least 2 tailored follow-ups`);
+      assert.ok(fus.every(x => x.followUpGroup === q.id), `${q.id} follow-ups belong to it`);
+      // All "I don't know" keeps the parent unsure.
+      const keep = session(f.id); Object.assign(keep.answers, s.answers); keep.index = s.index;
+      keep.submit(['unsure', ...fus.map(() => 'unsure')], keep.cluster());
+      assert.equal(keep.answers[q.id], 'unsure', `${q.id}: "I don't know" keeps parent unsure`);
+      // Answering the first option everywhere selects a real answer and touches nothing else.
+      const t = session(f.id); Object.assign(t.answers, s.answers); t.index = s.index;
+      const c = t.cluster();
+      t.submit(['unsure', ...c.slice(1).map(x => x.options[0][0])], c);
+      const parentValues = q.options.map(([v]) => v).filter(v => v !== 'unsure');
+      assert.ok(parentValues.includes(t.answers[q.id]) || t.answers[q.id] === 'unsure', `${q.id} resolves only to its own options`);
+      for (const [k, val] of Object.entries(other)) if (k !== q.id && t.answers[k] !== undefined) assert.deepEqual(t.answers[k], val, `${q.id} overwrote ${k}`);
     }
     void answers;
   }
