@@ -86,5 +86,17 @@ jobs:
             echo "An open HPP regulatory review issue already exists; not creating a duplicate."
           fi
       - name: Report source health
+        # Unreachable external sources are a monitoring WARNING (temporary City
+        # outages), not a workflow failure. Script errors, invalid data and
+        # validation failures still fail in the earlier steps.
         run: |
-          node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync('source-monitor-output/monitor-results.json','utf8')); console.log(JSON.stringify({changed:r.changed,irrelevant:r.irrelevant,unreachable:r.unreachable,extractionFailures:r.extractionFailures,highImpact:r.highImpact,reviewRequired:r.reviewRequired},null,2)); process.exit(r.unreachable ? 1 : 0)"
+          node - <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('source-monitor-output/monitor-results.json','utf8'));
+          const s={changed:r.changed,irrelevant:r.irrelevant,unreachable:r.unreachable,extractionFailures:r.extractionFailures,highImpact:r.highImpact,reviewRequired:r.reviewRequired};
+          console.log(JSON.stringify(s,null,2));
+          const lines=['## HPP Source Monitor','','| Check | Count |','|---|---|',...Object.entries(s).map(([k,v])=>`| ${k} | ${Array.isArray(v)?v.length:v} |`),''];
+          if(r.unreachable){console.log(`::warning title=Sources unreachable::${r.unreachable} official source(s) could not be reached this run. Monitoring continues; this is a warning, not a workflow failure.`);lines.push(`> WARNING: ${r.unreachable} source(s) temporarily unreachable. Not a workflow failure.`);}
+          if(r.extractionFailures){console.log(`::warning title=Extraction failures::${r.extractionFailures} source(s) could not be parsed. Check whether the page layout changed.`);lines.push(`> WARNING: ${r.extractionFailures} extraction failure(s).`);}
+          if(process.env.GITHUB_STEP_SUMMARY)fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join('\n')+'\n');
+          NODE
