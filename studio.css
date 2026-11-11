@@ -1,0 +1,77 @@
+/* HPP Studio/Technical presentation layer. Visual only; loaded after experiment.css. No behavior. */
+:root{
+  --paper:#F7F3EA;--surface:#FBF8F2;--white:#FBF8F2;--ink:#1B2638;--muted:#4A5568;--line:#D9D1C1;--strong:#B9AE98;
+  --olive:#1F3A5F;--olive-dark:#1B2638;--olive-soft:#E6E0D2;--warm:#EFE9DC;--warning:#8A5A12;--danger:#9B3326;
+  --bg-2:#EFE9DC;--glass:rgba(247,243,234,.9);--glass-line:rgba(27,38,56,.12);
+  --brass:#7A5A1A;--brass-ink:#FBF8F2;--ok:#2F6B4A;--na:#5A6170;
+  --shadow-1:0 1px 2px rgba(27,38,56,.05),0 6px 18px rgba(27,38,56,.06);--shadow-2:0 2px 6px rgba(27,38,56,.06),0 18px 44px rgba(27,38,56,.09);
+  --r:8px;--r-lg:12px;
+  --serif:"Iowan Old Style",Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+html.theme-dark{
+  --paper:#10161F;--surface:#18212D;--white:#212C3A;--ink:#F2EDE3;--muted:#B8B2A6;--line:#3A4656;--strong:#56637A;
+  --olive:#D4A94F;--olive-dark:#D4A94F;--olive-soft:rgba(212,169,79,.14);--warm:#18212D;--warning:#E3B160;--danger:#F08A7C;
+  --bg-2:#212C3A;--glass:rgba(16,22,31,.88);--glass-line:rgba(242,237,227,.12);
+  --brass:#D4A94F;--brass-ink:#10161F;--ok:#7FC39A;--na:#A3A9B5;
+  --shadow-1:0 1px 2px rgba(0,0,0,.4);--shadow-2:0 18px 44px rgba(0,0,0,.45);
+}
+body{font-family:var(--sans);letter-spacing:0}
+h1,h2,h3,.plan-hero h1,.home-hero h1{font-family:var(--serif);font-weight:600;letter-spacing:-.015em}
+.eyebrow{color:var(--brass);letter-spacing:.14em;text-transform:uppercase}
+html.theme-dark a{color:var(--brass)}
+html.theme-dark .main-nav a,html.theme-dark .mobile-menu a,html.theme-dark .brand{color:var(--muted)}
+html.theme-dark .main-nav a:hover,html.theme-dark .main-nav a.active,html.theme-dark .brand{color:var(--ink)}
+/* Header: logo stays visible in every state */
+.brand-mark,.brand:hover .brand-mark{background:var(--olive-dark);border-radius:6px}
+.brand-mark svg path{stroke:var(--paper)}
+html.theme-dark .brand-mark,html.theme-dark .brand:hover .brand-mark{background:var(--brass)}
+html.theme-dark .brand-mark svg path{stroke:var(--brass-ink)}
+/* Buttons: square-ish practice style, readable in every state */
+button{border-radius:6px;background:var(--olive-dark);border-color:var(--olive-dark);color:var(--surface)}
+html.theme-dark button{color:var(--brass-ink)}
+button:hover:not(:disabled){filter:brightness(1.08)}
+button.secondary,html.theme-dark button.secondary{background:transparent;color:var(--ink);border-color:var(--strong)}
+button.secondary:hover:not(:disabled){background:var(--bg-2);color:var(--ink);filter:none}
+.theme-toggle,html.theme-dark .theme-toggle,.menu-toggle,html.theme-dark .menu-toggle{background:transparent;color:var(--ink);border-radius:6px}
+.theme-toggle:hover,.menu-toggle:hover{background:var(--bg-2)!important;color:var(--ink)!important}
+.primary-link{background:var(--olive-dark);color:var(--surface)!important;border-radius:6px;box-shadow:none}
+html.theme-dark .primary-link{background:var(--brass);color:var(--brass-ink)!important}
+.primary-link:hover{box-shadow:0 0 0 3px var(--olive-soft)}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+/* Inputs: readable while typing in both modes */
+input,select,textarea{border-radius:6px;background:var(--surface);color:var(--ink);border-color:var(--strong)}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+input:focus,textarea:focus,select:focus,html.theme-dark input:focus,html.theme-dark textarea:focus,html.theme-dark select:focus{background:var(--surface);color:var(--ink);border-color:var(--brass);box-shadow:0 0 0 3px var(--olive-soft)}
+/* Cards and panels: hairline technical frames */
+.panel,.card,.project-card,.feedback-choice-card{border-radius:var(--r);border-color:var(--line)}
+.choice{border-radius:6px}
+.choice:hover{color:var(--ink)}
+.choice:has(input:checked){border-color:var(--brass)!important;box-shadow:inset 0 0 0 1px var(--brass)}
+.multi-choice-list .choice input,input[type=radio],input[type=checkbox]{accent-color:var(--olive-dark)}
+html.theme-dark .multi-choice-list .choice input,html.theme-dark input[type=radio],html.theme-dark input[type=checkbox]{accent-color:var(--brass)}
+/* Results: tabular numbers and clear status colors (label + icon unchanged) */
+.facts,.result,table,.feasibility-report{font-variant-numeric:tabular-nums}
+.required .badge{color:var(--ok);border-color:currentColor;background:transparent}
+.conditional .badge{color:var(--warning);border-color:currentColor;background:transparent}
+.confirm .badge{color:var(--danger);border-color:currentColor;background:transparent}
+html.theme-dark .required .badge,html.theme-dark .conditional .badge,html.theme-dark .confirm .badge{background:transparent}
+html.theme-dark .feasibility-screened{background:#16261E}
+html.theme-dark .feasibility-review,html.theme-dark .feasibility-unknown{background:#2A2416}
+html.theme-dark .feasibility-constraint{background:#2C1C1A}
+/* Print: always light */
+@media print{
+  html,html.theme-dark{--paper:#fff;--surface:#fff;--white:#fff;--ink:#111;--muted:#333;--line:#bbb;--strong:#888;--olive:#1B2638;--olive-dark:#1B2638;--brass:#6b4f12}
+  body{background:#fff!important;color:#111!important}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.record-top span{color:var(--ink)!important}
+.record-checks b{color:var(--surface)!important;background:var(--olive-dark)!important}
+html.theme-dark .record-checks b{color:var(--brass-ink)!important;background:var(--brass)!important}
+.editorial-index{color:var(--muted)!important}
+.feedback-question-number{background:var(--olive-dark)!important;color:var(--surface)!important}
+html.theme-dark .feedback-question-number{background:var(--brass)!important;color:var(--brass-ink)!important}
+.mission-principles strong{color:var(--brass)!important}
+.mission-principles span{color:var(--ink)!important}
+.mission-principles div{border-color:var(--line)!important}
+html.theme-dark .mission-body .eyebrow,html.theme-dark .mission-main-card .eyebrow{color:var(--brass)!important}
+.record-top{background:var(--bg-2)!important}
