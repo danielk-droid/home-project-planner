@@ -12,6 +12,7 @@
 // merely gated by several answers (for example historic or plumbing questions
 // shown for "yes" OR "unsure") are ordinary questions with their own step.
 import {clarifierForQuestion, withStillUnsure} from './question-guidance.js';
+import {followUpsFor, resolveFollowUps, followUpGroupKey, isFollowUpOf} from './unsure-followups.js';
 
 export function isSyntheticClarifier(q) {
   return typeof q?.id === 'string' && q.id.startsWith('__clarifier_');
@@ -33,6 +34,17 @@ export function questionCluster(all, index, {answers = {}, clarificationMeta = {
   const root = all[index];
   if (!root) return [];
   const cluster = [root];
+  // Tailored follow-up: exactly one, shown only while the answer is "unsure".
+  // Once answered, the original question shows its recorded answer alone.
+  const followUps = followUpsFor(root);
+  if (followUps.length) {
+    if (answers[root.id] !== 'unsure') return cluster;
+    const withFollowUp = [...cluster, ...followUps];
+    // A data-defined inline clarifier for this parent is replaced, not added.
+    const next = all[index + 1];
+    if (next && isInlineClarifier(root, next)) withFollowUp.replaces = 1;
+    return withFollowUp;
+  }
   const resolved = Object.values(clarificationMeta).find(meta => meta.parentId === root.id);
   if (resolved) {
     const source = flowQuestions.find(q => q.id === resolved.questionId);
@@ -54,7 +66,7 @@ export function questionCluster(all, index, {answers = {}, clarificationMeta = {
 
 // Number of slots in `all` a cluster occupies (synthetic/hidden members occupy none).
 export function clusterSpan(all, cluster) {
-  return 1 + cluster.slice(1).filter(q => all.some(x => x.id === q.id)).length;
+  return 1 + (cluster.replaces || 0) + cluster.slice(1).filter(q => all.some(x => x.id === q.id)).length;
 }
 
 export function nextQuestionIndex(all, index, ctx) {
@@ -193,4 +205,28 @@ export function parentAnswerAfterClarifier(inferred, value, wasInferred) {
   const values = Array.isArray(value) ? value : [value];
   if (values.includes('unsure') || wasInferred) return 'unsure';
   return undefined;
+}
+
+// Apply tailored follow-up answers to the original question (shared by the
+// browser UI and tests). Mutates state.answers / state.clarificationMeta.
+// Returns the parent's answer after the update.
+export function applyFollowUps(parentId, {answers, clarifierState = {}, clarificationMeta = {}}) {
+  const values = {};
+  for (const [k, v] of Object.entries(clarifierState)) if (isFollowUpOf(parentId, k)) values[k] = v;
+  const resolved = resolveFollowUps(parentId, values);
+  const key = followUpGroupKey(parentId);
+  if (resolved) {
+    answers[parentId] = resolved;
+    clarificationMeta[key] = {parentId, inferredAnswer: resolved, group: true};
+  } else {
+    answers[parentId] = 'unsure';
+    delete clarificationMeta[key];
+  }
+  return answers[parentId];
+}
+
+// Clear every follow-up answer for a parent (when the parent is answered directly).
+export function clearFollowUps(parentId, {clarifierState = {}, clarificationMeta = {}}) {
+  for (const k of Object.keys(clarifierState)) if (k === '__clarifier_' + parentId || isFollowUpOf(parentId, k)) delete clarifierState[k];
+  for (const k of Object.keys(clarificationMeta)) if (clarificationMeta[k]?.parentId === parentId) delete clarificationMeta[k];
 }
