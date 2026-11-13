@@ -1,0 +1,68 @@
+{
+ "slug": "newton-patio-walkway-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "PATIOS AND WALKWAYS",
+ "h1": "Do I need a permit for a patio or walkway in Newton, MA?",
+ "title": "Newton Patio and Walkway Permits: Site Plans, Drainage and Historic Review",
+ "description": "Learn why patio and walkway work can involve Engineering, zoning, stormwater, and historic review even when no building is constructed.",
+ "short_answer": "A patio or walkway is not automatically covered by the state building-code exemption for sidewalks and driveways. Newton Engineering reviews expansions of impervious surface, including patios, and grade alterations. Properties in a Local Historic District also need historic review for exterior hardscaping changes.",
+ "short_answer_sources": [
+  "nwt-public-works-engineering",
+  "nwt-historic-preservation-submit-an-application"
+ ],
+ "sections": [
+  {
+   "heading": "Engineering and drainage review",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews site plans for expansions of impervious area, including patios, and for grade alterations.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    },
+    {
+     "text": "Newton's stormwater ordinance identifies certain new impervious-area projects and land-disturbance projects as requiring stormwater review.",
+     "sources": [
+      "nwt-doc-104834"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Historic district review",
+   "facts": [
+    {
+     "text": "Newton requires a Historic District Application for exterior changes, including walkways and hardscaping, at properties in its Local Historic Districts.",
+     "sources": [
+      "nwt-historic-preservation-submit-an-application"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the state driveway exemption automatically cover a patio?",
+   "a": "No. The cited state exemption names sidewalks and driveways, not patios. Confirm the permit requirements for the proposed patio with Newton.",
+   "sources": [
+    "ma-bbrs-10th-edition-building-code"
+   ]
+  }
+ ],
+ "related": [
+  "newton-driveway-permit",
+  "newton-open-space-permeable-surface",
+  "newton-stormwater-management-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the proposed surface is counted as impervious area under Newton's rules",
+   "Whether the project crosses a stormwater permit threshold",
+   "Whether grading or drainage changes require Engineering review",
+   "Whether a building permit is required for the exact design",
+   "The property's applicable lot-coverage and open-space limits"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

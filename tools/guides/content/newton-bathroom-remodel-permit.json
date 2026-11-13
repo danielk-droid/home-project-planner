@@ -1,0 +1,68 @@
+{
+ "slug": "newton-bathroom-remodel-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "BATHROOM REMODELS",
+ "h1": "What permits do I need to remodel a bathroom in Newton, MA?",
+ "title": "Newton Bathroom Remodel Permits: Plumbing, Electrical and Building Work",
+ "description": "Review the permit issues raised by fixture changes, plumbing alterations, electrical work, and structural bathroom renovations.",
+ "short_answer": "A bathroom remodel may require a building permit for regulated construction or alteration work, plus separate plumbing, gas, or electrical permits when those systems are changed. Newton ISD handles the trade-permit applications. Replacing a fixture without changing a regulated system should be confirmed with ISD rather than assumed to be permit-free.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-inspectional-services-plumbing-gas-and-electrical"
+ ],
+ "sections": [
+  {
+   "heading": "Building and trade permits",
+   "facts": [
+    {
+     "text": "The state building code requires a permit before regulated construction, alteration, repair, or installation of regulated equipment.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    },
+    {
+     "text": "Newton handles plumbing, gas, and electrical permits through its ISD trade-permit process.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Inspections",
+   "facts": [
+    {
+     "text": "Newton states that a final inspection is required for all permits.",
+     "sources": [
+      "inspect"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does changing a bathroom vanity always require a plumbing permit?",
+   "a": "The sources reviewed do not establish a universal fixture-replacement exemption. Ask Newton ISD whether the exact replacement changes plumbing work that requires a permit.",
+   "sources": [
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-kitchen-remodel-permit",
+  "newton-finished-basement-permit",
+  "newton-water-heater-replacement-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether plumbing fixtures or piping will be relocated or altered",
+   "Whether new electrical circuits, receptacles, or ventilation equipment will be installed",
+   "Whether walls, floors, or structural components will be changed",
+   "Applicable bathroom ventilation, electrical safety, and waterproofing code details",
+   "Required rough and final inspections"
+  ],
+  "office": "isd"
+ }
+}

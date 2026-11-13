@@ -1,0 +1,67 @@
+{
+ "slug": "newton-fence-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "FENCES",
+ "h1": "Do I need a permit for a fence in Newton, MA?",
+ "title": "Newton Fence Permits: Height Limits, Rules and What Needs a Permit",
+ "description": "Learn when Newton requires a fence permit, how state building-code exemptions interact with local fence rules, and which property conditions need review.",
+ "short_answer": "Yes, a Newton fence permit is required for a perimeter fence greater than 4 feet tall. The state building code separately exempts fences not over 7 feet from its building-permit requirement, but that exemption does not remove Newton's local fence rules.",
+ "short_answer_sources": [
+  "nwt-home-showdocument",
+  "ma-bbrs-10th-edition-building-code"
+ ],
+ "sections": [
+  {
+   "heading": "Newton's local fence permit",
+   "facts": [
+    {
+     "text": "Newton requires a fence permit before erecting a perimeter fence greater than 4 feet tall.",
+     "sources": [
+      "nwt-home-showdocument"
+     ]
+    },
+    {
+     "text": "For a fence bordering or parallel to a front lot line, the general height limit is 4 feet. A taller fence may be allowed with additional setbacks, subject to the ordinance's maximum height and openness rules.",
+     "sources": [
+      "nwt-home-showdocument"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "State building-code exemption",
+   "facts": [
+    {
+     "text": "The tenth-edition Massachusetts building code exempts fences not over 7 feet from the building permit required under that code. This is separate from Newton's local fence permit.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a fence under 7 feet automatically avoid all permits in Newton?",
+   "a": "No. Newton's separate fence ordinance requires a local fence permit for a perimeter fence greater than 4 feet tall.",
+   "sources": [
+    "nwt-home-showdocument"
+   ]
+  }
+ ],
+ "related": [
+  "newton-shed-permit",
+  "newton-driveway-permit",
+  "newton-accessory-structure-setbacks"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the property is in a Local Historic District, is a Local Landmark, or has a Preservation Restriction",
+   "The exact fence height and location allowed on a corner lot",
+   "Whether wetlands, easements, or other site restrictions affect the proposed fence",
+   "Whether the fence is a perimeter fence or a different type covered by a separate rule"
+  ],
+  "office": "isd"
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "slug": "newton-building-permit-fees-calculation",
+ "cluster": "Permit process",
+ "eyebrow": "PERMIT FEES",
+ "h1": "How does Newton calculate building permit fees for residential renovations?",
+ "title": "Newton Building Permit Fees: Construction Cost and Minimum Charges",
+ "description": "Review the published Newton fee schedule and verify the current amount before budgeting for a permit.",
+ "short_answer": "A Newton ISD fee schedule lists building and trade permit fees based on estimated construction cost, with a minimum residential permit fee. However, the schedule identifies an original effective date of July 1, 2015, so homeowners should confirm the current fee and any later changes directly with ISD before relying on the listed amounts.",
+ "short_answer_sources": [
+  "fees",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Published fee method",
+   "facts": [
+    {
+     "text": "Newton's published fee document describes a fee calculated from estimated construction cost and lists a minimum residential fee.",
+     "sources": [
+      "fees"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Check current rates",
+   "facts": [
+    {
+     "text": "The online fee document states an original effective date of July 1, 2015, so its rate should be confirmed with ISD before use in a current estimate.",
+     "sources": [
+      "fees"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I use the posted fee schedule as a guaranteed current permit price?",
+   "a": "No. The source carries an older effective date. Ask Newton ISD for the current fee calculation and any additional plan-review or inspection charges.",
+   "sources": [
+    "fees",
+    "isd"
+   ]
+  }
+ ],
+ "related": [
+  "newton-permit-expiration-extensions",
+  "newton-certificate-of-occupancy-process",
+  "massachusetts-hic-guaranty-fund"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The current residential base fee and cost-based fee rate",
+   "Whether plan-review fees apply",
+   "Whether electrical, plumbing, gas, or other trade permits have separate fees",
+   "Reinspection or certificate fees",
+   "Whether fees are calculated on labor, materials, or total project cost"
+  ],
+  "office": "isd"
+ }
+}

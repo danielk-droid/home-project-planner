@@ -1,0 +1,69 @@
+{
+ "slug": "massachusetts-adu-setback-protections",
+ "cluster": "ADUs",
+ "eyebrow": "ADU SETBACKS",
+ "h1": "What does Massachusetts law say about municipal setbacks for ADUs?",
+ "title": "Massachusetts ADU Setback Protections: State Law and Local Zoning",
+ "description": "Understand why state ADU law does not erase local dimensional rules and how the protected-use standard applies.",
+ "short_answer": "Massachusetts law protects a single ADU in a single-family residential zoning district from being prohibited or unreasonably restricted, but it expressly allows reasonable local rules for dimensional setbacks, bulk, height, and site-plan review. ADUs therefore do not receive a blanket exemption from local zoning dimensions. Newton's current ADU ordinance must be checked for the particular unit.",
+ "short_answer_sources": [
+  "mgl-section3",
+  "760cmr",
+  "newton-adu"
+ ],
+ "sections": [
+  {
+   "heading": "What state law protects",
+   "facts": [
+    {
+     "text": "Massachusetts prohibits municipalities from unreasonably restricting or requiring discretionary zoning approval for the single protected ADU described in Chapter 40A, Section 3.",
+     "sources": [
+      "mgl-section3"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "What local rules may still regulate",
+   "facts": [
+    {
+     "text": "The statute permits reasonable regulations concerning dimensional setbacks, bulk, height, and site-plan review.",
+     "sources": [
+      "mgl-section3"
+     ]
+    },
+    {
+     "text": "Newton publishes local ADU size, height, and setback standards for detached units.",
+     "sources": [
+      "newton-adu"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does state ADU law eliminate Newton's setback rules?",
+   "a": "No. State law expressly allows reasonable local dimensional setback, bulk, and height regulations.",
+   "sources": [
+    "mgl-section3"
+   ]
+  }
+ ],
+ "related": [
+  "massachusetts-adu-parking-rules",
+  "massachusetts-adu-owner-occupancy-rules",
+  "newton-detached-adu-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the ADU qualifies for the state protected-use provision",
+   "The Newton zoning district and the applicable ADU setback rule",
+   "Whether the unit is internal, attached, or detached",
+   "Whether historic, wetlands, floodplain, or other site rules apply",
+   "Whether the property is subject to a prior ADU approval or transition provision"
+  ],
+  "office": "ma-regulations-760-cmr-7100-protected-use-accessory-dwelling"
+ }
+}

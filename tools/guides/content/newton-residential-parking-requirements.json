@@ -1,0 +1,62 @@
+{
+ "slug": "newton-residential-parking-requirements",
+ "cluster": "Zoning rules",
+ "eyebrow": "RESIDENTIAL PARKING",
+ "h1": "How many parking spaces are required for single- and two-family homes in Newton, MA?",
+ "title": "Newton Residential Parking Requirements: Single- and Two-Family Homes",
+ "description": "Review Newton's published minimum parking requirement and check the separate restrictions on where spaces may be located.",
+ "short_answer": "Newton's current parking table lists 2 parking stalls per unit for a single-family or two-family dwelling. Separate zoning rules control where parking stalls may be placed, including limits within required street and side-yard setbacks. Confirm the rules for the property's exact zoning district and site layout.",
+ "short_answer_sources": [
+  "nwt-doc-29823-3",
+  "nwt-doc-29823"
+ ],
+ "sections": [
+  {
+   "heading": "Minimum parking count",
+   "facts": [
+    {
+     "text": "Newton's parking table lists 2 parking stalls per unit for a single-family or two-family dwelling.",
+     "sources": [
+      "nwt-doc-29823-3"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Parking location",
+   "facts": [
+    {
+     "text": "Newton's zoning ordinance separately regulates parking stalls within required street and side-lot-line setbacks.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the 2-per-unit rule mean all spaces can be placed in the front yard?",
+   "a": "No. The required parking count and the rules governing where spaces may be placed are separate zoning questions.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-driveway-permit",
+  "newton-curb-cut-rules",
+  "massachusetts-adu-parking-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the property is single-family, two-family, or another residential use under zoning",
+   "Whether tandem parking is allowed for the proposed layout",
+   "The applicable front- and side-setback parking exceptions",
+   "Whether the property is within an overlay district or subject to a special permit",
+   "Whether ADU parking rules change the result"
+  ],
+  "office": "planning"
+ }
+}

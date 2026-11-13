@@ -1,0 +1,84 @@
+{
+ "slug": "newton-building-height-limits",
+ "cluster": "Zoning",
+ "eyebrow": "DIMENSIONS",
+ "h1": "How tall can a house be in Newton, MA?",
+ "title": "Newton Building Height Limits for Houses",
+ "description": "Newton's maximum house heights: 36 feet sloped roof, 30 feet flat roof, 2.5 stories (3 by special permit), and how height is measured.",
+ "short_answer": "In Newton's SR and MR districts, a detached single- or two-family house may be up to 36 feet tall with a sloped roof or 30 feet with a flat roof. The limit is 2.5 stories, or 3 by special permit (Ord. Sec. 3.1.3 and 3.2.3).",
+ "short_answer_sources": [
+  "ord"
+ ],
+ "sections": [
+  {
+   "heading": "Limits",
+   "facts": [
+    {
+     "text": "SR1–SR3 detached single-family: 36' sloped roof, 30' flat roof (Sec. 3.1.3).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "SR1–SR3: 2.5 stories, or 3 stories by special permit.",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "MR1–MR4 detached single- or two-family: 36' sloped, 30' flat, 2.5 stories or 3 by special permit (Sec. 3.2.3).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Measurement",
+   "facts": [
+    {
+     "text": "Height is measured vertically from the average grade plane to the highest point of the roof, subject to listed exclusions (Sec. 1.5.4.A.1).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "What is the height limit for a house in Newton?",
+   "a": "36 feet with a sloped roof and 30 feet with a flat roof in SR and MR districts.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "How many stories can I build?",
+   "a": "2.5 stories, or 3 by special permit.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "How is height measured?",
+   "a": "From the average grade plane to the highest roof point, subject to exclusions listed in Sec. 1.5.4.",
+   "sources": [
+    "ord"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Average grade plane on your sloped lot.",
+   "Whether your attic counts as a half story."
+  ],
+  "office": "planning"
+ },
+ "related": [
+  "newton-zoning-setbacks",
+  "newton-special-permits-and-variances",
+  "newton-floor-area-ratio-far"
+ ],
+ "date": "2026-11-13"
+}

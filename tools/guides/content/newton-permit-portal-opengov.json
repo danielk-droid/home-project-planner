@@ -1,0 +1,85 @@
+{
+ "slug": "newton-permit-portal-opengov",
+ "cluster": "Permit process",
+ "eyebrow": "PERMIT PROCESS",
+ "h1": "How do I apply for and track a permit on Newton's online portal?",
+ "title": "Newton Permit Portal: How to Apply and Track Permits",
+ "description": "How Newton's online permitting works: the OpenGov account, starting an application, public record search by address, and checking permits are closed.",
+ "short_answer": "Newton's Inspectional Services takes applications online through Apply for Permits, which requires an OpenGov account. The City also provides a public search by address or record number, which you can use to confirm permits are closed before you make the final payment to a contractor.",
+ "short_answer_sources": [
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Using the portal",
+   "facts": [
+    {
+     "text": "Use the City's Apply for Permits link to start or manage an application.",
+     "sources": [
+      "isd"
+     ]
+    },
+    {
+     "text": "An OpenGov account is required for online applications.",
+     "sources": [
+      "isd"
+     ]
+    },
+    {
+     "text": "The City provides a public search link for address or record-number searches.",
+     "sources": [
+      "isd"
+     ]
+    },
+    {
+     "text": "Check the permitting website to confirm permits are closed before you pay the contractor in full.",
+     "sources": [
+      "close"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Do I need an account to apply?",
+   "a": "Yes. The City says an OpenGov account is required for online applications.",
+   "sources": [
+    "isd"
+   ]
+  },
+  {
+   "q": "Can I look up permits on my address?",
+   "a": "Yes. The City provides a public search by address or record number.",
+   "sources": [
+    "isd"
+   ]
+  },
+  {
+   "q": "When should I check my permit status?",
+   "a": "The City advises checking that permits are closed before you make the final payment to a contractor.",
+   "sources": [
+    "close"
+   ]
+  },
+  {
+   "q": "Who can I call for help?",
+   "a": "Inspectional Services at (617) 796-1060, City Hall Room 202.",
+   "sources": [
+    "isd-contact"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Which application type matches your project."
+  ],
+  "office": "isd-contact"
+ },
+ "related": [
+  "how-to-get-a-building-permit-in-newton-ma",
+  "how-to-close-an-open-permit-in-newton",
+  "newton-building-inspections"
+ ],
+ "date": "2026-11-13"
+}

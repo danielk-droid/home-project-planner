@@ -1,0 +1,62 @@
+{
+ "slug": "newton-outdoor-kitchen-fire-pit-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "OUTDOOR KITCHENS",
+ "h1": "What permits are needed for an outdoor kitchen or gas fire pit in Newton, MA?",
+ "title": "Newton Outdoor Kitchen and Fire Pit Rules: Gas, Electrical and Fire Safety",
+ "description": "Check City fire rules and the trade permits that may apply to outdoor kitchens and gas appliances.",
+ "short_answer": "Newton's Fire Prevention guidance says solid-fuel fire pits and outdoor fireplaces are not allowed in the city. An outdoor kitchen or gas fire feature may also involve gas piping or electrical work that requires review through Newton ISD. Confirm the exact appliance and installation requirements before planning the project.",
+ "short_answer_sources": [
+  "nwt-fire-fire-prevention",
+  "nwt-inspectional-services-plumbing-gas-and-electrical"
+ ],
+ "sections": [
+  {
+   "heading": "Fire-pit restriction",
+   "facts": [
+    {
+     "text": "Newton Fire Prevention states that fire pits and outdoor fireplaces that burn solid fuel are not allowed in the city.",
+     "sources": [
+      "nwt-fire-fire-prevention"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Gas and electrical work",
+   "facts": [
+    {
+     "text": "Newton ISD administers separate gas and electrical permits for regulated trade work.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I install a wood-burning fire pit in Newton?",
+   "a": "Newton Fire Prevention says solid-fuel fire pits and outdoor fireplaces are not allowed in the city.",
+   "sources": [
+    "nwt-fire-fire-prevention"
+   ]
+  }
+ ],
+ "related": [
+  "newton-generator-installation-permit",
+  "newton-gas-line-service-installation",
+  "newton-patio-walkway-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the proposed gas appliance is allowed at the property",
+   "Whether gas piping or electrical work requires a separate trade permit",
+   "Equipment location, clearances, and any applicable zoning requirements",
+   "Whether a propane or other fuel-storage approval is required",
+   "Whether the outdoor kitchen changes impervious area or requires site review"
+  ],
+  "office": "nwt-fire-fire-prevention"
+ }
+}

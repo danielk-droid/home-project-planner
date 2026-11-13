@@ -1,0 +1,62 @@
+{
+ "slug": "newton-scaffolding-sidewalk-permit",
+ "cluster": "Permit process",
+ "eyebrow": "SCAFFOLDING",
+ "h1": "Do I need a permit for scaffolding or sidewalk obstruction in Newton, MA?",
+ "title": "Newton Scaffolding and Sidewalk Permits: Public-Way Review",
+ "description": "Check with Newton before placing construction equipment or scaffolding on a public sidewalk or right-of-way.",
+ "short_answer": "Scaffolding that occupies or obstructs a public sidewalk or right-of-way should be reviewed with Newton Engineering before installation. The available official sources reviewed do not establish the complete application, pedestrian-canopy, insurance, or fee requirements for every scaffolding setup. The property owner or contractor should obtain the City's current direction before blocking public access.",
+ "short_answer_sources": [
+  "nwt-public-works-engineering",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Public right-of-way review",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews work involving the public right-of-way and related site conditions.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Separate permit authorities",
+   "facts": [
+    {
+     "text": "Newton ISD states that other City departments have responsibility for certain separate permits and approvals.",
+     "sources": [
+      "isd"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a building permit automatically authorize scaffolding on a Newton sidewalk?",
+   "a": "The sources reviewed do not establish that. Confirm separate public-way approval with Newton Engineering before placing scaffolding or obstructing a sidewalk.",
+   "sources": [
+    "nwt-public-works-engineering"
+   ]
+  }
+ ],
+ "related": [
+  "newton-temporary-dumpster-pod-permit",
+  "newton-street-opening-permit",
+  "newton-certificate-of-occupancy-process"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the scaffold is on private property or the public right-of-way",
+   "The current sidewalk or public-way obstruction application",
+   "Whether a pedestrian canopy or alternate walking route is required",
+   "Required barricades, reflective markers, insurance, or bonds",
+   "The approved occupancy period and inspection process"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

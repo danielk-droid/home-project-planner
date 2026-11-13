@@ -1,0 +1,139 @@
+{
+ "slug": "how-to-get-a-building-permit-in-newton-ma",
+ "cluster": "Permit process",
+ "eyebrow": "PERMIT PROCESS",
+ "h1": "How do I get a building permit in Newton, MA?",
+ "title": "How to Get a Building Permit in Newton, MA",
+ "description": "Step-by-step: how Newton building permits are applied for online, what the City checklist asks for, how fees are calculated, and the inspections that follow.",
+ "short_answer": "Apply online through the City's OpenGov permitting system, using the City's Building Permit Application Checklist to assemble signatures, licensing and insurance documents, and plans. Inspectors review the application and issue the permit, and every permit needs a final inspection.",
+ "short_answer_sources": [
+  "bp",
+  "checklist"
+ ],
+ "sections": [
+  {
+   "heading": "Steps the City lists",
+   "facts": [
+    {
+     "text": "Start from Apply for Permits on the City's building-permits page.",
+     "sources": [
+      "bp"
+     ]
+    },
+    {
+     "text": "Create or sign in to an OpenGov account to submit and manage the application.",
+     "sources": [
+      "isd"
+     ]
+    },
+    {
+     "text": "Complete the application with contractor and homeowner signatures.",
+     "sources": [
+      "checklist"
+     ]
+    },
+    {
+     "text": "Include licensing, insurance, and homeowner-exemption documents as the checklist requires.",
+     "sources": [
+      "checklist"
+     ]
+    },
+    {
+     "text": "Prepare plans showing elevations, floor plans, foundation, and framing.",
+     "sources": [
+      "checklist"
+     ]
+    },
+    {
+     "text": "Check zoning, and include a recorded special permit or variance when one applies.",
+     "sources": [
+      "checklist"
+     ]
+    },
+    {
+     "text": "Inspectors review applications, then approve and issue permits.",
+     "sources": [
+      "close"
+     ]
+    },
+    {
+     "text": "Arrange the required inspections. All permits require a final inspection.",
+     "sources": [
+      "inspect"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Fees",
+   "facts": [
+    {
+     "text": "The published fee schedule charges $20 per $1,000 of estimated construction cost, with fractions rounded up to the next thousand.",
+     "sources": [
+      "fees"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I apply for a Newton building permit online?",
+   "a": "Yes. The City's building-permits page links to Apply for Permits, and online applications require an OpenGov account.",
+   "sources": [
+    "bp",
+    "isd"
+   ]
+  },
+  {
+   "q": "How much does a building permit cost in Newton?",
+   "a": "The City fee schedule lists $20 per $1,000 of estimated construction cost, with fractions rounded up to the next thousand. Check the current schedule for your permit type.",
+   "sources": [
+    "fees"
+   ]
+  },
+  {
+   "q": "What plans do I need?",
+   "a": "The City checklist calls for plans showing elevations, floor plans, foundation, and framing.",
+   "sources": [
+    "checklist"
+   ]
+  },
+  {
+   "q": "Do I need zoning approval first?",
+   "a": "The checklist asks applicants to check zoning and provide a recorded special permit or variance when applicable.",
+   "sources": [
+    "checklist"
+   ]
+  },
+  {
+   "q": "Who schedules inspections?",
+   "a": "The permit holder arranges all inspections, and every permit requires a final inspection.",
+   "sources": [
+    "inspect"
+   ]
+  },
+  {
+   "q": "Where is Inspectional Services?",
+   "a": "City Hall, 1000 Commonwealth Ave, second floor, Room 202. Phone (617) 796-1060.",
+   "sources": [
+    "isd-contact"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Which permit types your exact scope needs.",
+   "Whether zoning relief is required before applying.",
+   "The current fee for your permit category."
+  ],
+  "office": "isd-contact"
+ },
+ "related": [
+  "newton-permit-portal-opengov",
+  "newton-building-inspections",
+  "building-permit-vs-zoning-approval",
+  "how-to-close-an-open-permit-in-newton"
+ ],
+ "date": "2026-11-13"
+}

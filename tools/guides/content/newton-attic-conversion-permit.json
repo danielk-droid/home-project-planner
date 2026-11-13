@@ -1,0 +1,62 @@
+{
+ "slug": "newton-attic-conversion-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "ATTICS",
+ "h1": "What permits and zoning rules apply to finishing an attic in Newton, MA?",
+ "title": "Newton Attic Conversion Rules: Building Permits, Height and Floor Area",
+ "description": "Understand building-code review and Newton's zoning definition of a half-story before converting an attic into living space.",
+ "short_answer": "Converting an attic into living space is a building alteration that should be reviewed by Newton ISD. Newton zoning also defines a half-story by the amount of floor area with a ceiling height of at least 7 feet under a sloping roof. The project's height, floor area, and building-code compliance must be checked against the actual plans.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-doc-29823-2"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit and code review",
+   "facts": [
+    {
+     "text": "The state building code requires a permit before regulated alterations to a building.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton's half-story definition",
+   "facts": [
+    {
+     "text": "Newton defines a half-story under a sloping roof as a story where the area with a ceiling height of 7 feet or more is less than two-thirds of the area of the story below.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does finishing an existing attic automatically count as a new full story?",
+   "a": "Not automatically. Newton's half-story definition uses the qualifying ceiling-height area under a sloping roof. The result depends on the actual floor plan and roof section.",
+   "sources": [
+    "nwt-doc-29823-2"
+   ]
+  }
+ ],
+ "related": [
+  "newton-finished-basement-permit",
+  "newton-half-story-definition",
+  "newton-dormer-addition-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the finished space meets the applicable minimum ceiling-height requirements",
+   "Whether the floor structure can support the proposed use",
+   "Whether stairs, guards, emergency escape, and fire protection comply",
+   "How the work affects Newton's gross floor area and floor-area ratio",
+   "Whether dormers or roof changes affect zoning height or setbacks"
+  ],
+  "office": "isd"
+ }
+}

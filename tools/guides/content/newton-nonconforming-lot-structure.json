@@ -1,0 +1,63 @@
+{
+ "slug": "newton-nonconforming-lot-structure",
+ "cluster": "Zoning rules",
+ "eyebrow": "NONCONFORMING LOTS",
+ "h1": "What can you build on a pre-existing nonconforming lot or home in Newton, MA?",
+ "title": "Newton Nonconforming Lots and Homes: Additions, Alterations and Zoning Relief",
+ "description": "Understand why an existing nonconforming property needs a review under Massachusetts law and Newton's zoning ordinance before changes are made.",
+ "short_answer": "An existing nonconforming lot or structure does not automatically make every future addition or alteration permissible. Massachusetts General Laws Chapter 40A, Section 6 and Newton Zoning Ordinance Section 7.8 govern nonconforming situations. The result depends on the property's legal history and the proposed change, so obtain a parcel-specific determination before designing the project.",
+ "short_answer_sources": [
+  "mgl-section6",
+  "nwt-doc-29823"
+ ],
+ "sections": [
+  {
+   "heading": "State nonconforming-property law",
+   "facts": [
+    {
+     "text": "Massachusetts General Laws Chapter 40A, Section 6 addresses nonconforming lots, structures, and uses and the conditions under which zoning changes may apply.",
+     "sources": [
+      "mgl-section6"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton zoning review",
+   "facts": [
+    {
+     "text": "Newton's Zoning Ordinance contains a separate section addressing nonconforming lots, buildings, structures, and uses.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I enlarge a home that already violates a setback?",
+   "a": "Do not assume the existing condition allows an addition. Newton must evaluate the proposed change under state law and its local nonconforming-structure rules.",
+   "sources": [
+    "mgl-section6",
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-second-story-addition",
+  "newton-corner-lot-setbacks",
+  "newton-zoning-variance-hardship-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the lot or structure was lawfully created and when",
+   "Which dimensional requirements are currently nonconforming",
+   "Whether the proposed work increases the nonconformity",
+   "Whether a finding, special permit, or variance is required",
+   "Whether prior permits, decisions, or recorded plans affect the property"
+  ],
+  "office": "planning"
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "slug": "newton-curb-cut-rules",
+ "cluster": "Permit process",
+ "eyebrow": "CURB CUTS",
+ "h1": "How do you get approval for a new or widened curb cut in Newton, MA?",
+ "title": "Newton Curb Cut Permits: Driveway Openings and Engineering Review",
+ "description": "Learn which City office reviews curb-cut changes and which site and street details need confirmation before applying.",
+ "short_answer": "Newton Engineering reviews modifications to curb cuts as part of its site-plan and public-way review. A new or widened driveway opening should be discussed with Engineering before construction. The sources reviewed do not establish a single maximum width or intersection-spacing number for every residential property.",
+ "short_answer_sources": [
+  "nwt-public-works-engineering"
+ ],
+ "sections": [
+  {
+   "heading": "Engineering review",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews site plans that include modifying curb cuts.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Related zoning rules",
+   "facts": [
+    {
+     "text": "Newton zoning contains rules for parking spaces and driveway arrangements. Those rules should not be treated as a universal curb-cut-width standard.",
+     "sources": [
+      "nwt-doc-29823-3"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is the residential curb-cut maximum always 20 feet?",
+   "a": "The cited zoning rule about a 20-foot maximum applies to entrance and exit drives for certain parking facilities, not necessarily every residential curb opening. Confirm the curb-cut standard directly with Engineering.",
+   "sources": [
+    "nwt-doc-29823",
+    "nwt-public-works-engineering"
+   ]
+  }
+ ],
+ "related": [
+  "newton-driveway-permit",
+  "newton-residential-parking-requirements",
+  "newton-corner-lot-setbacks"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Maximum width for the proposed residential curb opening",
+   "Required spacing from intersections, hydrants, and nearby curb cuts",
+   "Whether the driveway crosses a sidewalk or public right-of-way",
+   "Required site plan, sight-distance, drainage, or restoration documents",
+   "Whether a zoning or historic approval is needed"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "slug": "newton-lead-paint-renovation-rules",
+ "cluster": "Environment",
+ "eyebrow": "LEAD-SAFE RENOVATION",
+ "h1": "What lead paint containment rules apply when renovating an older Newton home?",
+ "title": "Massachusetts Lead-Safe Renovation Rules for Older Newton Homes",
+ "description": "Learn when paid renovation work in pre-1978 housing must be performed by a licensed lead-safe renovation contractor.",
+ "short_answer": "Massachusetts requires lead-safe renovation work by a licensed lead-safe renovation contractor when paid work in a pre-1978 home disturbs more than 6 square feet of painted surface per room indoors or more than 20 square feet outdoors. A lead-safe renovation project is different from a deleading project. Confirm which rules apply before disturbing painted surfaces.",
+ "short_answer_sources": [
+  "ma-lead-safe-renovation-for-homeowners"
+ ],
+ "sections": [
+  {
+   "heading": "When the lead-safe renovation rule applies",
+   "facts": [
+    {
+     "text": "Massachusetts applies its lead-safe renovation requirements to paid work in pre-1978 housing when more than 6 square feet of painted surface per room is disturbed indoors or more than 20 square feet is disturbed outdoors.",
+     "sources": [
+      "ma-lead-safe-renovation-for-homeowners"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Renovation versus deleading",
+   "facts": [
+    {
+     "text": "Massachusetts distinguishes renovation work from work intended to abate lead hazards or obtain a Letter of Compliance.",
+     "sources": [
+      "ma-lead-safe-renovation-for-homeowners"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does every repair in a pre-1978 home require a deleading project?",
+   "a": "No. Massachusetts distinguishes lead-safe renovation work from deleading. The applicable requirement depends on the work's purpose and the amount of painted surface disturbed.",
+   "sources": [
+    "ma-lead-safe-renovation-for-homeowners"
+   ]
+  }
+ ],
+ "related": [
+  "newton-window-replacement-permit",
+  "newton-siding-replacement-permit",
+  "newton-total-demolition-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The home's construction year",
+   "Whether painted surfaces contain lead or require testing",
+   "The interior or exterior area of painted surface to be disturbed",
+   "Whether the project is renovation work or deleading",
+   "Whether a licensed lead-safe renovation supervisor must be on site",
+   "Whether historic-property restrictions affect component removal or replacement"
+  ],
+  "office": "ma-lead-safe-renovation-for-homeowners"
+ }
+}

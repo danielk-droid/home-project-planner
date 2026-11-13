@@ -1,0 +1,63 @@
+{
+ "slug": "newton-garage-conversion-adu",
+ "cluster": "ADUs",
+ "eyebrow": "GARAGE CONVERSIONS",
+ "h1": "Can you convert an existing garage into an ADU in Newton, MA?",
+ "title": "Newton Garage Conversion ADUs: Existing Structures and Permit Rules",
+ "description": "Review Newton's rules for converting a lawful existing garage or accessory structure into an accessory dwelling unit.",
+ "short_answer": "Newton allows certain existing garages and other accessory structures to be converted into detached ADUs, subject to the City's size, zoning, and building-code requirements. A qualifying existing structure may be eligible for a larger by-right ADU under Newton's four-year condition. The conversion still needs the required building and safety approvals.",
+ "short_answer_sources": [
+  "newton-adu",
+  "760cmr"
+ ],
+ "sections": [
+  {
+   "heading": "Existing garage eligibility",
+   "facts": [
+    {
+     "text": "Newton's ADU guidance identifies an existing structure, including a garage, as a possible location for a detached ADU and describes conditions for the 1,200-square-foot by-right path.",
+     "sources": [
+      "newton-adu"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Building-code approval",
+   "facts": [
+    {
+     "text": "The state ADU regulation does not supersede the Massachusetts Building Code or Fire Code.",
+     "sources": [
+      "760cmr"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does an existing garage automatically qualify for a 1,200-square-foot ADU?",
+   "a": "No. Newton lists conditions involving the existing structure and its approval history. The property's specific situation must be checked against the current ordinance.",
+   "sources": [
+    "newton-adu"
+   ]
+  }
+ ],
+ "related": [
+  "newton-detached-adu-rules",
+  "newton-basement-adu-requirements",
+  "newton-adu-utility-connections"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the garage was lawfully established and meets Newton's four-year condition",
+   "Whether the conversion meets the ADU size and gross-floor-area limits",
+   "Whether the existing setbacks and height comply or have nonconforming status",
+   "Required foundation, insulation, vapor barrier, and fire-separation work",
+   "Utility connection and separate service requirements",
+   "Historic review if the structure may be historically significant"
+  ],
+  "office": "planning"
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "slug": "newton-load-bearing-wall-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "STRUCTURAL WALLS",
+ "h1": "Do I need a building permit to remove an interior wall in Newton, MA?",
+ "title": "Newton Interior Wall Removal Permits: Structural and Load-Bearing Work",
+ "description": "Understand why removing a load-bearing wall is different from ordinary repairs and when structural plans may be needed.",
+ "short_answer": "Removing or changing a load-bearing wall requires building-code review and a building permit when the work removes or changes structural support. The Massachusetts code specifically identifies removal or cutting of a structural beam or load-bearing support as work requiring a permit. Newton ISD should review the project plans before construction.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Structural permit requirement",
+   "facts": [
+    {
+     "text": "The state code identifies substantial cutting of a wall or partition and removal or cutting of structural beams or load-bearing supports as work requiring a permit.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Plans and inspections",
+   "facts": [
+    {
+     "text": "Newton ISD enforces the state building code and issues permits for regulated construction and alteration work.",
+     "sources": [
+      "isd"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I remove a wall without checking whether it is load-bearing?",
+   "a": "Do not assume a wall is non-structural. Have the existing framing and proposed work evaluated and confirm permit requirements with Newton ISD before starting.",
+   "sources": [
+    "ma-bbrs-10th-edition-building-code"
+   ]
+  }
+ ],
+ "related": [
+  "newton-kitchen-remodel-permit",
+  "newton-second-story-addition",
+  "newton-attached-garage-addition"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the wall carries roof, floor, or other structural loads",
+   "Whether an architect or structural engineer must prepare plans",
+   "Whether temporary support, a beam, or new posts are part of the design",
+   "Required inspections of structural connections and supports",
+   "Whether the work also changes electrical, plumbing, gas, or fire-safety systems"
+  ],
+  "office": "isd"
+ }
+}

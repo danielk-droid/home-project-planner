@@ -1,0 +1,61 @@
+{
+ "slug": "newton-half-story-definition",
+ "cluster": "Zoning rules",
+ "eyebrow": "HALF-STORIES",
+ "h1": "How does Newton zoning define and measure a half-story?",
+ "title": "Newton Half-Story Definition: Ceiling Height and Floor Area",
+ "description": "Learn the exact ceiling-height and floor-area test used in Newton's zoning definition of a half-story.",
+ "short_answer": "Newton defines a half-story as a story directly under a sloping roof where the area with a ceiling height of at least 7 feet is less than two-thirds of the area of the story below. This zoning definition should be applied to the actual floor plan and roof geometry.",
+ "short_answer_sources": [
+  "nwt-doc-29823-2"
+ ],
+ "sections": [
+  {
+   "heading": "The half-story test",
+   "facts": [
+    {
+     "text": "Newton's definition uses a ceiling-height threshold of 7 feet and compares the qualifying area with the area of the story directly below.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Project implications",
+   "facts": [
+    {
+     "text": "A dormer or attic conversion should be checked against the half-story definition as well as the property's separate height and floor-area limits.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is a ceiling height of exactly 7 feet included in the calculation?",
+   "a": "Yes. Newton's definition uses an area with a ceiling height of 7 feet or greater.",
+   "sources": [
+    "nwt-doc-29823-2"
+   ]
+  }
+ ],
+ "related": [
+  "newton-attic-conversion-permit",
+  "newton-dormer-addition-rules",
+  "newton-grade-plane-height-measurement"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The measured floor area with a ceiling height of 7 feet or greater",
+   "The area of the story directly below",
+   "Whether the proposed roof form changes the calculation",
+   "Whether the property is subject to an overlay district or separate height provision",
+   "Whether the project requires a building permit or zoning relief"
+  ],
+  "office": "planning"
+ }
+}

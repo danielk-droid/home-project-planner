@@ -1,0 +1,78 @@
+{
+ "slug": "newton-residential-zoning-districts-explained",
+ "cluster": "Zoning",
+ "eyebrow": "ZONING",
+ "h1": "What are Newton's SR and MR zoning districts?",
+ "title": "Newton Zoning Districts Explained: SR1, SR2, SR3, MR1–MR4",
+ "description": "What Newton's Single Residence (SR1–SR3) and Multi-Residence (MR1–MR4) districts are and which housing types the ordinance allows in each.",
+ "short_answer": "Newton's ordinance sets up Single Residence 1, 2 and 3 districts and Multi-Residence 1 through 4 districts. Detached single-family homes are permitted in all of them. Detached two-family homes are permitted in MR1–MR4 but not in SR1–SR3.",
+ "short_answer_sources": [
+  "ord"
+ ],
+ "sections": [
+  {
+   "heading": "What the use table says (Sec. 3.4.1)",
+   "facts": [
+    {
+     "text": "The ordinance establishes Single Residence 1, 2 and 3 and Multi-Residence 1, 2, 3 and 4 districts (Sec. 1.3.1).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Detached single-family housing: permitted in SR1–SR3 and MR1–MR4.",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Detached two-family housing: not allowed in SR1–SR3; permitted in MR1–MR4.",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Multi-family dwellings: not allowed in SR1–SR3 or MR1; special permit in MR2–MR4.",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I build a two-family house in an SR district?",
+   "a": "The use table marks detached two-family housing as not allowed in SR1–SR3.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Where are multi-family buildings allowed?",
+   "a": "By special permit in MR2–MR4. They are not allowed in SR1–SR3 or MR1.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Do setbacks differ by district?",
+   "a": "Yes. Sec. 3.1.3 and 3.2.3 set different setbacks by district and by lot creation date.",
+   "sources": [
+    "ord"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Your exact district and any overlay districts on your lot."
+  ],
+  "office": "planning"
+ },
+ "related": [
+  "how-to-find-your-newton-zoning-district",
+  "newton-zoning-setbacks",
+  "newton-floor-area-ratio-far"
+ ],
+ "date": "2026-11-13"
+}

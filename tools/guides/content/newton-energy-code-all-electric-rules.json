@@ -1,0 +1,79 @@
+{
+ "slug": "newton-energy-code-all-electric-rules",
+ "cluster": "Energy",
+ "eyebrow": "ENERGY CODE",
+ "h1": "Do new homes and renovations in Newton have to be all-electric?",
+ "title": "Newton Energy Code & All-Electric Rules for Homes",
+ "description": "Newton's Specialized Energy Code (since 2024) and fossil-fuel-free ordinance: electrified heating, cooling, cooking and drying for new builds and major renovations.",
+ "short_answer": "Yes, for projects that trigger the rules. Newton says complete building permit applications received after January 1, 2024 fall under the Specialized Energy Code. Starting January 1, 2025, all new construction and major renovation projects must electrify heating, cooling, cooking and clothes drying.",
+ "short_answer_sources": [
+  "energy"
+ ],
+ "sections": [
+  {
+   "heading": "What Newton says",
+   "facts": [
+    {
+     "text": "Complete building permit applications received after January 1, 2024 are subject to the Specialized Code.",
+     "sources": [
+      "energy"
+     ]
+    },
+    {
+     "text": "Since January 1, 2025, all new construction and major renovation projects must electrify heating, cooling, cooking and clothes drying, with electricity or thermal solar for hot water.",
+     "sources": [
+      "energy"
+     ]
+    },
+    {
+     "text": "Newton's 2026 notice says projects that trigger the fossil-fuel ordinance must be fully all-electric.",
+     "sources": [
+      "energy"
+     ]
+    },
+    {
+     "text": "Electrical permit applications are filed online.",
+     "sources": [
+      "elec"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does Newton require all-electric homes?",
+   "a": "For new construction and major renovations, Newton requires electrified heating, cooling, cooking and clothes drying (since January 1, 2025).",
+   "sources": [
+    "energy"
+   ]
+  },
+  {
+   "q": "What energy code applies in Newton?",
+   "a": "The Specialized Code applies to complete building permit applications received after January 1, 2024.",
+   "sources": [
+    "energy"
+   ]
+  },
+  {
+   "q": "Do I need a permit to install a heat pump?",
+   "a": "Heat pumps involve electrical work, and Newton electrical permits are filed online by a licensed electrician. Confirm any other permits with the City.",
+   "sources": [
+    "elec"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Whether your renovation counts as a 'major renovation' under the ordinance.",
+   "Which permits a heat pump installation needs."
+  ],
+  "office": "isd-contact"
+ },
+ "related": [
+  "electrical-plumbing-gas-permits-newton-homeowners",
+  "newton-building-inspections",
+  "how-to-get-a-building-permit-in-newton-ma"
+ ],
+ "date": "2026-11-13"
+}

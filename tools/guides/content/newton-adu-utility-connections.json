@@ -1,0 +1,64 @@
+{
+ "slug": "newton-adu-utility-connections",
+ "cluster": "ADUs",
+ "eyebrow": "ADU UTILITIES",
+ "h1": "Do ADUs in Newton need separate water, sewer, and electric meters?",
+ "title": "Newton ADU Utility Connections: Water, Sewer and Electric Services",
+ "description": "Learn which Newton utility office handles new water service and which meter and connection questions still need direct confirmation.",
+ "short_answer": "The official sources reviewed do not establish a universal requirement for every Newton ADU to have separate water, sewer, or electric meters. Newton's Utilities Division handles water-service applications and prepares a project-specific cost estimate for new water service. Confirm meter, sewer, and electrical-service requirements for the particular ADU before construction.",
+ "short_answer_sources": [
+  "nwt-public-works-updating-and-repairing-water-sewer-services",
+  "nwt-inspectional-services-plumbing-gas-and-electrical"
+ ],
+ "sections": [
+  {
+   "heading": "Water service",
+   "facts": [
+    {
+     "text": "Newton requires a water-service application for a new water service, after which the Utilities Division prepares a cost estimate for the work described by the City.",
+     "sources": [
+      "nwt-public-works-updating-and-repairing-water-sewer-services"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Trade permits",
+   "facts": [
+    {
+     "text": "Newton ISD administers separate plumbing, gas, and electrical trade permits where that work requires a permit.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Must every ADU have its own water meter?",
+   "a": "The reviewed official sources do not establish a universal separate-meter rule. Ask Newton Utilities and ISD about the proposed unit and existing service configuration.",
+   "sources": [
+    "nwt-public-works-updating-and-repairing-water-sewer-services",
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-detached-adu-rules",
+  "newton-garage-conversion-adu",
+  "newton-water-sewer-connection-fees"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the ADU may share existing water, sewer, and electric services",
+   "Whether separate or submetered utilities are required or permitted",
+   "Water-service connection, tapping, and inspection costs",
+   "Any sewer-capacity, connection, or tie-in fees",
+   "Electrical service capacity and utility approval",
+   "Backflow prevention or other water-service conditions"
+  ],
+  "office": "nwt-public-works"
+ }
+}

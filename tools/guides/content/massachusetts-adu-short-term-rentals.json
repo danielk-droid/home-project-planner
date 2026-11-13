@@ -1,0 +1,61 @@
+{
+ "slug": "massachusetts-adu-short-term-rentals",
+ "cluster": "ADUs",
+ "eyebrow": "ADU RENTALS",
+ "h1": "Can an ADU be used for Airbnb or short-term rentals in Massachusetts?",
+ "title": "Massachusetts and Newton ADU Short-Term Rental Rules",
+ "description": "Learn how state ADU law treats short-term rentals and what Newton currently says about renting an ADU.",
+ "short_answer": "Massachusetts state law allows municipalities to impose restrictions or prohibitions on short-term rentals of ADUs. Newton says its ADUs cannot be used as short-term rentals and must be rented for a period of more than 30 days. Confirm whether any separate rental registration or other housing requirements apply.",
+ "short_answer_sources": [
+  "mgl-section3",
+  "newton-adu"
+ ],
+ "sections": [
+  {
+   "heading": "State authority",
+   "facts": [
+    {
+     "text": "Massachusetts law allows local restrictions and prohibitions on short-term rentals of ADUs.",
+     "sources": [
+      "mgl-section3"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton's local rule",
+   "facts": [
+    {
+     "text": "Newton states that ADUs are prohibited from being used as short-term rentals and must be rented for more than 30 days.",
+     "sources": [
+      "newton-adu"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I list a Newton ADU on Airbnb for weekend stays?",
+   "a": "Newton's published ADU guidance says ADUs cannot be used as short-term rentals and must be rented for more than 30 days.",
+   "sources": [
+    "newton-adu"
+   ]
+  }
+ ],
+ "related": [
+  "massachusetts-adu-owner-occupancy-rules",
+  "newton-detached-adu-rules",
+  "newton-adu-property-taxes"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the proposed rental term meets Newton's minimum period",
+   "Whether any separate rental registration, inspection, or tax rules apply",
+   "Whether the property has a pre-February 12, 2025 ADU approval with different conditions",
+   "Whether the ADU is legally permitted and has required occupancy approval"
+  ],
+  "office": "planning"
+ }
+}

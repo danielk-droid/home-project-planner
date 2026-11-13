@@ -1,0 +1,133 @@
+{
+ "slug": "newton-building-inspections",
+ "cluster": "Permit process",
+ "eyebrow": "INSPECTIONS",
+ "h1": "How do building inspections work in Newton, MA?",
+ "title": "Newton Building Inspections: Scheduling and What Is Checked",
+ "description": "How to schedule a Newton building inspection, the call-before-8-AM rule, and what must be ready at each stage from excavation to final.",
+ "short_answer": "The permit holder arranges every inspection. For building inspections, call before 8 AM on the day the work is ready, and the inspector calls back by 9:30 AM to schedule it. Electrical and plumbing/gas inspections are scheduled in advance, and the final building inspection comes last.",
+ "short_answer_sources": [
+  "inspect"
+ ],
+ "sections": [
+  {
+   "heading": "Scheduling",
+   "facts": [
+    {
+     "text": "The permit holder must arrange all inspections.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Building inspections are same-day when the job is complete and ready.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Call before 8 AM on the desired day, and leave a voicemail if no one answers. The inspector calls back by 9:30 AM to schedule.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Electrical and plumbing/gas inspections are scheduled in advance.",
+     "sources": [
+      "inspect"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "What must be ready at each stage",
+   "facts": [
+    {
+     "text": "Excavation: inspected at the bottom of the hole, before footings or crushed stone.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Footings: forms stripped before the wall is poured. Deck footings are inspected before pouring.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Before backfill: foundation poured and coated if required. An as-built may be requested.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Rough: building weather-tight with roof, windows and doors installed and siding 75% complete. Rough plumbing, electrical and HVAC inspections done first, and all firestopping complete.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Insulation: insulation and vapor barrier installed, and a mid-point HERS rating uploaded to the portal.",
+     "sources": [
+      "inspect"
+     ]
+    },
+    {
+     "text": "Final: last, after all other inspections pass.",
+     "sources": [
+      "inspect"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "How do I schedule a building inspection in Newton?",
+   "a": "Call before 8 AM on the day you want it. Leave a voicemail if no one answers, and the inspector calls back by 9:30 AM.",
+   "sources": [
+    "inspect"
+   ]
+  },
+  {
+   "q": "Who is responsible for scheduling?",
+   "a": "The permit holder.",
+   "sources": [
+    "inspect"
+   ]
+  },
+  {
+   "q": "What is needed for a rough inspection?",
+   "a": "A weather-tight building with roof, windows and doors installed, siding 75% complete, rough trade inspections passed, and firestopping complete.",
+   "sources": [
+    "inspect"
+   ]
+  },
+  {
+   "q": "What is needed for an insulation inspection?",
+   "a": "Completed insulation, an installed vapor barrier, and a mid-point HERS rating uploaded to the portal.",
+   "sources": [
+    "inspect"
+   ]
+  },
+  {
+   "q": "When is the final inspection?",
+   "a": "Last, after all other inspections pass.",
+   "sources": [
+    "inspect"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Which inspections your specific permit requires."
+  ],
+  "office": "isd-contact"
+ },
+ "related": [
+  "how-to-close-an-open-permit-in-newton",
+  "how-to-get-a-building-permit-in-newton-ma",
+  "electrical-plumbing-gas-permits-newton-homeowners"
+ ],
+ "date": "2026-11-13"
+}

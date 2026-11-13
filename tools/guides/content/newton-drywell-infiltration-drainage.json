@@ -1,0 +1,62 @@
+{
+ "slug": "newton-drywell-infiltration-drainage",
+ "cluster": "Environment",
+ "eyebrow": "DRYWELLS",
+ "h1": "When is an on-site drywell or stormwater infiltration system required in Newton, MA?",
+ "title": "Newton Drywell and Infiltration Rules: Stormwater Planning",
+ "description": "Learn when Newton stormwater review may apply and which drywell design and sizing details need confirmation.",
+ "short_answer": "Newton's stormwater ordinance regulates certain land-disturbance and new-impervious-area projects, but the sources reviewed do not establish one universal drywell size or a citywide rule requiring every homeowner to install a drywell. Whether an infiltration system is needed depends on the project, site conditions, and Newton's stormwater requirements.",
+ "short_answer_sources": [
+  "nwt-doc-104834",
+  "nwt-public-works-engineering"
+ ],
+ "sections": [
+  {
+   "heading": "Stormwater permit triggers",
+   "facts": [
+    {
+     "text": "Newton's stormwater ordinance identifies land disturbance over 5,000 square feet and certain residential projects creating 401 to 1,000 square feet of new impervious area as permit categories.",
+     "sources": [
+      "nwt-doc-104834"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Engineering review",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews site plans involving new drainage and expansions of impervious area.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is a drywell always required for a new roof or driveway?",
+   "a": "The official sources reviewed do not establish that universal rule. Ask Engineering whether the project requires infiltration, a stormwater plan, or another approved drainage approach.",
+   "sources": [
+    "nwt-public-works-engineering"
+   ]
+  }
+ ],
+ "related": [
+  "newton-stormwater-management-permit",
+  "newton-sump-pump-drainage-rules",
+  "newton-patio-walkway-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the project triggers Newton's stormwater permit thresholds",
+   "The required design storm and runoff volume used for sizing",
+   "Whether soil testing or groundwater separation information is required",
+   "The drywell location, overflow route, and maintenance requirements",
+   "Whether wetland, floodplain, or utility constraints affect infiltration"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

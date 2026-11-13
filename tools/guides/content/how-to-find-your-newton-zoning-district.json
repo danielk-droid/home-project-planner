@@ -1,0 +1,80 @@
+{
+ "slug": "how-to-find-your-newton-zoning-district",
+ "cluster": "Zoning",
+ "eyebrow": "ZONING",
+ "h1": "How do I find my zoning district in Newton, MA?",
+ "title": "How to Find Your Zoning District in Newton, MA",
+ "description": "Where to look up your Newton zoning district: the City's interactive zoning map and GIS Browser, and what the ordinance says about the Official Zoning Map.",
+ "short_answer": "Look up your address on the City's interactive Zoning map or the Newton GIS Browser, both linked from the City GIS page. Under the zoning ordinance, the GIS zoning districts make up Newton's Official Zoning Map.",
+ "short_answer_sources": [
+  "gis",
+  "ord"
+ ],
+ "sections": [
+  {
+   "heading": "Official tools",
+   "facts": [
+    {
+     "text": "The City GIS page links to an interactive Zoning map and to the Newton GIS Browser for layers and property information.",
+     "sources": [
+      "gis"
+     ]
+    },
+    {
+     "text": "GIS zoning districts constitute Newton's Official Zoning Map (Sec. 1.3.2.C).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Printed copies of the Official Zoning Map are kept by the City Clerk (Sec. 1.3.2.E).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Where is the Newton zoning map?",
+   "a": "The City GIS page links to an interactive Zoning map and the Newton GIS Browser.",
+   "sources": [
+    "gis"
+   ]
+  },
+  {
+   "q": "Is the GIS map the official zoning map?",
+   "a": "Yes. Sec. 1.3.2.C of the ordinance says the GIS zoning districts constitute the Official Zoning Map.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Can I get a printed zoning map?",
+   "a": "The ordinance says the City Clerk keeps printed copies (Sec. 1.3.2.E).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "What do the district names mean?",
+   "a": "SR1–SR3 are Single Residence districts and MR1–MR4 are Multi-Residence districts (Sec. 1.3.1).",
+   "sources": [
+    "ord"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Your district if the property sits on a district boundary."
+  ],
+  "office": "planning"
+ },
+ "related": [
+  "newton-residential-zoning-districts-explained",
+  "newton-zoning-setbacks",
+  "newton-lot-coverage-limits"
+ ],
+ "date": "2026-11-13"
+}

@@ -1,0 +1,103 @@
+{
+ "slug": "how-to-close-an-open-permit-in-newton",
+ "cluster": "Permit process",
+ "eyebrow": "OPEN PERMITS",
+ "h1": "How do I close an open permit in Newton, MA?",
+ "title": "How to Close an Open Permit in Newton, MA",
+ "description": "Old Newton permits do not close on their own. What the City says about closing them, who may call, and why to hold final payment until closure.",
+ "short_answer": "Old permits do not close automatically. The completed work has to be inspected. Close the electrical, plumbing, gas and other trade permits first, then request the final building inspection. Only the owner or the contractor of record should call.",
+ "short_answer_sources": [
+  "close"
+ ],
+ "sections": [
+  {
+   "heading": "What the City says",
+   "facts": [
+    {
+     "text": "Old permits do not close automatically; completed work must be inspected.",
+     "sources": [
+      "close"
+     ]
+    },
+    {
+     "text": "Check the complete list of open permits.",
+     "sources": [
+      "close"
+     ]
+    },
+    {
+     "text": "Find your district inspector using the GIS browser linked on the City's closure page.",
+     "sources": [
+      "close"
+     ]
+    },
+    {
+     "text": "Close electrical, plumbing, gas and other department permits before requesting the final building inspection.",
+     "sources": [
+      "close"
+     ]
+    },
+    {
+     "text": "Only the property owner or contractor of record should call. Inspectors will not schedule closure inspections for brokers, agents, or new buyers.",
+     "sources": [
+      "close"
+     ]
+    },
+    {
+     "text": "Current work gets scheduling priority over old projects.",
+     "sources": [
+      "close"
+     ]
+    },
+    {
+     "text": "Don't pay a project in full until the final inspection and the permit is closed in the system.",
+     "sources": [
+      "close"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Do old permits expire or close on their own?",
+   "a": "No. The City says they do not close automatically. The completed work must be inspected.",
+   "sources": [
+    "close"
+   ]
+  },
+  {
+   "q": "Can my real estate agent schedule the closing inspection?",
+   "a": "No. The City says inspectors will not schedule closure inspections for brokers, agents, or new buyers.",
+   "sources": [
+    "close"
+   ]
+  },
+  {
+   "q": "In what order do permits close?",
+   "a": "Trade permits (electrical, plumbing, gas and others) close before the final building inspection.",
+   "sources": [
+    "close"
+   ]
+  },
+  {
+   "q": "When should I pay my contractor in full?",
+   "a": "The City advises waiting until after the final inspection and closure in the system.",
+   "sources": [
+    "close"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Which permits are open on your property, and who the district inspector is."
+  ],
+  "office": "isd-contact"
+ },
+ "related": [
+  "newton-building-inspections",
+  "newton-permit-portal-opengov",
+  "how-to-get-a-building-permit-in-newton-ma"
+ ],
+ "date": "2026-11-13"
+}

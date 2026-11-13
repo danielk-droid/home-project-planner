@@ -1,0 +1,62 @@
+{
+ "slug": "newton-generator-installation-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "GENERATORS",
+ "h1": "What permits are needed to install a whole-house generator in Newton, MA?",
+ "title": "Newton Whole-House Generator Permits: Electrical, Gas and Site Review",
+ "description": "Understand which City departments may review generator installation and which fuel, electrical, and location details must be confirmed.",
+ "short_answer": "A whole-house generator may involve separate electrical and gas work, which Newton regulates through its trade-permit process. The exact permit package depends on the generator's fuel source, connections, location, and site conditions. The available official sources do not establish one universal generator permit checklist or equipment setback.",
+ "short_answer_sources": [
+  "nwt-inspectional-services-plumbing-gas-and-electrical",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Electrical and gas permits",
+   "facts": [
+    {
+     "text": "Newton ISD administers separate electrical and gas permit applications and requires copies of the appropriate signed licenses for trade-permit applications.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Other City reviews",
+   "facts": [
+    {
+     "text": "Newton ISD enforces the state building code, the City zoning ordinance, and other applicable ordinances, and issues permits for regulated construction and equipment.",
+     "sources": [
+      "isd"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does every whole-house generator need both an electrical and a gas permit?",
+   "a": "The requirement depends on the generator's connections and fuel system. Confirm the electrical and gas permit scope with Newton ISD before installation.",
+   "sources": [
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-electrical-panel-upgrade-permit",
+  "newton-gas-line-service-installation",
+  "newton-heat-pump-mini-split-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the selected generator requires an electrical permit, gas permit, or both",
+   "Fuel storage and Fire Department requirements for the proposed fuel type",
+   "Zoning setbacks, equipment placement, and noise requirements",
+   "Any site-plan, drainage, or historic review",
+   "Required inspections and final sign-offs"
+  ],
+  "office": "isd"
+ }
+}

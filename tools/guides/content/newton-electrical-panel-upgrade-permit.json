@@ -1,0 +1,62 @@
+{
+ "slug": "newton-electrical-panel-upgrade-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "ELECTRICAL PANELS",
+ "h1": "What permits are required to upgrade an electrical panel in Newton, MA?",
+ "title": "Newton Electrical Panel Upgrade Permits: Applications and Inspections",
+ "description": "Review Newton's electrical permit process and the utility coordination details to confirm before a residential service upgrade.",
+ "short_answer": "An electrical panel upgrade should be handled through Newton ISD's electrical permit process. Newton provides a separate electrical application and requires appropriate signed license documentation. The available sources do not establish one universal utility-coordination sequence for every service upgrade.",
+ "short_answer_sources": [
+  "nwt-inspectional-services-plumbing-gas-and-electrical",
+  "inspect"
+ ],
+ "sections": [
+  {
+   "heading": "Electrical permit application",
+   "facts": [
+    {
+     "text": "Newton ISD administers electrical permits and requires the appropriate signed license documentation for trade-permit applications.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Inspections",
+   "facts": [
+    {
+     "text": "Newton states that a final inspection is required for all permits.",
+     "sources": [
+      "inspect"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a 100-amp-to-200-amp upgrade have the same process as every other panel change?",
+   "a": "The cited sources do not establish one process for every service size. Confirm the service rating, utility requirements, application documents, and inspections with Newton ISD and the electric utility.",
+   "sources": [
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-ev-charger-permit",
+  "newton-generator-installation-permit",
+  "newton-water-heater-replacement-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the service size is changing",
+   "Whether the utility must disconnect, reconnect, or approve the service",
+   "Whether the meter, service entrance, grounding, or feeder work changes",
+   "Whether other equipment changes require separate permits",
+   "The rough, service, and final inspection sequence"
+  ],
+  "office": "isd"
+ }
+}

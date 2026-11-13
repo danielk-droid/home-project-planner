@@ -1,0 +1,62 @@
+{
+ "slug": "newton-permit-expiration-extensions",
+ "cluster": "Permit process",
+ "eyebrow": "PERMIT EXPIRATION",
+ "h1": "How long is a Newton building permit valid, and how do you request an extension?",
+ "title": "Newton Building Permit Expiration: 180-Day Rule and Extensions",
+ "description": "Learn the Massachusetts building-code time limit for starting permitted work and what to confirm when a project is delayed.",
+ "short_answer": "The Massachusetts building-code guidance says a permit may expire if work does not begin within 180 days after issuance. The code also addresses work that is suspended or abandoned after it starts. Confirm the permit's current status and any written extension with Newton's building official before relying on an old permit.",
+ "short_answer_sources": [
+  "ma-news-10th-edition-of-the-state-building-code-board-of-bui",
+  "ma-bbrs-10th-edition-building-code"
+ ],
+ "sections": [
+  {
+   "heading": "The 180-day rule",
+   "facts": [
+    {
+     "text": "Massachusetts states that a building permit may expire if work does not commence within 180 days of issuance.",
+     "sources": [
+      "ma-news-10th-edition-of-the-state-building-code-board-of-bui"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Extensions",
+   "facts": [
+    {
+     "text": "The building code provides for written extensions by the building official under the conditions and time limits stated in the code.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a permit stay valid indefinitely after it is issued?",
+   "a": "No. Massachusetts guidance identifies a 180-day period for starting work and warns that a permit may expire when work does not commence within that period.",
+   "sources": [
+    "ma-news-10th-edition-of-the-state-building-code-board-of-bui"
+   ]
+  }
+ ],
+ "related": [
+  "newton-building-permit-fees-calculation",
+  "newton-certificate-of-occupancy-process",
+  "newton-special-permit-process-timeline"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The permit's issuance date and any recorded start of work",
+   "Whether work has been suspended or abandoned",
+   "Whether the building official granted a written extension",
+   "Whether the permit must be renewed or a new application filed",
+   "Whether fees or approved plans have changed"
+  ],
+  "office": "isd"
+ }
+}

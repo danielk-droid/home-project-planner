@@ -1,0 +1,61 @@
+{
+ "slug": "newton-adu-property-taxes",
+ "cluster": "ADUs",
+ "eyebrow": "ADU PROPERTY TAXES",
+ "h1": "How does building an ADU affect your property tax assessment in Newton, MA?",
+ "title": "Newton ADU Property Taxes: Assessment and Added Living Space",
+ "description": "Learn how Newton assesses property value and why the timing of completed improvements can affect the fiscal year in which a change appears.",
+ "short_answer": "An ADU may affect the property's assessed value because Newton's Assessing Department considers property condition, size, and improvements when estimating market value. Newton says assessments reflect the property's condition and market value as of January 1 of the prior year for the applicable fiscal year. The exact assessment change cannot be calculated from ADU size alone.",
+ "short_answer_sources": [
+  "nwt-assessing-faqs"
+ ],
+ "sections": [
+  {
+   "heading": "How Newton assesses property",
+   "facts": [
+    {
+     "text": "Newton describes an assessment as an estimate of market value and considers property characteristics and comparable sales when determining that value.",
+     "sources": [
+      "nwt-assessing-faqs"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Timing of improvements",
+   "facts": [
+    {
+     "text": "Newton says assessments reflect property condition and market value as of January 1 of the prior year for the relevant fiscal year.",
+     "sources": [
+      "nwt-assessing-faqs"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Will an ADU automatically increase my tax bill by a fixed amount?",
+   "a": "No fixed amount is established by the sources. The Assessing Department determines the property's assessed market value, and the tax effect depends on the assessment and applicable tax rate.",
+   "sources": [
+    "nwt-assessing-faqs"
+   ]
+  }
+ ],
+ "related": [
+  "newton-detached-adu-rules",
+  "newton-garage-conversion-adu",
+  "newton-renovation-property-tax-assessment"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "How the completed ADU changes the property's assessed characteristics",
+   "The fiscal year in which the completed improvement will be reflected",
+   "Whether an assessor inspection or updated property record is needed",
+   "The current residential tax rate and any applicable exemptions",
+   "Whether the property's assessment can be appealed"
+  ],
+  "office": "nwt-assessing"
+ }
+}

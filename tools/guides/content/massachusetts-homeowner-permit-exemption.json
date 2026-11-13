@@ -1,0 +1,63 @@
+{
+ "slug": "massachusetts-homeowner-permit-exemption",
+ "cluster": "Permit process",
+ "eyebrow": "HOMEOWNER PERMITS",
+ "h1": "When can a Newton homeowner pull their own building permit?",
+ "title": "Massachusetts Homeowner Permit Exemption: What Owner-Occupants Should Know",
+ "description": "Learn the distinction between a homeowner's building-code licensing exemption and the separate requirement to obtain permits.",
+ "short_answer": "Massachusetts building-code rules provide a homeowner exemption from certain construction-supervisor licensing requirements when the homeowner performs the work and supervises hired workers. This is not a general exemption from building permits or other safety requirements. Newton homeowners should confirm permit eligibility and the HIC Guaranty Fund consequences before applying in their own name.",
+ "short_answer_sources": [
+  "ma-regulations-780-cmr-tenth-edition-chapter-110r5-licensing",
+  "ma-hic-homeowner-resources"
+ ],
+ "sections": [
+  {
+   "heading": "Homeowner licensing exemption",
+   "facts": [
+    {
+     "text": "The Massachusetts construction-supervisor licensing regulation contains an exemption for a homeowner performing work for which a building permit is required, subject to the stated supervision conditions.",
+     "sources": [
+      "ma-regulations-780-cmr-tenth-edition-chapter-110r5-licensing"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Permit and consumer-protection consequences",
+   "facts": [
+    {
+     "text": "Massachusetts says a homeowner who applies for the building permit may not be eligible for compensation from the HIC Guaranty Fund.",
+     "sources": [
+      "ma-hic-homeowner-resources"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the homeowner exemption mean I can do regulated work without a building permit?",
+   "a": "No. The exemption concerns construction-supervisor licensing; it does not eliminate the underlying building permit or applicable code requirements.",
+   "sources": [
+    "ma-regulations-780-cmr-tenth-edition-chapter-110r5-licensing",
+    "ma-bbrs-10th-edition-building-code"
+   ]
+  }
+ ],
+ "related": [
+  "massachusetts-csl-vs-hic-license",
+  "massachusetts-hic-guaranty-fund",
+  "newton-permit-expiration-extensions"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the homeowner meets the exact owner-exemption requirements",
+   "Whether the building is a one- or two-family dwelling or another building type",
+   "Whether any work must be supervised by a CSL or registered design professional",
+   "Whether the homeowner's permit application affects HIC Guaranty Fund eligibility",
+   "Newton's current application requirements and permit-holder responsibilities"
+  ],
+  "office": "isd"
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "slug": "newton-historic-landmark-regulations",
+ "cluster": "Trees &amp; Historic",
+ "eyebrow": "HISTORIC LANDMARKS",
+ "h1": "How do landmark designation rules work for historic homes in Newton, MA?",
+ "title": "Newton Historic Landmark Rules: Exterior Work and Approval",
+ "description": "Learn when a Newton City Landmark or preservation-restricted property needs historic approval before exterior work.",
+ "short_answer": "A Newton City Landmark requires historic review before exterior work begins. A property with a Preservation Restriction also requires review under the terms of that restriction. The required approval and design standards depend on the individual property's designation and the scope of the proposed work.",
+ "short_answer_sources": [
+  "nhc",
+  "nwt-historic-preservation-submit-an-application"
+ ],
+ "sections": [
+  {
+   "heading": "Local Landmark review",
+   "facts": [
+    {
+     "text": "Newton requires a Local Landmark Review Application for changes to a designated City Landmark, with Historical Commission approval before exterior work begins.",
+     "sources": [
+      "nhc"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Preservation Restrictions",
+   "facts": [
+    {
+     "text": "Newton says the terms of each Preservation Restriction specify what work may or may not be allowed and require review before exterior work.",
+     "sources": [
+      "nhc"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does landmark approval replace a building permit?",
+   "a": "No. Historic approval and building permits are separate approvals. Newton says a historic certificate is necessary but not sufficient for a building permit.",
+   "sources": [
+    "nwt-doc-82943"
+   ]
+  }
+ ],
+ "related": [
+  "newton-total-demolition-permit",
+  "newton-partial-demolition-rules",
+  "newton-window-replacement-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the property is a City Landmark or has a Preservation Restriction",
+   "Which review application applies",
+   "Whether staff review or a full Commission hearing is required",
+   "Whether the proposed work meets the property's design guidelines",
+   "Whether other City permits are also required"
+  ],
+  "office": "nhc"
+ }
+}

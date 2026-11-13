@@ -1,0 +1,62 @@
+{
+ "slug": "newton-sump-pump-drainage-rules",
+ "cluster": "Environment",
+ "eyebrow": "SUMP PUMPS",
+ "h1": "Can you discharge a sump pump into the street or sewer in Newton, MA?",
+ "title": "Newton Sump Pump Discharge Rules: Sewer and Drainage Review",
+ "description": "Understand why sump-pump discharge should be checked with Newton Utilities and Engineering rather than connected to a system without approval.",
+ "short_answer": "The official sources reviewed do not establish a complete Newton homeowner rule for every sump-pump discharge location. Newton warns that stormwater and groundwater entering the sanitary sewer can overload the system. Confirm the allowed discharge route with Newton Utilities or Engineering before installing or changing a sump-pump connection.",
+ "short_answer_sources": [
+  "nwt-utilities-division-sanitary-sewer-overflow-alerts",
+  "nwt-public-works-engineering"
+ ],
+ "sections": [
+  {
+   "heading": "Sanitary sewer capacity",
+   "facts": [
+    {
+     "text": "Newton identifies stormwater and groundwater entering the sanitary sewer system as a possible cause of sewer overload and sanitary sewer overflows.",
+     "sources": [
+      "nwt-utilities-division-sanitary-sewer-overflow-alerts"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Discharge approval",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews drainage projects and site plans involving new drainage.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the cited Newton source establish that every street discharge is allowed or prohibited?",
+   "a": "No. The source explains the sewer-overflow concern but does not establish a complete homeowner discharge rule. Confirm the proposed route with the City.",
+   "sources": [
+    "nwt-utilities-division-sanitary-sewer-overflow-alerts"
+   ]
+  }
+ ],
+ "related": [
+  "newton-drywell-infiltration-drainage",
+  "newton-stormwater-management-permit",
+  "newton-water-sewer-connection-fees"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether discharge to the sanitary sewer is prohibited for the property",
+   "Whether discharge to the storm drain or street is allowed",
+   "Whether on-site infiltration is required or permitted",
+   "Whether the proposed outlet affects neighboring property or public infrastructure",
+   "Any required Engineering permit or drainage plan"
+  ],
+  "office": "nwt-public-works"
+ }
+}

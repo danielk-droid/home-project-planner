@@ -1,0 +1,62 @@
+{
+ "slug": "newton-stormwater-management-permit",
+ "cluster": "Environment",
+ "eyebrow": "STORMWATER",
+ "h1": "When does a residential project trigger a Newton Stormwater Management Permit?",
+ "title": "Newton Stormwater Permits: Land Disturbance and Impervious Area",
+ "description": "Review the published Newton land-disturbance and new-impervious-area thresholds that can trigger stormwater review.",
+ "short_answer": "Newton's stormwater ordinance requires a permit before certain land-disturbance projects that could disturb more than 5,000 square feet. It also identifies residential projects creating 401 to 1,000 square feet of new impervious area as a minor stormwater-review category. Other triggers include certain retaining walls and trench excavation requiring dewatering.",
+ "short_answer_sources": [
+  "nwt-doc-104834"
+ ],
+ "sections": [
+  {
+   "heading": "Land disturbance threshold",
+   "facts": [
+    {
+     "text": "Newton's ordinance lists projects that will or could disturb more than 5,000 square feet of land as requiring a stormwater management and erosion control permit.",
+     "sources": [
+      "nwt-doc-104834"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "New impervious area",
+   "facts": [
+    {
+     "text": "The ordinance lists residential development or redevelopment creating 401 to 1,000 square feet of new impervious area as a minor stormwater management category.",
+     "sources": [
+      "nwt-doc-104834"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can a small residential project trigger stormwater review even when it disturbs less than 5,000 square feet?",
+   "a": "Yes. The ordinance separately lists certain residential projects creating 401 to 1,000 square feet of new impervious area as a minor stormwater category.",
+   "sources": [
+    "nwt-doc-104834"
+   ]
+  }
+ ],
+ "related": [
+  "newton-drywell-infiltration-drainage",
+  "newton-patio-walkway-permit",
+  "newton-buffer-zone-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The total land-disturbance area",
+   "The net new impervious area",
+   "Whether the project is a residential development with four or fewer units",
+   "Whether a retaining wall or dewatering trench triggers review",
+   "Whether an exemption under Newton's stormwater rules applies",
+   "Required calculations, plans, and professional certifications"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

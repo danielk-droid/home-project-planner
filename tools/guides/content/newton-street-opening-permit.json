@@ -1,0 +1,63 @@
+{
+ "slug": "newton-street-opening-permit",
+ "cluster": "Permit process",
+ "eyebrow": "STREET OPENINGS",
+ "h1": "When do you need a street opening or trench permit from Newton Engineering?",
+ "title": "Newton Street Opening Permits: Excavation in the Public Way",
+ "description": "Learn why work in a Newton street or public right-of-way needs City coordination and when Massachusetts trench rules may apply.",
+ "short_answer": "Work that opens a Newton street or public right-of-way should be reviewed by Newton Engineering before excavation begins. Massachusetts also regulates construction-related trenches and requires compliance with state trench-safety rules. The exact Newton application, insurance, bond, and restoration requirements depend on the type and location of work.",
+ "short_answer_sources": [
+  "nwt-public-works-engineering",
+  "ma-trenches-laws-and-regulations"
+ ],
+ "sections": [
+  {
+   "heading": "Newton Engineering review",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews site work and public-way projects, including utility and street-related work.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Massachusetts trench safety",
+   "facts": [
+    {
+     "text": "Massachusetts trench regulations allow permitting authorities to stop trench work when required permits or public-safety protections are missing.",
+     "sources": [
+      "ma-trenches-laws-and-regulations"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a Newton Engineering permit replace state trench requirements?",
+   "a": "No. A local street or Engineering permit does not replace applicable Massachusetts trench-safety requirements.",
+   "sources": [
+    "ma-trenches-laws-and-regulations"
+   ]
+  }
+ ],
+ "related": [
+  "newton-underground-utility-dig-safe",
+  "newton-water-sewer-connection-fees",
+  "newton-scaffolding-sidewalk-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the excavation is in a public street, sidewalk, or private property",
+   "The correct Newton Engineering or street-opening application",
+   "Current bond, insurance, and restoration requirements",
+   "Whether a separate state trench permit is required",
+   "Required inspection and closeout documents",
+   "Dig Safe notification requirements"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

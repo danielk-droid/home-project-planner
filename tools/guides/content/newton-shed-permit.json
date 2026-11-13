@@ -1,0 +1,67 @@
+{
+ "slug": "newton-shed-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "SHEDS",
+ "h1": "Do I need a permit for a shed in Newton, MA?",
+ "title": "Newton Shed Permits: Size Exemptions and Zoning Setbacks",
+ "description": "Understand the Massachusetts shed permit exemption and the Newton zoning setbacks that can apply to detached accessory structures.",
+ "short_answer": "A one-story detached tool or storage shed may qualify for a Massachusetts building-permit exemption if its floor area is no greater than 120 square feet. Newton zoning still regulates where an accessory building may sit, including its distance from side and rear lot lines and the principal building.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-doc-29823"
+ ],
+ "sections": [
+  {
+   "heading": "The state shed exemption",
+   "facts": [
+    {
+     "text": "The tenth-edition building code exempts qualifying one-story detached tool sheds, storage sheds, playhouses, and similar structures when their floor area is no greater than 120 square feet.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton accessory-building setbacks",
+   "facts": [
+    {
+     "text": "Newton's zoning ordinance generally requires an accessory building to be at least 5 feet from a side or rear lot line and at least 5 feet from the principal building on the same lot.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    },
+    {
+     "text": "The front-lot-line setback for an accessory building follows the setback prescribed for the principal building.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is the Massachusetts shed exemption 200 square feet?",
+   "a": "No. The current tenth-edition code states a 120-square-foot limit for the qualifying one-story detached accessory structures described in the exemption.",
+   "sources": [
+    "ma-bbrs-10th-edition-building-code"
+   ]
+  }
+ ],
+ "related": [
+  "newton-fence-permit",
+  "newton-accessory-structure-setbacks",
+  "newton-detached-garage-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the proposed shed meets every condition of the 120-square-foot state exemption",
+   "The property's zoning district and applicable front setback",
+   "Whether a larger shed needs a building permit or zoning relief",
+   "Whether historic, wetlands, stormwater, utility, or easement restrictions apply"
+  ],
+  "office": "isd"
+ }
+}

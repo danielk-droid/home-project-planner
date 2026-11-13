@@ -1,0 +1,62 @@
+{
+ "slug": "newton-attached-garage-addition",
+ "cluster": "Permits by project",
+ "eyebrow": "ATTACHED GARAGES",
+ "h1": "What rules apply to adding an attached garage in Newton, MA?",
+ "title": "Newton Attached Garage Additions: Building Permits, Setbacks and Floor Area",
+ "description": "Understand the building and zoning reviews for an attached garage addition, including the effect on the principal building and lot.",
+ "short_answer": "An attached garage addition is an alteration or expansion of the principal building and should be reviewed by Newton ISD. The addition must also comply with the property's zoning standards, including setbacks and floor-area and lot-coverage limits. The exact fire-separation and structural details depend on the proposed plans and applicable building code.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-development-review-special-permits-land-use"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit",
+   "facts": [
+    {
+     "text": "The state building code requires a permit before regulated construction or alteration of a building.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Zoning relief",
+   "facts": [
+    {
+     "text": "Newton describes a project that meets its district dimensional standards and allowed uses as a by-right project; projects requiring zoning relief may need City Council approval.",
+     "sources": [
+      "nwt-development-review-special-permits-land-use"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does an attached garage use the detached accessory-building setback rule?",
+   "a": "Do not apply the detached accessory-building rule automatically. An attached garage is part of the principal building, so confirm the principal-building setbacks for the property's zoning district.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-detached-garage-rules",
+  "newton-second-story-addition",
+  "newton-load-bearing-wall-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The front, side, and rear setbacks for the principal building",
+   "The property's floor-area ratio and lot-coverage limits",
+   "Required fire separation between the garage and dwelling",
+   "Foundation, structural, and energy-code requirements",
+   "Whether special-permit approval is needed"
+  ],
+  "office": "planning"
+ }
+}

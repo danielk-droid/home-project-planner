@@ -1,0 +1,115 @@
+{
+ "slug": "newton-special-permits-and-variances",
+ "cluster": "Zoning",
+ "eyebrow": "ZONING RELIEF",
+ "h1": "What is the difference between a special permit and a variance in Newton?",
+ "title": "Special Permits vs. Variances in Newton, MA",
+ "description": "Who grants special permits and variances in Newton, the two-thirds City Council vote, site plan approval, and the legal tests for a variance.",
+ "short_answer": "The City Council grants special permits, by a two-thirds vote of all councilors, together with site plan approval. Variances are heard by the Zoning Board of Appeals. A variance requires conditions such as soil, shape or topography that especially affect the property, plus substantial hardship.",
+ "short_answer_sources": [
+  "ord"
+ ],
+ "sections": [
+  {
+   "heading": "Special permits",
+   "facts": [
+    {
+     "text": "The City Council grants special permits by a two-thirds vote of all the Council (Sec. 7.3.3.A).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "A special-permit application requires concurrent site plan approval (Sec. 7.3.1.A).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Findings include an appropriate site, no adverse effect on the neighborhood, and no nuisance or serious vehicle or pedestrian hazard (Sec. 7.3.3.C).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Examples include increased FAR and a third story for detached houses (Sec. 3.1.9.A.2, 3.2.11.A.2).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Variances",
+   "facts": [
+    {
+     "text": "Variance applications are heard by the Zoning Board of Appeals (Sec. 7.6.1.A).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "The property must have soil, shape or topography conditions that especially affect it, rather than the district generally (Sec. 7.6.1.B).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Literal enforcement must cause substantial hardship (Sec. 7.6.1.C).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Relief must not substantially harm the public good or undermine the ordinance's intent (Sec. 7.6.1.D).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Who approves special permits in Newton?",
+   "a": "The City Council, by a two-thirds vote of all councilors (Sec. 7.3.3.A).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Who hears variances?",
+   "a": "The Zoning Board of Appeals (Sec. 7.6.1.A).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Can I get a special permit to build a larger house?",
+   "a": "The ordinance lists increased FAR as something a special permit may allow (Sec. 3.1.9.A.2).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "What do I need to show for a variance?",
+   "a": "Conditions of soil, shape or topography that especially affect the property, substantial hardship, and no substantial detriment to the public good (Sec. 7.6.1).",
+   "sources": [
+    "ord"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Whether your project needs relief at all.",
+   "Application forms, fees and timelines."
+  ],
+  "office": "planning"
+ },
+ "related": [
+  "newton-floor-area-ratio-far",
+  "newton-building-height-limits",
+  "building-permit-vs-zoning-approval"
+ ],
+ "date": "2026-11-13"
+}

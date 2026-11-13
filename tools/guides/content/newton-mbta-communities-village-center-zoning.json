@@ -1,0 +1,61 @@
+{
+ "slug": "newton-mbta-communities-village-center-zoning",
+ "cluster": "Zoning rules",
+ "eyebrow": "VILLAGE CENTER ZONING",
+ "h1": "How does Newton's Village Center Overlay District affect residential properties?",
+ "title": "Newton Village Center Overlay District: VCOD Rules for Homeowners",
+ "description": "Learn how Newton's optional Village Center Overlay District interacts with existing zoning and why a property's map designation matters.",
+ "short_answer": "Newton's Village Center Overlay District creates additional zoning options near transit and village centers. The overlay is optional: property owners may use the existing zoning or the VCOD standards where the property is mapped into the overlay. The allowed uses, height, setbacks, and building form depend on the specific VCOD district.",
+ "short_answer_sources": [
+  "nwt-zoning-village-center-overlay-district-vcod"
+ ],
+ "sections": [
+  {
+   "heading": "What the overlay does",
+   "facts": [
+    {
+     "text": "Newton states that the VCOD allows by-right housing and commercial opportunities near transit, amenities, and gathering spaces.",
+     "sources": [
+      "nwt-zoning-village-center-overlay-district-vcod"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Optional zoning path",
+   "facts": [
+    {
+     "text": "The City describes the VCOD as an overlay that gives property owners the option of using the existing zoning or the new VCOD zoning.",
+     "sources": [
+      "nwt-zoning-village-center-overlay-district-vcod"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the VCOD require every property in a village center to be redeveloped?",
+   "a": "No. Newton says the overlay expands development rights and does not require new buildings to be built.",
+   "sources": [
+    "nwt-zoning-village-center-overlay-district-vcod"
+   ]
+  }
+ ],
+ "related": [
+  "newton-two-family-zoning-conversion",
+  "newton-lot-frontage-requirements",
+  "newton-residential-parking-requirements"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the parcel is in VC1, VC2, VC3, or the Multi-Residence Transit district",
+   "Whether the owner intends to use existing zoning or the overlay",
+   "Allowed use, height, footprint, and setbacks for the mapped district",
+   "Any restrictions near a lot line adjoining a residential district",
+   "Whether site-plan or special-permit review applies"
+  ],
+  "office": "planning"
+ }
+}

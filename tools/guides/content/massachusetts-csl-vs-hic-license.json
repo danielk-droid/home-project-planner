@@ -1,0 +1,63 @@
+{
+ "slug": "massachusetts-csl-vs-hic-license",
+ "cluster": "Building code",
+ "eyebrow": "CONTRACTOR CREDENTIALS",
+ "h1": "What is the difference between a Massachusetts CSL and HIC license?",
+ "title": "Massachusetts CSL vs. HIC Registration: Construction Oversight and Consumer Protection",
+ "description": "Understand the different purposes of a Construction Supervisor License and Home Improvement Contractor registration.",
+ "short_answer": "A Massachusetts Construction Supervisor License (CSL) concerns supervision of construction work regulated by the building code. Home Improvement Contractor (HIC) registration is a separate consumer-protection registration for contractors doing covered home-improvement work. A project may involve both requirements, so homeowners should not treat one credential as a substitute for the other.",
+ "short_answer_sources": [
+  "ma-when-is-a-construction-supervisor-license-required",
+  "ma-hic-contractor-resources"
+ ],
+ "sections": [
+  {
+   "heading": "Construction Supervisor License",
+   "facts": [
+    {
+     "text": "Massachusetts says certain construction projects require oversight by a licensed construction supervisor or registered design professional.",
+     "sources": [
+      "ma-when-is-a-construction-supervisor-license-required"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Home Improvement Contractor registration",
+   "facts": [
+    {
+     "text": "Massachusetts HIC rules separately regulate contractor registration, written contracts, permits, payments, and access to the Guaranty Fund.",
+     "sources": [
+      "ma-hic-contractor-resources"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does an HIC registration replace a CSL?",
+   "a": "No. The CSL and HIC programs address different requirements: construction supervision under the building code and contractor registration under the home-improvement law.",
+   "sources": [
+    "ma-when-is-a-construction-supervisor-license-required",
+    "ma-hic-contractor-resources"
+   ]
+  }
+ ],
+ "related": [
+  "massachusetts-homeowner-permit-exemption",
+  "massachusetts-hic-guaranty-fund",
+  "newton-building-permit-fees-calculation"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the project requires a CSL or registered design professional",
+   "Whether the contractor must hold active HIC registration",
+   "Whether the contractor's registration and license match the work being performed",
+   "Whether the homeowner is relying on an applicable owner exemption",
+   "Whether the proposed contract meets Massachusetts home-improvement contract rules"
+  ],
+  "office": "ma-office-of-consumer-affairs-and-business-regulation"
+ }
+}

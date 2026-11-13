@@ -1,0 +1,63 @@
+{
+ "slug": "newton-blasting-rock-removal-permit",
+ "cluster": "Permit process",
+ "eyebrow": "ROCK REMOVAL",
+ "h1": "What permits and notifications are required for rock blasting in Newton, MA?",
+ "title": "Newton Rock Removal and Blasting: Permit Review and Safety Oversight",
+ "description": "Understand that rock-removal work may involve separate City and state reviews and must be handled through qualified professionals.",
+ "short_answer": "The exact Newton permit sequence and notification requirements for residential rock blasting must be confirmed directly with the City's relevant departments. Massachusetts Dig Safe law requires advance notice for covered excavation and requires blasting to be identified in the notice. Do not attempt blasting yourself; obtain direct guidance from Newton Fire Prevention and the responsible City offices.",
+ "short_answer_sources": [
+  "ma-the-dig-safe-law-mgl-c-82-ss-40-40a-40e",
+  "nwt-fire-fire-prevention"
+ ],
+ "sections": [
+  {
+   "heading": "State excavation notice",
+   "facts": [
+    {
+     "text": "Massachusetts Dig Safe law requires covered excavators to provide advance notice and identify whether the excavation will involve blasting.",
+     "sources": [
+      "ma-the-dig-safe-law-mgl-c-82-ss-40-40a-40e"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "City review",
+   "facts": [
+    {
+     "text": "Newton Fire Prevention is the City's official Fire Department resource for fire-related permits and requirements.",
+     "sources": [
+      "nwt-fire-fire-prevention"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a Dig Safe ticket replace any City approval for rock removal?",
+   "a": "No. Dig Safe notification is a state excavation requirement; it does not establish that all separate City approvals have been obtained.",
+   "sources": [
+    "ma-guides-about-dig-safe",
+    "nwt-fire-fire-prevention"
+   ]
+  }
+ ],
+ "related": [
+  "newton-street-opening-permit",
+  "newton-underground-utility-dig-safe",
+  "newton-stormwater-management-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The specific City permits and approvals required for the proposed project",
+   "Whether Fire Prevention, Engineering, ISD, or other departments must review the work",
+   "Required advance notifications and property-specific approvals",
+   "Whether pre-project property documentation or monitoring is required",
+   "The applicable excavation, noise, and site-restoration conditions"
+  ],
+  "office": "nwt-fire-fire-prevention"
+ }
+}

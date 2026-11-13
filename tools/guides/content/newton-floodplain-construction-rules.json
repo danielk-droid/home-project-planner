@@ -1,0 +1,64 @@
+{
+ "slug": "newton-floodplain-construction-rules",
+ "cluster": "Environment",
+ "eyebrow": "FLOODPLAINS",
+ "h1": "What rules apply to building or renovating a home in a FEMA flood zone in Newton, MA?",
+ "title": "Newton Floodplain Construction Rules: FEMA and City Review",
+ "description": "Learn why work in a FEMA or City floodplain needs a site-specific review before construction or land alteration.",
+ "short_answer": "Newton identifies FEMA floodplain and City floodplain areas as locations where land-altering work must be reviewed by the Conservation Commission. The exact building elevation, flood-resistant construction, and substantial-improvement requirements depend on the property's mapped flood zone and proposed work. Do not rely on a general 50% rule without confirming the applicable code and floodplain provisions.",
+ "short_answer_sources": [
+  "nwt-conservation-office-wetlands-permitting-rev",
+  "ma-massachusetts-state-building-code-780-cmr"
+ ],
+ "sections": [
+  {
+   "heading": "Newton floodplain review",
+   "facts": [
+    {
+     "text": "Newton's wetlands guidance identifies FEMA Floodplain and City Floodplain as areas where land-altering work must be reviewed and permitted by the Conservation Commission.",
+     "sources": [
+      "nwt-conservation-office-wetlands-permitting-rev"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Building-code requirements",
+   "facts": [
+    {
+     "text": "The Massachusetts State Building Code includes flood-protection provisions, and the applicable requirements depend on the type and location of the building.",
+     "sources": [
+      "ma-massachusetts-state-building-code-780-cmr"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the 50% substantial-improvement threshold answer every Newton floodplain question?",
+   "a": "No. The sources reviewed do not establish that one threshold resolves every case. Confirm the mapped flood zone, current code provision, and City floodplain ordinance for the specific property.",
+   "sources": [
+    "nwt-conservation-office-wetlands-permitting-rev",
+    "ma-massachusetts-state-building-code-780-cmr"
+   ]
+  }
+ ],
+ "related": [
+  "newton-wetlands-protection-by-law",
+  "newton-buffer-zone-rules",
+  "newton-conservation-commission-filing"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The property's FEMA flood zone and base flood elevation",
+   "Whether the parcel is also within a City floodplain",
+   "Applicable substantial-improvement and substantial-damage definitions",
+   "Required lowest-floor and equipment elevations",
+   "Flood-resistant construction requirements",
+   "Whether a Conservation Commission filing or engineering plan is needed"
+  ],
+  "office": "nwt-divisions-conservation-office"
+ }
+}

@@ -1,0 +1,61 @@
+{
+ "slug": "newton-accessory-structure-setbacks",
+ "cluster": "Zoning rules",
+ "eyebrow": "ACCESSORY STRUCTURES",
+ "h1": "Where can accessory structures be placed on a Newton lot?",
+ "title": "Newton Accessory Structure Setbacks: Sheds, Garages and Other Buildings",
+ "description": "Review the general Newton accessory-building setbacks and check which additional rules apply to the property's zoning district.",
+ "short_answer": "Newton zoning generally requires an accessory building to be at least 5 feet from a side or rear lot line and at least 5 feet from the principal building on the same lot. Its front setback must be no closer to the front lot line than the setback required for the principal building. Other dimensional limits may apply.",
+ "short_answer_sources": [
+  "nwt-doc-29823"
+ ],
+ "sections": [
+  {
+   "heading": "Side, rear, and building separation",
+   "facts": [
+    {
+     "text": "Newton's accessory-building rule generally sets a 5-foot minimum from side and rear lot lines and a 5-foot separation from the principal building.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Front setback",
+   "facts": [
+    {
+     "text": "The front setback for an accessory building follows the setback prescribed for the principal building.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the 5-foot side and rear setback apply to every accessory structure?",
+   "a": "The cited provision is the general accessory-building rule. Confirm whether the proposed structure qualifies as an accessory building and whether a special district or other ordinance provision changes the result.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-shed-permit",
+  "newton-detached-garage-rules",
+  "newton-carport-permit-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The structure's zoning classification and permitted use",
+   "The lot's zoning district and front setback",
+   "Height, footprint, and lot-coverage restrictions",
+   "Whether the structure needs a building permit or special permit",
+   "Any historic, wetlands, or floodplain constraints"
+  ],
+  "office": "planning"
+ }
+}

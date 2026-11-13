@@ -1,0 +1,62 @@
+{
+ "slug": "newton-certificate-of-occupancy-process",
+ "cluster": "Permit process",
+ "eyebrow": "FINAL APPROVAL",
+ "h1": "When is a Certificate of Occupancy or Completion required in Newton, MA?",
+ "title": "Newton Certificate of Occupancy and Completion: Final Sign-Offs",
+ "description": "Learn why a project may need final inspections and closure of related permits before the City completes its approval process.",
+ "short_answer": "Newton requires final inspections for permits and tells property owners to close electrical, plumbing, gas, and other department permits before requesting final inspection on a building permit. Whether a project needs a Certificate of Occupancy, Certificate of Completion, or another final sign-off depends on the project and approval conditions. Confirm the required certificate with ISD.",
+ "short_answer_sources": [
+  "inspect",
+  "close"
+ ],
+ "sections": [
+  {
+   "heading": "Final inspections",
+   "facts": [
+    {
+     "text": "Newton states that a final inspection is required for all permits.",
+     "sources": [
+      "inspect"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Close related permits",
+   "facts": [
+    {
+     "text": "Newton instructs property owners to close electrical, plumbing, gas, and other department permits before calling for a final inspection on the building permit.",
+     "sources": [
+      "close"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I consider a project complete when the contractor says the work is finished?",
+   "a": "Not necessarily. Newton advises property owners to verify that required permits are closed and final inspections are complete before treating the project as closed out.",
+   "sources": [
+    "close"
+   ]
+  }
+ ],
+ "related": [
+  "newton-permit-expiration-extensions",
+  "newton-building-permit-fees-calculation",
+  "newton-street-opening-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the project requires a Certificate of Occupancy, Certificate of Completion, or another document",
+   "Which building, electrical, plumbing, gas, fire, and Engineering approvals remain open",
+   "Whether as-built plans or final site inspections are required",
+   "Whether any historic or Conservation conditions require a separate sign-off",
+   "Whether the City portal shows all permits as closed"
+  ],
+  "office": "isd"
+ }
+}

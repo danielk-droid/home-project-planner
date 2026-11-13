@@ -1,0 +1,52 @@
+{
+ "slug": "newton-central-ac-replacement-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "CENTRAL AIR",
+ "h1": "Do I need a permit to replace central air conditioning in Newton, MA?",
+ "title": "Newton Central AC Replacement Permits: Electrical and Equipment Work",
+ "description": "Learn which Newton permit offices to contact before replacing central air equipment, disconnects, or associated building systems.",
+ "short_answer": "Replacing central air equipment can involve regulated equipment and electrical work. Newton ISD administers electrical permits and other permits for regulated equipment. The official sources reviewed do not establish a universal mechanical-permit rule or one outdoor-unit setback for every replacement.",
+ "short_answer_sources": [
+  "isd",
+  "nwt-inspectional-services-plumbing-gas-and-electrical"
+ ],
+ "sections": [
+  {
+   "heading": "Equipment and electrical permits",
+   "facts": [
+    {
+     "text": "Newton ISD issues permits for regulated equipment and administers separate electrical permit applications.",
+     "sources": [
+      "isd",
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a like-for-like central AC replacement always need a mechanical permit?",
+   "a": "The sources reviewed do not establish a universal answer. Confirm the exact equipment replacement, duct changes, electrical work, and inspection requirements with Newton ISD.",
+   "sources": [
+    "isd"
+   ]
+  }
+ ],
+ "related": [
+  "newton-heat-pump-mini-split-permit",
+  "newton-electrical-panel-upgrade-permit",
+  "newton-generator-installation-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the project needs a mechanical, sheet-metal, electrical, or building permit",
+   "Whether ductwork, refrigerant piping, or structural supports will change",
+   "The zoning location and setback for the outdoor unit",
+   "Whether the property is in a Local Historic District or is a Landmark",
+   "Applicable current energy-code requirements"
+  ],
+  "office": "isd"
+ }
+}

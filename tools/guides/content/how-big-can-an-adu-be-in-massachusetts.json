@@ -1,0 +1,84 @@
+{
+ "slug": "how-big-can-an-adu-be-in-massachusetts",
+ "cluster": "ADUs",
+ "eyebrow": "ADUs",
+ "h1": "How big can an ADU be in Massachusetts?",
+ "title": "How Big Can an ADU Be in Massachusetts?",
+ "description": "The Massachusetts ADU size cap: half the main home's gross floor area or 900 sq ft, whichever is smaller. Plus how floor area is counted, and Newton's local limits.",
+ "short_answer": "Under state law, a protected-use ADU can be no larger than half the gross floor area of the main home or 900 square feet, whichever is smaller (M.G.L. c.40A §1A and 760 CMR 71.02). State guidance counts basements, lofts and other floored levels in gross floor area. Some towns, including Newton, allow larger ADUs under their own rules.",
+ "short_answer_sources": [
+  "mgl1a",
+  "760cmr"
+ ],
+ "sections": [
+  {
+   "heading": "The state cap",
+   "facts": [
+    {
+     "text": "The statutory definition caps ADU gross floor area at half the principal dwelling's gross floor area or 900 sq ft, whichever is smaller.",
+     "sources": [
+      "mgl1a"
+     ]
+    },
+    {
+     "text": "The state regulation repeats the same smaller-of-half-or-900-square-feet limit.",
+     "sources": [
+      "760cmr"
+     ]
+    },
+    {
+     "text": "State guidance says gross floor area includes basements, lofts and intermediate floored levels, and it lists some spaces that are excluded.",
+     "sources": [
+      "adu-faq"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton's local limits",
+   "facts": [
+    {
+     "text": "Newton's baseline for both internal and detached ADUs is 1,000 sq ft or 50% of the principal dwelling's gross floor area, whichever is less. A special permit can allow up to 1,200 sq ft for internal ADUs and 1,500 sq ft for detached ADUs (Ord. Sec. 6.7.1.D–E).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "What is the maximum ADU size under Massachusetts law?",
+   "a": "The smaller of half the main home's gross floor area or 900 square feet.",
+   "sources": [
+    "mgl1a"
+   ]
+  },
+  {
+   "q": "Does my basement count toward gross floor area?",
+   "a": "State guidance says gross floor area includes basements, lofts and intermediate floored levels.",
+   "sources": [
+    "adu-faq"
+   ]
+  },
+  {
+   "q": "Can a Newton ADU be bigger than 900 sq ft?",
+   "a": "Newton's ordinance sets a 1,000 sq ft / 50% baseline, with larger sizes by special permit (Sec. 6.7.1).",
+   "sources": [
+    "ord"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "How gross floor area is measured for your specific house."
+  ],
+  "office": "adu-state"
+ },
+ "related": [
+  "are-adus-allowed-in-massachusetts",
+  "newton-adu-rules",
+  "newton-floor-area-ratio-far"
+ ],
+ "date": "2026-11-13"
+}

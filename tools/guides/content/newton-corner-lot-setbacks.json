@@ -1,0 +1,61 @@
+{
+ "slug": "newton-corner-lot-setbacks",
+ "cluster": "Zoning rules",
+ "eyebrow": "CORNER LOTS",
+ "h1": "How do setbacks work on a corner lot in Newton, MA?",
+ "title": "Newton Corner Lot Setbacks: Front Yards and Property Boundaries",
+ "description": "Learn why a corner lot needs property-specific zoning review before choosing which side is the front, side, or rear yard.",
+ "short_answer": "A corner lot can have different setback consequences from an interior lot because it borders two streets. Newton's zoning ordinance contains a specific definition of a corner lot and separate dimensional standards for lot boundaries. Do not assume one street-facing side is automatically treated as a side yard; confirm the parcel's zoning interpretation with Planning.",
+ "short_answer_sources": [
+  "nwt-doc-29823"
+ ],
+ "sections": [
+  {
+   "heading": "Corner-lot classification",
+   "facts": [
+    {
+     "text": "Newton's zoning ordinance defines a corner lot separately from an interior lot and uses that definition when applying zoning requirements.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Property-specific setback review",
+   "facts": [
+    {
+     "text": "The applicable front, side, and rear setbacks must be determined from the parcel's zoning district and the ordinance provisions that apply to its lot boundaries.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does every corner lot have two front setbacks?",
+   "a": "The exact classification and setback treatment should be confirmed from the current zoning ordinance and parcel map. The sources reviewed do not support one universal answer for every corner lot.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-lot-frontage-requirements",
+  "newton-front-porch-addition-rules",
+  "newton-curb-cut-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Which lot lines the City treats as front, side, and rear",
+   "The lot's zoning district and dimensional table",
+   "Any corner visibility or sight-triangle restrictions",
+   "Whether an existing structure is nonconforming",
+   "The setback requirements for the proposed building or site improvement"
+  ],
+  "office": "planning"
+ }
+}

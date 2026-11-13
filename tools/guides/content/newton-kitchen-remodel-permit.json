@@ -1,0 +1,62 @@
+{
+ "slug": "newton-kitchen-remodel-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "KITCHEN REMODELS",
+ "h1": "What permits do I need to remodel a kitchen in Newton, MA?",
+ "title": "Newton Kitchen Remodel Permits: Building, Electrical, Plumbing and Gas",
+ "description": "Learn why a kitchen remodel may involve more than one permit and which trade work should be confirmed with Newton ISD.",
+ "short_answer": "A kitchen remodel that changes the building or regulated equipment may require a building permit. Electrical, plumbing, and gas work are handled through separate Newton trade-permit applications. The exact permit list depends on whether the project changes wiring, plumbing, gas piping, walls, or the room layout.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-inspectional-services-plumbing-gas-and-electrical"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit review",
+   "facts": [
+    {
+     "text": "The state building code requires an application and permit before regulated construction or alteration work begins.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Separate trade permits",
+   "facts": [
+    {
+     "text": "Newton ISD provides separate plumbing, gas, and electrical permit applications and requires the appropriate signed license documentation for those applications.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does replacing kitchen cabinets automatically require every trade permit?",
+   "a": "No universal answer is established by the cited sources. The trade permits depend on whether the work includes regulated electrical, plumbing, or gas installations or alterations.",
+   "sources": [
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-bathroom-remodel-permit",
+  "newton-load-bearing-wall-permit",
+  "newton-electrical-panel-upgrade-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the layout, walls, or structural members will change",
+   "Whether new or relocated receptacles, circuits, or appliances require an electrical permit",
+   "Whether plumbing or gas piping will be installed or altered",
+   "Whether ventilation, fire-safety, or energy-code requirements apply",
+   "Required inspection stages and approved plans"
+  ],
+  "office": "isd"
+ }
+}

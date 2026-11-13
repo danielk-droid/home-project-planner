@@ -1,0 +1,63 @@
+{
+ "slug": "massachusetts-adu-owner-occupancy-rules",
+ "cluster": "ADUs",
+ "eyebrow": "ADU OWNER OCCUPANCY",
+ "h1": "Can a city require owner occupancy for an ADU in Massachusetts?",
+ "title": "Massachusetts ADU Owner-Occupancy Rules: State Law and Local Exceptions",
+ "description": "Understand the state protection against municipal owner-occupancy mandates and the conditions that may still apply under Newton's local ADU rules.",
+ "short_answer": "Massachusetts law says a municipality may not require owner occupancy of either the ADU or the principal dwelling for the single protected ADU in a single-family residential zoning district. Newton identifies limited local conditions for certain larger ADUs, including some new detached units between 1,000 and 1,200 square feet. Check the local ordinance and the unit's eligibility before relying on the general rule.",
+ "short_answer_sources": [
+  "mgl-section3",
+  "newton-adu"
+ ],
+ "sections": [
+  {
+   "heading": "Massachusetts state rule",
+   "facts": [
+    {
+     "text": "State law protects one ADU in a single-family residential zoning district from a municipal owner-occupancy requirement for either the ADU or principal dwelling.",
+     "sources": [
+      "mgl-section3"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton-specific conditions",
+   "facts": [
+    {
+     "text": "Newton lists owner-occupancy conditions for certain new detached ADUs between 1,000 and 1,200 square feet and says the City Council may consider owner occupancy when granting a special permit for a larger ADU.",
+     "sources": [
+      "newton-adu"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the Massachusetts owner-occupancy protection apply to every ADU configuration?",
+   "a": "The statute protects the single ADU described in its single-family residential zoning provision. Multiple ADUs, certain local approvals, and Newton's specific size and property conditions require separate review.",
+   "sources": [
+    "mgl-section3",
+    "newton-adu"
+   ]
+  }
+ ],
+ "related": [
+  "massachusetts-adu-parking-rules",
+  "newton-detached-adu-rules",
+  "newton-adu-special-permit-exceptions"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the property and ADU qualify under the state protected-use provision",
+   "The ADU's size and whether it is internal or detached",
+   "Whether the existing structure meets Newton's age and occupancy conditions",
+   "Whether a special permit is needed for the proposed size",
+   "Whether the ADU was permitted before February 12, 2025, and is subject to transition rules"
+  ],
+  "office": "planning"
+ }
+}

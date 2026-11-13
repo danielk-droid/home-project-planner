@@ -1,0 +1,123 @@
+{
+ "slug": "electrical-plumbing-gas-permits-newton-homeowners",
+ "cluster": "Trades",
+ "eyebrow": "TRADES",
+ "h1": "Can a homeowner do electrical, plumbing or gas work in Newton, MA?",
+ "title": "Electrical, Plumbing & Gas Permits in Newton: Homeowner Rules",
+ "description": "What Newton and Massachusetts say about who can pull electrical, plumbing and gas permits, which minor plumbing repairs need no permit, and water heater permits.",
+ "short_answer": "Newton's electrical and plumbing/gas permit submissions require an appropriately signed license. Massachusetts issues plumbing permits only to licensed plumbers. The state lists minor repairs, such as fixing a leaky faucet or clearing a blocked drain, as not needing a permit.",
+ "short_answer_sources": [
+  "elec",
+  "plumb",
+  "ma-plumb"
+ ],
+ "sections": [
+  {
+   "heading": "Newton requirements",
+   "facts": [
+    {
+     "text": "Electrical permit submissions require an appropriately signed electrical license.",
+     "sources": [
+      "elec"
+     ]
+    },
+    {
+     "text": "Electrical submissions need liability insurance and workers' compensation unless the applicant is a sole proprietor.",
+     "sources": [
+      "elec"
+     ]
+    },
+    {
+     "text": "Plumbing and gas submissions require an appropriately signed plumbing or gas license.",
+     "sources": [
+      "plumb"
+     ]
+    },
+    {
+     "text": "Replacing a gas water heater requires both a plumbing permit and a gas permit.",
+     "sources": [
+      "plumb"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Massachusetts rules",
+   "facts": [
+    {
+     "text": "Massachusetts issues plumbing permits only to licensed plumbers.",
+     "sources": [
+      "ma-plumb"
+     ]
+    },
+    {
+     "text": "Only licensed professionals may install, remove or repair plumbing.",
+     "sources": [
+      "ma-plumb"
+     ]
+    },
+    {
+     "text": "Fixing a leaky faucet, valve or other working part, or clearing a blocked drain, is a minor repair that does not need a permit.",
+     "sources": [
+      "ma-plumb"
+     ]
+    },
+    {
+     "text": "Licensed master or journeyman plumbers may do gas fitting, but a gas-fitter license does not cover plumbing work.",
+     "sources": [
+      "ma-plumb"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I pull my own plumbing permit in Massachusetts?",
+   "a": "The state says plumbing permits are issued only to licensed plumbers.",
+   "sources": [
+    "ma-plumb"
+   ]
+  },
+  {
+   "q": "Do I need a permit to fix a leaky faucet?",
+   "a": "No. The state lists fixing a leaky faucet, valve or other working part, or clearing a blocked drain, as minor repairs that need no permit.",
+   "sources": [
+    "ma-plumb"
+   ]
+  },
+  {
+   "q": "What permits does a gas water heater replacement need in Newton?",
+   "a": "Both a plumbing permit and a gas permit.",
+   "sources": [
+    "plumb"
+   ]
+  },
+  {
+   "q": "What does a Newton electrical permit application need?",
+   "a": "An appropriately signed electrical license, plus liability insurance and workers' compensation unless the applicant is a sole proprietor.",
+   "sources": [
+    "elec"
+   ]
+  },
+  {
+   "q": "Can a gas fitter do plumbing?",
+   "a": "No. The state says a gas-fitter license does not authorize plumbing work.",
+   "sources": [
+    "ma-plumb"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Whether any homeowner electrical permit option applies to your work. HPP did not find this on the City pages it reviewed."
+  ],
+  "office": "isd-contact"
+ },
+ "related": [
+  "newton-building-inspections",
+  "newton-energy-code-all-electric-rules",
+  "how-to-get-a-building-permit-in-newton-ma"
+ ],
+ "date": "2026-11-13"
+}

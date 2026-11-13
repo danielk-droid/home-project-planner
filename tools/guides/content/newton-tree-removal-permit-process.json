@@ -1,0 +1,61 @@
+{
+ "slug": "newton-tree-removal-permit-process",
+ "cluster": "Trees &amp; Historic",
+ "eyebrow": "TREE REMOVAL",
+ "h1": "How do I apply for a tree removal permit in Newton, MA?",
+ "title": "Newton Tree Removal Permits: Protected Trees and Construction Review",
+ "description": "Learn when Newton requires a tree permit and why construction projects can trigger review even when tree removal is not planned.",
+ "short_answer": "Newton requires a permit to remove private-property trees with a trunk diameter of 6 inches or greater. The City also says a tree permit is required when construction takes place, whether or not trees are being removed. The application type depends on the property, tree, and project circumstances.",
+ "short_answer_sources": [
+  "tree"
+ ],
+ "sections": [
+  {
+   "heading": "Tree size threshold",
+   "facts": [
+    {
+     "text": "Newton states that, as of March 1, 2024, a permit is required to remove all trees with a trunk diameter of 6 inches or greater.",
+     "sources": [
+      "tree"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Construction permits",
+   "facts": [
+    {
+     "text": "Newton's tree-preservation guidance says a tree permit is also required when construction takes place, whether or not trees are involved.",
+     "sources": [
+      "tree"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is the current protected-tree threshold 8 inches?",
+   "a": "No. Newton's current tree-preservation guidance states that the permit threshold is 6 inches in trunk diameter or greater.",
+   "sources": [
+    "tree"
+   ]
+  }
+ ],
+ "related": [
+  "newton-tree-replacement-mitigation-fees",
+  "newton-total-demolition-permit",
+  "newton-stormwater-management-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Which tree permit type applies to the property and project",
+   "How the City measures the tree trunk diameter",
+   "Whether the tree is exempt because of the property or project category",
+   "Whether construction requires a permit even if no tree will be removed",
+   "Required replacement planting or payment conditions"
+  ],
+  "office": "nwt-parks-recreation-culture-urban-forestry"
+ }
+}

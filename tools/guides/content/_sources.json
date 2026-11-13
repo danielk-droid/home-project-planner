@@ -1,0 +1,416 @@
+{
+ "isd": {
+  "title": "Inspectional Services Department",
+  "url": "https://www.newtonma.gov/government/inspectional-services",
+  "short": "City ISD",
+  "checked": "Nov 13, 2026"
+ },
+ "isd-contact": {
+  "title": "Inspectional Services — Contact Us",
+  "url": "https://www.newtonma.gov/government/inspectional-services/contact-us",
+  "short": "ISD contact",
+  "checked": "Nov 13, 2026"
+ },
+ "bp": {
+  "title": "Building Permits",
+  "url": "https://www.newtonma.gov/government/inspectional-services/building-permits",
+  "short": "Building permits",
+  "checked": "Nov 13, 2026"
+ },
+ "checklist": {
+  "title": "Building Permit Application Checklist",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/29379/638630352968235564",
+  "short": "Checklist",
+  "checked": "Nov 13, 2026"
+ },
+ "fees": {
+  "title": "Permit Fee Schedule",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/29405/639029478067930000",
+  "short": "Fee schedule",
+  "checked": "Nov 13, 2026"
+ },
+ "inspect": {
+  "title": "Inspection Requests",
+  "url": "https://www.newtonma.gov/government/inspectional-services/inspection-requests-2376",
+  "short": "Inspection requests",
+  "checked": "Nov 13, 2026"
+ },
+ "close": {
+  "title": "How to Close Open Permits",
+  "url": "https://www.newtonma.gov/government/inspectional-services/how-to-close-open-permits",
+  "short": "Closing permits",
+  "checked": "Nov 13, 2026"
+ },
+ "elec": {
+  "title": "Electrical Permits",
+  "url": "https://www.newtonma.gov/government/inspectional-services/electrical-permits",
+  "short": "Electrical permits",
+  "checked": "Nov 13, 2026"
+ },
+ "plumb": {
+  "title": "Plumbing & Gas Permits",
+  "url": "https://www.newtonma.gov/government/inspectional-services/plumbing-gas-permits",
+  "short": "Plumbing & gas permits",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-plumb": {
+  "title": "Plumbers and Gas Fitters Consumer Fact Sheet (Mass.gov)",
+  "url": "https://www.mass.gov/info-details/plumbers-and-gas-fitters-consumer-fact-sheet",
+  "short": "Mass.gov fact sheet",
+  "checked": "Nov 13, 2026"
+ },
+ "gis": {
+  "title": "City of Newton GIS",
+  "url": "https://www.newtonma.gov/government/information-technology/gis",
+  "short": "Newton GIS",
+  "checked": "Nov 13, 2026"
+ },
+ "ord": {
+  "title": "Newton Zoning Ordinance, Chapter 30",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/29823/638717834291930000",
+  "short": "Zoning Ord.",
+  "checked": "Nov 13, 2026"
+ },
+ "planning": {
+  "title": "Planning & Development Department",
+  "url": "https://www.newtonma.gov/government/planning",
+  "short": "Planning Dept.",
+  "checked": "Nov 13, 2026"
+ },
+ "far": {
+  "title": "Residential FAR Calculator",
+  "url": "https://apps2.newtonma.gov/apps/far/",
+  "short": "FAR calculator",
+  "checked": "Nov 13, 2026"
+ },
+ "mgl3": {
+  "title": "M.G.L. c.40A §3",
+  "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section3",
+  "short": "c.40A §3",
+  "checked": "Nov 13, 2026"
+ },
+ "mgl1a": {
+  "title": "M.G.L. c.40A §1A",
+  "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section1A",
+  "short": "c.40A §1A",
+  "checked": "Nov 13, 2026"
+ },
+ "760cmr": {
+  "title": "760 CMR 71.00 — Protected Use ADUs",
+  "url": "https://www.mass.gov/doc/760-cmr-71-protected-use-accessory-dwelling-units/download",
+  "short": "760 CMR 71",
+  "checked": "Nov 13, 2026"
+ },
+ "adu-faq": {
+  "title": "Accessory Dwelling Unit FAQs (Mass.gov)",
+  "url": "https://www.mass.gov/info-details/accessory-dwelling-unit-adu-faqs",
+  "short": "State ADU FAQ",
+  "checked": "Nov 13, 2026"
+ },
+ "adu-state": {
+  "title": "Accessory Dwelling Units (Mass.gov)",
+  "url": "https://www.mass.gov/info-details/accessory-dwelling-units",
+  "short": "State ADU page",
+  "checked": "Nov 13, 2026"
+ },
+ "newton-adu": {
+  "title": "Newton Accessory Dwelling Units (ADU)",
+  "url": "https://www.newtonma.gov/government/planning/zoning-and-development/zoning-updates/accessory-dwelling-units-adu",
+  "short": "Newton ADU page",
+  "checked": "Nov 13, 2026"
+ },
+ "energy": {
+  "title": "Energy Code / Fossil Fuel-Free",
+  "url": "https://www.newtonma.gov/government/inspectional-services/energy-code",
+  "short": "Newton energy code",
+  "checked": "Nov 13, 2026"
+ },
+ "tree": {
+  "title": "Tree Preservation Ordinance",
+  "url": "https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry/tree-preservation-ordinance",
+  "short": "Tree ordinance page",
+  "checked": "Nov 13, 2026"
+ },
+ "tree-text": {
+  "title": "Tree Preservation Ordinance text (Ch. 21, Art. III)",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/117204/638445534507730000",
+  "short": "Ord. text",
+  "checked": "Nov 13, 2026"
+ },
+ "historic": {
+  "title": "Historic Preservation",
+  "url": "https://www.newtonma.gov/government/planning/historic-preservation",
+  "short": "Historic Preservation",
+  "checked": "Nov 13, 2026"
+ },
+ "nhc": {
+  "title": "Newton Historical Commission",
+  "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/newton-historical-commission",
+  "short": "Historical Commission",
+  "checked": "Nov 13, 2026"
+ },
+ "hdc": {
+  "title": "Auburndale Historic District Commission",
+  "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/local-historic-district-commissions/auburndale-hdc",
+  "short": "HDC FAQ",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-home-showdocument": {
+  "title": "Newton Revised Ordinances, Chapter 5, Fence Regulations",
+  "url": "https://www.newtonma.gov/Home/ShowDocument?id=29771",
+  "short": "Newton Revised Ordinances, Chapter 5, Fe",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-bbrs-10th-edition-building-code": {
+  "title": "Massachusetts State Building Code, 780 CMR, Tenth Edition, Section 105.2",
+  "url": "https://www.mass.gov/doc/bbrs-10th-edition-building-code/download",
+  "short": "Massachusetts State Building Code, 780 C",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-doc-29823": {
+  "title": "Newton Zoning Ordinance, Chapter 30, Section 3.4.3",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/29823/638055970231470000",
+  "short": "Newton Zoning Ordinance, Chapter 30, Sec",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-public-works-engineering": {
+  "title": "Newton Engineering Division",
+  "url": "https://www.newtonma.gov/government/public-works/engineering",
+  "short": "Newton Engineering Division",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-historic-preservation-submit-an-application": {
+  "title": "Newton Historic Preservation, Submit an Application",
+  "url": "https://www.newtonma.gov/government/planning/divisions/historic-preservation/submit-an-application",
+  "short": "Newton Historic Preservation, Submit an ",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-doc-104834": {
+  "title": "Newton Stormwater Management and Erosion Control Ordinance",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/104834/638260676720970000",
+  "short": "Newton Stormwater Management and Erosion",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-inspectional-services-plumbing-gas-and-electrical": {
+  "title": "Newton ISD Plumbing, Gas and Electrical Permits",
+  "url": "https://www.newtonma.gov/government/inspectional-services/plumbing-gas-and-electrical",
+  "short": "Newton ISD Plumbing, Gas and Electrical ",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-doc-29823-2": {
+  "title": "Newton Zoning Ordinance, Chapter 30, Definitions",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/29823/638887019852300000",
+  "short": "Newton Zoning Ordinance, Chapter 30, Def",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-development-review-special-permits-land-use": {
+  "title": "Newton Special Permits and Land Use",
+  "url": "https://www.newtonma.gov/government/planning/development-review/special-permits-land-use",
+  "short": "Newton Special Permits and Land Use",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-fire-fire-prevention": {
+  "title": "Newton Fire Department, Fire Prevention",
+  "url": "https://www.newtonma.gov/government/fire/fire-prevention",
+  "short": "Newton Fire Department, Fire Prevention",
+  "checked": "Nov 13, 2026"
+ },
+ "mgl-section6": {
+  "title": "Massachusetts General Laws, Chapter 40A, Section 6",
+  "url": "https://malegislature.gov/laws/generallaws/parti/titlevii/chapter40a/section6",
+  "short": "Massachusetts General Laws, Chapter 40A,",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-doc-29823-3": {
+  "title": "Newton Zoning Ordinance, Chapter 30, Section 5.1",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/29823/639035614023930000",
+  "short": "Newton Zoning Ordinance, Chapter 30, Sec",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-zoning-village-center-overlay-district-vcod": {
+  "title": "Newton Village Center Overlay District",
+  "url": "https://www.newtonma.gov/government/planning/zoning/village-center-overlay-district-vcod",
+  "short": "Newton Village Center Overlay District",
+  "checked": "Nov 13, 2026"
+ },
+ "mgl-section3": {
+  "title": "Massachusetts General Laws, Chapter 40A, Section 3",
+  "url": "https://malegislature.gov/laws/generallaws/parti/titlevii/chapter40a/section3",
+  "short": "Massachusetts General Laws, Chapter 40A,",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-regulations-760-cmr-7100-protected-use-accessory-dwelling": {
+  "title": "760 CMR 71.00, Protected Use Accessory Dwelling Units",
+  "url": "https://www.mass.gov/regulations/760-CMR-7100-protected-use-accessory-dwelling-units",
+  "short": "760 CMR 71.00, Protected Use Accessory D",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-doc-29823-4": {
+  "title": "Newton Zoning Ordinance, Chapter 30, Section 6.7",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/29823/638887019852292948",
+  "short": "Newton Zoning Ordinance, Chapter 30, Sec",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-public-works-updating-and-repairing-water-sewer-services": {
+  "title": "Newton Updating and Repairing Water and Sewer Services",
+  "url": "https://www.newtonma.gov/government/public-works/updating-and-repairing-water-sewer-services",
+  "short": "Newton Updating and Repairing Water and ",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-public-works": {
+  "title": "Newton Public Works, Utilities Division",
+  "url": "https://www.newtonma.gov/government/public-works",
+  "short": "Newton Public Works, Utilities Division",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-assessing-faqs": {
+  "title": "Newton Assessing Department FAQs",
+  "url": "https://www.newtonma.gov/government/assessing/faqs",
+  "short": "Newton Assessing Department FAQs",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-assessing": {
+  "title": "Newton Assessing Department",
+  "url": "https://www.newtonma.gov/government/assessing",
+  "short": "Newton Assessing Department",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-parks-recreation-culture-urban-forestry": {
+  "title": "Newton Urban Forestry / Tree Warden",
+  "url": "https://www.newtonma.gov/government/parks-recreation-culture/urban-forestry",
+  "short": "Newton Urban Forestry / Tree Warden",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-doc-117200": {
+  "title": "Newton Tree Preservation Ordinance Replacement and Payment Table, 2024",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/117200/638445489487430000",
+  "short": "Newton Tree Preservation Ordinance Repla",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-view-frequently-asked-questions": {
+  "title": "https://www.newtonma.gov/how-do-i/view/frequently-asked-questions",
+  "url": "https://www.newtonma.gov/how-do-i/view/frequently-asked-questions",
+  "short": "https://www.newtonma.gov/how-do-i/view/f",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-doc-82943": {
+  "title": "Newton Historic Preservation Certificate Review Process",
+  "url": "https://www.newtonma.gov/home/showpublisheddocument/82943/637846791352200000",
+  "short": "Newton Historic Preservation Certificate",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-conservation-office-wetlands-permitting-rev": {
+  "title": "Newton Wetlands Permitting Information",
+  "url": "https://www.newtonma.gov/government/planning/divisions/conservation-office/wetlands-permitting-rev",
+  "short": "Newton Wetlands Permitting Information",
+  "checked": "Nov 13, 2026"
+ },
+ "mgl-131-40": {
+  "title": "Massachusetts General Laws, Chapter 131, Section 40, Wetlands Protection Act",
+  "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleXIX/Chapter131/Section40",
+  "short": "Massachusetts General Laws, Chapter 131,",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-divisions-conservation-office": {
+  "title": "Newton Conservation Commission",
+  "url": "https://www.newtonma.gov/government/planning/divisions/conservation-office",
+  "short": "Newton Conservation Commission",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-massachusetts-state-building-code-780-cmr": {
+  "title": "Massachusetts State Building Code, 780 CMR",
+  "url": "https://www.mass.gov/massachusetts-state-building-code-780-cmr",
+  "short": "Massachusetts State Building Code, 780 C",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-lead-safe-renovation-for-homeowners": {
+  "title": "Massachusetts Lead-Safe Renovation for Homeowners",
+  "url": "https://www.mass.gov/info-details/lead-safe-renovation-for-homeowners",
+  "short": "Massachusetts Lead-Safe Renovation for H",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-trenches-laws-and-regulations": {
+  "title": "Massachusetts Trenches Laws and Regulations",
+  "url": "https://www.mass.gov/info-details/trenches-laws-and-regulations",
+  "short": "Massachusetts Trenches Laws and Regulati",
+  "checked": "Nov 13, 2026"
+ },
+ "nwt-utilities-division-sanitary-sewer-overflow-alerts": {
+  "title": "Newton Sanitary Sewer Overflow Alerts",
+  "url": "https://www.newtonma.gov/government/public-works/utilities-division/sanitary-sewer-overflow-alerts",
+  "short": "Newton Sanitary Sewer Overflow Alerts",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-guides-about-dig-safe": {
+  "title": "Massachusetts About Dig Safe",
+  "url": "https://www.mass.gov/guides/about-dig-safe",
+  "short": "Massachusetts About Dig Safe",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-the-dig-safe-law-mgl-c-82-ss-40-40a-40e": {
+  "title": "Massachusetts Dig Safe Law, G.L. c. 82, Sections 40 and 40A",
+  "url": "https://www.mass.gov/doc/the-dig-safe-law-mgl-c-82-ss-40-40a-40e/download",
+  "short": "Massachusetts Dig Safe Law, G.L. c. 82, ",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-when-is-a-construction-supervisor-license-required": {
+  "title": "Massachusetts When Is a Construction Supervisor License Required?",
+  "url": "https://www.mass.gov/info-details/when-is-a-construction-supervisor-license-required",
+  "short": "Massachusetts When Is a Construction Sup",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-hic-contractor-resources": {
+  "title": "Massachusetts HIC Contractor Resources",
+  "url": "https://www.mass.gov/info-details/hic-contractor-resources",
+  "short": "Massachusetts HIC Contractor Resources",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-office-of-consumer-affairs-and-business-regulation": {
+  "title": "Massachusetts Office of Consumer Affairs and Business Regulation",
+  "url": "https://www.mass.gov/orgs/office-of-consumer-affairs-and-business-regulation",
+  "short": "Massachusetts Office of Consumer Affairs",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-regulations-780-cmr-tenth-edition-chapter-110r5-licensing": {
+  "title": "780 CMR Tenth Edition, Chapter 110.R5, Licensing of Construction Supervisors",
+  "url": "https://www.mass.gov/regulations/780-CMR-tenth-edition-chapter-110r5-licensing-of-construction-supervisors",
+  "short": "780 CMR Tenth Edition, Chapter 110.R5, L",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-hic-homeowner-resources": {
+  "title": "Massachusetts HIC Homeowner Resources",
+  "url": "https://www.mass.gov/info-details/hic-homeowner-resources",
+  "short": "Massachusetts HIC Homeowner Resources",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-home-improvement-contractor-arbitration-and-guaranty-fund": {
+  "title": "Massachusetts HIC Arbitration and Guaranty Fund Regulation",
+  "url": "https://www.mass.gov/doc/home-improvement-contractor-arbitration-and-guaranty-fund/download",
+  "short": "Massachusetts HIC Arbitration and Guaran",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-home-improvement-contract-sample-language": {
+  "title": "Massachusetts Home Improvement Contract Sample Language",
+  "url": "https://www.mass.gov/info-details/home-improvement-contract-sample-language",
+  "short": "Massachusetts Home Improvement Contract ",
+  "checked": "Nov 13, 2026"
+ },
+ "ma-news-10th-edition-of-the-state-building-code-board-of-bui": {
+  "title": "Massachusetts Tenth Edition State Building Code Announcement",
+  "url": "https://www.mass.gov/news/10th-edition-of-the-state-building-code-board-of-building-regulations-and-standards",
+  "short": "Massachusetts Tenth Edition State Buildi",
+  "checked": "Nov 13, 2026"
+ },
+ "mgl-section10": {
+  "title": "Massachusetts General Laws, Chapter 40A, Section 10, Variances",
+  "url": "https://malegislature.gov/laws/generallaws/parti/titlevii/chapter40a/section10",
+  "short": "Massachusetts General Laws, Chapter 40A,",
+  "checked": "Nov 13, 2026"
+ },
+ "mgl-40a-9": {
+  "title": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section9",
+  "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter40A/Section9",
+  "short": "https://malegislature.gov/Laws/GeneralLa",
+  "checked": "Nov 13, 2026"
+ }
+}

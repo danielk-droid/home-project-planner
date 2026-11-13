@@ -1,0 +1,50 @@
+{
+ "slug": "newton-grade-plane-height-measurement",
+ "cluster": "Zoning rules",
+ "eyebrow": "BUILDING HEIGHT",
+ "h1": "How is building height measured from average natural grade in Newton, MA?",
+ "title": "Newton Building Height Rules: Grade Plane and Height Measurement",
+ "description": "Understand why a property's grade and the current zoning definitions matter when checking building height.",
+ "short_answer": "Newton zoning regulates building height through its dimensional standards, but the exact measurement must follow the definitions and district rules that apply to the property. Do not assume that the finished grade, a single low point, or the highest point of the roof alone determines zoning height. The City's current ordinance and a site-specific measurement are needed.",
+ "short_answer_sources": [
+  "nwt-doc-29823"
+ ],
+ "sections": [
+  {
+   "heading": "Zoning height review",
+   "facts": [
+    {
+     "text": "Newton's Chapter 30 zoning ordinance contains the dimensional controls and definitions used to determine whether a building complies with the applicable district standards.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I calculate zoning height using only the finished grade after construction?",
+   "a": "The sources reviewed do not support that shortcut. Confirm the applicable grade definition and survey method with Newton Planning before relying on a height calculation.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-second-story-addition",
+  "newton-half-story-definition",
+  "newton-retaining-wall-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The current zoning definition of grade plane applicable to the property",
+   "Whether natural, existing, or finished grade controls the calculation",
+   "The roof form and measurement point used for the building",
+   "Whether grading changes require Engineering or stormwater review",
+   "Whether an architect or land surveyor must prepare a height calculation"
+  ],
+  "office": "planning"
+ }
+}

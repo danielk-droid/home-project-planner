@@ -1,0 +1,64 @@
+{
+ "slug": "newton-pergola-trellis-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "PERGOLAS",
+ "h1": "Do I need a permit for a pergola or freestanding arbor in Newton, MA?",
+ "title": "Newton Pergola and Arbor Permits: Structure and Setback Rules",
+ "description": "Learn which questions determine whether a pergola or arbor needs building, zoning, or historic review.",
+ "short_answer": "The official sources reviewed do not establish one universal permit exemption or size threshold for every pergola, arbor, or trellis. A permanent structure should be checked with Newton ISD and Planning for its classification, size, height, foundation, and location. Historic district exterior-work rules may also apply.",
+ "short_answer_sources": [
+  "isd",
+  "nwt-doc-29823",
+  "nwt-historic-preservation-submit-an-application"
+ ],
+ "sections": [
+  {
+   "heading": "Building and zoning review",
+   "facts": [
+    {
+     "text": "The state building code regulates construction of buildings and structures, while Newton zoning contains rules for accessory buildings and other structures.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code",
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Historic review",
+   "facts": [
+    {
+     "text": "Exterior changes to properties in Newton's Local Historic Districts require a Historic District Application.",
+     "sources": [
+      "nwt-historic-preservation-submit-an-application"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is every open-roof pergola exempt because it has no solid roof?",
+   "a": "The official sources reviewed do not establish that rule. Ask Newton how the specific design is classified before relying on an exemption.",
+   "sources": [
+    "isd"
+   ]
+  }
+ ],
+ "related": [
+  "newton-accessory-structure-setbacks",
+  "newton-patio-walkway-permit",
+  "newton-front-porch-addition-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the proposed design is considered a building, accessory structure, or landscape feature",
+   "Whether a building permit is required based on size, height, and construction",
+   "Applicable zoning setbacks",
+   "Whether a foundation or permanent anchoring changes the review",
+   "Historic, tree, wetlands, and stormwater requirements"
+  ],
+  "office": "isd"
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "slug": "newton-dormer-addition-rules",
+ "cluster": "Zoning rules",
+ "eyebrow": "DORMERS",
+ "h1": "What are the zoning and permit limits for roof dormers in Newton, MA?",
+ "title": "Newton Dormer Rules: Roof Alterations, Half-Stories and Setbacks",
+ "description": "Understand how dormers can affect building permits, roof height, attic use, and Newton's half-story zoning definition.",
+ "short_answer": "A dormer that changes a roof or building structure should be reviewed by Newton ISD and checked against the property's zoning rules. Newton defines a half-story using the amount of floor area with a ceiling height of at least 7 feet under a sloping roof. The official sources reviewed do not establish one universal dormer-width limit for all Newton houses.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-doc-29823-2"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit",
+   "facts": [
+    {
+     "text": "The state building code requires a permit for regulated construction and alteration of a building.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Half-story treatment",
+   "facts": [
+    {
+     "text": "Newton's half-story definition uses the area with a ceiling height of 7 feet or greater under a sloping roof compared with the floor area of the story below.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a dormer automatically make an attic a full story?",
+   "a": "Not automatically. The zoning definition depends on the qualifying ceiling-height area and the area of the story below. The design must be measured against the current ordinance.",
+   "sources": [
+    "nwt-doc-29823-2"
+   ]
+  }
+ ],
+ "related": [
+  "newton-attic-conversion-permit",
+  "newton-half-story-definition",
+  "newton-second-story-addition"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The applicable dormer-width and roof-form rules for the zoning district",
+   "Whether the dormer changes the half-story calculation",
+   "Whether the dormer affects building height or a required setback",
+   "Whether the work changes the home's floor-area ratio",
+   "Whether historic review applies"
+  ],
+  "office": "planning"
+ }
+}

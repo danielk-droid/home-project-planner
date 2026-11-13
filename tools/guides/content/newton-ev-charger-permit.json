@@ -1,0 +1,62 @@
+{
+ "slug": "newton-ev-charger-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "EV CHARGERS",
+ "h1": "Do I need an electrical permit to install an EV home charger in Newton, MA?",
+ "title": "Newton EV Charger Permits: Home Electrical Installation Rules",
+ "description": "Check Newton's electrical permit process before adding a home charging circuit or charging equipment.",
+ "short_answer": "Installing a home EV charger involves electrical work that should be reviewed through Newton ISD's electrical permit process. Newton provides a separate electrical application and requires the appropriate signed license documentation. Confirm the exact permit and inspection requirements for the charger's voltage, circuit, and installation location.",
+ "short_answer_sources": [
+  "nwt-inspectional-services-plumbing-gas-and-electrical",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Electrical permit process",
+   "facts": [
+    {
+     "text": "Newton ISD administers electrical permits through its trade-permit process and lists signed license documentation among the required application materials.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Inspection",
+   "facts": [
+    {
+     "text": "Newton requires a final inspection for all permits.",
+     "sources": [
+      "inspect"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does Newton publish a separate EV-charger permit threshold?",
+   "a": "The sources reviewed do not establish a separate EV-charger threshold. Confirm the electrical permit application and inspection requirements with Newton ISD.",
+   "sources": [
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-electrical-panel-upgrade-permit",
+  "newton-generator-installation-permit",
+  "newton-heat-pump-mini-split-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether a dedicated circuit or panel work is needed",
+   "Whether the charger is indoors or outdoors",
+   "Whether the electrical service has enough capacity",
+   "Whether trenching or exterior site work triggers separate Engineering or Dig Safe requirements",
+   "The applicable inspection and final approval steps"
+  ],
+  "office": "isd"
+ }
+}

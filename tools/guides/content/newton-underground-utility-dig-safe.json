@@ -1,0 +1,62 @@
+{
+ "slug": "newton-underground-utility-dig-safe",
+ "cluster": "Permit process",
+ "eyebrow": "DIG SAFE",
+ "h1": "What are the rules for calling Dig Safe before excavating in Newton, MA?",
+ "title": "Massachusetts Dig Safe Rules for Newton Excavation Projects",
+ "description": "Learn when Massachusetts requires Dig Safe notification and how the notice period is counted before excavation.",
+ "short_answer": "Massachusetts requires excavators to contact Dig Safe at least 72 business hours before covered excavation. Saturdays, Sundays, and legal holidays do not count toward that period. The law applies broadly to excavation on public and private property, including work associated with construction and utility installation.",
+ "short_answer_sources": [
+  "ma-guides-about-dig-safe",
+  "ma-the-dig-safe-law-mgl-c-82-ss-40-40a-40e"
+ ],
+ "sections": [
+  {
+   "heading": "Advance notice",
+   "facts": [
+    {
+     "text": "Massachusetts says excavators must contact Dig Safe at least 72 business hours before excavation and must not begin before the assigned start time.",
+     "sources": [
+      "ma-guides-about-dig-safe"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Legal notice rule",
+   "facts": [
+    {
+     "text": "Massachusetts General Laws Chapter 82, Section 40A requires covered excavators to provide advance notice and premark the proposed excavation location.",
+     "sources": [
+      "ma-the-dig-safe-law-mgl-c-82-ss-40-40a-40e"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Do weekends count toward the 72-hour notice period?",
+   "a": "No. The Massachusetts notice period is counted in business hours and excludes Saturdays, Sundays, and legal holidays.",
+   "sources": [
+    "ma-guides-about-dig-safe"
+   ]
+  }
+ ],
+ "related": [
+  "newton-street-opening-permit",
+  "newton-gas-line-service-installation",
+  "newton-water-sewer-connection-fees"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the proposed work meets the legal definition of excavation",
+   "Whether the Dig Safe ticket is still valid for the planned work date",
+   "Whether blasting or a change in excavation location must be disclosed in the notice",
+   "Whether Newton also requires a street-opening, trench, or Engineering permit",
+   "Which party is responsible for obtaining and maintaining the valid ticket"
+  ],
+  "office": "ma-guides-about-dig-safe"
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "slug": "newton-basement-adu-requirements",
+ "cluster": "ADUs",
+ "eyebrow": "BASEMENT ADUs",
+ "h1": "What building code rules apply to building an ADU in a basement in Newton, MA?",
+ "title": "Newton Basement ADU Requirements: Egress, Ceiling Height and Safety",
+ "description": "Understand the state definition of an ADU and why a basement unit must also meet applicable building and life-safety codes.",
+ "short_answer": "A basement ADU must qualify as a self-contained dwelling unit with sleeping, cooking, and sanitary facilities and a separate entrance that meets safe-egress requirements. Massachusetts ADU regulations do not replace the state building code or fire-safety rules. The exact ceiling height, emergency escape opening, and fire-separation requirements must be confirmed for the proposed basement design.",
+ "short_answer_sources": [
+  "760cmr",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "State ADU definition",
+   "facts": [
+    {
+     "text": "Massachusetts defines an ADU as a self-contained housing unit with sleeping, cooking, and sanitary facilities on the same lot as the principal dwelling, with a separate entrance.",
+     "sources": [
+      "760cmr"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Building and life-safety code",
+   "facts": [
+    {
+     "text": "The state ADU regulation states that it is not intended to supersede the Building Code, Fire Code, Lead Law, or other state and federal health and safety laws.",
+     "sources": [
+      "760cmr"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the ADU law waive basement egress or ceiling-height rules?",
+   "a": "No. The ADU regulation does not supersede the state Building Code or Fire Code. The proposed basement unit must meet the applicable building and life-safety requirements.",
+   "sources": [
+    "760cmr"
+   ]
+  }
+ ],
+ "related": [
+  "newton-finished-basement-permit",
+  "newton-detached-adu-rules",
+  "newton-garage-conversion-adu"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Minimum ceiling height for the proposed basement layout",
+   "Required emergency escape and rescue openings",
+   "Separate entrance and safe-egress design",
+   "Fire-resistance, sound separation, smoke alarm, and carbon-monoxide requirements",
+   "Moisture, ventilation, insulation, and combustion-air requirements",
+   "The applicable Newton ADU size and zoning limits"
+  ],
+  "office": "isd"
+ }
+}

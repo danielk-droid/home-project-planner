@@ -1,0 +1,63 @@
+{
+ "slug": "newton-finished-basement-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "BASEMENTS",
+ "h1": "Do I need a permit to finish a basement in Newton, MA?",
+ "title": "Newton Finished Basement Permits: Building, Egress and Safety Review",
+ "description": "Learn why finishing a basement is a regulated building project and which ceiling-height, emergency-egress, and mechanical details require code review.",
+ "short_answer": "Finishing a basement involves alteration of a building and may change its use as living space, so the project should be reviewed by Newton ISD before construction. The Massachusetts building code regulates construction and life-safety features. The exact ceiling-height, emergency-egress, insulation, and equipment requirements depend on the proposed design and applicable code provisions.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit review",
+   "facts": [
+    {
+     "text": "The state building code requires a permit before regulated building alteration or a change in building use or occupancy.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Trade permits",
+   "facts": [
+    {
+     "text": "Electrical, plumbing, and gas work are handled through separate Newton ISD trade-permit applications.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does every finished basement have the same minimum ceiling height and egress requirements?",
+   "a": "No single answer applies to every design. Have Newton ISD review the proposed use, ceiling conditions, existing openings, and emergency escape provisions under the applicable code.",
+   "sources": [
+    "isd"
+   ]
+  }
+ ],
+ "related": [
+  "newton-bathroom-remodel-permit",
+  "newton-attic-conversion-permit",
+  "newton-basement-adu-requirements"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The minimum ceiling height for the proposed finished area and any sloped or obstructed portions",
+   "Whether an emergency escape and rescue opening is required and whether the existing opening complies",
+   "Required fire separation, smoke alarms, and carbon-monoxide alarms",
+   "Insulation, vapor-control, ventilation, and combustion-air requirements",
+   "Electrical, plumbing, gas, and heating permits",
+   "Whether the work changes the home's zoning floor-area calculations"
+  ],
+  "office": "isd"
+ }
+}

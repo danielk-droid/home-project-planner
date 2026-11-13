@@ -1,0 +1,62 @@
+{
+ "slug": "newton-conservation-commission-filing",
+ "cluster": "Environment",
+ "eyebrow": "CONSERVATION FILINGS",
+ "h1": "When do you need to file an RDA or NOI with the Newton Conservation Commission?",
+ "title": "Newton Conservation Commission Filings: RDA and NOI Applications",
+ "description": "Compare the application materials Newton lists for a Request for Determination of Applicability and a Notice of Intent.",
+ "short_answer": "Newton uses a Request for Determination of Applicability (RDA) and a Notice of Intent (NOI) as separate wetlands filing paths. The City lists a $50 filing fee for each application type. An NOI requires additional materials, including scaled plans, a project narrative, performance-standard information, and abutter-notification documents.",
+ "short_answer_sources": [
+  "nwt-conservation-office-wetlands-permitting-rev"
+ ],
+ "sections": [
+  {
+   "heading": "RDA application",
+   "facts": [
+    {
+     "text": "Newton lists an RDA Process Instructions and Checklist, WPA Form 1, scaled plans, and a $50 City filing fee as RDA application materials.",
+     "sources": [
+      "nwt-conservation-office-wetlands-permitting-rev"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "NOI application",
+   "facts": [
+    {
+     "text": "Newton lists WPA Form 3, scaled plans, a project narrative, performance-standard information, a $50 filing fee, and abutter-notification documents among NOI application materials.",
+     "sources": [
+      "nwt-conservation-office-wetlands-permitting-rev"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does an RDA require the same submission package as an NOI?",
+   "a": "No. Newton lists different filing materials for the two application types. The City should confirm which filing applies to the proposed activity.",
+   "sources": [
+    "nwt-conservation-office-wetlands-permitting-rev"
+   ]
+  }
+ ],
+ "related": [
+  "newton-wetlands-protection-by-law",
+  "newton-buffer-zone-rules",
+  "newton-floodplain-construction-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the project requires an RDA, NOI, or another determination",
+   "Whether the activity is within a regulated resource area",
+   "The applicable filing fee at the time of submission",
+   "The plans, narrative, and technical attachments needed",
+   "The current abutter list and proof-of-service requirements",
+   "Whether separate building, Engineering, tree, or historic permits are required"
+  ],
+  "office": "nwt-divisions-conservation-office"
+ }
+}

@@ -1,0 +1,61 @@
+{
+ "slug": "newton-window-replacement-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "WINDOWS",
+ "h1": "Do I need a building permit to replace windows in Newton, MA?",
+ "title": "Newton Window Replacement Permits: Same-Size Units and Structural Changes",
+ "description": "Check the difference between ordinary window replacement, structural opening changes, and historic district approval.",
+ "short_answer": "The state building code exempts ordinary repairs, but a project that cuts or changes structural supports may require a building permit. Newton also requires historic review for window changes at properties in its Local Historic Districts. The exact permit treatment of a same-size replacement outside a historic area should be confirmed with ISD.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-historic-preservation-submit-an-application"
+ ],
+ "sections": [
+  {
+   "heading": "Same-opening replacement and structural changes",
+   "facts": [
+    {
+     "text": "The state code exempts ordinary repairs but requires a permit for specified structural work, including substantial cutting of structural members or removal of load-bearing support.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Historic windows",
+   "facts": [
+    {
+     "text": "Newton's Local Historic District application process covers exterior changes. The city provides a specific window-replacement checklist for historic district applications.",
+     "sources": [
+      "nwt-historic-preservation-submit-an-application"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I change a window opening without checking for a permit?",
+   "a": "No. A change to the opening or its structural support may fall outside the ordinary-repair exemption. Confirm the plans with ISD before work begins.",
+   "sources": [
+    "ma-bbrs-10th-edition-building-code"
+   ]
+  }
+ ],
+ "related": [
+  "newton-siding-replacement-permit",
+  "newton-roof-replacement-permit",
+  "newton-historic-landmark-regulations"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the replacement keeps the existing opening and structural framing",
+   "The applicable emergency escape and rescue opening requirements for a bedroom",
+   "Whether the property is in a Local Historic District or is a Landmark",
+   "Whether window materials, dimensions, or visible appearance need historic approval"
+  ],
+  "office": "isd"
+ }
+}

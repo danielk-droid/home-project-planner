@@ -1,0 +1,68 @@
+{
+ "slug": "newton-swimming-pool-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "SWIMMING POOLS",
+ "h1": "What permits are required for a swimming pool in Newton, MA?",
+ "title": "Newton Swimming Pool Permits: Building Approval and Safety Enclosures",
+ "description": "Review Newton's pool permit requirement and the city's outdoor-pool enclosure rules before planning an in-ground or above-ground pool.",
+ "short_answer": "Newton requires a building permit before construction, installation, or enlargement of a private swimming pool. The city also requires an outdoor private pool to be enclosed by a fence or wall at least 5 feet high. Electrical, site, drainage, and zoning requirements may apply separately.",
+ "short_answer_sources": [
+  "nwt-home-showdocument",
+  "nwt-public-works-engineering"
+ ],
+ "sections": [
+  {
+   "heading": "Newton pool building permit",
+   "facts": [
+    {
+     "text": "Newton's private-pool ordinance prohibits starting construction, installation, or enlargement before the Inspectional Services Commissioner issues a building permit.",
+     "sources": [
+      "nwt-home-showdocument"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Outdoor pool enclosure",
+   "facts": [
+    {
+     "text": "Newton requires every outdoor private swimming pool to be enclosed by a fence or wall at least 5 feet high, whether or not the pool contains water.",
+     "sources": [
+      "nwt-home-showdocument"
+     ]
+    },
+    {
+     "text": "Newton Engineering reviews site plans involving expansions of impervious area, including pools.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does an above-ground pool avoid Newton's pool permit rule?",
+   "a": "Newton's cited ordinance applies to private swimming pools generally and requires a building permit before construction, installation, or enlargement. Confirm the requirements for the exact pool design with ISD.",
+   "sources": [
+    "nwt-home-showdocument"
+   ]
+  }
+ ],
+ "related": [
+  "newton-fence-permit",
+  "newton-patio-walkway-permit",
+  "newton-stormwater-management-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Required gate, latch, opening, and enclosure details for the specific pool",
+   "Applicable setbacks and location restrictions",
+   "Electrical bonding and electrical permit requirements",
+   "Any gas-heater or plumbing permits",
+   "Stormwater, wetlands, floodplain, and site-plan requirements"
+  ],
+  "office": "isd"
+ }
+}

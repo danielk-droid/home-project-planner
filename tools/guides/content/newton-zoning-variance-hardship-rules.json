@@ -1,0 +1,61 @@
+{
+ "slug": "newton-zoning-variance-hardship-rules",
+ "cluster": "Zoning relief &amp; appeals",
+ "eyebrow": "ZONING VARIANCES",
+ "h1": "What legal hardship standard is required to get a zoning variance in Newton, MA?",
+ "title": "Massachusetts and Newton Zoning Variances: The Legal Hardship Test",
+ "description": "Review the three statutory findings a zoning authority must make before granting a variance.",
+ "short_answer": "Massachusetts General Laws Chapter 40A, Section 10 sets a strict variance test. The authority must find special circumstances involving the soil conditions, shape, or topography of the land or structure; substantial hardship from literal enforcement; and that relief can be granted without substantial detriment to the public good or substantial derogation from zoning's purpose. A variance is not simply permission to avoid an inconvenient rule.",
+ "short_answer_sources": [
+  "mgl-section10"
+ ],
+ "sections": [
+  {
+   "heading": "Special land or structure conditions",
+   "facts": [
+    {
+     "text": "The statute requires circumstances relating to soil conditions, shape, or topography that particularly affect the land or structure and do not generally affect the zoning district.",
+     "sources": [
+      "mgl-section10"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Hardship and public-good findings",
+   "facts": [
+    {
+     "text": "The authority must find substantial hardship from literal enforcement and determine that relief can be granted without substantial detriment to the public good or substantial derogation from the ordinance's purpose.",
+     "sources": [
+      "mgl-section10"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is financial cost alone enough to prove a zoning variance hardship?",
+   "a": "The statute requires the specified land or structure circumstances as well as substantial hardship and the public-good findings. Financial cost alone is not the complete statutory test.",
+   "sources": [
+    "mgl-section10"
+   ]
+  }
+ ],
+ "related": [
+  "newton-nonconforming-lot-structure",
+  "newton-special-permit-process-timeline",
+  "newton-abutter-notification-public-hearing"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the requested relief is legally eligible for a variance",
+   "Which soil, shape, or topography conditions affect the property",
+   "Whether the hardship is specific to the property rather than the zoning district generally",
+   "Whether a special permit or by-right design is an alternative",
+   "The current Newton application, hearing, and filing requirements"
+  ],
+  "office": "planning"
+ }
+}

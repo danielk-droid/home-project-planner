@@ -1,0 +1,72 @@
+{
+ "slug": "newton-special-permit-process-timeline",
+ "cluster": "Zoning relief &amp; appeals",
+ "eyebrow": "SPECIAL PERMITS",
+ "h1": "How long does a City Council or ZBA special permit take in Newton, MA?",
+ "title": "Newton Special Permit Timeline: Public Hearings and Decision Deadlines",
+ "description": "Review the state statutory hearing and decision deadlines and the Newton City Council's special-permit process.",
+ "short_answer": "Massachusetts law generally requires a special-permit public hearing within 65 days after the application is filed and a decision within 90 days after the public hearing. The time limits may be extended by written agreement. Newton's City Council is the special-permit granting authority for the City's zoning process, and the full project timeline may be longer because application preparation and review occur before the hearing.",
+ "short_answer_sources": [
+  "mgl-40a-9",
+  "nwt-development-review-special-permits-land-use"
+ ],
+ "sections": [
+  {
+   "heading": "State hearing deadline",
+   "facts": [
+    {
+     "text": "Massachusetts General Laws Chapter 40A, Section 9 sets a general 65-day deadline for the special-permit public hearing after filing.",
+     "sources": [
+      "mgl-40a-9"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "State decision deadline",
+   "facts": [
+    {
+     "text": "The statute sets a general 90-day period for the decision after the public hearing, subject to a written extension agreement.",
+     "sources": [
+      "mgl-40a-9"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton's review process",
+   "facts": [
+    {
+     "text": "Newton's special-permit process involves an application to the City Council and a public hearing before the Land Use Committee.",
+     "sources": [
+      "nwt-development-review-special-permits-land-use"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does the 65-day deadline mean a Newton special permit is always finished within 65 days?",
+   "a": "No. The 65-day period is the general statutory deadline for holding the public hearing after filing. The decision period follows the hearing, and written extensions may be agreed.",
+   "sources": [
+    "mgl-40a-9"
+   ]
+  }
+ ],
+ "related": [
+  "newton-zoning-variance-hardship-rules",
+  "newton-abutter-notification-public-hearing"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the application is complete and accepted for filing",
+   "The current Land Use Committee meeting calendar",
+   "Whether a written extension agreement is anticipated",
+   "Whether the project requires a separate site-plan or other permit",
+   "The decision filing date and appeal deadline"
+  ],
+  "office": "nwt-development-review-special-permits-land-use"
+ }
+}

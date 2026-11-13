@@ -1,0 +1,63 @@
+{
+ "slug": "massachusetts-hic-guaranty-fund",
+ "cluster": "Building code",
+ "eyebrow": "HIC PROTECTIONS",
+ "h1": "How does the Massachusetts HIC arbitration and Guaranty Fund protect homeowners?",
+ "title": "Massachusetts HIC Arbitration and Guaranty Fund: Homeowner Protections",
+ "description": "Review the state contract, arbitration, and Guaranty Fund protections that may apply when a registered contractor does home-improvement work.",
+ "short_answer": "Massachusetts provides an HIC arbitration and Guaranty Fund process for eligible homeowners who have a qualifying dispute with a registered home-improvement contractor. The Guaranty Fund recovery is capped at $10,000 for actual loss. State law also requires covered home-improvement contracts over $1,000 to be in writing.",
+ "short_answer_sources": [
+  "ma-home-improvement-contractor-arbitration-and-guaranty-fund",
+  "ma-hic-homeowner-resources",
+  "ma-home-improvement-contract-sample-language"
+ ],
+ "sections": [
+  {
+   "heading": "Guaranty Fund limit",
+   "facts": [
+    {
+     "text": "Massachusetts regulations state that an eligible claimant may recover once up to, and no more than, $10,000 from the Guaranty Fund for actual loss.",
+     "sources": [
+      "ma-home-improvement-contractor-arbitration-and-guaranty-fund"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Written contracts",
+   "facts": [
+    {
+     "text": "Massachusetts requires home-improvement contracts over $1,000 to be in writing.",
+     "sources": [
+      "ma-home-improvement-contract-sample-language"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can every homeowner recover $10,000 from the HIC Guaranty Fund?",
+   "a": "No. The fund has eligibility requirements, and the $10,000 figure is a maximum recovery for eligible claims, not an automatic payment.",
+   "sources": [
+    "ma-home-improvement-contractor-arbitration-and-guaranty-fund"
+   ]
+  }
+ ],
+ "related": [
+  "massachusetts-csl-vs-hic-license",
+  "massachusetts-homeowner-permit-exemption",
+  "newton-building-permit-fees-calculation"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the contractor was properly registered when the work was contracted",
+   "Whether the homeowner and property meet the Guaranty Fund eligibility conditions",
+   "Whether arbitration is required or appropriate before a fund claim",
+   "Whether the homeowner pulled the building permit instead of the contractor",
+   "Current filing deadlines and claim documentation"
+  ],
+  "office": "ma-office-of-consumer-affairs-and-business-regulation"
+ }
+}

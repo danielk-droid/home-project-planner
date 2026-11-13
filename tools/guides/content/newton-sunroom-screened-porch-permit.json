@@ -1,0 +1,63 @@
+{
+ "slug": "newton-sunroom-screened-porch-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "PORCHES AND SUNROOMS",
+ "h1": "Do I need a permit for a screened porch or three-season sunroom in Newton, MA?",
+ "title": "Newton Screened Porch and Sunroom Permits: Foundations and Setbacks",
+ "description": "Learn why a new porch or sunroom needs building and zoning review and which design details must be confirmed.",
+ "short_answer": "A new screened porch or sunroom is a building project that should be reviewed by Newton ISD before construction. The structure must also meet the property's zoning standards for setbacks, height, and lot coverage. The exact foundation, frost-depth, and enclosure requirements depend on the design and applicable code.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit review",
+   "facts": [
+    {
+     "text": "The state building code requires a permit before regulated construction of a building or structure.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Site and zoning review",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews certain site plans involving additions, grading, impervious-area changes, and other site work.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is a screened porch treated the same as an open patio?",
+   "a": "Do not assume so. A porch or sunroom is a structure, and the building and zoning requirements depend on its foundation, enclosure, location, and design.",
+   "sources": [
+    "ma-bbrs-10th-edition-building-code",
+    "isd"
+   ]
+  }
+ ],
+ "related": [
+  "newton-front-porch-addition-rules",
+  "newton-patio-walkway-permit",
+  "newton-second-story-addition"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the porch is open, screened, three-season, or conditioned living space",
+   "Applicable foundation and frost-protection requirements",
+   "Setbacks, lot coverage, and floor-area treatment",
+   "Whether the structure changes the home's height or nonconforming status",
+   "Historic, wetlands, tree, and stormwater review"
+  ],
+  "office": "isd"
+ }
+}

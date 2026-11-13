@@ -1,0 +1,126 @@
+{
+ "slug": "newton-floor-area-ratio-far",
+ "cluster": "Zoning",
+ "eyebrow": "DIMENSIONS",
+ "h1": "What is the floor area ratio (FAR) limit in Newton, MA?",
+ "title": "Newton Floor Area Ratio (FAR) Limits Explained",
+ "description": "How Newton defines FAR, the maximum FAR by lot size for SR and MR districts (Ord. Sec. 3.1.9 and 3.2.11), and the City's FAR calculator.",
+ "short_answer": "FAR is the gross floor area of all buildings on a lot divided by the lot area. Newton's maximum FAR depends on the district and the lot size. For example, it is 0.46 on SR1 and SR2 lots of 4,999 sq ft or less, and it falls to 0.26 in SR1 at 25,000 sq ft or more. A special permit may allow more.",
+ "short_answer_sources": [
+  "ord",
+  "far"
+ ],
+ "sections": [
+  {
+   "heading": "Definition",
+   "facts": [
+    {
+     "text": "FAR is gross floor area of all buildings on the lot divided by total lot area (Sec. 1.5.5.A.1).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Maximum FAR by lot size — Single Residence (Sec. 3.1.9)",
+   "facts": [
+    {
+     "text": "SR1: 0.46 up to 4,999 sf; sliding 0.46→0.43 (5,000–6,999 sf), 0.43→0.33 (7,000–9,999), 0.33→0.31 (10,000–14,999), 0.31→0.28 (15,000–19,999), 0.28→0.26 (20,000–24,999); 0.26 at 25,000 sf or more.",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "SR2: 0.46 up to 4,999 sf; sliding 0.46→0.43 (5,000–6,999), 0.43→0.38 (7,000–9,999), 0.38→0.33 (10,000–14,999); 0.33 at 15,000 sf or more.",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "SR3: 0.48 up to 6,999 sf; sliding 0.48→0.41 (7,000–9,999), 0.41→0.38 (10,000–14,999); 0.38 (15,000–19,999); 0.38→0.36 (20,000–24,999); 0.36 at 25,000 sf or more.",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Maximum FAR by lot size — Multi-Residence (Sec. 3.2.11)",
+   "facts": [
+    {
+     "text": "MR1: 0.58 up to 4,999 sf; 0.58→0.53 (5,000–6,999); 0.53→0.48 (7,000–9,999); 0.48 (10,000–14,999); 0.48→0.43 (15,000–19,999); 0.43→0.38 (20,000–24,999); 0.38 at 25,000 sf or more.",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "MR2 and MR3: 0.58 up to 4,999 sf; 0.58→0.53 (5,000–6,999); 0.53 (7,000–9,999); 0.53→0.43 (10,000–14,999); 0.43→0.38 (15,000–19,999); 0.38 at 20,000 sf or more.",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Going above the limit",
+   "facts": [
+    {
+     "text": "An increased FAR may be allowed by special permit if it fits the neighborhood's size, scale and design (Sec. 3.1.9.A.2, 3.2.11.A.2).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "The City offers a FAR calculator, described as an estimate rather than a parcel approval.",
+     "sources": [
+      "far"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "How is FAR calculated in Newton?",
+   "a": "Gross floor area of all buildings on the lot divided by total lot area (Sec. 1.5.5.A.1).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "What is the maximum FAR in SR2 on a 10,000 sq ft lot?",
+   "a": "Sec. 3.1.9 sets 0.38 at 10,000 sq ft, declining toward 0.33 at 14,999 sq ft.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Can I exceed the FAR limit?",
+   "a": "An increased FAR may be allowed by special permit (Sec. 3.1.9.A.2).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Is there an official FAR calculator?",
+   "a": "Yes. The City has a residential FAR calculator, which it describes as an estimate, not an approval.",
+   "sources": [
+    "far"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Which spaces count as gross floor area on your plans.",
+   "Your exact lot area from survey or City records."
+  ],
+  "office": "planning"
+ },
+ "related": [
+  "newton-lot-coverage-limits",
+  "newton-special-permits-and-variances",
+  "how-much-can-i-build-on-my-lot"
+ ],
+ "date": "2026-11-13"
+}

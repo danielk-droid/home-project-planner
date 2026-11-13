@@ -1,0 +1,64 @@
+{
+ "slug": "newton-detached-adu-rules",
+ "cluster": "ADUs",
+ "eyebrow": "DETACHED ADUs",
+ "h1": "What are the specific rules and setbacks for building a detached ADU in Newton, MA?",
+ "title": "Newton Detached ADU Rules: Size, Height, Setbacks and Permits",
+ "description": "Review Newton's current detached ADU size and setback standards and identify which larger-unit paths require additional approval.",
+ "short_answer": "Newton allows a new detached ADU by right up to 1,000 square feet or 50% of the principal dwelling's total gross floor area, whichever is smaller. Certain existing accessory structures and owner-occupancy situations may qualify for a detached ADU up to 1,200 square feet, while a detached ADU up to 1,500 square feet requires a special permit. Setbacks and height depend on the local ordinance and building design.",
+ "short_answer_sources": [
+  "newton-adu",
+  "nwt-doc-29823-4"
+ ],
+ "sections": [
+  {
+   "heading": "By-right size",
+   "facts": [
+    {
+     "text": "Newton's standard by-right detached ADU limit is 1,000 square feet or 50% of the principal dwelling's total gross floor area, whichever is smaller.",
+     "sources": [
+      "newton-adu"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Larger detached ADUs",
+   "facts": [
+    {
+     "text": "Newton identifies qualifying detached ADUs up to 1,200 square feet that may be permitted by right under stated conditions, and detached ADUs up to 1,500 square feet that require a special permit.",
+     "sources": [
+      "newton-adu",
+      "nwt-doc-29823-4"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can every detached ADU be 1,200 square feet by right?",
+   "a": "No. Newton lists conditions for the 1,200-square-foot path, including conditions involving an existing accessory structure or owner occupancy. The standard new detached ADU limit is lower.",
+   "sources": [
+    "newton-adu"
+   ]
+  }
+ ],
+ "related": [
+  "newton-accessory-structure-setbacks",
+  "newton-garage-conversion-adu",
+  "newton-adu-special-permit-exceptions"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the detached unit is new construction or uses an existing lawful accessory structure",
+   "Whether the principal dwelling or accessory structure meets the four-year condition",
+   "The applicable height and side, rear, and front setbacks",
+   "Whether the proposed unit requires a special permit",
+   "Whether the property is a Local Landmark or in a Local Historic District",
+   "Required building, utility, fire, and site approvals"
+  ],
+  "office": "planning"
+ }
+}

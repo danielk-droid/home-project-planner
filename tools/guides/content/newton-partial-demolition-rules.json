@@ -1,0 +1,62 @@
+{
+ "slug": "newton-partial-demolition-rules",
+ "cluster": "Trees &amp; Historic",
+ "eyebrow": "PARTIAL DEMOLITION",
+ "h1": "When does an addition or remodel trigger Newton's demolition delay ordinance?",
+ "title": "Newton Partial Demolition Rules: Roof and Exterior Wall Removal",
+ "description": "Learn when an addition or major renovation may count as partial demolition of an older structure.",
+ "short_answer": "Newton says an addition to a building over 50 years old may qualify as partial demolition if it removes 50% or more of the roof or removes or encloses 50% or more of an exterior wall. These projects must be submitted for historical review. The Commission may also review removal of historic architectural features in certain cases.",
+ "short_answer_sources": [
+  "nhc",
+  "nwt-view-frequently-asked-questions"
+ ],
+ "sections": [
+  {
+   "heading": "Roof and exterior wall thresholds",
+   "facts": [
+    {
+     "text": "Newton identifies removal of 50% or more of a roof, or removal or enclosure of 50% or more of an exterior wall, as possible partial demolition.",
+     "sources": [
+      "nhc"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Historic review",
+   "facts": [
+    {
+     "text": "Newton's historic review process covers partial demolition of buildings over 50 years old.",
+     "sources": [
+      "nwt-historic-preservation-submit-an-application"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can adding a large rear addition trigger demolition review?",
+   "a": "Yes. Newton says an addition may qualify as partial demolition when it involves removal of at least half of the roof or removal or enclosure of at least half of an exterior wall on a structure over 50 years old.",
+   "sources": [
+    "nhc"
+   ]
+  }
+ ],
+ "related": [
+  "newton-total-demolition-permit",
+  "newton-historic-landmark-regulations",
+  "newton-second-story-addition"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The structure's age and whether the 50-year threshold is met",
+   "How Newton measures the roof or exterior-wall percentage",
+   "Whether the work removes or alters character-defining historic features",
+   "Whether the structure is in a Local Historic District, is a Landmark, or has a Preservation Restriction",
+   "Whether the project also requires a building permit or zoning relief"
+  ],
+  "office": "nhc"
+ }
+}

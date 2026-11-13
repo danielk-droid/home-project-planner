@@ -1,0 +1,64 @@
+{
+ "slug": "newton-total-demolition-permit",
+ "cluster": "Trees &amp; Historic",
+ "eyebrow": "TOTAL DEMOLITION",
+ "h1": "What is the permit process and timeline to tear down a house in Newton, MA?",
+ "title": "Newton House Demolition Permits: Historic Review and City Sign-Offs",
+ "description": "Review Newton's demolition application and historic-review process before planning to remove a house or other older structure.",
+ "short_answer": "Demolishing a house requires City permitting, and a structure at least 50 years old must go through Newton's historic-review process. The Newton Historical Commission determines whether an older structure is historically significant and preferably preserved before the demolition process proceeds. The sources reviewed do not establish one guaranteed demolition timeline for every property.",
+ "short_answer_sources": [
+  "nwt-historic-preservation-submit-an-application",
+  "nhc",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Historic review for older structures",
+   "facts": [
+    {
+     "text": "Newton requires historical review for partial or total demolition of a building over 50 years old.",
+     "sources": [
+      "nwt-historic-preservation-submit-an-application"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Building demolition permit",
+   "facts": [
+    {
+     "text": "Newton ISD issues permits for demolition of buildings and structures and enforces the applicable state and local requirements.",
+     "sources": [
+      "isd"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does every 50-year-old house automatically receive a demolition delay?",
+   "a": "No. Newton's process evaluates historical significance and whether the structure is preferably preserved. Age triggers review; it does not by itself establish the final determination.",
+   "sources": [
+    "nhc"
+   ]
+  }
+ ],
+ "related": [
+  "newton-partial-demolition-rules",
+  "newton-historic-landmark-regulations",
+  "newton-tree-removal-permit-process"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The building's age and whether any part of the structure is at least 50 years old",
+   "Whether the structure is historically significant or preferably preserved",
+   "The current demolition-delay period and any waiver process",
+   "Water, sewer, gas, electric, rodent-abatement, and other department sign-offs",
+   "Tree, wetlands, stormwater, and site-restoration requirements",
+   "The separate ISD demolition permit documents and current fees"
+  ],
+  "office": "nhc"
+ }
+}

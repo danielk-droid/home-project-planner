@@ -1,0 +1,62 @@
+{
+ "slug": "newton-siding-replacement-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "SIDING",
+ "h1": "Do I need a permit to replace siding in Newton, MA?",
+ "title": "Newton Siding Replacement Permits: Repairs and Historic Review",
+ "description": "Learn how ordinary siding repairs differ from larger exterior renovation work and when Newton historic review applies.",
+ "short_answer": "The state building code exempts ordinary repairs, but the exact permit requirement for full siding replacement depends on the work being performed. Newton has a roofing and siding permit application category. Properties in a Local Historic District must obtain historic review for exterior changes, including siding replacement.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "isd",
+  "nhc"
+ ],
+ "sections": [
+  {
+   "heading": "Ordinary siding repairs",
+   "facts": [
+    {
+     "text": "The state building code exempts ordinary repairs from its permit application requirement. It does not define every possible siding replacement project as an ordinary repair.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Historic property review",
+   "facts": [
+    {
+     "text": "Newton's historic preservation guidance says even small repairs and replacements such as siding may require review by preservation staff or the district commission.",
+     "sources": [
+      "nhc"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I replace siding without historic review if I use the same material?",
+   "a": "Do not assume so. Newton says small siding repairs and replacements in Local Historic Districts require preservation review; staff can determine whether the work qualifies for an administrative approval.",
+   "sources": [
+    "nhc"
+   ]
+  }
+ ],
+ "related": [
+  "newton-roof-replacement-permit",
+  "newton-window-replacement-permit",
+  "newton-historic-landmark-regulations"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the work is a minor repair or full re-siding",
+   "Whether sheathing, insulation, or weather barriers will be changed",
+   "Whether a Newton building permit is required for the specific scope",
+   "Whether the property is in a Local Historic District, is a Landmark, or has a Preservation Restriction"
+  ],
+  "office": "isd"
+ }
+}

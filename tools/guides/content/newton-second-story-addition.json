@@ -1,0 +1,63 @@
+{
+ "slug": "newton-second-story-addition",
+ "cluster": "Permits by project",
+ "eyebrow": "SECOND STORIES",
+ "h1": "What zoning and building code rules apply to adding a second story in Newton, MA?",
+ "title": "Newton Second-Story Additions: Height, Floor Area and Building Permits",
+ "description": "Review the building permit, structural, height, and floor-area checks that apply to a second-story addition.",
+ "short_answer": "A second-story addition requires building-code review and a building permit. Newton zoning controls the height, setbacks, and floor-area ratio of the expanded principal building. Whether the design is allowed by right or needs a special permit depends on the property's zoning district and existing conditions.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-development-review-special-permits-land-use"
+ ],
+ "sections": [
+  {
+   "heading": "Building and structural review",
+   "facts": [
+    {
+     "text": "The state building code requires a permit before regulated construction or alteration of a building.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Zoning standards",
+   "facts": [
+    {
+     "text": "Newton's special-permit process covers projects that need approval under the zoning ordinance, including certain additions and nonconforming structures.",
+     "sources": [
+      "nwt-development-review-special-permits-land-use"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can every Newton home add a second story within a 36-foot height limit?",
+   "a": "No citywide answer is established by that single number. Height, story count, roof form, and floor-area limits depend on the property's district and applicable zoning provisions.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-attached-garage-addition",
+  "newton-dormer-addition-rules",
+  "newton-grade-plane-height-measurement"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The zoning district and applicable principal-building height limit",
+   "Existing and proposed floor-area ratio",
+   "Required front, side, and rear setbacks",
+   "Whether the existing foundation and framing can support the addition",
+   "Whether special-permit or nonconforming-structure review applies",
+   "Required architect, engineer, and building permit documents"
+  ],
+  "office": "planning"
+ }
+}

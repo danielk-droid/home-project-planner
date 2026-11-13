@@ -1,0 +1,62 @@
+{
+ "slug": "newton-detached-garage-rules",
+ "cluster": "Zoning rules",
+ "eyebrow": "DETACHED GARAGES",
+ "h1": "What are the zoning and permit rules for a detached garage in Newton, MA?",
+ "title": "Newton Detached Garage Rules: Permits, Setbacks and Zoning",
+ "description": "Review Newton's accessory-building location rules and the building permit process before planning a detached garage.",
+ "short_answer": "A new detached garage is a building project that should be reviewed by Newton ISD and checked against the property's zoning district. Newton's accessory-building rules generally require at least 5 feet from side and rear lot lines and at least 5 feet from the principal building. Height, footprint, lot coverage, and any required zoning relief must be checked separately.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-doc-29823"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit",
+   "facts": [
+    {
+     "text": "The state building code generally requires a permit before constructing a regulated building or structure.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Accessory-building setbacks",
+   "facts": [
+    {
+     "text": "Newton's accessory-building ordinance generally requires 5 feet from side and rear lot lines and 5 feet from the principal building on the same lot.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I place a detached garage 5 feet from every lot line?",
+   "a": "No. The 5-foot rule applies to side and rear lot lines. The front setback follows the principal building's required front setback, and other zoning standards may apply.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-accessory-structure-setbacks",
+  "newton-carport-permit-rules",
+  "newton-attached-garage-addition"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The property's zoning district and whether the lot is conforming",
+   "The allowed garage height, story count, and footprint",
+   "Lot coverage, open space, and driveway access",
+   "Whether a special permit or other zoning relief is required",
+   "Any historic, tree, stormwater, wetlands, or floodplain review"
+  ],
+  "office": "planning"
+ }
+}

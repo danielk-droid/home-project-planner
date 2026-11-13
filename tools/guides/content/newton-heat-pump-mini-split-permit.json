@@ -1,0 +1,64 @@
+{
+ "slug": "newton-heat-pump-mini-split-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "HEAT PUMPS",
+ "h1": "What permits are required to install a heat pump or mini-split in Newton, MA?",
+ "title": "Newton Heat Pump and Mini-Split Permits: Electrical and Equipment Review",
+ "description": "Identify the City permit offices to contact before installing a heat pump or mini-split and confirm the equipment's electrical and outdoor placement requirements.",
+ "short_answer": "A heat pump or mini-split installation can involve regulated equipment and electrical work. Newton ISD administers electrical permits, while equipment placement may also need zoning or Engineering review. The official sources reviewed do not establish one universal permit package or outdoor-condenser setback for every installation.",
+ "short_answer_sources": [
+  "isd",
+  "nwt-inspectional-services-plumbing-gas-and-electrical",
+  "nwt-public-works-engineering"
+ ],
+ "sections": [
+  {
+   "heading": "Electrical and equipment work",
+   "facts": [
+    {
+     "text": "Newton ISD issues permits for regulated equipment and administers separate electrical permit applications.",
+     "sources": [
+      "isd",
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Outdoor equipment location",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews certain site plans and site changes, including grade alterations and site improvements.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Is there one citywide setback for every heat-pump condenser?",
+   "a": "The sources reviewed do not establish one universal condenser setback. Confirm the zoning district, equipment location, and applicable noise or site rules with Newton.",
+   "sources": [
+    "isd"
+   ]
+  }
+ ],
+ "related": [
+  "newton-central-ac-replacement-permit",
+  "newton-ev-charger-permit",
+  "newton-generator-installation-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the installation requires an electrical permit and any additional mechanical or building permit",
+   "The zoning setback for the proposed outdoor equipment location",
+   "Whether the condenser is subject to noise or screening rules",
+   "Whether the property is in a Local Historic District or has a Preservation Restriction",
+   "Any applicable energy-code requirements for the equipment and installation"
+  ],
+  "office": "isd"
+ }
+}

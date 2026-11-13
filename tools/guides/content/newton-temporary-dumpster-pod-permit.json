@@ -1,0 +1,63 @@
+{
+ "slug": "newton-temporary-dumpster-pod-permit",
+ "cluster": "Permit process",
+ "eyebrow": "DUMPSTERS AND PODS",
+ "h1": "Do I need a permit to place a construction dumpster or storage container on the street in Newton, MA?",
+ "title": "Newton Dumpster and POD Permits: Street and Public-Way Placement",
+ "description": "Find out which City office to contact before placing a dumpster or storage container in a street or public right-of-way.",
+ "short_answer": "The official sources reviewed do not establish one complete Newton permit rule for every dumpster or storage container. A container placed in a public street, sidewalk, or other public right-of-way should be reviewed with the City before delivery. Placement on private property should also be checked for zoning, access, and site restrictions.",
+ "short_answer_sources": [
+  "nwt-public-works-engineering",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Public-way placement",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews work and site conditions involving the public right-of-way.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Construction permits",
+   "facts": [
+    {
+     "text": "Newton ISD and other City departments administer separate permits for work under their respective authority.",
+     "sources": [
+      "isd"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I place a dumpster on the street without contacting the City?",
+   "a": "Do not assume that public-way placement is allowed without approval. Confirm the current street-occupancy or right-of-way process with Newton before delivery.",
+   "sources": [
+    "nwt-public-works-engineering"
+   ]
+  }
+ ],
+ "related": [
+  "newton-scaffolding-sidewalk-permit",
+  "newton-street-opening-permit",
+  "newton-permit-expiration-extensions"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the container will be entirely on private property or in the public way",
+   "Which City department issues the applicable street-occupancy approval",
+   "Required reflective markers, barricades, or traffic controls",
+   "Allowed placement period and renewal process",
+   "Whether a sidewalk or street closure requires additional approval",
+   "Whether the private driveway placement complies with site restrictions"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

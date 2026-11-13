@@ -1,0 +1,65 @@
+{
+ "slug": "newton-gas-line-service-installation",
+ "cluster": "Permit process",
+ "eyebrow": "GAS LINES",
+ "h1": "What permits and process are required to add or upgrade a gas line in Newton, MA?",
+ "title": "Newton Gas Line Permits: Applications, Licensed Work and Inspections",
+ "description": "Understand Newton's gas-permit application process and which utility, trench, and inspection details require confirmation.",
+ "short_answer": "Gas piping work in Newton is handled through the ISD gas-permit process. Newton requires appropriate signed license documentation for gas permit applications. A project that involves excavation or a public right-of-way may also require Engineering review and Dig Safe notification.",
+ "short_answer_sources": [
+  "nwt-inspectional-services-plumbing-gas-and-electrical",
+  "nwt-public-works-engineering",
+  "ma-guides-about-dig-safe"
+ ],
+ "sections": [
+  {
+   "heading": "Gas permit",
+   "facts": [
+    {
+     "text": "Newton ISD administers gas permits and requires the appropriate signed license documentation for gas-permit applications.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Excavation and utility coordination",
+   "facts": [
+    {
+     "text": "Massachusetts requires Dig Safe notification before covered excavation, and Newton Engineering may need to review work involving streets or utility trenches.",
+     "sources": [
+      "ma-guides-about-dig-safe",
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a gas-line installation require only a utility-company approval?",
+   "a": "No. Newton has its own gas-permit process through ISD. Other City and state approvals may also apply depending on excavation and project scope.",
+   "sources": [
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-water-sewer-connection-fees",
+  "newton-underground-utility-dig-safe",
+  "newton-generator-installation-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the project is a new service, an extension, or a replacement",
+   "Which gas utility must coordinate the service work",
+   "Required gas permit documents and license information",
+   "Whether trenching, street opening, or dewatering permits are required",
+   "Pressure-test and inspection requirements",
+   "Whether the project needs a separate electrical or building permit"
+  ],
+  "office": "isd"
+ }
+}

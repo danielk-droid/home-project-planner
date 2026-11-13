@@ -1,0 +1,68 @@
+{
+ "slug": "newton-driveway-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "DRIVEWAYS",
+ "h1": "Do I need a permit to repave or widen a driveway in Newton, MA?",
+ "title": "Newton Driveway Permits: Repaving, Widening and Curb Cuts",
+ "description": "Find out which driveway changes may need Engineering review, how curb-cut changes are handled, and when historic or zoning rules may apply.",
+ "short_answer": "A driveway project may need City review when it changes a curb cut, site grading, or the amount of impervious surface. Newton Engineering specifically reviews driveway expansions and curb-cut modifications. A simple repaving project should be checked against the property's site conditions and any historic restrictions.",
+ "short_answer_sources": [
+  "nwt-public-works-engineering",
+  "nwt-historic-preservation-submit-an-application"
+ ],
+ "sections": [
+  {
+   "heading": "Engineering review",
+   "facts": [
+    {
+     "text": "Newton Engineering reviews site plans involving expansions of impervious area, including driveways, and modifications to curb cuts.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    },
+    {
+     "text": "The state building-code driveway exemption applies only to qualifying driveways that are not more than 30 inches above adjacent grade, are not over a basement or lower story, and are not part of an accessible route.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Historic properties",
+   "facts": [
+    {
+     "text": "Exterior driveway changes at properties in Newton's Local Historic Districts require a Historic District Application.",
+     "sources": [
+      "nwt-historic-preservation-submit-an-application"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does Newton publish one maximum curb-cut width for every residential driveway?",
+   "a": "The sources reviewed for this guide do not establish one universal residential curb-cut width. Confirm the proposed opening width and location with Newton Engineering.",
+   "sources": [
+    "nwt-public-works-engineering"
+   ]
+  }
+ ],
+ "related": [
+  "newton-patio-walkway-permit",
+  "newton-curb-cut-rules",
+  "newton-open-space-permeable-surface"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the work changes the curb cut or public right-of-way",
+   "The allowed curb-cut width and spacing for the particular property",
+   "Whether the work increases impervious area or changes grades",
+   "Whether the lot has historic, wetlands, floodplain, or drainage restrictions",
+   "Whether the proposed parking layout complies with Newton zoning"
+  ],
+  "office": "nwt-public-works-engineering"
+ }
+}

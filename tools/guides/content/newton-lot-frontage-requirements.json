@@ -1,0 +1,61 @@
+{
+ "slug": "newton-lot-frontage-requirements",
+ "cluster": "Zoning rules",
+ "eyebrow": "LOT FRONTAGE",
+ "h1": "What are the minimum lot frontage and width requirements in Newton zoning?",
+ "title": "Newton Lot Frontage Requirements: SR1, SR2 and SR3 Districts",
+ "description": "Compare the published minimum frontage standards for Newton's single-residence districts and check the lot's creation date.",
+ "short_answer": "Newton's minimum lot frontage depends on the zoning district and whether the lot was created before or on or after December 7, 1953. For lots created on or after that date, the ordinance lists minimum frontage of 140 feet in SR1, 100 feet in SR2, and 80 feet in SR3. Other districts and older lots have different standards.",
+ "short_answer_sources": [
+  "nwt-doc-29823-2"
+ ],
+ "sections": [
+  {
+   "heading": "Single-residence district frontage",
+   "facts": [
+    {
+     "text": "For lots created on or after December 7, 1953, Newton's table lists minimum frontage of 140 feet in SR1, 100 feet in SR2, and 80 feet in SR3.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Older lots",
+   "facts": [
+    {
+     "text": "Newton uses a different dimensional standards table for lots created before December 7, 1953.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I use the SR3 frontage number for every Newton residential lot?",
+   "a": "No. The cited table applies to the listed single-residence districts and distinguishes lots by creation date. Confirm the parcel's district and lot history.",
+   "sources": [
+    "nwt-doc-29823-2"
+   ]
+  }
+ ],
+ "related": [
+  "newton-corner-lot-setbacks",
+  "newton-nonconforming-lot-structure",
+  "newton-open-space-permeable-surface"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The property's current zoning district",
+   "The legal creation date and frontage measurement of the lot",
+   "Whether the lot is a corner lot or has unusual street access",
+   "Whether a nonconforming-lot provision or recorded plan affects the property",
+   "Whether a proposed subdivision or lot-line change is involved"
+  ],
+  "office": "planning"
+ }
+}

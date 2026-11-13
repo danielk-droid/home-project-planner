@@ -1,0 +1,97 @@
+{
+ "slug": "newton-demolition-delay",
+ "cluster": "Historic",
+ "eyebrow": "HISTORIC",
+ "h1": "What is Newton's demolition delay, and does it apply to my house?",
+ "title": "Newton Demolition Delay: Review for Buildings 50+ Years Old",
+ "description": "Newton Historical Commission demolition review: buildings 50+ years old (including garages and sheds), partial demolition, 12- and 18-month delays, and waivers.",
+ "short_answer": "Full or partial demolition of any building at least 50 years old, including garages and sheds, needs Newton Historical Commission review. If the Commission finds the building Preferably Preserved, demolition is delayed 12 months, or 18 months for National Register-listed properties.",
+ "short_answer_sources": [
+  "nhc"
+ ],
+ "sections": [
+  {
+   "heading": "What triggers review",
+   "facts": [
+    {
+     "text": "Demolition and partial demolition of buildings at least 50 years old, including garages and sheds, require review.",
+     "sources": [
+      "nhc"
+     ]
+    },
+    {
+     "text": "Partial demolition includes removing, altering or covering at least half of any single elevation or roof surface.",
+     "sources": [
+      "historic"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "The delay",
+   "facts": [
+    {
+     "text": "A Preferably Preserved finding triggers demolition delay.",
+     "sources": [
+      "nhc"
+     ]
+    },
+    {
+     "text": "The delay is 12 months for properties not on the National Register, and 18 months for National Register-listed properties.",
+     "sources": [
+      "nhc"
+     ]
+    },
+    {
+     "text": "A full demolition waiver cannot be granted until at least four months after the Preferably Preserved finding, and it requires Commission approval.",
+     "sources": [
+      "nhc"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does demolition review apply to my garage or shed?",
+   "a": "Yes, if it is at least 50 years old.",
+   "sources": [
+    "nhc"
+   ]
+  },
+  {
+   "q": "What counts as partial demolition?",
+   "a": "Removing, altering or covering at least half of any single elevation or roof surface.",
+   "sources": [
+    "historic"
+   ]
+  },
+  {
+   "q": "How long is the demolition delay?",
+   "a": "12 months, or 18 months for National Register-listed properties.",
+   "sources": [
+    "nhc"
+   ]
+  },
+  {
+   "q": "Can the delay be waived?",
+   "a": "A full waiver needs Commission approval and cannot be granted until at least four months after the Preferably Preserved finding.",
+   "sources": [
+    "nhc"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Your building's age and National Register status.",
+   "Whether your scope counts as partial demolition."
+  ],
+  "office": "historic"
+ },
+ "related": [
+  "newton-local-historic-district-review",
+  "historic-home-renovation",
+  "do-i-need-a-permit-for-an-addition"
+ ],
+ "date": "2026-11-13"
+}

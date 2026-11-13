@@ -1,0 +1,116 @@
+{
+ "slug": "newton-tree-preservation-ordinance",
+ "cluster": "Site",
+ "eyebrow": "TREES",
+ "h1": "Do I need a permit to cut down a tree in Newton, MA?",
+ "title": "Newton Tree Preservation Ordinance: When You Need a Tree Permit",
+ "description": "Newton's Tree Preservation Ordinance (Ch. 21): which trees are protected (6 inches DBH and up), when a tree permit is needed, and replacement rules.",
+ "short_answer": "Often, yes. Trees 6 inches or more in diameter at breast height (measured 4½ feet above grade) on covered land are protected. You need a tree permit before removing a protected tree or starting work under an Exterior Work Permit. Even exempt trees need an exemption permit before removal.",
+ "short_answer_sources": [
+  "tree-text",
+  "tree"
+ ],
+ "sections": [
+  {
+   "heading": "What the ordinance says",
+   "facts": [
+    {
+     "text": "Protected trees include trees at least 6 inches DBH on covered land, plus replacement trees (Sec. 21-81).",
+     "sources": [
+      "tree-text"
+     ]
+    },
+    {
+     "text": "DBH is measured 4½ feet above grade at the base of the tree (Sec. 21-81).",
+     "sources": [
+      "tree-text"
+     ]
+    },
+    {
+     "text": "A tree permit is required before removing a protected, non-exempt tree, or before starting work under an Exterior Work Permit (Sec. 21-82(b)).",
+     "sources": [
+      "tree-text"
+     ]
+    },
+    {
+     "text": "Even an exempt tree requires an exemption permit before removal (Sec. 21-82(c)).",
+     "sources": [
+      "tree-text"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Replacement",
+   "facts": [
+    {
+     "text": "Required replacement is due within 18 months of the tree permit, or before the property changes hands, whichever comes first (Sec. 21-85(a)).",
+     "sources": [
+      "tree-text"
+     ]
+    },
+    {
+     "text": "Replacement trees must be planted on the same lot (Sec. 21-85(a)(2)).",
+     "sources": [
+      "tree-text"
+     ]
+    },
+    {
+     "text": "Applicants may plant replacements, pay in lieu, or combine the two.",
+     "sources": [
+      "tree"
+     ]
+    },
+    {
+     "text": "Replacement trees are protected and get at least Significant Tree status, whatever their trunk size (Sec. 21-85(a)(5)).",
+     "sources": [
+      "tree-text"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "What size tree is protected in Newton?",
+   "a": "Trees at least 6 inches DBH on covered land, measured 4½ feet above grade.",
+   "sources": [
+    "tree-text"
+   ]
+  },
+  {
+   "q": "Do I need a tree permit for a construction project?",
+   "a": "A tree permit is required before starting work under an Exterior Work Permit (Sec. 21-82(b)).",
+   "sources": [
+    "tree-text"
+   ]
+  },
+  {
+   "q": "Can I pay instead of replanting?",
+   "a": "Yes. The City lists planting, payment in lieu, or a combination.",
+   "sources": [
+    "tree"
+   ]
+  },
+  {
+   "q": "When must replacement trees be planted?",
+   "a": "Within 18 months of the tree permit, or before the property changes hands, whichever comes first.",
+   "sources": [
+    "tree-text"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Whether your land is 'covered land' under the ordinance.",
+   "Replacement amounts from the City's current table."
+  ],
+  "office": "tree"
+ },
+ "related": [
+  "do-i-need-a-permit-for-a-deck",
+  "stormwater-and-flood-zone-home-projects",
+  "newton-demolition-delay"
+ ],
+ "date": "2026-11-13"
+}

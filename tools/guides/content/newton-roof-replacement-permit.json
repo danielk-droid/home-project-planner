@@ -1,0 +1,63 @@
+{
+ "slug": "newton-roof-replacement-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "ROOFING",
+ "h1": "Do I need a building permit to replace a roof in Newton, MA?",
+ "title": "Newton Roof Replacement Permits: Re-Shingling and Structural Work",
+ "description": "Understand the difference between ordinary roof repairs and work that changes structural supports, and check historic review before replacing roof materials.",
+ "short_answer": "The Massachusetts building code exempts ordinary repairs from a building permit, but work involving substantial removal or alteration of structural supports is not treated as an ordinary repair. Newton has a specific roofing and siding permit application category, so homeowners should confirm the current application requirement for their exact roof scope.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Ordinary repairs and structural work",
+   "facts": [
+    {
+     "text": "The state building code says an application or notice is not required for ordinary repairs, but separately identifies substantial cutting of structural members and removal or alteration of load-bearing supports as work requiring a permit.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton's permit categories",
+   "facts": [
+    {
+     "text": "Newton ISD has separated permit applications into specific work categories, including roofing and siding.",
+     "sources": [
+      "isd"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does every roof replacement require a building permit in Newton?",
+   "a": "The sources reviewed do not establish a universal rule for every roof replacement method. Confirm whether the proposed stripping, overlay, decking, or structural work requires a Newton building permit.",
+   "sources": [
+    "ma-bbrs-10th-edition-building-code",
+    "isd"
+   ]
+  }
+ ],
+ "related": [
+  "newton-siding-replacement-permit",
+  "newton-window-replacement-permit",
+  "newton-total-demolition-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the project is ordinary repair, full replacement, or structural alteration",
+   "Whether roof decking, rafters, trusses, or other structural members will be changed",
+   "Whether an overlay is allowed for the existing roof condition",
+   "The current Newton roofing application and inspection requirements",
+   "Whether the property is in a Local Historic District or is a Landmark"
+  ],
+  "office": "isd"
+ }
+}

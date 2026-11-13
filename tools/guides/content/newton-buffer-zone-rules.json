@@ -1,0 +1,61 @@
+{
+ "slug": "newton-buffer-zone-rules",
+ "cluster": "Environment",
+ "eyebrow": "BUFFER ZONES",
+ "h1": "What work is restricted within the 100-foot wetland buffer zone in Newton, MA?",
+ "title": "Newton Wetland Buffer Zone Rules: Work Near Wetlands and Streams",
+ "description": "Find out why grading, construction, drainage, and vegetation work near wetlands may require Conservation Commission review.",
+ "short_answer": "Newton requires Conservation Commission review for land-altering work within 100 feet of a vegetated wetland, intermittent stream, or pond. The City also identifies a 200-foot review area near perennial streams. The exact restrictions depend on the resource area, proposed activity, and applicable exemptions.",
+ "short_answer_sources": [
+  "nwt-conservation-office-wetlands-permitting-rev"
+ ],
+ "sections": [
+  {
+   "heading": "The 100-foot area",
+   "facts": [
+    {
+     "text": "Newton identifies the 100-foot area near vegetated wetlands, intermittent streams, and ponds as an area where land-altering work must be reviewed and permitted by the Conservation Commission.",
+     "sources": [
+      "nwt-conservation-office-wetlands-permitting-rev"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Activities that may be regulated",
+   "facts": [
+    {
+     "text": "Newton lists grading, construction, tree or shrub removal, and drainage projects among land-altering activities subject to review.",
+     "sources": [
+      "nwt-conservation-office-wetlands-permitting-rev"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I grade or install drainage within the 100-foot area without checking?",
+   "a": "No. Newton expressly lists grading and drainage projects among activities that may require Conservation Commission review.",
+   "sources": [
+    "nwt-conservation-office-wetlands-permitting-rev"
+   ]
+  }
+ ],
+ "related": [
+  "newton-wetlands-protection-by-law",
+  "newton-conservation-commission-filing",
+  "newton-stormwater-management-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the property is within the 100-foot or 200-foot review area",
+   "The exact resource-area boundary and whether a survey is needed",
+   "Whether the work is exempt or requires an RDA or NOI",
+   "Whether a City floodplain or stormwater review is also required",
+   "Whether tree-removal or construction permits are required separately"
+  ],
+  "office": "nwt-divisions-conservation-office"
+ }
+}

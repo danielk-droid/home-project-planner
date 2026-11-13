@@ -1,0 +1,79 @@
+{
+ "slug": "solar-panel-permit-newton-ma",
+ "cluster": "Permits by project",
+ "eyebrow": "SOLAR",
+ "h1": "Do I need a permit for solar panels in Newton, MA?",
+ "title": "Solar Panel Permits in Newton, MA",
+ "description": "Newton's fee schedule lists building permits for solar panels, with and without structural work, plus a separate electrical permit for solar.",
+ "short_answer": "Yes. Newton's permit fee schedule lists a building permit category for solar panels without structural work, a separate category for solar panels with structural work, and an electrical permit category for solar.",
+ "short_answer_sources": [
+  "fees"
+ ],
+ "sections": [
+  {
+   "heading": "What the City lists",
+   "facts": [
+    {
+     "text": "The fee schedule lists a building-permit category for solar panels without structural work.",
+     "sources": [
+      "fees"
+     ]
+    },
+    {
+     "text": "It separately lists structural-work building permits for solar panels.",
+     "sources": [
+      "fees"
+     ]
+    },
+    {
+     "text": "It lists an electrical permit category for solar panels.",
+     "sources": [
+      "fees"
+     ]
+    },
+    {
+     "text": "Electrical permit applications are filed online and require an appropriately signed electrical license.",
+     "sources": [
+      "elec"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a solar installation need an electrical permit in Newton?",
+   "a": "The fee schedule lists an electrical permit category for solar panels.",
+   "sources": [
+    "fees"
+   ]
+  },
+  {
+   "q": "Is a building permit needed if there's no structural work?",
+   "a": "The fee schedule lists a building permit category for solar panels without structural work.",
+   "sources": [
+    "fees"
+   ]
+  },
+  {
+   "q": "Do historic district rules apply to solar?",
+   "a": "Exterior changes in local historic districts require HDC review.",
+   "sources": [
+    "historic"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Whether your roof needs structural work.",
+   "Current fees for each category."
+  ],
+  "office": "isd-contact"
+ },
+ "related": [
+  "electrical-plumbing-gas-permits-newton-homeowners",
+  "newton-local-historic-district-review",
+  "newton-energy-code-all-electric-rules"
+ ],
+ "date": "2026-11-13"
+}

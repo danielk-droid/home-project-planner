@@ -1,0 +1,61 @@
+{
+ "slug": "newton-water-heater-replacement-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "WATER HEATERS",
+ "h1": "Do I need a permit to replace a water heater in Newton, MA?",
+ "title": "Newton Water Heater Replacement Permits: Plumbing, Gas and Electrical",
+ "description": "Find out which Newton trade-permit offices to contact when replacing a water heater and changing its connections.",
+ "short_answer": "Replacing a water heater may require plumbing, gas, or electrical permits depending on the equipment and connections being changed. Newton ISD provides separate applications for these trades and requires the appropriate signed license documentation. The exact permit package depends on the replacement scope.",
+ "short_answer_sources": [
+  "nwt-inspectional-services-plumbing-gas-and-electrical"
+ ],
+ "sections": [
+  {
+   "heading": "Plumbing and gas permits",
+   "facts": [
+    {
+     "text": "Newton ISD administers plumbing and gas permits through separate trade applications.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Electrical connections",
+   "facts": [
+    {
+     "text": "Newton ISD also administers separate electrical permits when electrical work is part of a project.",
+     "sources": [
+      "nwt-inspectional-services-plumbing-gas-and-electrical"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a like-for-like water heater replacement always need all three trade permits?",
+   "a": "No. The relevant trade permits depend on the type of heater and which connections are installed or altered. Confirm the scope with Newton ISD.",
+   "sources": [
+    "nwt-inspectional-services-plumbing-gas-and-electrical"
+   ]
+  }
+ ],
+ "related": [
+  "newton-bathroom-remodel-permit",
+  "newton-gas-line-service-installation",
+  "newton-electrical-panel-upgrade-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the replacement is gas, electric, or another type",
+   "Whether gas piping, venting, plumbing, or wiring will be changed",
+   "Whether a building permit is also required",
+   "Applicable temperature-and-pressure relief, venting, and inspection requirements",
+   "Who must submit the trade applications and close the permits"
+  ],
+  "office": "isd"
+ }
+}

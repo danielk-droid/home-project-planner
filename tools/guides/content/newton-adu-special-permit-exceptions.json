@@ -1,0 +1,62 @@
+{
+ "slug": "newton-adu-special-permit-exceptions",
+ "cluster": "ADUs",
+ "eyebrow": "ADU SPECIAL PERMITS",
+ "h1": "When do you need a special permit for an ADU in Newton, MA?",
+ "title": "Newton ADU Special Permits: Larger Units and Local Exceptions",
+ "description": "Compare Newton's standard by-right ADU size with the larger-unit paths that require a special permit or specific conditions.",
+ "short_answer": "Newton's standard by-right ADU limit is 1,000 square feet or 50% of the principal dwelling's total gross floor area, whichever is smaller. Newton lists a special-permit path for a detached ADU up to 1,500 square feet and for certain internal units up to 1,200 square feet. The exact pathway depends on the unit type and the property conditions.",
+ "short_answer_sources": [
+  "newton-adu",
+  "nwt-doc-29823-4"
+ ],
+ "sections": [
+  {
+   "heading": "Standard by-right ADU size",
+   "facts": [
+    {
+     "text": "Newton allows a standard new internal or detached ADU by right up to 1,000 square feet or 50% of the primary residence's total floor area, whichever is smaller.",
+     "sources": [
+      "newton-adu"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Special-permit paths",
+   "facts": [
+    {
+     "text": "Newton identifies detached ADUs up to 1,500 square feet and certain internal ADUs up to 1,200 square feet as special-permit cases.",
+     "sources": [
+      "newton-adu"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does every ADU larger than 1,000 square feet need the same type of special permit?",
+   "a": "No. Newton distinguishes between internal and detached units and lists conditions for some units between 1,000 and 1,200 square feet. Confirm the proposed unit type and property history.",
+   "sources": [
+    "newton-adu"
+   ]
+  }
+ ],
+ "related": [
+  "newton-detached-adu-rules",
+  "massachusetts-adu-owner-occupancy-rules",
+  "newton-garage-conversion-adu"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the proposed ADU is internal or detached",
+   "Whether the property or existing accessory structure meets the four-year condition",
+   "Whether owner occupancy is a condition of the requested pathway",
+   "The size calculation and principal-dwelling gross floor area",
+   "Whether the City Council may impose additional conditions"
+  ],
+  "office": "planning"
+ }
+}

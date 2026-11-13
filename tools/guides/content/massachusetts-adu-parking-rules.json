@@ -1,0 +1,62 @@
+{
+ "slug": "massachusetts-adu-parking-rules",
+ "cluster": "ADUs",
+ "eyebrow": "ADU PARKING",
+ "h1": "Does Massachusetts state law require parking for an ADU?",
+ "title": "Massachusetts ADU Parking Rules: Transit Distance and Local Requirements",
+ "description": "Learn the state parking limit for one protected ADU in a single-family residential district and when no additional space may be required.",
+ "short_answer": "Massachusetts law limits a municipality to requiring no more than one additional parking space for a single ADU in a single-family residential zoning district. No additional space may be required when the ADU is within 0.5 miles of a commuter rail station, subway station, ferry terminal, or bus station. Newton's local rules and the property's transit distance must still be checked.",
+ "short_answer_sources": [
+  "mgl-section3",
+  "ma-regulations-760-cmr-7100-protected-use-accessory-dwelling"
+ ],
+ "sections": [
+  {
+   "heading": "State parking protection",
+   "facts": [
+    {
+     "text": "Massachusetts General Laws Chapter 40A, Section 3 limits required additional parking for one ADU and removes the additional-space requirement within the specified half-mile transit distance.",
+     "sources": [
+      "mgl-section3"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Local review",
+   "facts": [
+    {
+     "text": "The state ADU regulation makes the protected ADU subject to otherwise applicable dimensional and parking requirements within the limits of state law.",
+     "sources": [
+      "ma-regulations-760-cmr-7100-protected-use-accessory-dwelling"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can Newton require an extra ADU parking space within half a mile of transit?",
+   "a": "State law says no additional parking space may be required for the protected ADU when it is within 0.5 miles of one of the listed transit facilities.",
+   "sources": [
+    "mgl-section3"
+   ]
+  }
+ ],
+ "related": [
+  "massachusetts-adu-owner-occupancy-rules",
+  "massachusetts-adu-setback-protections",
+  "newton-residential-parking-requirements"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the ADU is the single protected ADU described in state law",
+   "Whether the property is within 0.5 miles of a qualifying transit facility",
+   "How the City's measurement is made for the particular parcel",
+   "Whether any additional ADU or separate use changes the analysis",
+   "Whether site-plan, access, or other lawful local requirements apply"
+  ],
+  "office": "ma-regulations-760-cmr-7100-protected-use-accessory-dwelling"
+ }
+}

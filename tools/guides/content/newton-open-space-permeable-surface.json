@@ -1,0 +1,67 @@
+{
+ "slug": "newton-open-space-permeable-surface",
+ "cluster": "Zoning rules",
+ "eyebrow": "OPEN SPACE",
+ "h1": "What are Newton's minimum open space and permeable surface requirements?",
+ "title": "Newton Open Space and Lot Coverage: Rules by Zoning District",
+ "description": "Compare Newton's published open-space and lot-coverage standards and learn why the property's district and creation date matter.",
+ "short_answer": "Newton's required open space and maximum lot coverage vary by zoning district and lot creation date. For single-residence lots created on or after December 7, 1953, the ordinance lists minimum open space of 70% in SR1, 65% in SR2, and 50% in SR3. Older lots have a different table, so a single citywide percentage is not correct.",
+ "short_answer_sources": [
+  "nwt-doc-29823-2"
+ ],
+ "sections": [
+  {
+   "heading": "Standards for newer single-residence lots",
+   "facts": [
+    {
+     "text": "For lots created on or after December 7, 1953, Newton's table lists minimum open space of 70% in SR1, 65% in SR2, and 50% in SR3.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Older single-residence lots",
+   "facts": [
+    {
+     "text": "Newton uses a separate dimensional table for lots created before December 7, 1953.",
+     "sources": [
+      "nwt-doc-29823-2"
+     ]
+    },
+    {
+     "text": "Newton Engineering reviews expansions of impervious area, including patios, pools, and driveways.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I use the SR2 open-space percentage for every Newton property?",
+   "a": "No. The applicable percentage depends on the zoning district and the lot's creation date. Other districts have their own standards.",
+   "sources": [
+    "nwt-doc-29823-2"
+   ]
+  }
+ ],
+ "related": [
+  "newton-patio-walkway-permit",
+  "newton-driveway-permit",
+  "newton-stormwater-management-permit"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The property's zoning district and legal lot creation date",
+   "How Newton classifies each existing and proposed surface",
+   "The lot's current lot coverage and open-space calculations",
+   "Whether a stormwater permit is required",
+   "Whether the property is in a VCOD or another overlay district"
+  ],
+  "office": "planning"
+ }
+}

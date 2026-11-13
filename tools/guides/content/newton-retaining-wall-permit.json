@@ -1,0 +1,70 @@
+{
+ "slug": "newton-retaining-wall-permit",
+ "cluster": "Permits by project",
+ "eyebrow": "RETAINING WALLS",
+ "h1": "Do I need a permit for a retaining wall in Newton, MA?",
+ "title": "Newton Retaining Wall Permits: Four-Foot Rules and Special Permits",
+ "description": "Compare the state building-code exemption with Newton's local retaining-wall zoning review and site-plan requirements.",
+ "short_answer": "A retaining wall no higher than 4 feet, measured from the bottom of its footing to the top of the wall, may qualify for the state building-permit exemption if it does not support a surcharge or impound certain liquids. Newton zoning separately requires a special permit for a retaining wall 4 feet or higher, so a wall can trigger local zoning review even when it falls within the state building-code exemption.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-doc-29823",
+  "nwt-public-works-engineering"
+ ],
+ "sections": [
+  {
+   "heading": "State building-code exemption",
+   "facts": [
+    {
+     "text": "The state code exempts qualifying retaining walls no higher than 4 feet when height is measured from the bottom of the footing to the top of the wall. The exemption does not apply to walls supporting a surcharge or impounding the specified classes of liquids.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Newton zoning review",
+   "facts": [
+    {
+     "text": "Newton zoning requires a special permit for a retaining wall 4 feet or higher. The ordinance also addresses combined walls located within 25 feet of each other.",
+     "sources": [
+      "nwt-doc-29823"
+     ]
+    },
+    {
+     "text": "Newton Engineering reviews site plans involving retaining walls and grade alterations.",
+     "sources": [
+      "nwt-public-works-engineering"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can a 4-foot retaining wall need a Newton special permit even if the state building code exempts it from a building permit?",
+   "a": "Yes. The state building-code exemption and Newton's local special-permit rule are separate requirements.",
+   "sources": [
+    "ma-bbrs-10th-edition-building-code",
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-stormwater-management-permit",
+  "newton-grade-plane-height-measurement",
+  "newton-drywell-infiltration-drainage"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "How the wall height will be measured under each applicable rule",
+   "Whether nearby walls must be measured as a combined wall",
+   "Whether the wall supports a surcharge or affects drainage",
+   "Whether Engineering requires a site plan or other technical information",
+   "Whether wetlands, easements, or historic review apply"
+  ],
+  "office": "planning"
+ }
+}

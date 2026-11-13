@@ -1,0 +1,62 @@
+{
+ "slug": "newton-front-porch-addition-rules",
+ "cluster": "Zoning rules",
+ "eyebrow": "FRONT PORCHES",
+ "h1": "Can I build or enclose a front porch in Newton, MA under zoning setback rules?",
+ "title": "Newton Front Porch Rules: Setbacks, Enclosures and Building Permits",
+ "description": "Understand why the front setback and the difference between an open and enclosed porch matter when planning an addition.",
+ "short_answer": "A new or enclosed front porch is a building project that should be checked against Newton's principal-building setbacks and building-code requirements. Whether the porch may extend into a required front setback depends on the property's zoning district and the exact design. Projects outside by-right zoning standards may need City Council approval.",
+ "short_answer_sources": [
+  "ma-bbrs-10th-edition-building-code",
+  "nwt-development-review-special-permits-land-use"
+ ],
+ "sections": [
+  {
+   "heading": "Building permit",
+   "facts": [
+    {
+     "text": "The state building code requires a permit before regulated construction or alteration of a building.",
+     "sources": [
+      "ma-bbrs-10th-edition-building-code"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Zoning approval",
+   "facts": [
+    {
+     "text": "Newton describes by-right projects as those that meet the dimensional standards for the zoning district and use rules. Projects that require zoning relief may need a special permit or variance.",
+     "sources": [
+      "nwt-development-review-special-permits-land-use"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can an open porch automatically extend into the required front setback?",
+   "a": "The sources reviewed do not establish a universal porch exception. Confirm the porch type, location, and applicable district rule with Newton Planning.",
+   "sources": [
+    "nwt-doc-29823"
+   ]
+  }
+ ],
+ "related": [
+  "newton-sunroom-screened-porch-permit",
+  "newton-corner-lot-setbacks",
+  "newton-second-story-addition"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "The required front setback for the property",
+   "Whether the porch is open, screened, or enclosed",
+   "Whether the porch is counted in floor area or lot coverage",
+   "Whether a special permit or variance is required",
+   "Historic review and building-code requirements"
+  ],
+  "office": "planning"
+ }
+}

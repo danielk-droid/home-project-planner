@@ -1,0 +1,130 @@
+{
+ "slug": "newton-adu-rules",
+ "cluster": "ADUs",
+ "eyebrow": "ADUs",
+ "h1": "What are the ADU rules in Newton, MA?",
+ "title": "Newton ADU Rules: Size, Parking, Rentals and Permits",
+ "description": "Newton accessory dwelling unit rules from Ord. Sec. 6.7.1: one per lot, no extra parking, 30-day minimum rentals, and size limits for internal and detached ADUs.",
+ "short_answer": "Newton allows one ADU per lot on a single- or two-family property, in any zoning district. No extra parking is required, the ADU can't be sold separately, and rentals must be at least 30 days. The baseline size is 1,000 sq ft or 50% of the home's floor area, whichever is less, and a special permit can allow more.",
+ "short_answer_sources": [
+  "newton-adu",
+  "ord"
+ ],
+ "sections": [
+  {
+   "heading": "Core rules (Ord. Sec. 6.7.1)",
+   "facts": [
+    {
+     "text": "A single- or two-family home may add one ADU regardless of zoning district, according to Newton Planning.",
+     "sources": [
+      "newton-adu"
+     ]
+    },
+    {
+     "text": "No more than one ADU per lot, and no separate ownership (Sec. 6.7.1.C.1–2).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "No additional parking is required (Sec. 6.7.1.C.5).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Minimum rental or occupancy term of 30 days for either dwelling (Sec. 6.7.1.C.4).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Size",
+   "facts": [
+    {
+     "text": "Internal ADU: up to 1,000 sq ft or 50% of the total gross floor area, whichever is less. The total counts both units (Sec. 6.7.1.D.2).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Internal ADU by special permit: up to 1,200 sq ft (Sec. 6.7.1.D.2.b).",
+     "sources": [
+      "ord"
+     ]
+    },
+    {
+     "text": "Newton Planning describes a conditional by-right allowance for internal ADUs of up to the smaller of 1,200 sq ft or 50%, for a residence whose certificate of occupancy is at least four years old.",
+     "sources": [
+      "newton-adu"
+     ]
+    },
+    {
+     "text": "Detached ADU: up to 1,000 sq ft or 50%, whichever is less, or up to 1,500 sq ft by special permit (Sec. 6.7.1.E.2).",
+     "sources": [
+      "ord"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Can I build an ADU in Newton?",
+   "a": "Newton Planning says a single- or two-family home may add one ADU regardless of zoning district.",
+   "sources": [
+    "newton-adu"
+   ]
+  },
+  {
+   "q": "Do I need extra parking for a Newton ADU?",
+   "a": "No. Sec. 6.7.1.C.5 requires no additional parking.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Can I Airbnb my ADU in Newton?",
+   "a": "The ordinance sets a minimum rental or occupancy term of 30 days (Sec. 6.7.1.C.4).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "How big can a detached ADU be in Newton?",
+   "a": "1,000 sq ft or 50% of the total gross floor area, whichever is less, or up to 1,500 sq ft by special permit.",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Can I sell the ADU separately?",
+   "a": "No. The ordinance prohibits separate ownership (Sec. 6.7.1.C.1).",
+   "sources": [
+    "ord"
+   ]
+  },
+  {
+   "q": "Who answers ADU questions in Newton?",
+   "a": "Newton Planning lists an ADU questions email (adu@newtonma.gov) on its ADU page.",
+   "sources": [
+    "newton-adu"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "Whether your house meets the four-year certificate-of-occupancy condition.",
+   "Setbacks and design rules for detached ADUs."
+  ],
+  "office": "newton-adu"
+ },
+ "related": [
+  "are-adus-allowed-in-massachusetts",
+  "how-big-can-an-adu-be-in-massachusetts",
+  "newton-special-permits-and-variances"
+ ],
+ "date": "2026-11-13"
+}

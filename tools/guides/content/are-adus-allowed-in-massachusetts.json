@@ -1,0 +1,112 @@
+{
+ "slug": "are-adus-allowed-in-massachusetts",
+ "cluster": "ADUs",
+ "eyebrow": "ADUs",
+ "h1": "Are ADUs allowed in Massachusetts?",
+ "title": "Are ADUs Allowed in Massachusetts? The 2024 Law Explained",
+ "description": "Massachusetts' 2024 Affordable Homes Act protects one accessory dwelling unit on single-family lots. What the law (M.G.L. c.40A §3) and state guidance say.",
+ "short_answer": "Yes. Since February 2, 2025, state law has protected one accessory dwelling unit (ADU) in single-family residential zoning districts from being prohibited, unreasonably restricted, or held to discretionary zoning approval. Owner occupancy cannot be required. Towns may still apply reasonable rules such as setbacks and height limits.",
+ "short_answer_sources": [
+  "mgl3",
+  "adu-faq"
+ ],
+ "sections": [
+  {
+   "heading": "What state law says",
+   "facts": [
+    {
+     "text": "The 2024 Affordable Homes Act amended the Zoning Act to create protected-use ADUs (760 CMR 71.01).",
+     "sources": [
+      "760cmr"
+     ]
+    },
+    {
+     "text": "A single ADU, or renting it, in a single-family residential zoning district is protected against prohibition, unreasonable restriction, and discretionary zoning approval.",
+     "sources": [
+      "mgl3"
+     ]
+    },
+    {
+     "text": "Owner occupancy of either dwelling cannot be required.",
+     "sources": [
+      "mgl3"
+     ]
+    },
+    {
+     "text": "No more than one additional parking space may be required, and none within 0.5 miles of the listed transit facilities.",
+     "sources": [
+      "mgl3"
+     ]
+    },
+    {
+     "text": "Reasonable regulations remain allowed, including septic rules, site plan review, setbacks, and bulk and height limits.",
+     "sources": [
+      "mgl3"
+     ]
+    },
+    {
+     "text": "State guidance gives February 2, 2025 as the date protected-use ADUs became allowed as of right.",
+     "sources": [
+      "adu-faq"
+     ]
+    },
+    {
+     "text": "State guidance says local zoning provisions that conflict with the law are unenforceable.",
+     "sources": [
+      "adu-faq"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "When did the Massachusetts ADU law take effect?",
+   "a": "State guidance gives February 2, 2025 as the date protected-use ADUs became allowed as of right.",
+   "sources": [
+    "adu-faq"
+   ]
+  },
+  {
+   "q": "Do I have to live on the property?",
+   "a": "No. The law says owner occupancy of either dwelling cannot be required.",
+   "sources": [
+    "mgl3"
+   ]
+  },
+  {
+   "q": "Can my town require parking for an ADU?",
+   "a": "No more than one additional space, and none within 0.5 miles of the listed transit facilities.",
+   "sources": [
+    "mgl3"
+   ]
+  },
+  {
+   "q": "Can I rent my ADU?",
+   "a": "The law protects the ADU and its rental. Local rules may set minimum rental terms. Newton's is 30 days.",
+   "sources": [
+    "mgl3",
+    "ord"
+   ]
+  },
+  {
+   "q": "Can my town still regulate ADUs?",
+   "a": "Yes. Reasonable regulations remain allowed, such as setbacks, bulk and height limits, and site plan review.",
+   "sources": [
+    "mgl3"
+   ]
+  }
+ ],
+ "confirm": {
+  "items": [
+   "How your town applies the law locally."
+  ],
+  "office": "adu-state"
+ },
+ "related": [
+  "how-big-can-an-adu-be-in-massachusetts",
+  "newton-adu-rules",
+  "newton-zoning-setbacks"
+ ],
+ "date": "2026-11-13"
+}

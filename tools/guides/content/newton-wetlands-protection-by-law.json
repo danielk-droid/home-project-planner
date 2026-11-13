@@ -1,0 +1,62 @@
+{
+ "slug": "newton-wetlands-protection-by-law",
+ "cluster": "Environment",
+ "eyebrow": "WETLANDS",
+ "h1": "How do wetlands protection laws affect home projects in Newton, MA?",
+ "title": "Newton Wetlands Protection: Home Projects and Conservation Review",
+ "description": "Learn which types of land work near wetlands and waterways require Conservation Commission review.",
+ "short_answer": "Newton requires Conservation Commission review for land-altering work within 100 feet of a vegetated wetland, intermittent stream, or pond; within 200 feet of a perennial stream; or in a FEMA or City floodplain. The state Wetlands Protection Act also regulates alteration of protected resource areas. A permit may be required before work begins.",
+ "short_answer_sources": [
+  "nwt-conservation-office-wetlands-permitting-rev",
+  "mgl-131-40"
+ ],
+ "sections": [
+  {
+   "heading": "Newton review areas",
+   "facts": [
+    {
+     "text": "Newton identifies work within 100 feet of a vegetated wetland, intermittent stream, or pond and within 200 feet of a perennial stream as requiring Conservation Commission review.",
+     "sources": [
+      "nwt-conservation-office-wetlands-permitting-rev"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "State Wetlands Protection Act",
+   "facts": [
+    {
+     "text": "Massachusetts General Laws Chapter 131, Section 40 regulates removal, filling, dredging, or alteration of specified wetlands and other protected resource areas.",
+     "sources": [
+      "mgl-131-40"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does wetlands review apply only when a homeowner builds directly in a wetland?",
+   "a": "No. Newton identifies review areas extending beyond the resource itself, including the 100-foot and 200-foot areas listed in its wetlands guidance.",
+   "sources": [
+    "nwt-conservation-office-wetlands-permitting-rev"
+   ]
+  }
+ ],
+ "related": [
+  "newton-buffer-zone-rules",
+  "newton-conservation-commission-filing",
+  "newton-floodplain-construction-rules"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether the property contains or is near a regulated resource area",
+   "The exact resource-area boundary and applicable review distance",
+   "Whether the proposed work is exempt or requires an RDA or NOI",
+   "Whether FEMA or City floodplain rules also apply",
+   "Whether tree, stormwater, engineering, or building permits are separately required"
+  ],
+  "office": "nwt-divisions-conservation-office"
+ }
+}

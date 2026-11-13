@@ -1,0 +1,64 @@
+{
+ "slug": "newton-two-family-zoning-conversion",
+ "cluster": "Zoning rules",
+ "eyebrow": "TWO-FAMILY CONVERSIONS",
+ "h1": "Can you convert a single-family home to a two-family home in Newton, MA?",
+ "title": "Newton Two-Family Conversion Rules: Zoning and Building Permits",
+ "description": "Learn why a single-family-to-two-family conversion needs both zoning-use review and building-code review.",
+ "short_answer": "A single-family home cannot be assumed to qualify for a two-family conversion in every Newton zoning district. The proposed use must be allowed by the property's zoning rules, and the building work must satisfy applicable state code and City permit requirements. The current district and parcel-specific use table must be checked before planning a conversion.",
+ "short_answer_sources": [
+  "nwt-doc-29823",
+  "nwt-development-review-special-permits-land-use",
+  "isd"
+ ],
+ "sections": [
+  {
+   "heading": "Zoning-use review",
+   "facts": [
+    {
+     "text": "Newton distinguishes between uses allowed by right and uses that require special-permit approval under its Zoning Ordinance.",
+     "sources": [
+      "nwt-development-review-special-permits-land-use"
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Building permit review",
+   "facts": [
+    {
+     "text": "Newton ISD enforces the state building code and issues permits for regulated construction, alteration, and changes in building use or occupancy.",
+     "sources": [
+      "isd"
+     ]
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "q": "Does a home with enough floor area automatically qualify for two-family use?",
+   "a": "No. Floor area alone does not establish zoning permission. The use must be allowed in the property's district, and the building must meet applicable code requirements.",
+   "sources": [
+    "nwt-doc-29823",
+    "nwt-development-review-special-permits-land-use"
+   ]
+  }
+ ],
+ "related": [
+  "newton-residential-parking-requirements",
+  "newton-nonconforming-lot-structure",
+  "newton-mbta-communities-village-center-zoning"
+ ],
+ "date": "2026-11-13",
+ "confirm": {
+  "items": [
+   "Whether two-family use is allowed by right or by special permit in the property's district",
+   "Minimum lot area and lot area per unit",
+   "Parking, frontage, setback, and lot-coverage standards",
+   "Fire separation, egress, and other building-code requirements",
+   "Whether historic, sewer, water, or other approvals apply"
+  ],
+  "office": "planning"
+ }
+}
