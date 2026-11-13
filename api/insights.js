@@ -103,7 +103,10 @@ export async function fetchHandler(request) {
     if (expected.length < 8) return json({ error: 'setup', message: 'Open your feedback Google Sheet, go to the "Config" tab, and type a passcode (8+ characters) in cell B1.' }, 403);
     if (!passcode || !sameSecret(passcode, expected)) return json({ error: 'Incorrect passcode.' }, 401);
     await ensureTab(token, cfg, 'Events', ['timestamp', 'event', 'project_type', 'returning_visitor']);
-    const data = await sheets(token, cfg, '/values:batchGet?ranges=' + encodeURIComponent('Sheet1!A:G') + '&ranges=' + encodeURIComponent('Events!A:D'));
+    const meta = await sheets(token, cfg, '?fields=sheets.properties.title');
+    const titles = (meta.body?.sheets || []).map(t => t.properties.title);
+    const fbTab = titles.find(t => /^feedback$/i.test(t)) || (titles.includes('Sheet1') ? 'Sheet1' : (titles.find(t => !/^(config|events|events_config)$/i.test(t)) || 'Sheet1'));
+    const data = await sheets(token, cfg, '/values:batchGet?ranges=' + encodeURIComponent("'" + fbTab + "'!A:G") + '&ranges=' + encodeURIComponent('Events!A:D'));
     if (!data.ok) throw new Error('read ' + data.status);
     const [fb, ev] = data.body.valueRanges.map(v => v.values || []);
     return json({ ok: true, generatedAt: new Date().toISOString(), ...summarize(fb, ev), search: await searchData(cfg) });
