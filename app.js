@@ -53,6 +53,24 @@ function applyProjectState(state) {
 
 // Clears both the in-memory project state and the planner inputs that would
 // otherwise still hold the previous project's values.
+// Anonymous usage counter (see Privacy): event name, project type, and a
+// first-visit flag only. No address, answers, or personal data is sent.
+function hppTrack(event, projectType) {
+  try {
+    const body = {event};
+    const t = String(projectType || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
+    if (t) body.projectType = t;
+    if (event === 'visit') {
+      body.returning = localStorage.getItem('nhpp-visited') === '1';
+      localStorage.setItem('nhpp-visited', '1');
+    }
+    const data = JSON.stringify(body);
+    if (navigator.sendBeacon) navigator.sendBeacon('/api/track', new Blob([data], {type: 'application/json'}));
+    else fetch('/api/track', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: data, keepalive: true}).catch(() => {});
+  } catch {}
+}
+try { if (!sessionStorage.getItem('nhpp-session')) { sessionStorage.setItem('nhpp-session', '1'); hppTrack('visit'); } } catch {}
+
 function startNewProjectState() {
   applyProjectState(createEmptyProjectState());
   const addressField = document.getElementById('address');
@@ -363,6 +381,7 @@ function projectSaveKeyFor(project) {
 function resumeSavedProject(key) {
   const saved = loadProject(storage, key);
   if (!saved) { renderSavedProjects(); return; }
+  hppTrack('project_resumed', saved.type);
   startNewProjectState();
   const state = restoreProjectState(saved);
   applyProjectState(state);
@@ -538,6 +557,7 @@ function resetProjectSelection() {
 }
 
 function selectProject(projectType, catalogId = null) {
+  hppTrack('project_started', projectType);
   answers = {};
   selectedCatalogId = catalogId || null;
   if ($('projectType')) $('projectType').value = projectType;
@@ -1237,6 +1257,7 @@ function renderResult(plan, options = {}) {
     ...x,
     status: options.resume && saved?.steps?.[i]?.status === 'complete' ? 'complete' : 'not_started'
   }));
+  if (!options.resume) hppTrack('plan_generated', type);
   checklistWasComplete = options.resume && plan.steps.length > 0 && plan.steps.every(x => x.status === 'complete');
   const record = saveProject(storage, {
     id: activeProjectId || saved?.id || null,

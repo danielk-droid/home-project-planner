@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Insights · Home Project Planner</title>
+<link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/insights/insights.css"><script src="/ui-theme.js"></script></head>
+<body>
+<main class="wrap">
+  <header class="top"><div><div class="eyebrow">HOME PROJECT PLANNER · PRIVATE</div><h1>Growth insights</h1></div>
+  <button id="lock" class="ghost hidden" type="button">Lock</button></header>
+
+  <form id="gate" class="gate" autocomplete="off">
+    <label for="pass">Owner passcode</label>
+    <div class="row"><input id="pass" type="password" autocomplete="current-password" required minlength="8"><button type="submit">Unlock</button></div>
+    <p id="gateMsg" class="muted" role="status"></p>
+  </form>
+
+  <section id="dash" class="hidden" aria-live="polite">
+    <p class="muted" id="stamp"></p>
+    <div class="grid kpis" id="kpis"></div>
+    <div class="panel"><h2>Last 14 days</h2><div class="legend"><span class="sw v"></span>Visits <span class="sw p"></span>Projects started</div><div class="chart" id="chart"></div></div>
+    <div class="grid two">
+      <div class="panel"><h2>Google Search · last 28 days</h2><div id="search"></div></div>
+      <div class="panel"><h2>What people plan</h2><div id="types"></div></div>
+    </div>
+    <div class="grid two">
+      <div class="panel"><h2>Who leaves feedback</h2><div id="roles"></div></div>
+      <div class="panel"><h2>Recent feedback</h2><div id="recent"></div></div>
+    </div>
+    <div class="panel"><h2>What this means</h2><ul id="notes" class="notes"></ul></div>
+    <div class="panel"><h2>Resume line</h2><p id="resume" class="resume"></p><button id="copy" class="ghost" type="button">Copy</button></div>
+  </section>
+</main>
+<script src="/insights/insights.js"></script>
+</body></html>
