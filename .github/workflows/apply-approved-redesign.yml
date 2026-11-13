@@ -1,6 +1,8 @@
 name: Apply approved architectural redesign
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - design/studio-technical-2026-11
 permissions:
   contents: write
 jobs:
