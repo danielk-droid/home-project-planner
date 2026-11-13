@@ -89,7 +89,7 @@ def head(title, desc, path, ogtype, ld, md=None):
             f'<meta name="twitter:card" content="summary"><meta name="twitter:title" content="{t}"><meta name="twitter:description" content="{d}">\n'
             '<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n'
             f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")}</script>\n'
-            '<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><link rel="stylesheet" href="/studio.css"><script src="/ui-theme.js"></script>\n</head>')
+            '<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><link rel="stylesheet" href="/studio.css"><script src="/ui-theme.js"></script><script src="/analytics.js" defer></script>\n</head>')
 
 def crumbs(extra=""):
     return f'<nav class="guide-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/guides/">Planning guides</a>{extra}</nav>'

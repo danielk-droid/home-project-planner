@@ -53,23 +53,19 @@ function applyProjectState(state) {
 
 // Clears both the in-memory project state and the planner inputs that would
 // otherwise still hold the previous project's values.
-// Anonymous usage counter (see Privacy): event name, project type, and a
-// first-visit flag only. No address, answers, or personal data is sent.
+// Anonymous project counter (see Privacy): event name and general project type
+// only. Sitewide visits are counted once by analytics.js. No address, answers,
+// or personal data is sent.
 function hppTrack(event, projectType) {
   try {
     const body = {event};
     const t = String(projectType || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
     if (t) body.projectType = t;
-    if (event === 'visit') {
-      body.returning = localStorage.getItem('nhpp-visited') === '1';
-      localStorage.setItem('nhpp-visited', '1');
-    }
     const data = JSON.stringify(body);
     if (navigator.sendBeacon) navigator.sendBeacon('/api/track', new Blob([data], {type: 'application/json'}));
     else fetch('/api/track', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: data, keepalive: true}).catch(() => {});
   } catch {}
 }
-try { if (!sessionStorage.getItem('nhpp-session')) { sessionStorage.setItem('nhpp-session', '1'); hppTrack('visit'); } } catch {}
 
 function startNewProjectState() {
   applyProjectState(createEmptyProjectState());

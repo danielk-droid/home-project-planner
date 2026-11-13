@@ -16,15 +16,17 @@
   <section id="dash" class="hidden" aria-live="polite">
     <p class="muted" id="stamp"></p>
     <div class="grid kpis" id="kpis"></div>
-    <div class="panel"><h2>Last 14 days</h2><div class="legend"><span class="sw v"></span>Visits <span class="sw p"></span>Projects started</div><div class="chart" id="chart"></div></div>
+    <div class="panel"><h2>Last 14 days</h2><div class="legend"><span class="sw v"></span>Visits <span class="sw p"></span>Projects started <span class="legend-hint">Hover, tap, or focus a day for details</span></div><div class="chart" id="chart"></div><div class="day-detail" id="dayDetail" aria-live="polite"></div></div>
     <div class="grid two">
-      <div class="panel"><h2>Google Search · last 28 days</h2><div id="search"></div></div>
+      <div class="panel"><h2>Where visits come from</h2><div id="sources"></div><h3>Top referring sites</h3><div id="referrers"></div><p class="muted table-note">Broad categories and domains only. Older visits are marked “Not recorded yet,” never guessed as direct.</p></div>
+      <div class="panel"><h2>Top entry pages</h2><div id="entryPages"></div><p class="muted table-note">The first page viewed in a visit, across the planner and guide library. Page paths never include URL queries.</p></div>
+    </div>
+    <div class="panel"><h2>Google Search · last 28 days</h2><div id="search"></div></div>
+    <div class="grid two">
       <div class="panel"><h2>What people plan</h2><div id="types"></div></div>
-    </div>
-    <div class="grid two">
       <div class="panel"><h2>Who leaves feedback</h2><div id="roles"></div></div>
-      <div class="panel"><h2>Recent feedback</h2><div id="recent"></div></div>
     </div>
+    <div class="panel"><h2>Recent feedback</h2><div id="recent"></div></div>
     <div class="panel"><h2>What this means</h2><ul id="notes" class="notes"></ul></div>
     <div class="panel"><h2>Resume line</h2><p id="resume" class="resume"></p><button id="copy" class="ghost" type="button">Copy</button></div>
   </section>

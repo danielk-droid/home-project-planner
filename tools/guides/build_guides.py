@@ -66,7 +66,7 @@ def render(g, sources, all_guides):
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="{t}"><meta name="twitter:description" content="{d}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False).replace("</","<\\/")}</script>
-<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><link rel="stylesheet" href="/studio.css"><script src="/ui-theme.js"></script>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><link rel="stylesheet" href="/studio.css"><script src="/ui-theme.js"></script><script src="/analytics.js" defer></script>
 </head>'''
     main = f'<main id="main"><article class="guide"><nav class="guide-crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/guides/">Planning guides</a></nav>{"".join(body)}</article>'
     return head + header + main + footer
