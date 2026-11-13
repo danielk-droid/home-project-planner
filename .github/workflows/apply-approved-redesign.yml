@@ -1,0 +1,47 @@
+name: Apply approved architectural redesign
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/studio-technical-2026-11
+      - name: Transfer approved presentation files
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://winning-halifax-geographic-art.trycloudflare.com'
+          mkdir -p assets
+          for file in app.js index.html studio.css assets/architectural-study.jpg; do
+            curl --retry 3 -fLsS "$base/$file" -o "$file"
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/generate-guides.py')
+          text = path.read_text()
+          old = '<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><script src="/ui-theme.js"></script>'
+          new = '<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><link rel="stylesheet" href="/studio.css"><script src="/ui-theme.js"></script>'
+          if text.count(old) != 1:
+              raise SystemExit('Expected exactly one guide stylesheet reference')
+          path.write_text(text.replace(old, new))
+          PY
+          rm .github/workflows/apply-approved-redesign.yml
+      - name: Run complete release suite
+        run: npm test
+      - name: Save the approved branch checkpoint
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js index.html studio.css assets/architectural-study.jpg scripts/generate-guides.py .github/workflows/apply-approved-redesign.yml
+          if git diff --cached --quiet; then
+            echo 'No approved presentation changes were transferred' >&2
+            exit 1
+          fi
+          git commit -m 'Apply approved architectural Studio and dossier redesign'
+          git push origin HEAD:design/studio-technical-2026-11
