@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Home Project Planner","description":"An independent planning tool for residential projects in Newton, Massachusetts. It connects property context and project questions to sourced considerations and next steps; it does not issue permits or City approvals.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","isAccessibleForFree":true,"url":"https://home-project-planner-mvp.vercel.app/"}</script>
-<title>Home Project Planner | Newton, Massachusetts</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="experiment.css"><script src="ui-theme.js"></script>
+<title>Home Project Planner | Newton, Massachusetts</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="experiment.css"><link rel="stylesheet" href="studio.css"><script src="ui-theme.js"></script>
 </head>
 <body>
 <header class="site-header">
@@ -58,22 +58,13 @@
         <p class="hero-lede">For Newton, Massachusetts homeowners: connect your project to property information, relevant zoning and permit considerations, historic and site review, and next steps. This independent planner is not a City approval.</p>
         <div class="hero-actions"><a id="heroStart" class="primary-link" href="#plan" data-page-link="plan">Start a Project <span>→</span></a><span class="hero-note">Built from verified public sources</span></div>
       </div>
-      <div class="hero-graphic" aria-label="Illustration of a planned property">
-        <div class="graphic-label label-a">PARCEL / 47</div><div class="graphic-label label-b">ZONING / SR2</div><div class="graphic-label label-c">SITE / NEWTON</div>
-        <svg viewBox="0 0 520 420" role="img" aria-hidden="true">
-          <path class="parcel" d="M48 42 414 28l60 111-38 235-340-18L25 163Z"/>
-          <path class="street" d="M0 352 520 352"/><path class="street-small" d="M48 302 457 321"/>
-          <path class="house" d="m152 245 105-87 106 87v105H152Z"/><path class="house-line" d="M201 350V253h112v97M226 350v-53h62v53M178 245h158"/>
-          <path class="dimension" d="M152 376h211M152 368v16M363 368v16"/><path class="dimension" d="M126 245v105M118 245h16M118 350h16"/>
-          <circle id="heroDot" class="site-point" cx="257" cy="202" r="7"/>
-        </svg>
-        <div class="graphic-caption"><span>PROPERTY CONTEXT</span><strong>Address → parcel → rules → plan</strong></div>
-      </div>
+      <figure class="hero-graphic architectural-photo"><img src="assets/architectural-study.jpg" alt="Illustrative architectural study of a New England home; not a Newton property record"><figcaption>Illustrative architectural study — not your property</figcaption></figure>
+      <div id="heroSetup" class="hero-setup"></div>
     </section>
     <section id="resume" class="resume-section hidden"></section>
     <section class="project-gallery">
-      <div class="gallery-intro"><div class="eyebrow">COMMON PROJECTS</div><h2>Plan the work before the work begins.</h2><p>Different projects trigger different questions. The planner starts with the property, then follows the work itself.</p></div>
-      <div class="gallery-grid">
+      <div class="gallery-intro"><div class="eyebrow">THE FIELD GUIDE</div><h2>Plan the work before the work begins.</h2><p>Different projects trigger different questions. The planner starts with the property, then follows the work itself.</p></div>
+      <div class="gallery-grid" aria-label="Project field guide">
         <button class="project-image-card" type="button" data-project-start="basement_finish" aria-label="Start a basement project"><div class="project-art basement-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M45 175h330M72 175v-72l138-62 138 62v72M112 175v-49h72v49M236 175v-73h86v73"/><path d="M91 101h238M120 81h200" /><circle cx="210" cy="41" r="5"/></svg></div><span>01 / BASEMENT</span><h3>Finish an existing space</h3></button>
         <button class="project-image-card" type="button" data-project-start="bathroom_renovation" aria-label="Start a bathroom renovation project"><div class="project-art bath-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M55 166h310M72 166V61h276v105M96 111h228M112 78h74v33h-74zM245 91h63v20h-63zM325 62v-25M317 37h16"/></svg></div><span>02 / BATHROOM</span><h3>Renovate a bathroom</h3></button>
         <button class="project-image-card" type="button" data-project-start="deck" aria-label="Start a deck project"><div class="project-art deck-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M42 92h336M62 92v82M358 92v82M88 92v82M332 92v82M42 174h336M75 121h270M75 147h270"/><path d="M48 70h324M74 70v22M346 70v22"/></svg></div><span>03 / DECK</span><h3>Build or replace a deck</h3></button>
@@ -84,7 +75,7 @@
         <button class="project-image-card compact-project-card" type="button" data-project-start="general_project" data-project-catalog="exterior"><div class="project-art exterior-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M58 176h304M76 176V74h268v102M76 74l134-39 134 39M112 176v-65h62v65M246 176v-65h62v65M112 111h62M246 111h62"/></svg></div><span>EXTERIOR</span><h3>Change windows, doors, siding, or exterior elements</h3></button>
         <button class="project-image-card compact-project-card" type="button" data-project-start="general_project" data-project-catalog="roofing"><div class="project-art roof-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M50 174h320M72 174V104l138-65 138 65v70M50 104h320M210 39v65M160 81h100"/><path d="M110 174v-43h55v43M255 174v-43h55v43"/></svg></div><span>ROOF</span><h3>Repair or replace a roof</h3></button>
         <button class="project-image-card compact-project-card" type="button" data-project-start="general_project" data-project-catalog="site"><div class="project-art site-art"><svg viewBox="0 0 420 230" aria-hidden="true"><path d="M45 174h330M70 174l45-72 58 42 55-64 82 94M92 174l25-45M300 174l-30-42M337 174l-34-66"/><circle cx="288" cy="62" r="18"/><path d="M288 44v36M270 62h36"/></svg></div><span>SITE</span><h3>Change the yard, grading, drainage, driveway, or trees</h3></button>
-      </div>
+      </div><p class="small field-guide-note">Illustrative project drawings — not property measurements.</p>
     </section>
     <section class="home-planning-guide" aria-labelledby="planning-guide-title">
       <div class="eyebrow">NEWTON HOME PROJECT PLANNING</div>
@@ -131,9 +122,9 @@
   </section>
 
   <section id="plan" class="page">
-    <div class="planner-shell">
+    <div class="planner-shell"><div id="planSetup"></div>
       <div id="planIntro" class="planner-heading"><div><div class="eyebrow">01 / START HERE</div><h2>Plan your project</h2></div><span class="planner-meta">Newton property data · project-specific questions</span></div>
-      <section id="start" class="panel">
+      <section id="start" class="panel property-intake">
         <div class="start-intro"><div><h3>First, identify the property.</h3><p class="muted">We use the official Newton address database to establish the property context before asking about your project.</p></div></div>
         <label for="address">Newton property address<div class="address-wrap"><input id="address" maxlength="200" autocomplete="off" placeholder="Start typing a Newton address, e.g. 130 Wheeler Road" aria-autocomplete="list" aria-expanded="false" aria-controls="addressSuggestions"><div id="addressSuggestions" class="suggestions hidden" role="listbox"></div></div></label>
         <div id="error" class="error hidden" role="alert"></div>

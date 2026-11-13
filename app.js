@@ -88,6 +88,9 @@ function navigate(page) {
   document.querySelectorAll('[data-page-link]').forEach(link => {
     link.classList.toggle('active', link.dataset.pageLink === target || (target === 'plan' && link.dataset.pageLink === 'home'));
   });
+  const setup = $('start');
+  const setupMount = target === 'home' ? $('heroSetup') : $('planSetup');
+  if (setup && setupMount) setupMount.appendChild(setup);
   if (target === 'plan') {
     $('home').classList.remove('page-active');
     $('about')?.classList.remove('page-active');
@@ -790,7 +793,7 @@ function renderQuestions() {
   $('plan').classList.add('page-active');
   const q = $('questions');
   q.classList.remove('hidden');
-  q.innerHTML = propertyHeader() + '<div id="questionCard"></div>' + propertyEvidenceBlock(property);
+  q.innerHTML = '<header class="dossier-title">' + propertyHeader() + '</header><div class="dossier-body"><aside id="dossierIndex" class="dossier-index" aria-label="Project questions"></aside><div id="questionCard"></div></div>' + propertyEvidenceBlock(property);
   renderQuestionCard();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -897,6 +900,8 @@ function renderQuestionCard({animate=false, keepActive=false} = {}) {
   if (keepActive) questionIndex = flow.indexOfActive(all, activeQuestionId, questionIndex);
   activeQuestionId = all[questionIndex]?.id || null;
   if (questionIndex >= all.length) { renderReview(all); return; }
+  const dossierIndex = $('dossierIndex');
+  if (dossierIndex) dossierIndex.innerHTML = '<div class="eyebrow">PROJECT DOSSIER</div><strong class="dossier-project">' + escape(projectLabel(type)) + '</strong><ol>' + all.filter(q => !q.parentId).map(q => '<li class="' + (q.id === activeQuestionId ? 'dossier-active' : '') + '"' + (q.id === activeQuestionId ? ' aria-current="step"' : '') + '><span>' + escape(q.text) + '</span><b aria-label="' + (answers[q.id] === 'unsure' ? 'Needs confirmation' : answers[q.id] !== undefined ? 'Answered' : 'Not answered') + '">' + (answers[q.id] === 'unsure' ? '?' : answers[q.id] !== undefined ? '✓' : '—') + '</b></li>').join('') + '</ol>';
   const cluster = questionCluster(all, questionIndex);
   const stepProgress = flow.progressFor(all, questionIndex, flowContext(), visitHistory);
   const progress = stepProgress.percent;
@@ -1115,6 +1120,7 @@ function renderReview(all) {
   }
   const unsure = all.filter(q => answers[q.id] === 'unsure');
   editingFromReview = false;
+  if ($('dossierIndex')) $('dossierIndex').innerHTML = '<div class="eyebrow">PROJECT DOSSIER</div><strong class="dossier-project">' + escape(projectLabel(type)) + '</strong><p class="small">' + escape(property.resolvedAddress) + '</p>';
   card.innerHTML = '<div class="eyebrow">READY TO PLAN</div>' +
     '<h1>Review your project</h1>' +
     '<p class="muted">Everything below is editable. Select <b>Edit</b> beside any answer to jump directly to that question.</p>' +
@@ -1255,12 +1261,12 @@ function renderResult(plan, options = {}) {
   const report = feasibilityReport(plan);
 
   r.innerHTML = `
-    <section class="plan-hero">
+    <section class="plan-hero report-title-block">
       <div><div class="eyebrow">PROJECT PLAN</div><h1>${escape(plan.project.projectCatalogLabel || PROJECTS[type].label)}</h1><p>${escape(property.resolvedAddress)} · ${escape(property.zoningDistrict || 'Zoning not resolved')}</p>${plan.project.projectDescription ? '<p class="plan-note">Project note: ' + escape(plan.project.projectDescription) + '</p>' : ''}</div>
-      <div class="plan-hero-index">01<br><span>PLANNING CONTROL</span></div>
+      <div class="plan-hero-index">HPP<br><span>PROJECT PLAN</span></div>
     </section>
 
-    ${report.overall === 'not_triggered' ? '' : `<section class="panel feasibility-summary feasibility-${escape(report.overall === 'conflict' ? 'constraint' : report.overall === 'compatible' ? 'screened' : 'unknown')}" aria-labelledby="feasibility-title">
+    ${report.overall === 'not_triggered' ? '' : `<section class="panel feasibility-summary report-sheet feasibility-${escape(report.overall === 'conflict' ? 'constraint' : report.overall === 'compatible' ? 'screened' : 'unknown')}" aria-labelledby="feasibility-title">
       <div class="eyebrow">PRELIMINARY PROJECT FEASIBILITY</div>
       <h2 id="feasibility-title">${escape(report.overallTitle)}</h2>
       <p>${escape(report.headline)}</p>
@@ -1282,7 +1288,7 @@ function renderResult(plan, options = {}) {
       ${report.dimensions.length ? `<h3>Dimensional analysis</h3>
       <div class="feasibility-table-wrap"><table class="feasibility-table">
         <thead><tr><th scope="col">Measure</th><th scope="col">Proposed</th><th scope="col">Applicable limit</th><th scope="col">Result</th></tr></thead>
-        <tbody>${report.dimensions.map(d => `<tr class="feas-${escape(d.status)}"><th scope="row">${escape(d.label)}</th><td>${escape(d.displayValue ?? 'Not provided')}</td><td>${escape(d.limitDisplay ?? 'Not established')}</td><td><strong>${escape(d.status === FEAS.WITHIN ? '✓ Within' : d.status === FEAS.CONFLICT ? '⚠ Potential conflict' : '? Needs confirmation')}</strong><br><span class="muted">${escape(d.explanation)}</span></td></tr>`).join('')}</tbody>
+        <tbody>${report.dimensions.map(d => `<tr class="feas-${escape(d.status)}"><th scope="row">${escape(d.label)}</th><td data-label="Proposed">${escape(d.displayValue ?? 'Not provided')}</td><td data-label="Applicable limit">${escape(d.limitDisplay ?? 'Not established')}</td><td data-label="Result"><strong>${escape(d.status === FEAS.WITHIN ? '✓ Within' : d.status === FEAS.CONFLICT ? '⚠ Potential conflict' : '? Needs confirmation')}</strong><br><span class="muted">${escape(d.explanation)}</span></td></tr>`).join('')}</tbody>
       </table></div>` : ''}
       ${(report.considerations.historic.length || report.considerations.stormwater.length || report.considerations.permits.length) ? '<h3>Other regulatory considerations</h3><ul>' + [
         ...report.considerations.historic.map(h => 'Historic: ' + h.title + (h.status === 'potentially_required' ? ' (may apply)' : '')),
