@@ -1,0 +1,20 @@
+# Home Project Planner (Newton, MA)
+
+> Free, independent planning tool that helps Newton, Massachusetts homeowners see which permits, zoning limits, historic reviews, and stormwater rules may apply to a home project before they talk to the City. Not affiliated with the City of Newton; results are preliminary and point to official sources for confirmation.
+
+The planner asks guided questions about a project (additions, decks, bathrooms, kitchens, basements, ADUs, exterior and site work) and returns a source-cited preliminary assessment. Uncertain items are marked as needing City confirmation rather than guessed.
+
+## Pages
+
+- [Home Project Planner](https://home-project-planner-mvp.vercel.app/): Start a free guided project assessment.
+- [Planning guides](https://home-project-planner-mvp.vercel.app/guides/): Plain-language guides for Newton home projects.
+
+## Guides
+
+- [Do I need a permit for an addition?](https://home-project-planner-mvp.vercel.app/guides/do-i-need-a-permit-for-an-addition/): Permits and zoning checks for home additions.
+- [Do I need a permit for a deck?](https://home-project-planner-mvp.vercel.app/guides/do-i-need-a-permit-for-a-deck/): When decks need building permits and setback review.
+- [Building permit vs. zoning approval](https://home-project-planner-mvp.vercel.app/guides/building-permit-vs-zoning-approval/): How the two approvals differ.
+- [How much can I build on my lot?](https://home-project-planner-mvp.vercel.app/guides/how-much-can-i-build-on-my-lot/): Lot coverage, setbacks, and floor area basics.
+- [Historic home renovation](https://home-project-planner-mvp.vercel.app/guides/historic-home-renovation/): Historic district and demolition review considerations.
+- [Stormwater and flood zone projects](https://home-project-planner-mvp.vercel.app/guides/stormwater-and-flood-zone-home-projects/): Drainage and floodplain considerations.
+- [Questions before starting a home project](https://home-project-planner-mvp.vercel.app/guides/questions-before-starting-a-home-project/): A checklist before you hire or apply.
