@@ -285,7 +285,7 @@ def head(title, desc, path, ogtype, ld):
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="{t}"><meta name="twitter:description" content="{d}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">{json.dumps(ld, separators=(',', ':'))}</script>
-<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><script src="/ui-theme.js"></script>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/experiment.css"><link rel="stylesheet" href="/guides.css"><link rel="stylesheet" href="/studio.css"><script src="/ui-theme.js"></script>
 </head><body class="guide-page">{HEADER}<main id="main">"""
 
 CTA = """<aside class="guide-cta"><div class="eyebrow">FOR NEWTON, MA PROPERTIES</div><h2>Check this for your own Newton property.</h2><p>HPP looks up the property through City of Newton GIS, asks only the questions that can change your project, and separates what applies from what still needs City confirmation. It's free and needs no account, and your answers stay in your browser.</p><a class="primary-link" href="/#plan">Start a project <span>→</span></a></aside>"""
